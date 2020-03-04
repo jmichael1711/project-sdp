@@ -20,6 +20,7 @@ use App\Pesanan;
 use App\Kurir_customer;
 use App\Kurir_non_customer;
 use App\Pegawai;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return view('welcome');
@@ -38,6 +39,63 @@ Route::get('/create', function () {
     Kantor::create($kantor);
 });
 
-Route::get('/try', function () {
-    echo Pengiriman_customer::getNextId();
+Route::post('/ghajd', function (Request $request) {
+    Kantor::create($request);
 });
+
+Route::get('/try', function () {
+    // echo Pengiriman_customer::getNextId();
+
+    // Pesanan::select('id', 'created_at')->get();
+    // $bonmuats = Bon_muat::all();
+
+    // foreach ($bonmuats as $b) {
+    //     echo $b->id;
+    // }
+
+    // $a = "false";
+
+    // $bonmuat = Bon_muat::where('is_deleted', 0)
+    // ->select('id as kampret', DB::raw('count(*) as jum'))
+    // // ->when($a == "true", function($query) {
+    // //     $query->where('id', 'a');
+    // // })
+    // ->orwhere(function($query) {
+    //     $query->where('')
+    //     ->orwhere('')
+    // })
+    // ->groupBy('id')
+    // ->get()
+    // ;
+    //where a AND (b or c)
+
+    //dd($bonmuat);
+
+    //dd(Bon_muat::findorfail('B00000001030220')->kendaraan);
+
+    // $bonmuat = Bon_muat::first();
+    // foreach ($bonmuat->resis as $r) {
+    //     dd($r->surat_jalan);
+    // }
+
+    //Session::put('he', 'A');
+    //echo Session::get('he');
+});
+
+Route::get('/form', function () {
+    return view('form');
+});
+
+Route::post('/formterima', function (Request $request) {
+    dd($request->all());
+});
+
+Route::get('/admin', function () {
+    return view('testadmin');
+});
+
+Route::get('/admin/kantor', 'KantorController@index');
+Route::get('/admin/kantor/create', 'KantorController@create');
+Route::post('/admin/kantor/store', 'KantorController@store');
+Route::get('/admin/kantor/edit', 'KantorController@edit');
+Route::post('/admin/kantor/update', 'KantorController@update');

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 02, 2020 at 04:13 AM
+-- Generation Time: Mar 04, 2020 at 08:38 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.7
 
@@ -47,7 +47,7 @@ CREATE TABLE `bon_muats` (
 --
 
 INSERT INTO `bon_muats` (`id`, `kendaraan_id`, `kurir_non_customer_id`, `total_muatan`, `kantor_asal`, `kantor_tujuan`, `user_created`, `user_updated`, `created_at`, `updated_at`, `is_deleted`) VALUES
-('B00000001030220', 'KE223900', 'KC3920', '1.0', 'KA0000', 'KA0000', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+('B00000001030220', 'KE000001', 'KC3920', '1.0', 'KA0000', 'KA0000', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
 ('B00000002030220', 'KE223900', 'KC3920', '1.0', 'KA0000', 'KA0000', '', '', '2020-03-25 09:15:43', '2020-03-27 09:15:45', 0);
 
 -- --------------------------------------------------------
@@ -119,6 +119,13 @@ CREATE TABLE `kendaraans` (
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   `posisi_di_kantor_1` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kendaraans`
+--
+
+INSERT INTO `kendaraans` (`id`, `kantor_1_id`, `kantor_2_id`, `jenis_kendaraan`, `nopol`, `status`, `tahun_pembelian`, `created_at`, `updated_at`, `is_deleted`, `posisi_di_kantor_1`) VALUES
+('KE000001', '', '', 'hayow', '', '0', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -253,6 +260,14 @@ CREATE TABLE `resis` (
   `status` decimal(1,0) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `resis`
+--
+
+INSERT INTO `resis` (`id`, `pesanan_id`, `pegawai_id`, `harga`, `created_at`, `updated_at`, `is_deleted`, `status`) VALUES
+('R0000001', '', '', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '0'),
+('R0000002', '', '', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '0');
+
 -- --------------------------------------------------------
 
 --
@@ -267,6 +282,14 @@ CREATE TABLE `surat_jalans` (
   `updated_at` datetime NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `surat_jalans`
+--
+
+INSERT INTO `surat_jalans` (`bon_muat_id`, `resi_id`, `telah_sampai`, `created_at`, `updated_at`, `is_deleted`) VALUES
+('B00000001030220', 'R0000001', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+('B00000001030220', 'R0000002', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0);
 
 --
 -- Indexes for dumped tables
@@ -331,6 +354,12 @@ ALTER TABLE `pesanans`
 --
 ALTER TABLE `resis`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `surat_jalans`
+--
+ALTER TABLE `surat_jalans`
+  ADD PRIMARY KEY (`bon_muat_id`,`resi_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

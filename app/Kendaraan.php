@@ -15,6 +15,10 @@ class Kendaraan extends Model
     //KE000001
     public $incrementing = false;
 
+    public function bon_muats() {
+        return $this->hasMany('App\Bon_muat');
+    }
+
     public function kantor_1() {
         return $this->belongsTo('App\Kantor', 'kantor_1_id');
     }

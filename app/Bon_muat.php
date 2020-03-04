@@ -35,8 +35,9 @@ class Bon_muat extends Model
     }
 
     public function resis() {
-        return $this->belongsToMany('App\Resi', 'surat_jalan')
+        return $this->belongsToMany('App\Resi', 'surat_jalans')
         ->as('surat_jalan')
+        ->withPivot('telah_sampai', 'is_deleted')
         ->withTimestamps()
         ;
     }
