@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 04, 2020 at 08:38 AM
+-- Generation Time: Mar 04, 2020 at 08:47 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.3.7
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `expedition`
 --
+CREATE DATABASE IF NOT EXISTS `expedition` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `expedition`;
 
 -- --------------------------------------------------------
 
@@ -28,6 +30,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `bon_muats`
 --
 
+DROP TABLE IF EXISTS `bon_muats`;
 CREATE TABLE `bon_muats` (
   `id` varchar(15) NOT NULL,
   `kendaraan_id` varchar(8) NOT NULL,
@@ -56,6 +59,7 @@ INSERT INTO `bon_muats` (`id`, `kendaraan_id`, `kurir_non_customer_id`, `total_m
 -- Table structure for table `d_pengiriman_customers`
 --
 
+DROP TABLE IF EXISTS `d_pengiriman_customers`;
 CREATE TABLE `d_pengiriman_customers` (
   `resi_id` varchar(15) NOT NULL,
   `pengiriman_customer_id` varchar(15) NOT NULL,
@@ -80,6 +84,7 @@ INSERT INTO `d_pengiriman_customers` (`resi_id`, `pengiriman_customer_id`, `tela
 -- Table structure for table `kantors`
 --
 
+DROP TABLE IF EXISTS `kantors`;
 CREATE TABLE `kantors` (
   `id` varchar(8) NOT NULL,
   `alamat` varchar(1024) NOT NULL,
@@ -106,6 +111,7 @@ INSERT INTO `kantors` (`id`, `alamat`, `no_telp`, `kota`, `is_warehouse`, `creat
 -- Table structure for table `kendaraans`
 --
 
+DROP TABLE IF EXISTS `kendaraans`;
 CREATE TABLE `kendaraans` (
   `id` varchar(8) NOT NULL,
   `kantor_1_id` varchar(8) NOT NULL,
@@ -133,6 +139,7 @@ INSERT INTO `kendaraans` (`id`, `kantor_1_id`, `kantor_2_id`, `jenis_kendaraan`,
 -- Table structure for table `kurir_customers`
 --
 
+DROP TABLE IF EXISTS `kurir_customers`;
 CREATE TABLE `kurir_customers` (
   `id` varchar(8) NOT NULL,
   `kantor_id` varchar(6) NOT NULL,
@@ -154,6 +161,7 @@ CREATE TABLE `kurir_customers` (
 -- Table structure for table `kurir_non_customers`
 --
 
+DROP TABLE IF EXISTS `kurir_non_customers`;
 CREATE TABLE `kurir_non_customers` (
   `id` varchar(8) NOT NULL,
   `kantor_1_id` varchar(8) NOT NULL,
@@ -176,6 +184,7 @@ CREATE TABLE `kurir_non_customers` (
 -- Table structure for table `pegawais`
 --
 
+DROP TABLE IF EXISTS `pegawais`;
 CREATE TABLE `pegawais` (
   `id` varchar(8) NOT NULL,
   `kantor_id` varchar(8) NOT NULL,
@@ -196,6 +205,7 @@ CREATE TABLE `pegawais` (
 -- Table structure for table `pengiriman_customers`
 --
 
+DROP TABLE IF EXISTS `pengiriman_customers`;
 CREATE TABLE `pengiriman_customers` (
   `id` varchar(15) NOT NULL,
   `kurir_customer_id` varchar(8) DEFAULT NULL,
@@ -215,6 +225,7 @@ CREATE TABLE `pengiriman_customers` (
 -- Table structure for table `pesanans`
 --
 
+DROP TABLE IF EXISTS `pesanans`;
 CREATE TABLE `pesanans` (
   `id` varchar(15) NOT NULL,
   `resi_id` varchar(15) DEFAULT NULL,
@@ -249,6 +260,7 @@ CREATE TABLE `pesanans` (
 -- Table structure for table `resis`
 --
 
+DROP TABLE IF EXISTS `resis`;
 CREATE TABLE `resis` (
   `id` varchar(15) NOT NULL,
   `pesanan_id` varchar(15) NOT NULL,
@@ -274,6 +286,7 @@ INSERT INTO `resis` (`id`, `pesanan_id`, `pegawai_id`, `harga`, `created_at`, `u
 -- Table structure for table `surat_jalans`
 --
 
+DROP TABLE IF EXISTS `surat_jalans`;
 CREATE TABLE `surat_jalans` (
   `bon_muat_id` varchar(15) NOT NULL,
   `resi_id` varchar(15) NOT NULL,
