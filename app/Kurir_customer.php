@@ -21,7 +21,7 @@ class Kurir_customer extends Model
 
     //static functions for query
     public static function getAll() {
-        return Kurir_customer::where("is_deleted", 0);
+        return Kurir_customer::where("is_deleted", 0)->get();
     }
 
     public static function count() {

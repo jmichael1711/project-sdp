@@ -240,50 +240,8 @@
                                     </a>
                                 </li>
                                 <li class="app-sidebar__heading">Contents</li>
-                                <li id="upperlist-admin">
-                                    <a id="btn-admin" href="">
-                                        <i class="metismenu-icon pe-7s-users"></i>
-                                            Admins
-                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                                    </a>
-                                    <ul id="list-admin">
-                                        <li>
-                                            <a id="header-admin" href="{{ url('/admin/admins') }}">
-                                                <i class="metismenu-icon"></i>
-                                                Semua Admin
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a id="header-tambah-admin" href="{{ url('/admin/admins/create') }}">
-                                                <i class="metismenu-icon">
-                                                </i>
-                                                Tambah Admin
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li id="upperlist-ebook">
-                                    <a id="btn-ebook" href="">
-                                        <i class="metismenu-icon pe-7s-bookmarks"></i>
-                                            eBooks
-                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                                    </a>
-                                    <ul id="list-ebook">
-                                        <li>
-                                            <a id="header-ebook" href="{{ url('/admin/ebooks') }}">
-                                                <i class="metismenu-icon"></i>
-                                                Semua eBook
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a id="header-tambah-ebook" href="{{ url('/admin/ebooks/create') }}">
-                                                <i class="metismenu-icon">
-                                                </i>
-                                                Tambah eBook
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
+
+                                {{-- SIDEBAR - KANTOR --}}
                                 <li id="upperlist-kantor">
                                     <a id="btn-kantor" href="">
                                         <i class="metismenu-icon pe-7s-study"></i>
@@ -306,46 +264,26 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li id="upperlist-matakuliah">
-                                    <a id="btn-matakuliah" href="">
-                                        <i class="metismenu-icon pe-7s-display1"></i>
-                                            Mata Kuliah
+
+                                {{-- SIDEBAR - PENGIRIMAN CUSTOMER --}}
+                                <li id="upperlist-pengirimanCustomer">
+                                    <a id="btn-pengirimanCustomer" href="">
+                                        <i class="metismenu-icon pe-7s-study"></i>
+                                            Pengiriman Customer
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
-                                    <ul id="list-matakuliah">
+                                    <ul id="list-pengirimanCustomer">
                                         <li>
-                                            <a id="header-matakuliah" href="{{ url('/admin/matakuliah') }}">
+                                            <a id="header-pengirimanCustomer" href="{{ url('/admin/pengirimanCustomer') }}">
                                                 <i class="metismenu-icon"></i>
-                                                Semua Mata Kuliah
+                                                List Pengiriman Customer
                                             </a>
                                         </li>
                                         <li>
-                                            <a id="header-tambah-matakuliah" href="{{ url('/admin/matakuliah/create') }}">
+                                            <a id="header-tambah-pengirimanCustomer" href="{{ url('/admin/pengirimanCustomer/create') }}">
                                                 <i class="metismenu-icon">
                                                 </i>
-                                                Tambah Mata Kuliah
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li id="upperlist-bahasa">
-                                    <a id="btn-bahasa" href="">
-                                        <i class="metismenu-icon pe-7s-world"></i>
-                                        Bahasa
-                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                                    </a>
-                                    <ul id="list-bahasa">   
-                                        <li>
-                                            <a id="header-bahasa" href="{{ url('/admin/language') }}">
-                                                <i class="metismenu-icon"></i>
-                                                Semua Bahasa
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a id="header-tambah-bahasa" href="{{ url('/admin/language/create') }}">
-                                                <i class="metismenu-icon">
-                                                </i>
-                                                Tambah Bahasa
+                                                Tambah Pengiriman Customer
                                             </a>
                                         </li>
                                     </ul>

@@ -48,7 +48,7 @@ class Kantor extends Model
     //static functions for query
     //get all cannot be used directly. ->get() must be used at the end of function chain.
     public static function getAll() {
-        return Kantor::where("is_deleted", 0);
+        return Kantor::where("is_deleted", 0)->get();
     }
 
     public static function count() {
