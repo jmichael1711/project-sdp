@@ -94,8 +94,16 @@ Route::get('/admin', function () {
     return view('testadmin');
 });
 
+//kantor
 Route::get('/admin/kantor', 'KantorController@index');
 Route::get('/admin/kantor/create', 'KantorController@create');
 Route::post('/admin/kantor/store', 'KantorController@store');
 Route::get('/admin/kantor/edit', 'KantorController@edit');
 Route::post('/admin/kantor/update', 'KantorController@update');
+
+//bon muat
+Route::get('/admin/bonmuat','Bon_MuatController@index');
+Route::get('/admin/bonmuat/create', 'Bon_MuatController@create');
+Route::post('/admin/bonmuat/store', 'Bon_MuatController@store');
+Route::get('/admin/bonmuat/edit', 'Bon_MuatController@edit');
+Route::post('/admin/bonmuat/update', 'Bon_MuatController@update');
