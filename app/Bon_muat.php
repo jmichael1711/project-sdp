@@ -44,7 +44,7 @@ class Bon_muat extends Model
 
     //static functions for query
     public static function getAll() {
-        return Bon_muat::where("is_deleted", 0);
+        return Bon_muat::where("is_deleted", 0)->get();
     }
 
     public static function count() {
