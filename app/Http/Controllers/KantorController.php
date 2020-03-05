@@ -52,7 +52,8 @@ class KantorController extends Controller
     }
 
     public function index() {
-        
+        $kantors = Kantor::all();
+        return view('master.kantor.index', compact('kantors'));
     }
 
     public function create() {
@@ -67,5 +68,18 @@ class KantorController extends Controller
         $listKota = $this->getListKota();
 
         return redirect('/admin/kantor/create')->with(['success' => $success]);
+    }
+
+    public function edit($id) {
+        $listKota = $this->getListKota();
+        $kantor = Kantor::findOrFail($id);
+        return view('master.kantor.edit', compact('listKota', 'kantor'));
+    }
+
+    public function update($id, Request $request) {
+        $request = $request->all();
+        $kantor = Kantor::findOrFail($id);
+        $kantor->update($request);
+        return redirect('/admin/kantor');
     }
 }
