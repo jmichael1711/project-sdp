@@ -12,8 +12,7 @@ class PengirimanCustomerController extends Controller
 {
     public function create() {
         $nextId = Pengiriman_customer::getNextId();
-        $allKurir = Kurir_customer::getAll();
         $allKantor = Kantor::getAll();
-        return view('master.pengirimanCustomer.create',compact('nextId','allKurir','allKantor'));
+        return view('master.pengirimanCustomer.create',compact('nextId','allKantor'));
     }
 }
