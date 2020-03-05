@@ -87,7 +87,7 @@
                                         {{$adminname ?? ''}}
                                     </div>
                                     <div class="widget-subheading">
-                                        iSTTS eBook Center Admin
+                                        TeamAte Expedition System
                                     </div>
                                 </div>
                                 <div class="widget-content-right header-user-info ml-3">
@@ -283,24 +283,24 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li id="upperlist-jurusan">
-                                    <a id="btn-jurusan" href="">
+                                <li id="upperlist-kantor">
+                                    <a id="btn-kantor" href="">
                                         <i class="metismenu-icon pe-7s-study"></i>
-                                            Jurusan
+                                            Kantor
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
-                                    <ul id="list-jurusan">
+                                    <ul id="list-kantor">
                                         <li>
-                                            <a id="header-jurusan" href="{{ url('/admin/jurusan') }}">
+                                            <a id="header-kantor" href="{{ url('/admin/kantor') }}">
                                                 <i class="metismenu-icon"></i>
-                                                Semua Jurusan
+                                                Semua Kantor
                                             </a>
                                         </li>
                                         <li>
-                                            <a id="header-tambah-jurusan" href="{{ url('/admin/jurusan/create') }}">
+                                            <a id="header-tambah-kantor" href="{{ url('/admin/kantor/create') }}">
                                                 <i class="metismenu-icon">
                                                 </i>
-                                                Tambah Jurusan
+                                                Tambah Kantor
                                             </a>
                                         </li>
                                     </ul>
@@ -427,8 +427,10 @@
                     </div>    </div>
                 <script src="{{asset('js/libs.js')}}"></script>
                 <script src="{{asset('js/jquery.js')}}"></script>
+                <script src="{{asset('js/formvalidationadmin.js')}}"></script>
                 @yield('scripts');
         </div>
     </div>
 </body>
 </html>
+

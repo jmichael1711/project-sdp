@@ -7,7 +7,7 @@ use App\Kurir;
 
 class Kantor extends Model
 {
-    protected $guarded = ['id','created_at', 'updated_at'];
+    protected $guarded = ['created_at', 'updated_at'];
 
     public $primarykey = "id";
     //id has length 8
@@ -46,6 +46,7 @@ class Kantor extends Model
     }
 
     //static functions for query
+    //get all cannot be used directly. ->get() must be used at the end of function chain.
     public static function getAll() {
         return Kantor::where("is_deleted", 0);
     }
@@ -71,5 +72,10 @@ class Kantor extends Model
         } else {
             return 'KA000000';
         }
+    }
+
+    public static function insert($request) {
+        $request['id'] = Kantor::getNextId();
+        Kantor::create($request);   
     }
 }
