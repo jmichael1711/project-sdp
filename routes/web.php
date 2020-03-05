@@ -94,8 +94,16 @@ Route::get('/admin', function () {
     return view('testadmin');
 });
 
+//ADMIN - KANTOR
 Route::get('/admin/kantor', 'KantorController@index');
 Route::get('/admin/kantor/create', 'KantorController@create');
 Route::post('/admin/kantor/store', 'KantorController@store');
 Route::get('/admin/kantor/edit', 'KantorController@edit');
 Route::post('/admin/kantor/update', 'KantorController@update');
+
+//ADMIN - PENGIRIMAN CUSTOMER
+Route::get('/admin/pengirimanCustomer', 'PengirimanCustomerController@index');
+Route::get('/admin/pengirimanCustomer/create', 'PengirimanCustomerController@create');
+Route::post('/admin/pengirimanCustomer/store', 'PengirimanCustomerController@store');
+Route::get('/admin/pengirimanCustomer/edit', 'PengirimanCustomerController@edit');
+Route::post('/admin/pengirimanCustomer/update', 'PengirimanCustomerController@update');
