@@ -20,6 +20,10 @@ class Kantor extends Model
         return $this->hasMany('App\Kendaraan');
     }
 
+    public function kota(){
+        return $this->belongsTo('App\Kota','kota', 'nama');
+    }
+
     public function kurir_customer() {
         return $this->hasMany('App\Kurir_customer');
     }
@@ -48,7 +52,7 @@ class Kantor extends Model
     //static functions for query
     //get all cannot be used directly. ->get() must be used at the end of function chain.
     public static function getAll() {
-        return Kantor::where("is_deleted", 0)->get();
+        return Kantor::where("is_deleted", 0);
     }
 
     public static function count() {
