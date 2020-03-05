@@ -97,5 +97,5 @@ Route::get('/admin', function () {
 Route::get('/admin/kantor', 'KantorController@index');
 Route::get('/admin/kantor/create', 'KantorController@create');
 Route::post('/admin/kantor/store', 'KantorController@store');
-Route::get('/admin/kantor/edit', 'KantorController@edit');
-Route::post('/admin/kantor/update', 'KantorController@update');
+Route::get('/admin/kantor/edit/{id}', 'KantorController@edit');
+Route::post('/admin/kantor/update/{id}', 'KantorController@update');

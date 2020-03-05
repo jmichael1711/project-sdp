@@ -21,7 +21,8 @@
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
     
-    <link href="{{asset('css/libs.css')}}" rel="stylesheet">
+    <link href="{{asset('css/libs.css')}}" rel="stylesheet">    
+    <link href="{{asset('css/datatables.min.css')}}" rel="stylesheet">
     @yield('styles')
 <body>
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
@@ -428,6 +429,7 @@
                 <script src="{{asset('js/libs.js')}}"></script>
                 <script src="{{asset('js/jquery.js')}}"></script>
                 <script src="{{asset('js/formvalidationadmin.js')}}"></script>
+                <script src="{{asset('js/datatables.min.js')}}" ></script>
                 @yield('scripts');
         </div>
     </div>
