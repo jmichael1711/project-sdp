@@ -41,10 +41,10 @@ Page ini adalah untuk menambah data pengiriman customer.
                     <div class="form-row">
                         <div class="col-md-4">
                             <div class="position-relative form-group">
-                                <label class="">Kurir Customer</label>
-                                <select name="kurir" class="form-control">
-                                    @foreach ($allKurir as $kurir)
-                                        <option value="{{$kurir->id}}" class="form-control">{{$kurir->nama . ' (' . $kurir->nopol . ')'}}</option>
+                                <label class="">Kantor Asal</label>
+                                <select name="kantor" id="kantor" class="form-control" onchange='isiKurirCustomer()'>
+                                    @foreach ($allKantor as $kantor)
+                                        <option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -53,12 +53,8 @@ Page ini adalah untuk menambah data pengiriman customer.
                     <div class="form-row">
                         <div class="col-md-4">
                             <div class="position-relative form-group">
-                                <label class="">Kantor Asal</label>
-                                <select name="kota" class="form-control">
-                                    @foreach ($allKantor as $kantor)
-                                        <option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>
-                                    @endforeach
-                                </select>
+                                <label class="">Kurir Customer</label>
+                                <select name="kurir" id="kurir" class="form-control"></select>
                             </div>
                         </div>
                     </div>
@@ -79,10 +75,28 @@ Page ini adalah untuk menambah data pengiriman customer.
 @section('scripts')
 <script>
     $(document).ready(function () {
-        $("#upperlist-kantor").addClass("mm-active");
-        $("#btn-kantor").attr("aria-expanded", "true");
-        $("#list-kantor").attr("class", "mm-collapse mm-show");
-        $("#header-tambah-kantor").attr("class", "mm-active");
+        //UNTUK SIDEBAR
+        $("#upperlist-pengirimanCustomer").addClass("mm-active");
+        $("#btn-pengirimanCustomer").attr("aria-expanded", "true");
+        $("#list-pengirimanCustomer").attr("class", "mm-collapse mm-show");
+        $("#header-tambah-pengirimanCustomer").attr("class", "mm-active");
+
+        //UNTUK KURIR CUSTOMER
+        $('#kurir').html(
+            @foreach ($allKantor[0]->kurir_customer as $kurir)
+                '<option class="form-control" value="{{$kurir->id}}">{{$kurir->nama . " (" . $kurir->nopol . ")"}}</option>'
+            @endforeach
+        );
     })
+
+    function isiKurirCustomer(){
+        var idKantor = $('#kantor').val();
+        @for ($i = 0; $i < $allKantor->count(); $i++)             
+            if(idKantor == '{{$allKantor[$i]->id}}'){
+                $('#kurir').html("@foreach ($allKantor[$i]->kurir_customer as $kurir)<option class='form-control' value='{{$kurir->id}}'>{{$kurir->nama . ' (' . $kurir->nopol . ')'}}</option>@endforeach");
+            }
+        @endfor
+    }
+
 </script>
 @endsection 

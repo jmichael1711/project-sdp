@@ -21,7 +21,8 @@
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
     
-    <link href="{{asset('css/libs.css')}}" rel="stylesheet">
+    <link href="{{asset('css/libs.css')}}" rel="stylesheet">    
+    <link href="{{asset('css/datatables.min.css')}}" rel="stylesheet">
     @yield('styles')
 <body>
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
@@ -268,21 +269,21 @@
                                 <li id="upperlist-pengirimanCustomer">
                                     <a id="btn-pengirimanCustomer" href="">
                                         <i class="metismenu-icon pe-7s-study"></i>
-                                            Pengiriman Customer
+                                            Pengiriman Cust
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
                                     <ul id="list-pengirimanCustomer">
                                         <li>
                                             <a id="header-pengirimanCustomer" href="{{ url('/admin/pengirimanCustomer') }}">
                                                 <i class="metismenu-icon"></i>
-                                                List Pengiriman Customer
+                                                List Pengiriman Cust
                                             </a>
                                         </li>
                                         <li>
                                             <a id="header-tambah-pengirimanCustomer" href="{{ url('/admin/pengirimanCustomer/create') }}">
                                                 <i class="metismenu-icon">
                                                 </i>
-                                                Tambah Pengiriman Customer
+                                                Tambah Pengiriman Cust
                                             </a>
                                         </li>
                                     </ul>
@@ -366,6 +367,7 @@
                 <script src="{{asset('js/libs.js')}}"></script>
                 <script src="{{asset('js/jquery.js')}}"></script>
                 <script src="{{asset('js/formvalidationadmin.js')}}"></script>
+                <script src="{{asset('js/datatables.min.js')}}" ></script>
                 @yield('scripts');
         </div>
     </div>
