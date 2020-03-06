@@ -12,6 +12,10 @@
 Page ini adalah untuk menambah data pengiriman customer.
 @endsection
 
+@php
+    $allKantor;
+@endphp
+
 @section('content')
 <div class="tab-content">
     @if (Session::has('success'))
@@ -34,7 +38,19 @@ Page ini adalah untuk menambah data pengiriman customer.
                                 <label class="">ID Pengiriman Customer</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id_pengiriman_customer" 
-                                type="text" class="form-control" value="{{$nextId}}" disabled>
+                                type="text" class="form-control" value="{{$nextId}}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <div class="position-relative form-group">
+                                <label class="">Kota</label>
+                                <select name="kota" id="kota" class="form-control" onchange='isiKantorAsal()'>
+                                    @foreach ($allKota as $kota)
+                                        <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -42,11 +58,7 @@ Page ini adalah untuk menambah data pengiriman customer.
                         <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">Kantor Asal</label>
-                                <select name="kantor" id="kantor" class="form-control" onchange='isiKurirCustomer()'>
-                                    @foreach ($allKantor as $kantor)
-                                        <option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>
-                                    @endforeach
-                                </select>
+                                <select name="kantor" id="kantor" class="form-control" onchange='isiKurirCustomer()'></select>
                             </div>
                         </div>
                     </div>
@@ -81,22 +93,59 @@ Page ini adalah untuk menambah data pengiriman customer.
         $("#list-pengirimanCustomer").attr("class", "mm-collapse mm-show");
         $("#header-tambah-pengirimanCustomer").attr("class", "mm-active");
 
+        //UNTUK KANTOR
+        $('#kantor').html(
+            @foreach ($allKota[0]->kantor as $kantor)
+                '<option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>'
+            @endforeach
+        );
+        @php 
+            $allKantor = $allKota[0]->kantor;
+        @endphp
+        
         //UNTUK KURIR CUSTOMER
         $('#kurir').html(
             @foreach ($allKantor[0]->kurir_customer as $kurir)
                 '<option class="form-control" value="{{$kurir->id}}">{{$kurir->nama . " (" . $kurir->nopol . ")"}}</option>'
             @endforeach
         );
+
     })
 
+    //UNTUK KANTOR
+    function isiKantorAsal(){
+        var idKota = $('#kota').val();
+        @for ($i = 0; $i < $allKota->count(); $i++)             
+            if(idKota == '{{$allKota[$i]->nama}}'){
+                @php
+                    $allKantor = $allKota[$i]->kantor;
+                @endphp
+                $('#kantor').html(
+                    @foreach ($allKantor as $kantor)
+                        '<option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>'
+                    @endforeach
+                );
+            }
+        @endfor
+        $('#kurir').html(
+            @foreach ($allKantor[0]->kurir_customer as $kurir)
+                '<option class="form-control" value="{{$kurir->id}}">{{$kurir->nama . " (" . $kurir->nopol . ")"}}</option>'
+            @endforeach
+        );
+    }
+
+    //UNTUK KURIR CUSTOMER
     function isiKurirCustomer(){
         var idKantor = $('#kantor').val();
         @for ($i = 0; $i < $allKantor->count(); $i++)             
             if(idKantor == '{{$allKantor[$i]->id}}'){
-                $('#kurir').html("@foreach ($allKantor[$i]->kurir_customer as $kurir)<option class='form-control' value='{{$kurir->id}}'>{{$kurir->nama . ' (' . $kurir->nopol . ')'}}</option>@endforeach");
+                $('#kurir').html(
+                    @foreach ($allKantor[$i]->kurir_customer as $kurir)
+                        '<option class="form-control" value="{{$kurir->id}}">{{$kurir->nama . " (" . $kurir->nopol . ")"}}</option>'
+                    @endforeach
+                );
             }
         @endfor
     }
-
 </script>
 @endsection 
