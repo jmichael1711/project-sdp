@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Kantor;
 use App\Kota;
+use Illuminate\Support\Facades\Session;
 
 class KantorController extends Controller
 {
@@ -64,10 +65,15 @@ class KantorController extends Controller
 
     public function store(Request $request) {
         $request = $request->all();
-        Kantor::insert($request);
+        $request['id'] = Kantor::getNextId();
+        $user = Session::get('id');
+        
+        $request['user_created'] = $user;
+        $request['user_updated'] = $user;
+        Kantor::create($request);   
         $success = "Kantor berhasil di-inputkan.";
-
-        return redirect('/admin/kantor/create')->with(['success' => $success]);
+        Session::put('success-kantor', $success);
+        return redirect('/admin/kantor/create');
     }
 
     public function edit($id) {
@@ -79,8 +85,10 @@ class KantorController extends Controller
     public function update($id, Request $request) {
         $request = $request->all();
         $kantor = Kantor::findOrFail($id);
-        $request['user_updated'] = Kantor::getUser();
+        $request['user_updated'] = Session::get('id');
         $kantor->update($request);
+        $success = 'Kantor berhasil diubah.';
+        Session::put('success-kantor', $success);
         return redirect('/admin/kantor');
     }
 }

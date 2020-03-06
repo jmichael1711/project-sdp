@@ -14,12 +14,12 @@ Page ini adalah untuk menambah kantor baru.
 
 @section('content')
 <div class="tab-content">
-    @if (Session::has('success'))
+    @if (Session::has('success-kantor'))
         <ul class="list-group mb-2">
-            <li class="list-group-item-success list-group-item">{{Session::get('success')}}</li>
+            <li class="list-group-item-success list-group-item">{{Session::get('success-kantor')}}</li>
         </ul>
         @php
-            Session::forget('success');
+            Session::forget('success-kantor');
         @endphp
     @endif
 

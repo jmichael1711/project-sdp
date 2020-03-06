@@ -21,6 +21,7 @@ use App\Kurir_customer;
 use App\Kurir_non_customer;
 use App\Pegawai;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 Route::get('/', function () {
     return view('welcome');
@@ -80,6 +81,7 @@ Route::get('/try', function () {
 
     //Session::put('he', 'A');
     //echo Session::get('he');
+    Session::put('id', 'P0000001');
 });
 
 Route::get('/form', function () {

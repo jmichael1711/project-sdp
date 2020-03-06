@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Kendaraan;
 use App\Kota;
+use Illuminate\Support\Facades\Session;
 
 class KendaraanController extends Controller
 {
     public function index() {
-        $kantors = Kendaraan::all();
-        return view('master.kendaraan.index', compact('kantors', 'kantor1'));
+        $kendaraans = Kendaraan::all();
+        return view('master.kendaraan.index', compact('kendaraans'));
     }
 
     public function create() {
@@ -20,22 +21,31 @@ class KendaraanController extends Controller
 
     public function store(Request $request) {
         $request = $request->all();
-        Kendaraan::insert($request);
-        $success = "Kantor berhasil di-inputkan.";
+        $request['id'] = Kendaraan::getNextId();
+        $user = Session::get('id');
+        
+        $request['user_created'] = $user;
+        $request['user_updated'] = $user;
+        Kendaraan::create($request);   
+        $success = "Kendaraan berhasil di-inputkan.";
 
-        return redirect('/admin/kendaraan/create')->with(['success' => $success]);
+        Session::put('success-kendaraan', $success);
+        return redirect('/admin/kendaraan/create');
     }
 
     public function edit($id) {
         $listKota = Kota::getAll()->get();
-        $kantor = Kendaraan::findOrFail($id);
-        return view('master.kendaraan.edit', compact('listKota', 'kantor'));
+        $kendaraan = Kendaraan::findOrFail($id);
+        return view('master.kendaraan.edit', compact('listKota', 'kendaraan'));
     }
 
     public function update($id, Request $request) {
         $request = $request->all();
+        $request['updated_at'] = Session::get('id');
         $kantor = Kendaraan::findOrFail($id);
         $kantor->update($request);
-        return redirect('/kendaraan/kantor');
+        $success = 'Kendaraan berhasil diubah.';
+        Session::put('success-kendaraan', $success);
+        return redirect('/admin/kendaraan');
     }
 }

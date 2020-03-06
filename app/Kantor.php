@@ -79,20 +79,5 @@ class Kantor extends Model
         }
     }
 
-    public static function getUser() {
-        if (Session::has('id')) {
-            return Session::get('id');
-        } else {
-            return "P0000001"; 
-        }
-    }
 
-    public static function insert($request) {
-        $request['id'] = Kantor::getNextId();
-        $user = Kantor::getUser();
-        
-        $request['user_created'] = $user;
-        $request['user_updated'] = $user;
-        Kantor::create($request);   
-    }
 }
