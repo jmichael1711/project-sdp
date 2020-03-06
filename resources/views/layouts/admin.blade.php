@@ -288,6 +288,30 @@
                                         </li>
                                     </ul>
                                 </li>
+
+                                {{-- SIDEBAR - BON MUAT --}}
+                                <li id="upperlist-bonmuat">
+                                    <a id="btn-bonmuat" href="">
+                                        <i class="metismenu-icon pe-7s-study"></i>
+                                            Bon Muat
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    <ul id="list-bonmuat">
+                                        <li>
+                                            <a id="header-bonmuat" href="{{ url('/admin/bonmuat') }}">
+                                                <i class="metismenu-icon"></i>
+                                                List Bon Muat
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a id="header-tambah-bonmuat" href="{{ url('/admin/bonmuat/create') }}">
+                                                <i class="metismenu-icon">
+                                                </i>
+                                                Tambah Bon Muat
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                                
                                 <li class="app-sidebar__heading">Report</li>
                                 <li>
