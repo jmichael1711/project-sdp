@@ -107,12 +107,11 @@ Page ini adalah untuk menambah data pengiriman customer.
 @section('scripts')
 <script>
     $(document).ready(function () {
-        //UNTUK SIDEBAR
         $("#upperlist-pengirimanCustomer").addClass("mm-active");
         $("#btn-pengirimanCustomer").attr("aria-expanded", "true");
         $("#list-pengirimanCustomer").attr("class", "mm-collapse mm-show");
-        $("#header-tambah-pengirimanCustomer").attr("class", "mm-active");
-
+        $("#header-pengirimanCustomer").attr("class", "mm-active");
+    })
         var idKota = $('#kota').val();
         refreshCombobox(idKota, "null");
     })

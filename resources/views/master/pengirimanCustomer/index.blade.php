@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    List Kantor
+    List Pengiriman Customer
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk menampilkan semua kantor.
+Page ini adalah untuk menampilkan semua pengiriman customer.
 @endsection
 
 @section('content')
@@ -26,41 +26,33 @@ Page ini adalah untuk menampilkan semua kantor.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
-                    <table class="table table-hover table-striped dataTable dtr-inline" id="tableKantor">
+                    <table class="table table-hover table-striped dataTable dtr-inline" id="tablePengirimanCust">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Alamat</th>
-                                <th>No. Telp</th>
-                                <th>Kota</th>
-                                <th>Jenis</th>
-                                <th>Longitude</th>
-                                <th>Latitude</th>
+                                <th>ID Kantor</th>
+                                <th>ID Kurir Customer</th>
+                                <th>Menuju Penerima</th>
+                                <th>Total Muatan</th>
+                                <th>User Created</th>
                                 <th>Created At</th>
+                                <th>User Updated</th>
                                 <th>Updated At</th>
-                                <th>Status</th>
+                                <th>Is Deleted</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if ($kantors)
-                                @foreach ($kantors as $i)
+                            @if ($allPengirimanCust)
+                                @foreach ($allPengirimanCust as $i)
                             <tr onclick='editKantor("{{$i->id}}")'>
                                 <td>{{$i->id}}</td>
-                                <td>{{$i->alamat}}</td>
-                                <td>{{$i->no_telp}}</td>
-                                <td>{{$i->kota}}</td>
-                                @if ($i->is_warehouse)
-                                <td>
-                                    KANTOR CABANG
-                                </td>    
-                                @else 
-                                <td>
-                                    WAREHOUSE
-                                </td>
-                                @endif
-                                <td>{{$i->longitude}}</td>
-                                <td>{{$i->latitude}}</td>
+                                <td>{{$i->kantor_id}}</td>
+                                <td>{{$i->kurir_customer_id}}</td>
+                                <td>{{$i->menuju_penerima}}</td>
+                                <td>{{$i->total_muatan}}</td>
+                                <td>{{$i->user_created}}</td>
                                 <td>{{$i->created_at->diffForHumans()}}</td>
+                                <td>{{$i->user_updated}}</td>
                                 <td>{{$i->updated_at->diffForHumans()}}</td>
                                 @if ($i->is_deleted)
                                 <td class="bg-danger text-center text-white">
@@ -86,20 +78,20 @@ Page ini adalah untuk menampilkan semua kantor.
 @section('scripts')
 <script>
     $(document).ready(function () {
-        $("#upperlist-kantor").addClass("mm-active");
-        $("#btn-kantor").attr("aria-expanded", "true");
-        $("#list-kantor").attr("class", "mm-collapse mm-show");
-        $("#header-kantor").attr("class", "mm-active");
+        $("#upperlist-pengirimanCustomer").addClass("mm-active");
+        $("#btn-pengirimanCustomer").attr("aria-expanded", "true");
+        $("#list-pengirimanCustomer").attr("class", "mm-collapse mm-show");
+        $("#header-pengirimanCustomer").attr("class", "mm-active");
     })
 
-    var table = $('#tableKantor').DataTable({
+    var table = $('#tablePengirimanCust').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,
         'lengthMenu': [10,25, 50, 100]
     });
 
     function editKantor(id){
-        window.location.href='/admin/kantor/edit/' + id;
+        window.location.href='/admin/pengirimanCustomer/edit/' + id;
     }
 
 </script>

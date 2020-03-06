@@ -252,7 +252,7 @@
                                         <li>
                                             <a id="header-kantor" href="{{ url('/admin/kantor') }}">
                                                 <i class="metismenu-icon"></i>
-                                                Semua Kantor
+                                                List Kantor
                                             </a>
                                         </li>
                                         <li>

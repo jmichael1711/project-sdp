@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Create Kantor
+    Edit Kantor
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk menambah kantor baru.
+Page ini adalah untuk mengubah data kantor.
 @endsection
 
 @section('content')
@@ -155,7 +155,7 @@ Page ini adalah untuk menambah kantor baru.
         $("#upperlist-kantor").addClass("mm-active");
         $("#btn-kantor").attr("aria-expanded", "true");
         $("#list-kantor").attr("class", "mm-collapse mm-show");
-        $("#header-tambah-kantor").attr("class", "mm-active");
+        $("#header-kantor").attr("class", "mm-active");
     })
 </script>
 @endsection 

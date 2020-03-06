@@ -25,7 +25,7 @@ Page ini adalah untuk menambah kantor baru.
 
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
-            <div class="card-body"><h5 class="card-title">Kantor Baru</h5>
+            <div class="card-body">
                 <form novalidate class="needs-validation" method="post" action="/admin/kantor/store" enctype="multipart/form-data">
                 @csrf
                     <div class="form-row">
