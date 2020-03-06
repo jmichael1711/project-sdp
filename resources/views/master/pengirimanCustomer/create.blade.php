@@ -12,10 +12,6 @@
 Page ini adalah untuk menambah data pengiriman customer.
 @endsection
 
-@php
-    $allKantor;
-@endphp
-
 @section('content')
 <div class="tab-content">
     @if (Session::has('success'))
@@ -39,16 +35,6 @@ Page ini adalah untuk menambah data pengiriman customer.
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id_pengiriman_customer" 
                                 type="text" class="form-control" value="{{$nextId}}" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <div class="position-relative form-group">
-                                <label class="">COBA</label>
-                                <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                this.setSelectionRange(p, p);" style="text-transform:uppercase" id="coba" 
-                                type="text" class="form-control" value="">
                             </div>
                         </div>
                     </div>
@@ -103,51 +89,42 @@ Page ini adalah untuk menambah data pengiriman customer.
         $("#list-pengirimanCustomer").attr("class", "mm-collapse mm-show");
         $("#header-tambah-pengirimanCustomer").attr("class", "mm-active");
 
-        //UNTUK KANTOR
-        $('#kantor').html('@foreach ($allKota[0]->kantor as $kantor)<option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>@endforeach');
-        @php 
-            $allKantor = $allKota[0]->kantor;
-        @endphp
-        
-        //UNTUK KURIR CUSTOMER
-        $('#kurir').html('@foreach ($allKantor[0]->kurir_customer as $kurir)<option class="form-control" value="{{$kurir->id}}">{{$kurir->nama . " (" . $kurir->nopol . ")"}}</option>@endforeach');
-
+        var idKota = $('#kota').val();
+        refreshCombobox(idKota, "null");
     })
 
     //UNTUK KANTOR
     function isiKantorAsal(){
         var idKota = $('#kota').val();
-        var found = false;
-        @for ($i = 0; $i < $allKota->count(); $i++)             
-            if(idKota == '{{$allKota[$i]->nama}}'){
-                found = true;
-                @php
-                    $allKantor = $allKota[$i]->kantor;
-                @endphp
-                $('#kantor').html('@foreach ($allKantor as $kantor)<option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>@endforeach');
-                $('#kurir').html('@foreach ($allKantor[0]->kurir_customer as $kurir)<option class="form-control" value="{{$kurir->id}}">{{$kurir->nama . " (" . $kurir->nopol . ")"}}</option>@endforeach');
-            }
-        @endfor
-        if(found == false){
-            $('#kantor').html('<option>KOSONG</option>');
-            $('#kurir').html('<option>KOSONG</option>');
-        }
+        refreshCombobox(idKota, "null");
     }
 
     //UNTUK KURIR CUSTOMER
     function isiKurirCustomer(){
+        var idKota = $('#kota').val();
         var idKantor = $('#kantor').val();
-        var found = false;
-        @for ($i = 0; $i < $allKantor->count(); $i++)
-            if(idKantor == '{{$allKantor[$i]->id}}'){
-                found = true;
-                $('#coba').html('{{$allKantor[$i]->id}}')
-                $('#kurir').html('@foreach ($allKantor[$i]->kurir_customer as $kurir)<option class="form-control" value="{{$kurir->id}}">{{$kurir->nama . " (" . $kurir->nopol . ")"}}</option>@endforeach');
+        refreshCombobox(idKota, idKantor);
+    }
+
+    function refreshCombobox(idKota, idKantor){
+        @for ($i = 0; $i < $allKota->count(); $i++)             
+            if(idKota == '{{$allKota[$i]->nama}}'){
+                @php
+                    $allKantor = $allKota[$i]->kantor;
+                @endphp
+                if(idKantor == "null"){
+                    $('#kantor').html('@foreach ($allKantor as $kantor)<option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>@endforeach');
+                    $('#kurir').html('@foreach ($allKantor[0]->kurir_customer as $kurir)<option class="form-control" value="{{$kurir->id}}">{{$kurir->nama . " (" . $kurir->nopol . ")"}}</option>@endforeach');
+                }
+                else{
+                    @for ($j = 0; $j < $allKantor->count(); $j++)
+                    if(idKantor == '{{$allKantor[$j]->id}}'){
+                        $('#kurir').html('@foreach ($allKantor[$j]->kurir_customer as $kurir)<option class="form-control" value="{{$kurir->id}}">{{$kurir->nama . " (" . $kurir->nopol . ")"}}</option>@endforeach');
+                    }
+                    @endfor
+                }
             }
         @endfor
-        if(found == false){
-            $('#kurir').html('<option>KOSONG</option>');
-        }
     }
 </script>
 @endsection 
