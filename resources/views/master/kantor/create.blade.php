@@ -14,12 +14,12 @@ Page ini adalah untuk menambah kantor baru.
 
 @section('content')
 <div class="tab-content">
-    @if (Session::has('success'))
+    @if (Session::has('success-kantor'))
         <ul class="list-group mb-2">
-            <li class="list-group-item-success list-group-item">{{Session::get('success')}}</li>
+            <li class="list-group-item-success list-group-item">{{Session::get('success-kantor')}}</li>
         </ul>
         @php
-            Session::forget('success');
+            Session::forget('success-kantor');
         @endphp
     @endif
 
@@ -71,7 +71,7 @@ Page ini adalah untuk menambah kantor baru.
                                 <label class="">Kota</label>
                                 <select name="kota" class="form-control">
                                     @foreach ($listKota as $i)
-                                        <option class="form-control" value="{{$i}}">{{$i}}</option>
+                                        <option class="form-control" value="{{$i->nama}}">{{$i->nama}}</option>
                                     @endforeach
                                 </select>
                             </div>

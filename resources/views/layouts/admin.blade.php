@@ -265,6 +265,30 @@
                                     </ul>
                                 </li>
 
+                                {{-- SIDEBAR - KENDARAAN --}}
+                                <li id="upperlist-kendaraan">
+                                    <a id="btn-kendaraan" href="">
+                                        <i class="metismenu-icon pe-7s-study"></i>
+                                            Kendaraan
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    <ul id="list-kendaraan">
+                                        <li>
+                                            <a id="header-kendaraan" href="{{ url('/admin/kendaraan') }}">
+                                                <i class="metismenu-icon"></i>
+                                                Semua Kendaraan
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a id="header-tambah-kendaraan" href="{{ url('/admin/kendaraan/create') }}">
+                                                <i class="metismenu-icon">
+                                                </i>
+                                                Tambah Kendaraan
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
                                 {{-- SIDEBAR - PENGIRIMAN CUSTOMER --}}
                                 <li id="upperlist-pengirimanCustomer">
                                     <a id="btn-pengirimanCustomer" href="">

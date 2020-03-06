@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Kantor;
+use App\Kota;
+use Illuminate\Support\Facades\Session;
 
 class KantorController extends Controller
 {
@@ -57,21 +59,25 @@ class KantorController extends Controller
     }
 
     public function create() {
-        $listKota = $this->getListKota();
+        $listKota = Kota::getAll()->get();
         return view('master.kantor.create', compact('listKota'));
     }
 
     public function store(Request $request) {
         $request = $request->all();
-        Kantor::insert($request);
+        $request['id'] = Kantor::getNextId();
+        $user = Session::get('id');
+        
+        $request['user_created'] = $user;
+        $request['user_updated'] = $user;
+        Kantor::create($request);   
         $success = "Kantor berhasil di-inputkan.";
-        $listKota = $this->getListKota();
-
-        return redirect('/admin/kantor/create')->with(['success' => $success]);
+        Session::put('success-kantor', $success);
+        return redirect('/admin/kantor/create');
     }
 
     public function edit($id) {
-        $listKota = $this->getListKota();
+        $listKota = Kota::getAll()->get();
         $kantor = Kantor::findOrFail($id);
         return view('master.kantor.edit', compact('listKota', 'kantor'));
     }
@@ -79,7 +85,10 @@ class KantorController extends Controller
     public function update($id, Request $request) {
         $request = $request->all();
         $kantor = Kantor::findOrFail($id);
+        $request['user_updated'] = Session::get('id');
         $kantor->update($request);
+        $success = 'Kantor berhasil diubah.';
+        Session::put('success-kantor', $success);
         return redirect('/admin/kantor');
     }
 }
