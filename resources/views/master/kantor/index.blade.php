@@ -14,12 +14,12 @@ Page ini adalah untuk menampilkan semua kantor.
 
 @section('content')
 <div class="tab-content">
-    @if (Session::has('success'))
+    @if (Session::has('success-kantor'))
         <ul class="list-group mb-2">
-            <li class="list-group-item-success list-group-item">{{Session::get('success')}}</li>
+            <li class="list-group-item-success list-group-item">{{Session::get('success-kantor')}}</li>
         </ul>
         @php
-            Session::forget('success');
+            Session::forget('success-kantor');
         @endphp
     @endif
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">

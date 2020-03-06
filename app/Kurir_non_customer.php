@@ -32,6 +32,17 @@ class Kurir_non_customer extends Model
         return Kurir_non_customer::getAll()->count();
     }
 
+    public function sortKurir($kantorAsal,$kantorTujuan){
+        return $this->when("posisi_kantor_1" == 1, function($query){
+            $query->where("kantor_1_id",$kantorAsal->id)
+            ->where("kantor_2_id",$kantorTujuan->id);
+        })->when("posisi_kantor_1" == 0,function($query){
+            $query->where("kantor_2_id",$kantorAsal->id)
+            ->where("kantor_1_id",$kantorTujuan->id);
+        })
+        ->get();
+    }
+
     public static function getNextId() {
 
         if (Kurir_non_customer::count() > 0) {

@@ -21,6 +21,7 @@ use App\Kurir_customer;
 use App\Kurir_non_customer;
 use App\Pegawai;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 Route::get('/', function () {
     return view('welcome');
@@ -80,6 +81,7 @@ Route::get('/try', function () {
 
     //Session::put('he', 'A');
     //echo Session::get('he');
+    Session::put('id', 'P0000001');
 });
 
 Route::get('/form', function () {
@@ -101,6 +103,13 @@ Route::get('/admin/kantor/create', 'KantorController@create');
 Route::post('/admin/kantor/store', 'KantorController@store');
 Route::get('/admin/kantor/edit/{id}', 'KantorController@edit');
 Route::post('/admin/kantor/update/{id}', 'KantorController@update');
+
+//ADMIN - KENDARAAN
+Route::get('/admin/kendaraan', 'KendaraanController@index');
+Route::get('/admin/kendaraan/create', 'KendaraanController@create');
+Route::post('/admin/kendaraan/store', 'KendaraanController@store');
+Route::get('/admin/kendaraan/edit/{id}', 'KendaraanController@edit');
+Route::post('/admin/kendaraan/update/{id}', 'KendaraanController@update');
 
 //ADMING - BON MUAT
 Route::get('/admin/bonmuat','Bon_MuatController@index');

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Kurir;
+use Illuminate\Support\Facades\Session;
 
 class Kantor extends Model
 {
@@ -78,8 +79,5 @@ class Kantor extends Model
         }
     }
 
-    public static function insert($request) {
-        $request['id'] = Kantor::getNextId();
-        Kantor::create($request);   
-    }
+
 }

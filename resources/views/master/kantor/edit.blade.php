@@ -84,10 +84,10 @@ Page ini adalah untuk mengubah data kantor.
                                 <label class="">Kota</label>
                                 <select name="kota" class="form-control">
                                     @foreach ($listKota as $i)
-                                        @if ($i == $kantor->kota)
-                                            <option selected class="form-control" value="{{$i}}">{{$i}}</option>
+                                        @if ($i->nama == $kantor->kota)
+                                            <option selected class="form-control" value="{{$i->nama}}">{{$i->nama}}</option>
                                         @else
-                                            <option class="form-control" value="{{$i}}">{{$i}}</option>
+                                            <option class="form-control" value="{{$i->nama}}">{{$i->nama}}</option>
                                         @endif
                                     @endforeach
                                 </select>
@@ -137,7 +137,7 @@ Page ini adalah untuk mengubah data kantor.
                     <div class="form-row">
                         <div class="col-md-2">
                             <div class="position-relative form-group">
-                                <button class="mt-2 btn btn-primary">Tambah</button>
+                                <button class="mt-2 btn btn-primary">Edit</button>
                             </div>
                         </div>
                     </div>
