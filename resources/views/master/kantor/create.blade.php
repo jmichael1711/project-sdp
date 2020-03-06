@@ -71,7 +71,7 @@ Page ini adalah untuk menambah kantor baru.
                                 <label class="">Kota</label>
                                 <select name="kota" class="form-control">
                                     @foreach ($listKota as $i)
-                                        <option class="form-control" value="{{$i}}">{{$i}}</option>
+                                        <option class="form-control" value="{{$i->nama}}">{{$i->nama}}</option>
                                     @endforeach
                                 </select>
                             </div>

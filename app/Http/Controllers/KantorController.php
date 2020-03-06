@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Kantor;
+use App\Kota;
 
 class KantorController extends Controller
 {
@@ -57,7 +58,7 @@ class KantorController extends Controller
     }
 
     public function create() {
-        $listKota = $this->getListKota();
+        $listKota = Kota::getAll()->get();
         return view('master.kantor.create', compact('listKota'));
     }
 
@@ -65,13 +66,12 @@ class KantorController extends Controller
         $request = $request->all();
         Kantor::insert($request);
         $success = "Kantor berhasil di-inputkan.";
-        $listKota = $this->getListKota();
 
         return redirect('/admin/kantor/create')->with(['success' => $success]);
     }
 
     public function edit($id) {
-        $listKota = $this->getListKota();
+        $listKota = Kota::getAll()->get();
         $kantor = Kantor::findOrFail($id);
         return view('master.kantor.edit', compact('listKota', 'kantor'));
     }
@@ -79,6 +79,7 @@ class KantorController extends Controller
     public function update($id, Request $request) {
         $request = $request->all();
         $kantor = Kantor::findOrFail($id);
+        $request['user_updated'] = Kantor::getUser();
         $kantor->update($request);
         return redirect('/admin/kantor');
     }

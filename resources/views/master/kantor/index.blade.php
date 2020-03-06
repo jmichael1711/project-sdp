@@ -24,8 +24,8 @@ Page ini adalah untuk menambah kantor baru.
     @endif
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
-            <div class="card-body"><h5 class="card-title">Semua Kantor</h5>
-                <table class="table table-hover table-responsive bg-light text-dark" id="tableKantor">
+            <div style="overflow-x: auto" class="card-body"><h5 class="card-title">Semua Kantor</h5>
+                <table style="min-width: 125%;" class="table table-hover table-responsive bg-light text-dark" id="tableKantor">
                     <thead>
                         <th>ID</th>
                         <th>Alamat</th>
@@ -36,13 +36,15 @@ Page ini adalah untuk menambah kantor baru.
                         <th>Latitude</th>
                         <th>Created At</th>
                         <th>Updated At</th>
+                        <th>User Created</th>
+                        <th>User Updated</th>
                         <th>Status</th>
                     </thead>
                     <tbody>
                         @if ($kantors)
                             @foreach ($kantors as $i)
-                        <tr>
                             
+                        <tr>
                             <td> <a href="/admin/kantor/edit/{{$i->id}}">{{$i->id}}</a>  </td>
                             <td>{{$i->alamat}}</td>
                             <td>{{$i->no_telp}}</td>
@@ -60,6 +62,8 @@ Page ini adalah untuk menambah kantor baru.
                             <td>{{$i->latitude}}</td>
                             <td>{{$i->created_at->diffForHumans()}}</td>
                             <td>{{$i->updated_at->diffForHumans()}}</td>
+                            <td>{{$i->user_created}}</td>
+                            <td>{{$i->user_updated}}</td>
                             @if ($i->is_deleted)
                             <td class="bg-danger text-center text-white">
                                 NOT ACTIVE
