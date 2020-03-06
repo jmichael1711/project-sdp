@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 06, 2020 at 08:00 AM
+-- Generation Time: Mar 06, 2020 at 08:03 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -136,11 +136,11 @@ INSERT INTO `kendaraans` (`id`, `kantor_1_id`, `kantor_2_id`, `jenis_kendaraan`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kota`
+-- Table structure for table `kotas`
 --
 
-DROP TABLE IF EXISTS `kota`;
-CREATE TABLE `kota` (
+DROP TABLE IF EXISTS `kotas`;
+CREATE TABLE `kotas` (
   `nama` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
@@ -349,9 +349,9 @@ ALTER TABLE `kendaraans`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `kota`
+-- Indexes for table `kotas`
 --
-ALTER TABLE `kota`
+ALTER TABLE `kotas`
   ADD PRIMARY KEY (`nama`);
 
 --
