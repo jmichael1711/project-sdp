@@ -112,14 +112,28 @@ Page ini adalah untuk menambah data pengiriman customer.
                 @php
                     $allKantor = $allKota[$i]->kantor;
                 @endphp
+
                 if(idKantor == "null"){
-                    $('#kantor').html('@foreach ($allKantor as $kantor)<option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>@endforeach');
-                    $('#kurir').html('@foreach ($allKantor[0]->kurir_customer as $kurir)<option class="form-control" value="{{$kurir->id}}">{{$kurir->nama . " (" . $kurir->nopol . ")"}}</option>@endforeach');
+                    @if(count($allKantor) > 0)
+                        $('#kantor').html('@foreach ($allKantor as $kantor)<option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>@endforeach');
+                        @if(count($allKantor[0]->kurir_customer) > 0)
+                            $('#kurir').html('@foreach ($allKantor[0]->kurir_customer as $kurir)<option class="form-control" value="{{$kurir->id}}">{{$kurir->nama . " (" . $kurir->nopol . ")"}}</option>@endforeach');
+                        @else
+                            $('#kurir').html('<option>-- TIDAK ADA KURIR --</option>');
+                        @endif
+                    @else
+                        $('#kantor').html('<option>-- TIDAK ADA KANTOR --</option>');
+                        $('#kurir').html('<option>-- TIDAK ADA KURIR --</option>');
+                    @endif
                 }
                 else{
                     @for ($j = 0; $j < $allKantor->count(); $j++)
                     if(idKantor == '{{$allKantor[$j]->id}}'){
-                        $('#kurir').html('@foreach ($allKantor[$j]->kurir_customer as $kurir)<option class="form-control" value="{{$kurir->id}}">{{$kurir->nama . " (" . $kurir->nopol . ")"}}</option>@endforeach');
+                        @if(count($allKantor[$j]->kurir_customer) > 0)
+                            $('#kurir').html('@foreach ($allKantor[$j]->kurir_customer as $kurir)<option class="form-control" value="{{$kurir->id}}">{{$kurir->nama . " (" . $kurir->nopol . ")"}}</option>@endforeach');
+                        @else
+                            $('#kurir').html('<option>-- TIDAK ADA KURIR --</option>');
+                        @endif
                     }
                     @endfor
                 }
