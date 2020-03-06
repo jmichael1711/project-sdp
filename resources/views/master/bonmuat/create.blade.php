@@ -43,7 +43,7 @@ Page ini adalah untuk menambah bon muat baru.
                         <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">Kota Asal</label>
-                                <select name="kota" class="form-control" id="kotaAsal">
+                                <select name="kotaAsal" class="form-control" id="kotaAsal" onchange='isiKantorAsal()'>
                                     @foreach ($allKota as $kota)
                                         <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
                                     @endforeach
@@ -56,10 +56,7 @@ Page ini adalah untuk menambah bon muat baru.
                         <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">Kantor Asal</label>
-                                <select name="kota" class="form-control">
-                                    {{-- @foreach ($listKota as $i)
-                                        <option class="form-control" value="{{$i}}">{{$i}}</option>
-                                    @endforeach --}}
+                                <select name="kantorAsal" class="form-control" id="#kantorAsal">
                                 </select>
                             </div>
                         </div>
@@ -130,3 +127,23 @@ Page ini adalah untuk menambah bon muat baru.
     </div>
 </div>  
 @endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function () {
+        //UNTUK SIDEBAR
+        $("#upperlist-bonmuat").addClass("mm-active");
+        $("#btn-bonmuat").attr("aria-expanded", "true");
+        $("#list-bonmuat").attr("class", "mm-collapse mm-show");
+        $("#header-tambah-bonmuat").attr("class", "mm-active");
+    })
+
+    function isiKantorAsal(){
+        var idKota = $('#kotaAsal').val();
+        var found = false;
+       
+    }
+    
+
+</script>
+@endsection 
