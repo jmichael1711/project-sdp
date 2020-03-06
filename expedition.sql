@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 06, 2020 at 08:03 AM
+-- Generation Time: Mar 06, 2020 at 09:13 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -35,7 +35,7 @@ CREATE TABLE `bon_muats` (
   `id` varchar(15) NOT NULL,
   `kendaraan_id` varchar(8) NOT NULL,
   `kurir_non_customer_id` varchar(8) NOT NULL,
-  `total_muatan` decimal(5,1) NOT NULL,
+  `total_muatan` decimal(5,1) NOT NULL DEFAULT 0.0,
   `kantor_asal` varchar(8) NOT NULL,
   `kantor_tujuan` varchar(8) NOT NULL,
   `user_created` varchar(8) NOT NULL,
@@ -66,17 +66,19 @@ CREATE TABLE `d_pengiriman_customers` (
   `telah_sampai` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
+  `user_created` varchar(8) NOT NULL,
+  `user_updated` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `d_pengiriman_customers`
 --
 
-INSERT INTO `d_pengiriman_customers` (`resi_id`, `pengiriman_customer_id`, `telah_sampai`, `created_at`, `updated_at`, `is_deleted`) VALUES
-('resi1', 'pcus1', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
-('resi1', 'pcus2', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
-('resi2', 'pcus1', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0);
+INSERT INTO `d_pengiriman_customers` (`resi_id`, `pengiriman_customer_id`, `telah_sampai`, `created_at`, `updated_at`, `is_deleted`, `user_created`, `user_updated`) VALUES
+('resi1', 'pcus1', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '', ''),
+('resi1', 'pcus2', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '', ''),
+('resi2', 'pcus1', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '', '');
 
 -- --------------------------------------------------------
 
@@ -95,15 +97,17 @@ CREATE TABLE `kantors` (
   `updated_at` datetime NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   `longitude` decimal(8,5) NOT NULL,
-  `latitude` decimal(8,5) NOT NULL
+  `latitude` decimal(8,5) NOT NULL,
+  `user_created` varchar(8) NOT NULL,
+  `user_updated` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kantors`
 --
 
-INSERT INTO `kantors` (`id`, `alamat`, `no_telp`, `kota`, `is_warehouse`, `created_at`, `updated_at`, `is_deleted`, `longitude`, `latitude`) VALUES
-('KA000001', 'dgjdh', '23141512', 'fsafsser', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '1.00000', '1.00000');
+INSERT INTO `kantors` (`id`, `alamat`, `no_telp`, `kota`, `is_warehouse`, `created_at`, `updated_at`, `is_deleted`, `longitude`, `latitude`, `user_created`, `user_updated`) VALUES
+('KA000001', 'dgjdh', '23141512', 'fsafsser', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '1.00000', '1.00000', '', '');
 
 -- --------------------------------------------------------
 
@@ -123,15 +127,17 @@ CREATE TABLE `kendaraans` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
-  `posisi_di_kantor_1` tinyint(1) NOT NULL
+  `posisi_di_kantor_1` tinyint(1) NOT NULL,
+  `user_created` varchar(8) NOT NULL,
+  `user_updated` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `kendaraans`
 --
 
-INSERT INTO `kendaraans` (`id`, `kantor_1_id`, `kantor_2_id`, `jenis_kendaraan`, `nopol`, `status`, `tahun_pembelian`, `created_at`, `updated_at`, `is_deleted`, `posisi_di_kantor_1`) VALUES
-('KE000001', '', '', 'hayow', '', '0', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0);
+INSERT INTO `kendaraans` (`id`, `kantor_1_id`, `kantor_2_id`, `jenis_kendaraan`, `nopol`, `status`, `tahun_pembelian`, `created_at`, `updated_at`, `is_deleted`, `posisi_di_kantor_1`, `user_created`, `user_updated`) VALUES
+('KE000001', '', '', 'hayow', '', '0', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, '', '');
 
 -- --------------------------------------------------------
 
@@ -146,7 +152,7 @@ CREATE TABLE `kotas` (
   `updated_at` datetime NOT NULL,
   `user_created` varchar(8) NOT NULL,
   `user_updated` varchar(8) NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -168,7 +174,9 @@ CREATE TABLE `kurir_customers` (
   `password` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
+  `user_created` varchar(8) NOT NULL,
+  `user_updated` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -212,7 +220,9 @@ CREATE TABLE `pegawais` (
   `password` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
+  `user_created` varchar(8) NOT NULL,
+  `user_udpdated` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -246,7 +256,6 @@ CREATE TABLE `pesanans` (
   `id` varchar(15) NOT NULL,
   `resi_id` varchar(15) DEFAULT NULL,
   `kurir_customer_id` varchar(8) DEFAULT NULL,
-  `user_updated` varchar(8) NOT NULL,
   `berat_barang` decimal(2,0) NOT NULL,
   `alamat_asal` varchar(255) NOT NULL,
   `alamat_tujuan` varchar(255) NOT NULL,
@@ -263,11 +272,13 @@ CREATE TABLE `pesanans` (
   `is_fragile` tinyint(1) NOT NULL,
   `email_pengirim` varchar(255) NOT NULL,
   `email_penerima` varchar(255) NOT NULL,
-  `status` decimal(1,0) NOT NULL,
+  `status` decimal(1,0) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
-  `waktu_berangkat_kurir` datetime NOT NULL
+  `waktu_berangkat_kurir` datetime NOT NULL,
+  `user_created` varchar(8) NOT NULL,
+  `user_updated` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -285,16 +296,18 @@ CREATE TABLE `resis` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
-  `status` decimal(1,0) NOT NULL
+  `status` decimal(1,0) NOT NULL DEFAULT 0,
+  `user_created` varchar(8) NOT NULL,
+  `user_updated` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `resis`
 --
 
-INSERT INTO `resis` (`id`, `pesanan_id`, `pegawai_id`, `harga`, `created_at`, `updated_at`, `is_deleted`, `status`) VALUES
-('R0000001', '', '', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '0'),
-('R0000002', '', '', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '0');
+INSERT INTO `resis` (`id`, `pesanan_id`, `pegawai_id`, `harga`, `created_at`, `updated_at`, `is_deleted`, `status`, `user_created`, `user_updated`) VALUES
+('R0000001', '', '', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '0', '', ''),
+('R0000002', '', '', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '0', '', '');
 
 -- --------------------------------------------------------
 
@@ -309,16 +322,18 @@ CREATE TABLE `surat_jalans` (
   `telah_sampai` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
+  `user_created` varchar(8) NOT NULL,
+  `user_updated` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `surat_jalans`
 --
 
-INSERT INTO `surat_jalans` (`bon_muat_id`, `resi_id`, `telah_sampai`, `created_at`, `updated_at`, `is_deleted`) VALUES
-('B00000001030220', 'R0000001', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
-('B00000001030220', 'R0000002', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0);
+INSERT INTO `surat_jalans` (`bon_muat_id`, `resi_id`, `telah_sampai`, `created_at`, `updated_at`, `is_deleted`, `user_created`, `user_updated`) VALUES
+('B00000001030220', 'R0000001', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '', ''),
+('B00000001030220', 'R0000002', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '', '');
 
 --
 -- Indexes for dumped tables
