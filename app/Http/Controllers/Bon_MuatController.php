@@ -5,15 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Kantor;
 use App\Bon_Muat;
-
+use App\Kota;
 class Bon_MuatController extends Controller
 {
 
     public function create() {
         $nextId = Bon_Muat::getNextId();
-        $allKantor = Kantor::getAll()->get();
+        $allKota = Kota::getAll()->get();
 
-        return view('master.bonmuat.create',compact('nextId','allKantor'));
+        return view('master.bonmuat.create',compact('nextId','allKota'));
     }
 
 
