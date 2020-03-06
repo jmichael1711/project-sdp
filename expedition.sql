@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 04, 2020 at 08:47 AM
--- Server version: 10.3.16-MariaDB
--- PHP Version: 7.3.7
+-- Generation Time: Mar 06, 2020 at 08:00 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -132,6 +132,22 @@ CREATE TABLE `kendaraans` (
 
 INSERT INTO `kendaraans` (`id`, `kantor_1_id`, `kantor_2_id`, `jenis_kendaraan`, `nopol`, `status`, `tahun_pembelian`, `created_at`, `updated_at`, `is_deleted`, `posisi_di_kantor_1`) VALUES
 ('KE000001', '', '', 'hayow', '', '0', '0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kota`
+--
+
+DROP TABLE IF EXISTS `kota`;
+CREATE TABLE `kota` (
+  `nama` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `user_created` varchar(8) NOT NULL,
+  `user_updated` varchar(8) NOT NULL,
+  `is_deleted` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -331,6 +347,12 @@ ALTER TABLE `kantors`
 --
 ALTER TABLE `kendaraans`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `kota`
+--
+ALTER TABLE `kota`
+  ADD PRIMARY KEY (`nama`);
 
 --
 -- Indexes for table `kurir_customers`
