@@ -43,10 +43,10 @@ Page ini adalah untuk menambah bon muat baru.
                         <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">Kota Asal</label>
-                                <select name="kota" class="form-control">
-                                    {{-- @foreach ($listKota as $i)
-                                        <option class="form-control" value="{{$i}}">{{$i}}</option>
-                                    @endforeach --}}
+                                <select name="kota" class="form-control" id="kotaAsal">
+                                    @foreach ($allKota as $kota)
+                                        <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

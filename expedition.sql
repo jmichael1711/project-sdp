@@ -107,7 +107,9 @@ CREATE TABLE `kantors` (
 --
 
 INSERT INTO `kantors` (`id`, `alamat`, `no_telp`, `kota`, `is_warehouse`, `created_at`, `updated_at`, `is_deleted`, `longitude`, `latitude`, `user_created`, `user_updated`) VALUES
-('KA000001', 'dgjdh', '23141512', 'fsafsser', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '1.00000', '1.00000', '', '');
+('kantor01', 'jl. test satu', '08111', 'SURABAYA', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '0.00000', '0.00000'),
+('kantor02', 'jl. test dua', '08123', 'SIDOARJO', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '0.00000', '0.00000'),
+('kantor03', 'jl. test tiga', '123', 'SIDOARJO', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '0.00000', '0.00000');
 
 -- --------------------------------------------------------
 
@@ -155,6 +157,14 @@ CREATE TABLE `kotas` (
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `kotas`
+--
+
+INSERT INTO `kotas` (`nama`, `created_at`, `updated_at`, `user_created`, `user_updated`, `is_deleted`) VALUES
+('SIDOARJO', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', 0),
+('SURABAYA', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -178,6 +188,14 @@ CREATE TABLE `kurir_customers` (
   `user_created` varchar(8) NOT NULL,
   `user_updated` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kurir_customers`
+--
+
+INSERT INTO `kurir_customers` (`id`, `kantor_id`, `nama`, `jenis_kelamin`, `no_telp`, `alamat`, `status`, `nopol`, `password`, `created_at`, `updated_at`, `is_deleted`) VALUES
+('kurir01', 'kantor02', 'kurirsatu', 'p', '', '', '0', 'L 1123 PT', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0),
+('kurir02', 'kantor01', 'kurirdua', '', '', '', '0', 'L 1131 CD', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 

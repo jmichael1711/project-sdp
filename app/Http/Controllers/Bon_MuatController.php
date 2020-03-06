@@ -11,7 +11,7 @@ class Bon_MuatController extends Controller
 
     public function create() {
         $nextId = Bon_Muat::getNextId();
-        $allKantor = Kantor::getAll()->get();
+        $allKota = Kota::getAll()->get();
 
         return view('master.bonmuat.create',compact('nextId','allKantor'));
     }
