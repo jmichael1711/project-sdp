@@ -34,7 +34,7 @@ Page ini adalah untuk menambah bon muat baru.
                                 <label class="">ID Bon Muat</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id_pengiriman_customer" id="" 
-                                type="text" class="form-control" value="{{$nextId}}" disabled>
+                                type="text" class="form-control" value="{{$nextId}}" readonly>
                             </div>
                         </div>
                     </div>
@@ -89,7 +89,7 @@ Page ini adalah untuk menambah bon muat baru.
                         <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">Kurir</label>
-                                <select name="kota" class="form-control">
+                                <select name="kota" class="form-control" id="kurir">
                                     {{-- @foreach ($listKota as $i)
                                         <option class="form-control" value="{{$i}}">{{$i}}</option>
                                     @endforeach --}}
@@ -137,12 +137,13 @@ Page ini adalah untuk menambah bon muat baru.
         var idKota = $('#kotaAsal').val();
         refreshKantor(idKota,"Asal");
         refreshKantor(idKota,"Tujuan");
-
+        refreshKurir();
     })
 
     function isiKantor(posisi){
         var idKota = $('#kota'+posisi).val();
         refreshKantor(idKota,posisi);
+        refreshKurir();
     }
     
     function refreshKantor(idKota, posisi){
@@ -158,47 +159,65 @@ Page ini adalah untuk menambah bon muat baru.
                     $('#kantor'+posisi).html('<option>-- TIDAK ADA KANTOR --</option>');
                 @endif
             }
-        @endfor
-        
+        @endfor        
+    }
+
+    function refreshKurir(){
         @php
             $kantorAsal = '';
             $kantorTujuan = '';
         @endphp
         @for($i = 0; $i< $allKota->count(); $i++)
             if($("#kotaAsal").val() == '{{$allKota[$i]->nama}}'){
+                alert('Kota Asal :  '+$("#kotaAsal").val() + ' - {{$allKota[$i]->nama}}');
                 @php
                     $allKantorAsal = $allKota[$i]->kantor;             
                 @endphp
                 @foreach($allKantorAsal as $kantor)
-                    if('{{$kantor->alamat}}' == $("#kantorAsal").val()){
+                    alert('Kantor : {{$kantor->id}} - ' + $("#kantorAsal").val());
+                    if('{{$kantor->id}}' == $("#kantorAsal").val()){
                         @php
                             $kantorAsal = $kantor;
                         @endphp
                     }
+                    alert('Hasil Kantor Asal : ' + '{{$kantorAsal->id}}');
                 @endforeach   
             }
             if($("#kotaTujuan").val() == '{{$allKota[$i]->nama}}'){
+                alert('Kota Tujuan :  '+$("#kotaTujuan").val() + ' - {{$allKota[$i]->nama}}');
                 @php
                     $allKantorTujuan = $allKota[$i]->kantor;
                 @endphp
                 @foreach($allKantorTujuan as $kantor)
-                    if('{{$kantor->alamat}}' == $("#kantorTujuan").val()){
+                    alert('Kantor : {{$kantor->id}} - ' + $("#kantorTujuan").val());
+                    if('{{$kantor->id}}' == $("#kantorTujuan").val()){
                         @php
                             $kantorTujuan = $kantor;
                         @endphp
                     }
-                @endforeach
-            }
-        @endfor
-        if('{{$kantorAsal->alamat}}' != '' && '{{$kantorTujuan->alamat}}' != ''){
+                    alert('Hasil Kantor Tujuan : ' + '{{$kantorTujuan->id}}');
+                    alert('Hasil Kantor Asal 2 : ' + '{{$kantorAsal->id}} - ' + '{{$kantorAsal->alamat}}');
+                    alert('Hasil Kantor Tujuan 2 : ' + '{{$kantorTujuan->id}} - ' + '{{$kantorTujuan->alamat}}');
+        $("#kurir").html('');
+        if('{{$kantorAsal->alamat}}' != '' && '{{$kantorTujuan->alamat}}' != 'null'){
+            alert('Masuk : {{$kantorAsal->id}} - ' + '{{$kantorTujuan->id}}');
             @foreach($allKurir as $kurir)
                 @php
                     $id1= $kantorAsal->id;
                     $id2 = $kantorTujuan->id;
-                    $allSortKurir = $kurir->sortKurir($id1,$id2);
+                    // dd('View : '.$id1.$id2);
+                    $realKurir = $kurir->sortKurir($id1,$id2);
+                    
                 @endphp
+                @if($realKurir == true)
+                    console.log("{{$kurir->nama}}");
+                    $("#kurir").append('<option class="form-control" value="{{$kurir->id}}">{{$kurir->nama}}</option>');  
+                @endif
             @endforeach
         }
+                @endforeach
+            }
+        @endfor
     }
 
 </script>
