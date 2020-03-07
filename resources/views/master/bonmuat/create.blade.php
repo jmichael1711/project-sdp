@@ -170,10 +170,8 @@ Page ini adalah untuk menambah bon muat baru.
         var foundAsal = false;
         var foundTujuan = false;
         @for($i = 0; $i< $allKota->count(); $i++)
-        alert('Kantor Asal : ' + '{{$kantorAsal}}');
         alert('Kota Asal :  '+$("#kotaAsal").val() + ' - {{$allKota[$i]->nama}}');
         alert('Kota Tujuan :  '+$("#kotaTujuan").val() + ' - {{$allKota[$i]->nama}}');
-        alert(foundAsal);
             if($("#kotaAsal").val() == '{{$allKota[$i]->nama}}' && foundAsal == false){
                 alert('Kota asal sama');
                 @php
@@ -186,8 +184,8 @@ Page ini adalah untuk menambah bon muat baru.
                             $kantorAsal = $kantor;
                         @endphp
                         foundAsal = true;
+                        alert('Hasil Kantor Asal : ' + '{{$kantorAsal->id}}');
                     }
-                    alert('Hasil Kantor Asal : ' + '{{$kantorAsal->id}}');
                 @endforeach   
             }if($("#kotaTujuan").val() == '{{$allKota[$i]->nama}}' && foundTujuan == false){
                alert('Kota tujuan sama');
