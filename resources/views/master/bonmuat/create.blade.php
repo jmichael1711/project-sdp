@@ -167,57 +167,67 @@ Page ini adalah untuk menambah bon muat baru.
             $kantorAsal = '';
             $kantorTujuan = '';
         @endphp
+        var foundAsal = false;
+        var foundTujuan = false;
         @for($i = 0; $i< $allKota->count(); $i++)
-            if($("#kotaAsal").val() == '{{$allKota[$i]->nama}}'){
-                alert('Kota Asal :  '+$("#kotaAsal").val() + ' - {{$allKota[$i]->nama}}');
+        alert('Kantor Asal : ' + '{{$kantorAsal}}');
+        alert('Kota Asal :  '+$("#kotaAsal").val() + ' - {{$allKota[$i]->nama}}');
+        alert('Kota Tujuan :  '+$("#kotaTujuan").val() + ' - {{$allKota[$i]->nama}}');
+        alert(foundAsal);
+            if($("#kotaAsal").val() == '{{$allKota[$i]->nama}}' && foundAsal == false){
+                alert('Kota asal sama');
                 @php
                     $allKantorAsal = $allKota[$i]->kantor;             
                 @endphp
                 @foreach($allKantorAsal as $kantor)
-                    alert('Kantor : {{$kantor->id}} - ' + $("#kantorAsal").val());
+                    alert('Kantor : '+$("#kantorAsal").val() + ' - {{$kantor->id}} ');
                     if('{{$kantor->id}}' == $("#kantorAsal").val()){
                         @php
                             $kantorAsal = $kantor;
                         @endphp
+                        foundAsal = true;
                     }
                     alert('Hasil Kantor Asal : ' + '{{$kantorAsal->id}}');
                 @endforeach   
-            }
-            if($("#kotaTujuan").val() == '{{$allKota[$i]->nama}}'){
-                alert('Kota Tujuan :  '+$("#kotaTujuan").val() + ' - {{$allKota[$i]->nama}}');
+            }if($("#kotaTujuan").val() == '{{$allKota[$i]->nama}}' && foundTujuan == false){
+               alert('Kota tujuan sama');
                 @php
                     $allKantorTujuan = $allKota[$i]->kantor;
                 @endphp
                 @foreach($allKantorTujuan as $kantor)
-                    alert('Kantor : {{$kantor->id}} - ' + $("#kantorTujuan").val());
+                    alert('Kantor : '+$("#kantorTujuan").val() + ' - {{$kantor->id}}');
                     if('{{$kantor->id}}' == $("#kantorTujuan").val()){
                         @php
                             $kantorTujuan = $kantor;
                         @endphp
+                        foundTujuan = true;
+                        alert('Hasil Kantor Tujuan : ' + '{{$kantorTujuan->id}}');
                     }
-                    alert('Hasil Kantor Tujuan : ' + '{{$kantorTujuan->id}}');
-                    alert('Hasil Kantor Asal 2 : ' + '{{$kantorAsal->id}} - ' + '{{$kantorAsal->alamat}}');
-                    alert('Hasil Kantor Tujuan 2 : ' + '{{$kantorTujuan->id}} - ' + '{{$kantorTujuan->alamat}}');
-        $("#kurir").html('');
-        if('{{$kantorAsal->alamat}}' != '' && '{{$kantorTujuan->alamat}}' != 'null'){
-            alert('Masuk : {{$kantorAsal->id}} - ' + '{{$kantorTujuan->id}}');
-            @foreach($allKurir as $kurir)
-                @php
-                    $id1= $kantorAsal->id;
-                    $id2 = $kantorTujuan->id;
-                    // dd('View : '.$id1.$id2);
-                    $realKurir = $kurir->sortKurir($id1,$id2);
-                    
-                @endphp
-                @if($realKurir == true)
-                    console.log("{{$kurir->nama}}");
-                    $("#kurir").append('<option class="form-control" value="{{$kurir->id}}">{{$kurir->nama}}</option>');  
-                @endif
-            @endforeach
-        }
                 @endforeach
             }
+            alert('Hasil Kantor Asal 2 : ' + '{{$kantorAsal->id}} - ' + '{{$kantorAsal->alamat}}');
+            alert('Hasil Kantor Tujuan 2 : ' + '{{$kantorTujuan->id}} - ' + '{{$kantorTujuan->alamat}}');
+            alert(foundAsal + ' - ' + foundTujuan);
+            alert('{{$i}}' + ' - ' + '{{$allKota->count()}}');
+            
         @endfor
+        
+        $("#kurir").html('');
+        alert('Masuk 1 : {{$kantorAsal->id}} - ' + '{{$kantorTujuan->id}}');
+        if('{{$kantorAsal->id}}' != '' && '{{$kantorTujuan->id}}' != 'null'){
+            alert('Masuk 2 : {{$kantorAsal->id}} - ' + '{{$kantorTujuan->id}}');
+            @foreach($allKurir as $kurir) 
+                @php
+                    $realKurir = $kurir->sortKurir($kantorAsal->id,$kantorTujuan->id);
+                @endphp
+                
+                alert("Real Kurir : {{$realKurir}}");
+                if('{{$realKurir}}'== '1'){
+                    console.log("{{$kurir->nama}}");
+                    $("#kurir").append('<option class="form-control" value="{{$kurir->id}}">{{$kurir->nama}}</option>');  
+                }
+            @endforeach
+        }
     }
 
 </script>

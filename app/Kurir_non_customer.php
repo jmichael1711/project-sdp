@@ -38,10 +38,7 @@ class Kurir_non_customer extends Model
                 return true;
             }
         }else if($this->posisi_di_kantor_1 == 0){
-            // dd('Kantor Asal : '.$this->kantor_2_id.' - '.$kantorAsalId);
-            // dd('Kantor Tujuan : '.$this->kantor_1_id.' - '.$kantorTujuanId);
             if($this->kantor_1_id == $kantorTujuanId && $this->kantor_2_id == $kantorAsalId){
-                dd('Model : '.$kantorAsalId.' - '.$kantorTujuanId);
                 return true;
             }
         }else{
