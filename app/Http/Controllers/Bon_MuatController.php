@@ -13,10 +13,9 @@ class Bon_MuatController extends Controller
     public function create() {
         $nextId = Bon_Muat::getNextId();
         $allKota = Kota::getAll()->get();
-        $allKurir = Kurir_non_customer::getAll();
+        $allKurir = Kurir_non_customer::getAll()->get();
         return view('master.bonmuat.create',compact('nextId','allKota','allKurir'));
     }
-
 
     public function store(Request $request) {
         $request = $request->all();

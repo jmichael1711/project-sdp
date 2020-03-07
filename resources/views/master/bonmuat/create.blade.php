@@ -159,7 +159,11 @@ Page ini adalah untuk menambah bon muat baru.
                 @endif
             }
         @endfor
-     
+        
+        @php
+            $kantorAsal = '';
+            $kantorTujuan = '';
+        @endphp
         @for($i = 0; $i< $allKota->count(); $i++)
             if($("#kotaAsal").val() == '{{$allKota[$i]->nama}}'){
                 @php
@@ -181,15 +185,20 @@ Page ini adalah untuk menambah bon muat baru.
                     if('{{$kantor->alamat}}' == $("#kantorTujuan").val()){
                         @php
                             $kantorTujuan = $kantor;
-                            //error
-                            $allSortKurir = $allKurir->sortKurir($kantorAsal,$kantorTujuan);
-                            //error
                         @endphp
                     }
                 @endforeach
             }
         @endfor
-            
+        if('{{$kantorAsal->alamat}}' != '' && '{{$kantorTujuan->alamat}}' != ''){
+            @foreach($allKurir as $kurir)
+                @php
+                    $id1= $kantorAsal->id;
+                    $id2 = $kantorTujuan->id;
+                    $allSortKurir = $kurir->sortKurir($id1,$id2);
+                @endphp
+            @endforeach
+        }
     }
 
 </script>
