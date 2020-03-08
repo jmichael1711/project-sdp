@@ -110,7 +110,7 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::get('/admin', function () {
         echo 'IKI ADMIN YO';
     });
-    
+
     //ADMIN - KANTOR
     Route::get('/admin/kantor', 'KantorController@index');
     Route::get('/admin/kantor/create', 'KantorController@create');
@@ -138,6 +138,15 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::post('/admin/pengirimanCustomer/store', 'PengirimanCustomerController@store');
     Route::get('/admin/pengirimanCustomer/edit', 'PengirimanCustomerController@edit');
     Route::post('/admin/pengirimanCustomer/update', 'PengirimanCustomerController@update');
+
+    //ADMIN - KOTA
+    Route::get('/admin/kota', 'KotaController@index');
+    Route::get('/admin/kota/create', 'KotaController@create');
+    Route::post('/admin/kota/store', 'KotaController@store');
+    Route::get('/admin/kota/edit/{id}', 'KotaController@edit');
+    Route::post('/admin/kota/update/{id}', 'KotaController@update');
+
+
 });
 
 

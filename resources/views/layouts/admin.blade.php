@@ -20,8 +20,8 @@
     =========================================================
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
-    
-    <link href="{{asset('css/libs.css')}}" rel="stylesheet">    
+
+    <link href="{{asset('css/libs.css')}}" rel="stylesheet">
     <link href="{{asset('DataTables/datatables.min.css')}}" rel="stylesheet">
     @yield('styles')
 <body>
@@ -56,8 +56,8 @@
                         </span>
                     </button>
                 </span>
-            </div>    
-            
+            </div>
+
             <div class="app-header__content">
                 <div class="app-header-left">
                     <!-- <div class="search-wrapper">
@@ -74,7 +74,7 @@
                                 Go to Website
                             </a>
                         </li>
-                    </ul>  
+                    </ul>
                 </div>
                 <div class="app-header-right">
                     <div class="header-btn-lg pr-0">
@@ -100,8 +100,8 @@
                         </div>
                     </div>        </div>
             </div>
-        </div> 
-        <!-- Theme Settings -->       
+        </div>
+        <!-- Theme Settings -->
         <div class="ui-theme-settings">
             <!-- uncomment to use theme settings -->
             <!-- <button type="button" id="TooltipDemo" class="btn-open-options btn btn-warning">
@@ -194,8 +194,8 @@
                     </div>
                 </div>
             </div>
-        </div>    
-        <!-- Theme Setting End-->     
+        </div>
+        <!-- Theme Setting End-->
         <div class="app-main">
                 <div class="app-sidebar sidebar-shadow bg-midnight-bloom sidebar-text-light">
                     <div class="app-header__logo">
@@ -227,7 +227,7 @@
                                 </span>
                             </button>
                         </span>
-                    </div>    
+                    </div>
                     <!-- SCROLLBAR -->
                     <div class="scrollbar-sidebar">
                         <div class="app-sidebar__inner">
@@ -240,6 +240,30 @@
                                     </a>
                                 </li>
                                 <li class="app-sidebar__heading">Contents</li>
+
+                                {{-- SIDEBAR - KOTA --}}
+                                <li id="upperlist-kantor">
+                                    <a id="btn-kota" href="">
+                                        <i class="metismenu-icon pe-7s-study"></i>
+                                            Kota
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    <ul id="list-kantor">
+                                        <li>
+                                            <a id="header-kota" href="{{ url('/admin/kota') }}">
+                                                <i class="metismenu-icon"></i>
+                                                List Kota
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a id="header-tambah-kota" href="{{ url('/admin/kota/create') }}">
+                                                <i class="metismenu-icon">
+                                                </i>
+                                                Tambah kota
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
 
                                 {{-- SIDEBAR - KANTOR --}}
                                 <li id="upperlist-kantor">
@@ -336,7 +360,7 @@
                                         </li>
                                     </ul>
                                 </li>
-                               
+
                                 <li class="app-sidebar__heading">Report</li>
                                 <li>
                                     <a id="header-report-ebooks" href="/admin/report/ebooks">
@@ -372,8 +396,8 @@
                                 </div>
                             </div>
                         </div>
-                        @yield('content')            
-                        
+                        @yield('content')
+
                     </div>
                     <div class="app-wrapper-footer">
                         <div class="app-footer">
