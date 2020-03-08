@@ -23,9 +23,6 @@ use App\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('/create', function () {
     $kantor['id'] = "aaaaa";
@@ -96,32 +93,52 @@ Route::get('/admin', function () {
     return view('testadmin');
 });
 
+//FREE ROUTE
+Route::get('/logout', 'LoginController@logout')->name('logout');
 
-//ADMIN - KANTOR
-Route::get('/admin/kantor', 'KantorController@index');
-Route::get('/admin/kantor/create', 'KantorController@create');
-Route::post('/admin/kantor/store', 'KantorController@store');
-Route::get('/admin/kantor/edit/{id}', 'KantorController@edit');
-Route::post('/admin/kantor/update/{id}', 'KantorController@update');
+//INSIDE GUEST GROUP
+Route::group(['middleware' => ['checkstatus:guest']], function () {
+    //LOGIN
+    Route::get('/', 'LoginController@index');
+    Route::get('/login', 'LoginController@index');
+    Route::post('/attemptlogin', 'LoginController@attemptLogin');
+});
 
-//ADMIN - KENDARAAN
-Route::get('/admin/kendaraan', 'KendaraanController@index');
-Route::get('/admin/kendaraan/create', 'KendaraanController@create');
-Route::post('/admin/kendaraan/store', 'KendaraanController@store');
-Route::get('/admin/kendaraan/edit/{id}', 'KendaraanController@edit');
-Route::post('/admin/kendaraan/update/{id}', 'KendaraanController@update');
+//INSIDE ADMIN GROUP
+Route::group(['middleware' => ['checkstatus:admin']], function () {
+    //INDEX
+    Route::get('/admin', function () {
+        echo 'IKI ADMIN YO';
+    });
+    
+    //ADMIN - KANTOR
+    Route::get('/admin/kantor', 'KantorController@index');
+    Route::get('/admin/kantor/create', 'KantorController@create');
+    Route::post('/admin/kantor/store', 'KantorController@store');
+    Route::get('/admin/kantor/edit/{id}', 'KantorController@edit');
+    Route::post('/admin/kantor/update/{id}', 'KantorController@update');
 
-//ADMING - BON MUAT
-Route::get('/admin/bonmuat','Bon_MuatController@index');
-Route::get('/admin/bonmuat/create', 'Bon_MuatController@create');
-Route::post('/admin/bonmuat/store', 'Bon_MuatController@store');
-Route::get('/admin/bonmuat/edit', 'Bon_MuatController@edit');
-Route::post('/admin/bonmuat/update', 'Bon_MuatController@update');
+    //ADMIN - KENDARAAN
+    Route::get('/admin/kendaraan', 'KendaraanController@index');
+    Route::get('/admin/kendaraan/create', 'KendaraanController@create');
+    Route::post('/admin/kendaraan/store', 'KendaraanController@store');
+    Route::get('/admin/kendaraan/edit/{id}', 'KendaraanController@edit');
+    Route::post('/admin/kendaraan/update/{id}', 'KendaraanController@update');
 
-//ADMIN - PENGIRIMAN CUSTOMER
-Route::get('/admin/pengirimanCustomer', 'PengirimanCustomerController@index');
-Route::get('/admin/pengirimanCustomer/create', 'PengirimanCustomerController@create');
-Route::post('/admin/pengirimanCustomer/store', 'PengirimanCustomerController@store');
-Route::get('/admin/pengirimanCustomer/edit', 'PengirimanCustomerController@edit');
-Route::post('/admin/pengirimanCustomer/update', 'PengirimanCustomerController@update');
+    //ADMING - BON MUAT
+    Route::get('/admin/bonmuat','Bon_MuatController@index');
+    Route::get('/admin/bonmuat/create', 'Bon_MuatController@create');
+    Route::post('/admin/bonmuat/store', 'Bon_MuatController@store');
+    Route::get('/admin/bonmuat/edit', 'Bon_MuatController@edit');
+    Route::post('/admin/bonmuat/update', 'Bon_MuatController@update');
+
+    //ADMIN - PENGIRIMAN CUSTOMER
+    Route::get('/admin/pengirimanCustomer', 'PengirimanCustomerController@index');
+    Route::get('/admin/pengirimanCustomer/create', 'PengirimanCustomerController@create');
+    Route::post('/admin/pengirimanCustomer/store', 'PengirimanCustomerController@store');
+    Route::get('/admin/pengirimanCustomer/edit', 'PengirimanCustomerController@edit');
+    Route::post('/admin/pengirimanCustomer/update', 'PengirimanCustomerController@update');
+});
+
+
 
