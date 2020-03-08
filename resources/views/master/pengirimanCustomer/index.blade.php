@@ -22,7 +22,7 @@ Page ini adalah untuk menampilkan semua pengiriman customer.
             Session::forget('success');
         @endphp
     @endif
-    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel"> 
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
