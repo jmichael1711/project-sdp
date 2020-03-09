@@ -384,6 +384,30 @@
                                         </li>
                                     </ul>
                                 </li>
+                
+                                {{-- SIDEBAR - SURAT JALAN --}}
+                                <li id="upperlist-bonmuat">
+                                    <a id="btn-bonmuat" href="">
+                                        <i class="metismenu-icon pe-7s-study"></i>
+                                            Surat Jalan
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    <ul id="list-bonmuat">
+                                        <li>
+                                            <a id="header-bonmuat" href="{{ url('/admin/suratJalan') }}">
+                                                <i class="metismenu-icon"></i>
+                                                List Surat Jalan
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a id="header-tambah-bonmuat" href="{{ url('/admin/suratJalan/create') }}">
+                                                <i class="metismenu-icon">
+                                                </i>
+                                                Tambah Surat Jalan
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
 
                                 <li class="app-sidebar__heading">Report</li>
                                 <li>

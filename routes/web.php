@@ -131,6 +131,7 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::post('/admin/bonmuat/store', 'Bon_MuatController@store');
     Route::get('/admin/bonmuat/edit', 'Bon_MuatController@edit');
     Route::post('/admin/bonmuat/update', 'Bon_MuatController@update');
+    Route::post('/admin/bonmuat/findKurir', 'Bon_MuatController@findKurir');
 
     //ADMIN - PENGIRIMAN CUSTOMER
     Route::get('/admin/pengirimanCustomer', 'PengirimanCustomerController@index');
@@ -153,8 +154,16 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::get('/admin/pesanan/edit/{id}', 'PesananController@edit');
     Route::post('/admin/pesanan/update/{id}', 'PesananController@update');
 
+    //ADMIN - SURAT JALAN
+    Route::get('/admin/suratJalan','suratJalanController@index');
+    Route::get('/admin/suratJalan/create', 'suratJalanController@create');
+    Route::post('/admin/suratjalan/store', 'suratJalanController@store');
+    Route::get('/admin/suratJalan/edit', 'suratJalanController@edit');
+    Route::post('/admin/suratJalan/update', 'suratJalanController@update');
+
 
 });
+
 
 
 
