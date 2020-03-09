@@ -146,6 +146,13 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::get('/admin/kota/edit/{id}', 'KotaController@edit');
     Route::post('/admin/kota/update/{id}', 'KotaController@update');
 
+    //ADMIN - Pesanan
+    Route::get('/admin/pesanan', 'PesananController@index');
+    Route::get('/admin/pesanan/create', 'PesananController@create');
+    Route::post('/admin/pesanan/store', 'PesananController@store');
+    Route::get('/admin/pesanan/edit/{id}', 'PesananController@edit');
+    Route::post('/admin/pesanan/update/{id}', 'PesananController@update');
+
 
 });
 

@@ -30,7 +30,7 @@ class KotaController extends Controller
             $success = "kota berhasil di-tambahkan";
             Session::put('success-kota', $success);
         }else {
-            $failed = "kota gagal di-tambahkan";
+            $failed = "Nama kota sudah terdaftar";
             Session::put('failed-kota', $failed);
         }
 
@@ -43,13 +43,13 @@ class KotaController extends Controller
         return view('master.kota.edit', compact('listKota', 'kota'));
     }
 
-    public function update($id, Request $request) {
+    public function update($nama, Request $request) {
         $request = $request->all();
-        $kantor = Kantor::findOrFail($id);
+        $kota = kota::findOrFail($nama);
         $request['user_updated'] = Session::get('id');
-        $kantor->update($request);
-        $success = 'Kantor berhasil diubah.';
-        Session::put('success-kantor', $success);
-        return redirect('/admin/kantor');
+        $kota->update($request);
+        $success = "Kota $nama berhasil diupdate.";
+        Session::put('success-kota', $success);
+        return redirect('/admin/kota');
     }
 }

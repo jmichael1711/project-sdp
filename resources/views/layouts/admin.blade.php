@@ -313,6 +313,30 @@
                                     </ul>
                                 </li>
 
+                                {{-- SIDEBAR - Pesanan --}}
+                                <li id="upperlist-pesanan">
+                                    <a id="btn-pesanan" href="">
+                                        <i class="metismenu-icon pe-7s-study"></i>
+                                            Pesanan
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    <ul id="list-pesanan">
+                                        <li>
+                                            <a id="header-pesanan" href="{{ url('/admin/pesanan') }}">
+                                                <i class="metismenu-icon"></i>
+                                                Semua Pesanan
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a id="header-tambah-pesanan" href="{{ url('/admin/pesanan/create') }}">
+                                                <i class="metismenu-icon">
+                                                </i>
+                                                Tambah Pesanan
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
                                 {{-- SIDEBAR - PENGIRIMAN CUSTOMER --}}
                                 <li id="upperlist-pengirimanCustomer">
                                     <a id="btn-pengirimanCustomer" href="">

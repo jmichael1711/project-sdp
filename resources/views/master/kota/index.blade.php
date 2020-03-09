@@ -13,6 +13,15 @@ Page ini adalah untuk melihat semua Kota
 @endsection
 
 @section('content')
+<div class="tab-content">
+    @if (Session::has('success-kota'))
+        <ul class="list-group mb-2">
+            <li class="list-group-item-success list-group-item">{{Session::get('success-kota')}}</li>
+        </ul>
+        @php
+            Session::forget('success-kota');
+        @endphp
+    @endif
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div class="card-body">
@@ -23,7 +32,7 @@ Page ini adalah untuk melihat semua Kota
                             <th>Status</th>
                         </tr>
                         @foreach ($kota as $city)
-                            <tr onclick="editKota({{$city['nama']}})">
+                            <tr onclick='editKota("{{$city->nama}}")'>
                                 <td>{{$city['nama']}}</td>
                                 @if ($city['is_deleted'] == 1)
                                 <td class="bg-danger text-center text-white">NOT ACTIVE</td>
@@ -37,6 +46,7 @@ Page ini adalah untuk melihat semua Kota
             </div>
         </div>
     </div>
+</div>
 @endsection
 
 @section('scripts')
