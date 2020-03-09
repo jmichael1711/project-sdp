@@ -27,7 +27,8 @@ Page ini adalah untuk menambah bon muat baru.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/store" enctype="multipart/form-data">
-                @csrf
+                {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> --}}
+                    {{ {{ csrf_field() }} }}
                     <div class="form-row">
                         <div class="col-md-5">
                             <div class="position-relative form-group">
@@ -163,69 +164,16 @@ Page ini adalah untuk menambah bon muat baru.
     }
 
     function refreshKurir(){
-        @php
-            $kantorAsal = '';
-            $kantorTujuan = '';
-        @endphp
-        var foundAsal = false;
-        var foundTujuan = false;
-        @for($i = 0; $i< $allKota->count(); $i++)
-        alert('Kota Asal :  '+$("#kotaAsal").val() + ' - {{$allKota[$i]->nama}}');
-        alert('Kota Tujuan :  '+$("#kotaTujuan").val() + ' - {{$allKota[$i]->nama}}');
-            if($("#kotaAsal").val() == '{{$allKota[$i]->nama}}' && foundAsal == false){
-                alert('Kota asal sama');
-                @php
-                    $allKantorAsal = $allKota[$i]->kantor;             
-                @endphp
-                @foreach($allKantorAsal as $kantor)
-                    alert('Kantor : '+$("#kantorAsal").val() + ' - {{$kantor->id}} ');
-                    if('{{$kantor->id}}' == $("#kantorAsal").val()){
-                        @php
-                            $kantorAsal = $kantor;
-                        @endphp
-                        foundAsal = true;
-                        alert('Hasil Kantor Asal : ' + '{{$kantorAsal->id}}');
-                    }
-                @endforeach   
-            }if($("#kotaTujuan").val() == '{{$allKota[$i]->nama}}' && foundTujuan == false){
-               alert('Kota tujuan sama');
-                @php
-                    $allKantorTujuan = $allKota[$i]->kantor;
-                @endphp
-                @foreach($allKantorTujuan as $kantor)
-                    alert('Kantor : '+$("#kantorTujuan").val() + ' - {{$kantor->id}}');
-                    if('{{$kantor->id}}' == $("#kantorTujuan").val()){
-                        @php
-                            $kantorTujuan = $kantor;
-                        @endphp
-                        foundTujuan = true;
-                        alert('Hasil Kantor Tujuan : ' + '{{$kantorTujuan->id}}');
-                    }
-                @endforeach
-            }
-            alert('Hasil Kantor Asal 2 : ' + '{{$kantorAsal->id}} - ' + '{{$kantorAsal->alamat}}');
-            alert('Hasil Kantor Tujuan 2 : ' + '{{$kantorTujuan->id}} - ' + '{{$kantorTujuan->alamat}}');
-            alert(foundAsal + ' - ' + foundTujuan);
-            alert('{{$i}}' + ' - ' + '{{$allKota->count()}}');
-            
-        @endfor
-        
-        $("#kurir").html('');
-        alert('Masuk 1 : {{$kantorAsal->id}} - ' + '{{$kantorTujuan->id}}');
-        if('{{$kantorAsal->id}}' != '' && '{{$kantorTujuan->id}}' != 'null'){
-            alert('Masuk 2 : {{$kantorAsal->id}} - ' + '{{$kantorTujuan->id}}');
-            @foreach($allKurir as $kurir) 
-                @php
-                    $realKurir = $kurir->sortKurir($kantorAsal->id,$kantorTujuan->id);
-                @endphp
-                
-                alert("Real Kurir : {{$realKurir}}");
-                if('{{$realKurir}}'== '1'){
-                    console.log("{{$kurir->nama}}");
-                    $("#kurir").append('<option class="form-control" value="{{$kurir->id}}">{{$kurir->nama}}</option>');  
-                }
-            @endforeach
-        }
+        var kantorAsal = $('#kantorAsal').val();
+        var kantorTujuan = $('#kantorTujuan').val();
+        $.ajax({
+            method : "POST",
+            action : "{{ url('/fetch') }}",
+            data : { kantorAsal : kantorAsal,kantorTujuan : kantorTujuan, _token : "{{ csrf_token() }}" },
+            success : 
+        });
+    }
+
     }
 
 </script>

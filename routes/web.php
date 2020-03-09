@@ -111,12 +111,13 @@ Route::post('/admin/kendaraan/store', 'KendaraanController@store');
 Route::get('/admin/kendaraan/edit/{id}', 'KendaraanController@edit');
 Route::post('/admin/kendaraan/update/{id}', 'KendaraanController@update');
 
-//ADMING - BON MUAT
+//ADMIN - BON MUAT
 Route::get('/admin/bonmuat','Bon_MuatController@index');
 Route::get('/admin/bonmuat/create', 'Bon_MuatController@create');
 Route::post('/admin/bonmuat/store', 'Bon_MuatController@store');
 Route::get('/admin/bonmuat/edit', 'Bon_MuatController@edit');
 Route::post('/admin/bonmuat/update', 'Bon_MuatController@update');
+Route::post('/admin/bonmuat/findKurir', 'Bon_MuatController@findKurir');
 
 //ADMIN - PENGIRIMAN CUSTOMER
 Route::get('/admin/pengirimanCustomer', 'PengirimanCustomerController@index');
@@ -124,4 +125,11 @@ Route::get('/admin/pengirimanCustomer/create', 'PengirimanCustomerController@cre
 Route::post('/admin/pengirimanCustomer/store', 'PengirimanCustomerController@store');
 Route::get('/admin/pengirimanCustomer/edit', 'PengirimanCustomerController@edit');
 Route::post('/admin/pengirimanCustomer/update', 'PengirimanCustomerController@update');
+
+//ADMIN - SURAT JALAN
+Route::get('/admin/suratJalan','suratJalanController@index');
+Route::get('/admin/suratJalan/create', 'suratJalanController@create');
+Route::post('/admin/suratjalan/store', 'suratJalanController@store');
+Route::get('/admin/suratJalan/edit', 'suratJalanController@edit');
+Route::post('/admin/suratJalan/update', 'suratJalanController@update');
 
