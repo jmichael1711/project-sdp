@@ -27,8 +27,7 @@ Page ini adalah untuk menambah bon muat baru.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/store" enctype="multipart/form-data">
-                {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> --}}
-                    {{ {{ csrf_field() }} }}
+                @csrf
                     <div class="form-row">
                         <div class="col-md-5">
                             <div class="position-relative form-group">
@@ -168,13 +167,16 @@ Page ini adalah untuk menambah bon muat baru.
         var kantorTujuan = $('#kantorTujuan').val();
         $.ajax({
             method : "POST",
-            action : "{{ url('/fetch') }}",
+            url : '/admin/bonmuat/findKurir',
+            datatype : "json",
             data : { kantorAsal : kantorAsal,kantorTujuan : kantorTujuan, _token : "{{ csrf_token() }}" },
-            success : 
+            success: function(result){
+                $('#kurir').html(result);
+            },
+            error: function(){
+                console.log('error');
+            }
         });
     }
-
-    }
-
 </script>
 @endsection 

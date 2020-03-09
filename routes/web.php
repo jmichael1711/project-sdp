@@ -131,6 +131,7 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::post('/admin/bonmuat/store', 'Bon_MuatController@store');
     Route::get('/admin/bonmuat/edit', 'Bon_MuatController@edit');
     Route::post('/admin/bonmuat/update', 'Bon_MuatController@update');
+    Route::post('/admin/bonmuat/findKurir', 'Bon_MuatController@findKurir');
 
     //ADMIN - PENGIRIMAN CUSTOMER
     Route::get('/admin/pengirimanCustomer', 'PengirimanCustomerController@index');

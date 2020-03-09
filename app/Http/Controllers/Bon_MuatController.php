@@ -13,8 +13,7 @@ class Bon_MuatController extends Controller
     public function create() {
         $nextId = Bon_Muat::getNextId();
         $allKota = Kota::getAll()->get();
-        $allKurir = Kurir_non_customer::getAll()->get();
-        return view('master.bonmuat.create',compact('nextId','allKota','allKurir'));
+        return view('master.bonmuat.create',compact('nextId','allKota'));
     }
 
     public function store(Request $request) {
@@ -23,5 +22,23 @@ class Bon_MuatController extends Controller
         $success = "Bon muat berhasil di-inputkan.";
 
         return redirect('/admin/bonmuat/create')->with(['success-bonmuat' => $success]);
+    }
+
+    public function findKurir(Request $request){
+        $allKurir = Kurir_non_customer::sortKurir($request->kantorAsal,$request->kantorTujuan);
+        $str = '';
+        foreach($allKurir as $kurir){
+            $str .= '<option class="form-control" value="'.$kurir->id.'">'.$kurir->nama.'</option>';
+        }
+        return $str;
+        // return response()->json(['allKurir' => $allKurir])->setStatusCode(200);
+       
+    }
+
+    public function fetch(Request $request)
+    {
+        return response()->json([
+            'sdsd' => "assdd"
+        ])->setStatusCode(200);
     }
 }

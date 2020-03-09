@@ -15,10 +15,5 @@ class suratJalanController extends Controller
         return view('master.suratJalan.create',compact('allBonMuat','allResi'));
     }
 
-    public function fetch(Request $request)
-    {
-        return response()->json([
-            'sdsd' => "assdd"
-        ])->setStatusCode(200);
-    }
+   
 }
