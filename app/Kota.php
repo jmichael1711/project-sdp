@@ -17,6 +17,17 @@ class Kota extends Model
         return $this->hasMany('App\Kantor', 'kota', 'nama');
     }
 
+    public static function cek($nama){
+        $kota = kota::All();
+        $boleh = true;
+        foreach ($kota as $city){
+            if($city['nama'] == $nama){
+                $boleh = false;
+            }
+        }
+        return $boleh;
+    }
+
     public static function getAll(){
         return Kota::where('is_deleted',0);
     }
