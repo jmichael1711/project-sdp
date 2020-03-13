@@ -27,11 +27,11 @@ class Bon_muat extends Model
     }
 
     public function kantor_asal() {
-        return $this->belongsTo('App\Kantor');
+        return $this->belongsTo('App\Kantor','kantor_asal_id');
     }
 
     public function kantor_tujuan() {
-        return $this->belongsTo('App\Kantor');
+        return $this->belongsTo('App\Kantor','kantor_tujuan_id');
     }
 
     public function resis() {

@@ -33,7 +33,7 @@ Page ini adalah untuk mengubah data kantor.
                             <div class="position-relative form-group">
                                 <label class="">ID</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" disabled id="" 
+                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" disabled id=""
                                 placeholder="ID" type="text" class="form-control" value="{{$kantor->id}}" required>
                             </div>
                         </div>
@@ -56,7 +56,7 @@ Page ini adalah untuk mengubah data kantor.
                             <div class="position-relative form-group">
                                 <label class="">Nomor Telepon</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="no_telp" id="" 
+                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="no_telp" id=""
                                 placeholder="NO TELP" type="text" class="form-control" value="{{$kantor->no_telp}}" required>
                                 <div class="invalid-feedback">
                                     Mohon inputkan nomor telepon valid.
@@ -99,7 +99,7 @@ Page ini adalah untuk mengubah data kantor.
                             <div class="position-relative form-group">
                                 <label class="">Longitude</label>
                                 <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="longitude" 
+                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="longitude"
                                 placeholder="0.000000" step="0.000001" type="number" max="999.999999" min="0.000000" class="form-control" value="{{$kantor->longitude}}">
                                 <div class="invalid-feedback">
                                     Mohon inputkan longitude valid. Longitude untuk kantor bisa di search di web.
@@ -110,7 +110,7 @@ Page ini adalah untuk mengubah data kantor.
                             <div class="position-relative form-group">
                                 <label class="">Latitude</label>
                                 <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="latitude" 
+                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="latitude"
                                 placeholder="0.000000" step="0.000001" type="number" max="999.999999" min="0.000000" class="form-control"  value="{{$kantor->latitude}}">
                                 <div class="invalid-feedback">
                                     Mohon inputkan latitude valid. Latitude untuk kantor bisa di search di web.
@@ -125,7 +125,7 @@ Page ini adalah untuk mengubah data kantor.
                                 <select class="form-control" name="is_deleted">
                                     @if ($kantor->is_deleted)
                                         <option selected class="form-control" value="1">NOT ACTIVE</option>
-                                        <option class="form-control" value="0"ACTIVE</option>
+                                        <option class="form-control" value="0">ACTIVE</option>
                                     @else
                                         <option class="form-control" value="1">NOT ACTIVE</option>
                                         <option selected class="form-control" value="0">ACTIVE</option>
@@ -141,12 +141,12 @@ Page ini adalah untuk mengubah data kantor.
                             </div>
                         </div>
                     </div>
-                    
+
                 </form>
             </div>
         </div>
     </div>
-</div>  
+</div>
 @endsection
 
 @section('scripts')
@@ -158,4 +158,4 @@ Page ini adalah untuk mengubah data kantor.
         $("#header-kantor").attr("class", "mm-active");
     })
 </script>
-@endsection 
+@endsection

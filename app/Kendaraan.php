@@ -38,17 +38,16 @@ class Kendaraan extends Model
     }
 
     public static function getNextId() {
-
         if (Kendaraan::count() > 0) {
             $lastObject = Kendaraan::getAll()
             ->select('id')
             ->orderBy('created_at', 'desc')
             ->first()
             ;
-    
+
             $lastId = intval(substr($lastObject->id, 2, 6));
             $lastId = str_pad(strval($lastId + 1), 6, "0", STR_PAD_LEFT);
-    
+
             $newLastId = 'KE' . $lastId;
             return $newLastId;
         } else {

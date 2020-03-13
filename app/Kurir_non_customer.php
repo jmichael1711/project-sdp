@@ -32,20 +32,15 @@ class Kurir_non_customer extends Model
         return Kurir_non_customer::getAll()->count();
     }
 
-    public function sortKurir($kantorAsalId,$kantorTujuanId){
-        if($this->posisi_di_kantor_1 == 1){
-            if($this->kantor_1_id == $kantorAsalId && $this->kantor_2_id == $kantorTujuanId){
-                return true;
-            }
-        }else if($this->posisi_di_kantor_1 == 0){
-            if($this->kantor_1_id == $kantorTujuanId && $this->kantor_2_id == $kantorAsalId){
-                return true;
-            }
-        }else{
-            return false;
-        }
-
-        
+    public static function sortKurir($kantorAsalId,$kantorTujuanId){
+        return Kurir_non_customer::getAll()->when("posisi_kantor_1" == 1, function($query) use ($kantorAsalId,$kantorTujuanId){
+            $query->where("kantor_1_id",$kantorAsalId)
+            ->where("kantor_2_id",$kantorTujuanId);
+        })->when("posisi_kantor_1" == 0,function($query) use ($kantorAsalId,$kantorTujuanId){
+            $query->where("kantor_2_id",$kantorAsalId)
+            ->where("kantor_1_id",$kantorTujuanId);
+        })
+        ->get();   
     }
 
     public static function getNextId() {

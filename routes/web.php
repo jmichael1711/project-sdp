@@ -110,7 +110,7 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::get('/admin', function () {
         echo 'IKI ADMIN YO';
     });
-    
+
     //ADMIN - KANTOR
     Route::get('/admin/kantor', 'KantorController@index');
     Route::get('/admin/kantor/create', 'KantorController@create');
@@ -131,6 +131,7 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::post('/admin/bonmuat/store', 'Bon_MuatController@store');
     Route::get('/admin/bonmuat/edit', 'Bon_MuatController@edit');
     Route::post('/admin/bonmuat/update', 'Bon_MuatController@update');
+    Route::post('/admin/bonmuat/findKurir', 'Bon_MuatController@findKurir');
 
     //ADMIN - PENGIRIMAN CUSTOMER
     Route::get('/admin/pengirimanCustomer', 'PengirimanCustomerController@index');
@@ -145,7 +146,33 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::post('/admin/pegawai/store', 'PegawaiController@store');
     Route::get('/admin/pegawai/edit/{id}', 'PegawaiController@edit');
     Route::post('/admin/pegawai/update/{id}', 'PegawaiController@update');
+    Route::get('/admin/pengirimanCustomer/edit', 'PengirimanCustomerController@edit');
+    Route::post('/admin/pengirimanCustomer/update', 'PengirimanCustomerController@update');
+
+    //ADMIN - KOTA
+    Route::get('/admin/kota', 'KotaController@index');
+    Route::get('/admin/kota/create', 'KotaController@create');
+    Route::post('/admin/kota/store', 'KotaController@store');
+    Route::get('/admin/kota/edit/{id}', 'KotaController@edit');
+    Route::post('/admin/kota/update/{id}', 'KotaController@update');
+
+    //ADMIN - Pesanan
+    Route::get('/admin/pesanan', 'PesananController@index');
+    Route::get('/admin/pesanan/create', 'PesananController@create');
+    Route::post('/admin/pesanan/store', 'PesananController@store');
+    Route::get('/admin/pesanan/edit/{id}', 'PesananController@edit');
+    Route::post('/admin/pesanan/update/{id}', 'PesananController@update');
+
+    //ADMIN - SURAT JALAN
+    Route::get('/admin/suratJalan','suratJalanController@index');
+    Route::get('/admin/suratJalan/create', 'suratJalanController@create');
+    Route::post('/admin/suratjalan/store', 'suratJalanController@store');
+    Route::get('/admin/suratJalan/edit', 'suratJalanController@edit');
+    Route::post('/admin/suratJalan/update', 'suratJalanController@update');
+
+
 });
+
 
 
 
