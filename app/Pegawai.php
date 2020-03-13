@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pegawai extends Model
 {
-    protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $guarded = ['created_at', 'updated_at'];
 
     public $primarykey = "id";
     //id has length 8
     //2 character of PE
     //6 digit of id integer
     //PE000001
-    public $incrementing = true;
+    public $incrementing = false;
 
     public function kantor() {
         return $this->belongsTo('App\Kantor');
@@ -36,7 +36,7 @@ class Pegawai extends Model
             ->orderBy('created_at', 'desc')
             ->first()
             ;
-    
+
             $lastId = intval(substr($lastObject->id, 2, 6));
             $lastId = str_pad(strval($lastId + 1), 6, "0", STR_PAD_LEFT);
     

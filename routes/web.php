@@ -143,6 +143,7 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     //ADMIN - PEGAWAI
     Route::get('/admin/pegawai', 'PegawaiController@index');
     Route::get('/admin/pegawai/create', 'PegawaiController@create');
+    Route::post('/admin/pegawai/isiKantor', 'PegawaiController@isiKantor');
     Route::post('/admin/pegawai/store', 'PegawaiController@store');
     Route::get('/admin/pegawai/edit/{id}', 'PegawaiController@edit');
     Route::post('/admin/pegawai/update/{id}', 'PegawaiController@update');
