@@ -242,13 +242,13 @@
                                 <li class="app-sidebar__heading">Contents</li>
 
                                 {{-- SIDEBAR - KOTA --}}
-                                <li id="upperlist-kantor">
+                                <li id="upperlist-kota">
                                     <a id="btn-kota" href="">
                                         <i class="metismenu-icon pe-7s-study"></i>
                                             Kota
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
-                                    <ul id="list-kantor">
+                                    <ul id="list-kota">
                                         <li>
                                             <a id="header-kota" href="{{ url('/admin/kota') }}">
                                                 <i class="metismenu-icon"></i>

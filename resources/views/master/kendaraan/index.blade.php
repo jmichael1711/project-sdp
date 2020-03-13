@@ -25,7 +25,7 @@ Page ini adalah untuk melihat semua kendaraan.
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div style="overflow-x: auto" class="card-body"><h5 class="card-title">Semua Kendaraan</h5>
-                <table style="min-width: 100%;" class="table table-hover table-responsive bg-light text-dark" id="tableKendaraan">
+                <table style="min-width: 100%;" class="table table-hover table-striped dataTable dtr-inline" id="tableKendaraan">
                     <thead>
                         <th>ID</th>
                         <th>Kantor 1</th>
@@ -44,10 +44,10 @@ Page ini adalah untuk melihat semua kendaraan.
                         @if ($kendaraans)
                             @foreach ($kendaraans as $i)
                             
-                        <tr>
-                            <td> <a href="/admin/kendaraan/edit/{{$i->id}}">{{$i->id}}</a>  </td>
-                            <td>{{$i->kantor_1_id}}</td>
-                            <td>{{$i->kantor_2_id}}</td>
+                        <tr onclick='editKendaraan("{{$i->id}}")'>
+                            <td> {{$i->id}} </td>
+                            <td><a href="/admin/kantor/edit/{{$i->kantor_1_id}}">{{$i->kantor_1_id}}</a> </td>
+                            <td><a href="/admin/kantor/edit/{{$i->kantor_2_id}}">{{$i->kantor_2_id}}</a></td>
                             <td>{{$i->nopol}}</td>
                             @if ($i->status)
                             <td class="bg-danger text-center text-white">
@@ -100,6 +100,10 @@ Page ini adalah untuk melihat semua kendaraan.
         $("#list-kendaraan").attr("class", "mm-collapse mm-show");
         $("#header-kendaraan").attr("class", "mm-active");
     })
+
+    function editKendaraan(id){
+        window.location.href='/admin/kendaraan/edit/' + id;
+    }
 
     var table = $('#tableKendaraan').DataTable({
         "pagingType": 'full_numbers',

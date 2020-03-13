@@ -34,7 +34,7 @@ Page ini adalah untuk mengubah kendaraan.
                                 <label class="">Kota</label>
                                 <select id="kota1" class="form-control" onchange="refreshKantor('kota1', 'kantor1')" required>
                                     @foreach ($listKota as $i)
-                                        @if ($i->nama == $kendaraan->kantor_1->kota)
+                                        @if ($kendaraan->kantor_1 && $i->nama == $kendaraan->kantor_1->kota)
                                             <option selected class="form-control" value="{{$i->nama}}">{{$i->nama}}</option>
                                         @else
                                             <option class="form-control" value="{{$i->nama}}">{{$i->nama}}</option>
@@ -60,7 +60,7 @@ Page ini adalah untuk mengubah kendaraan.
                                 <label class="">Kota</label>
                                 <select id="kota2" class="form-control" onchange="refreshKantor('kota2', 'kantor2')" required>
                                     @foreach ($listKota as $i)
-                                        @if ($i->nama == $kendaraan->kantor_2->kota)
+                                        @if ($kendaraan->kantor_2 && $i->nama == $kendaraan->kantor_2->kota)
                                             <option selected class="form-control" value="{{$i->nama}}">{{$i->nama}}</option>
                                         @else
                                             <option class="form-control" value="{{$i->nama}}">{{$i->nama}}</option>

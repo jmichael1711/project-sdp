@@ -14,6 +14,9 @@ class Kota extends Model
     public $incrementing = false;
 
     public function kantor(){
+        //1. nama yg dituju
+        //2. foreign key
+        //3. primary key model ini
         return $this->hasMany('App\Kantor', 'kota', 'nama');
     }
 
