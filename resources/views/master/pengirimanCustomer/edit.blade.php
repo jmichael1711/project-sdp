@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Pengiriman Customer
+    Edit Pengiriman Customer
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk menambah data pengiriman customer.
+Page ini adalah untuk mengubah data pengiriman customer.
 @endsection
 
 @section('content')
@@ -26,7 +26,7 @@ Page ini adalah untuk menambah data pengiriman customer.
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div class="card-body">
-                <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/store" enctype="multipart/form-data">
+            <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/update/{{$pengirimanCust->id  }}" enctype="multipart/form-data">
                 @csrf
                     <div class="form-row">
                         <div class="col-md-4">
@@ -34,7 +34,7 @@ Page ini adalah untuk menambah data pengiriman customer.
                                 <label class="">ID Pengiriman Customer</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" 
-                                type="text" class="form-control" value="{{$nextId}}" readonly>
+                                type="text" class="form-control" value="{{$pengirimanCust->id}}" readonly>
                             </div>
                         </div>
                     </div>
@@ -43,8 +43,11 @@ Page ini adalah untuk menambah data pengiriman customer.
                             <div class="position-relative form-group">
                                 <label class="">Kota</label>
                                 <select id="kota" class="form-control" onchange='isiKantorAsal()' required>
+                                    <option class="form-control" value="{{$kotaNow}}">{{$kotaNow}}</option>
                                     @foreach ($allKota as $kota)
-                                        <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
+                                        @if($kota->nama != $kotaNow)
+                                            <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -79,12 +82,20 @@ Page ini adalah untuk menambah data pengiriman customer.
                                 <br>
                                 <div class="form-check-inline">
                                     <label class="form-check-label">
-                                      <input type="radio" class="form-check-input" name="menuju_penerima" value="1" checked> Ya
+                                      <input type="radio" class="form-check-input" name="menuju_penerima" value="1"
+                                      @if($pengirimanCust->menuju_penerima == '1')
+                                        checked
+                                      @endif
+                                      > Ya
                                     </label>
                                   </div>
                                   <div class="form-check-inline">
                                     <label class="form-check-label">
-                                      <input type="radio" class="form-check-input" name="menuju_penerima" value="0"> Tidak
+                                      <input type="radio" class="form-check-input" name="menuju_penerima" value="0"
+                                      @if($pengirimanCust->menuju_penerima == '0')
+                                        checked
+                                      @endif
+                                      > Tidak
                                     </label>
                                   </div>
                             </div>
@@ -111,7 +122,7 @@ Page ini adalah untuk menambah data pengiriman customer.
         $("#btn-pengirimanCustomer").attr("aria-expanded", "true");
         $("#list-pengirimanCustomer").attr("class", "mm-collapse mm-show");
         $("#header-pengirimanCustomer").attr("class", "mm-active");
-    })
+    
         var idKota = $('#kota').val();
         refreshCombobox(idKota, "null");
     })
@@ -130,7 +141,7 @@ Page ini adalah untuk menambah data pengiriman customer.
     }
 
     function refreshCombobox(idKota, idKantor){
-        @for ($i = 0; $i < $allKota->count(); $i++)             
+        @for ($i = 0; $i < $allKota->count(); $i++)
             if(idKota == '{{$allKota[$i]->nama}}'){
                 @php
                     $allKantor = $allKota[$i]->kantor;
