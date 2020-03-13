@@ -7,7 +7,9 @@ use App\Kantor;
 use App\Bon_Muat;
 use App\Kota;
 use App\Kurir_non_customer;
+use App\Resi;
 use App\Kendaraan;
+use Illuminate\Support\Facades\Session;
 class Bon_MuatController extends Controller
 {
 
@@ -19,9 +21,12 @@ class Bon_MuatController extends Controller
 
     public function store(Request $request) {
         $request = $request->all();
-        Bon_muat::insert($request);
+        $request['id'] = Bon_muat::getNextId();
+        $user = Session::get('id');
+        $request['user_created'] = $user;
+        $request['user_updated'] = $user;
         $success = "Bon muat berhasil di-inputkan.";
-
+        Bon_muat::create($request);
         return redirect('/admin/bonmuat/create')->with(['success-bonmuat' => $success]);
     }
 
@@ -42,5 +47,17 @@ class Bon_MuatController extends Controller
             }
         }else $str .= '<option class="form-control" value="">-- TIDAK ADA KENDARAAN --</option>';
         return $str;
+    }
+
+    public function index() {
+        $allBonMuat = Bon_muat::getAll()->get();
+        $allResi = Resi::getAll()->get();
+        return view('master.bonmuat.index',compact('allBonMuat','allResi'));
+    }
+
+    public function edit($id) {
+        $allKota = Kota::getAll()->get();
+        $bonmuat = Bon_Muat::findOrFail($id);
+        return view('master.bonmuat.edit', compact('allKota', 'bonmuat'));
     }
 }

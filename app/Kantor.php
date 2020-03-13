@@ -20,8 +20,8 @@ class Kantor extends Model
     public function kendaraans() {
         return $this->hasMany('App\Kendaraan');
     }
-
-    public function kota(){
+    
+    public function getKota(){
         return $this->belongsTo('App\Kota','kota', 'nama');
     }
 

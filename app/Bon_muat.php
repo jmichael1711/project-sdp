@@ -34,6 +34,10 @@ class Bon_muat extends Model
         return $this->belongsTo('App\Kantor','kantor_tujuan_id');
     }
 
+    public function kota_asal(){
+        return kantor_asal()->kota;  
+    }
+
     public function resis() {
         return $this->belongsToMany('App\Resi', 'surat_jalans')
         ->as('surat_jalan')

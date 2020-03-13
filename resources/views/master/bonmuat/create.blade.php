@@ -26,14 +26,14 @@ Page ini adalah untuk menambah bon muat baru.
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div class="card-body">
-                <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/store" enctype="multipart/form-data">
+                <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/store" enctype="multipart/form-data">
                 @csrf
                     <div class="form-row">
                         <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">ID Bon Muat</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id_pengiriman_customer" id="" 
+                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id"  
                                 type="text" class="form-control" value="{{$nextId}}" readonly>
                             </div>
                         </div>
@@ -43,7 +43,7 @@ Page ini adalah untuk menambah bon muat baru.
                         <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">Kota Asal</label>
-                                <select name="kotaAsal" class="form-control" id="kotaAsal" onchange='isiKantor("Asal")'>
+                                <select class="form-control" id="kotaAsal" onchange='isiKantor("Asal")'>
                                     @foreach ($allKota as $kota)
                                         <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
                                     @endforeach
@@ -56,7 +56,7 @@ Page ini adalah untuk menambah bon muat baru.
                         <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">Kantor Asal</label>
-                                <select name="kantorAsal" class="form-control" id="kantorAsal">
+                                <select name="kantor_asal_id" class="form-control" id="kantorAsal" required>
                                 </select>
                             </div>
                         </div>
@@ -66,7 +66,7 @@ Page ini adalah untuk menambah bon muat baru.
                         <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">Kota Tujuan</label>
-                                <select name="kota" class="form-control" id='kotaTujuan' onchange='isiKantor("Tujuan")'>
+                                <select class="form-control" id='kotaTujuan' onchange='isiKantor("Tujuan")'>
                                     @foreach ($allKota as $kota)
                                         <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
                                     @endforeach
@@ -79,7 +79,7 @@ Page ini adalah untuk menambah bon muat baru.
                         <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">Kantor Tujuan</label>
-                                <select name="kota" class="form-control" id="kantorTujuan">
+                                <select name="kantor_tujuan_id" class="form-control" id="kantorTujuan" required>
                                 </select>
                             </div>
                         </div>
@@ -89,7 +89,7 @@ Page ini adalah untuk menambah bon muat baru.
                         <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">Kurir</label>
-                                <select name="kota" class="form-control" id="kurir">
+                                <select name="kurir_non_customer_id" class="form-control" id="kurir" required>
                                 </select>
                             </div>
                         </div>
@@ -99,7 +99,7 @@ Page ini adalah untuk menambah bon muat baru.
                         <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">Kendaraan</label>
-                                <select name="kota" class="form-control" id="kendaraan">
+                                <select name="kendaraan_id" class="form-control" id="kendaraan" required>
                                 </select>
                             </div>
                         </div>
