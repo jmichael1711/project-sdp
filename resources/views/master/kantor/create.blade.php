@@ -85,7 +85,7 @@ Page ini adalah untuk menambah kantor baru.
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="longitude" 
                                 placeholder="0.000000" step="0.000001" type="number" max="999.999999" min="0.000000" class="form-control">
                                 <div class="invalid-feedback">
-                                    Mohon inputkan longitude valid. Longitude untuk kantor bisa di search di web.
+                                    Mohon inputkan longitude valid.
                                 </div>
                             </div>
                         </div>
@@ -96,7 +96,7 @@ Page ini adalah untuk menambah kantor baru.
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="latitude" 
                                 placeholder="0.000000" step="0.000001" type="number" max="999.999999" min="0.000000" class="form-control">
                                 <div class="invalid-feedback">
-                                    Mohon inputkan latitude valid. Latitude untuk kantor bisa di search di web.
+                                    Mohon inputkan latitude valid.
                                 </div>
                             </div>
                         </div>

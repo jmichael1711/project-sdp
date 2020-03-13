@@ -25,12 +25,14 @@ Page ini adalah untuk melihat semua Kota
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div class="card-body">
-                <div class="container">
-                    <table class="table table-hover table-striped dataTable dtr-inline">
+                <table class="table table-hover table-striped dataTable dtr-inline" id="tableKota">
+                    <thead>
                         <tr>
                             <th>Nama</th>
                             <th>Status</th>
                         </tr>
+                    </thead>
+                    <tbody>
                         @foreach ($kota as $city)
                             <tr onclick='editKota("{{$city->nama}}")'>
                                 <td>{{$city['nama']}}</td>
@@ -41,8 +43,9 @@ Page ini adalah untuk melihat semua Kota
                                 @endif
                             </tr>
                         @endforeach
-                    </table>
-                </div>
+                    </tbody>
+                   
+                </table>
             </div>
         </div>
     </div>
@@ -61,5 +64,11 @@ Page ini adalah untuk melihat semua Kota
     function editKota(id){
         window.location.href='/admin/kota/edit/' + id;
     }
+
+    var table = $('#tableKota').DataTable({
+        "pagingType": 'full_numbers',
+        'paging': true,
+        'lengthMenu': [10,25, 50]
+    });
 </script>
 @endsection

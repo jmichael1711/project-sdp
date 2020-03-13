@@ -25,25 +25,24 @@ Page ini adalah untuk menampilkan semua kantor.
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div class="card-body">
-                <div class="container">
-                    <table class="table table-hover table-striped dataTable dtr-inline" id="tableKantor">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Alamat</th>
-                                <th>No. Telp</th>
-                                <th>Kota</th>
-                                <th>Jenis</th>
-                                <th>Longitude</th>
-                                <th>Latitude</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if ($kantors)
-                                @foreach ($kantors as $i)
+                <table class="table table-hover table-striped dataTable dtr-inline" id="tableKantor">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Alamat</th>
+                            <th>No. Telp</th>
+                            <th>Kota</th>
+                            <th>Jenis</th>
+                            <th>Longitude</th>
+                            <th>Latitude</th>
+                            <th>Created At</th>
+                            <th>Updated At</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if ($kantors)
+                            @foreach ($kantors as $i)
                             <tr onclick='editKantor("{{$i->id}}")'>
                                 <td>{{$i->id}}</td>
                                 <td>{{$i->alamat}}</td>
@@ -72,11 +71,10 @@ Page ini adalah untuk menampilkan semua kantor.
                                 </td>
                                 @endif
                             </tr>
-                                @endforeach
-                            @endif
-                        </tbody>
-                    </table>
-                </div>
+                            @endforeach
+                        @endif
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
