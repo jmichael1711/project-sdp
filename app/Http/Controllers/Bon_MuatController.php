@@ -29,23 +29,18 @@ class Bon_MuatController extends Controller
         $allKurir = Kurir_non_customer::sortKurir($request->kantorAsal,$request->kantorTujuan);
         $allKendaraan = Kendaraan::sortKendaraan($request->kantorAsal,$request->kantorTujuan);
         $str = '';
-        foreach($allKurir as $kurir){
-            $str .= '<option class="form-control" value="'.$kurir->id.'">'.$kurir->nama.'</option>';
-        }
+        if($allKurir->count() > 0){
+            foreach($allKurir as $kurir){
+                $str .= '<option class="form-control" value="'.$kurir->id.'">'.$kurir->nama.'</option>';
+            }
+        }else $str .= '<option class="form-control" value="">-- TIDAK ADA KURIR --</option>';
+        
         $str .= '|';
         if($allKendaraan->count() > 0){    
             foreach($allKendaraan as $kendaraan){
                 $str .='<option class="form-control" value="'.$kendaraan->id.'">'.$kendaraan->nopol.'</option>';
             }
         }else $str .= '<option class="form-control" value="">-- TIDAK ADA KENDARAAN --</option>';
-        
         return $str;
-    }
-
-    public function fetch(Request $request)
-    {
-        return response()->json([
-            'sdsd' => "assdd"
-        ])->setStatusCode(200);
     }
 }
