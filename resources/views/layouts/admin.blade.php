@@ -313,6 +313,30 @@
                                     </ul>
                                 </li>
 
+                                {{-- SIDEBAR - PEGAWAI --}}
+                                <li id="upperlist-pegawai">
+                                    <a id="btn-pegawai" href="">
+                                        <i class="metismenu-icon pe-7s-study"></i>
+                                            Pegawai
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    <ul id="list-pegawai">
+                                        <li>
+                                            <a id="header-pegawai" href="{{ url('/admin/pegawai') }}">
+                                                <i class="metismenu-icon"></i>
+                                                List Pegawai
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a id="header-tambah-pegawai" href="{{ url('/admin/pegawai/create') }}">
+                                                <i class="metismenu-icon">
+                                                </i>
+                                                Tambah Pegawai
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
                                 {{-- SIDEBAR - BON MUAT --}}
                                 <li id="upperlist-bonmuat">
                                     <a id="btn-bonmuat" href="">
