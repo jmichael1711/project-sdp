@@ -90,9 +90,6 @@ Page ini adalah untuk menambah bon muat baru.
                             <div class="position-relative form-group">
                                 <label class="">Kurir</label>
                                 <select name="kota" class="form-control" id="kurir">
-                                    {{-- @foreach ($listKota as $i)
-                                        <option class="form-control" value="{{$i}}">{{$i}}</option>
-                                    @endforeach --}}
                                 </select>
                             </div>
                         </div>
@@ -102,10 +99,7 @@ Page ini adalah untuk menambah bon muat baru.
                         <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">Kendaraan</label>
-                                <select name="kota" class="form-control">
-                                    {{-- @foreach ($listKota as $i)
-                                        <option class="form-control" value="{{$i}}">{{$i}}</option>
-                                    @endforeach --}}
+                                <select name="kota" class="form-control" id="kendaraan">
                                 </select>
                             </div>
                         </div>
@@ -171,7 +165,9 @@ Page ini adalah untuk menambah bon muat baru.
             datatype : "json",
             data : { kantorAsal : kantorAsal,kantorTujuan : kantorTujuan, _token : "{{ csrf_token() }}" },
             success: function(result){
-                $('#kurir').html(result);
+                var hasil = result.split('|');
+                $('#kurir').html(hasil[0]);
+                $('#kendaraan').html(hasil[1]);
             },
             error: function(){
                 console.log('error');

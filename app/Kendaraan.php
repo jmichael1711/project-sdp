@@ -37,6 +37,17 @@ class Kendaraan extends Model
         return Kendaraan::getAll()->count();
     }
 
+    public static function sortKendaraan($kantorAsalId,$kantorTujuanId){
+        return Kendaraan::getAll()->when("posisi_kantor_1" == 1, function($query) use ($kantorAsalId,$kantorTujuanId){
+            $query->where("kantor_1_id",$kantorAsalId)
+            ->where("kantor_2_id",$kantorTujuanId);
+        })->when("posisi_kantor_1" == 0,function($query) use ($kantorAsalId,$kantorTujuanId){
+            $query->where("kantor_2_id",$kantorAsalId)
+            ->where("kantor_1_id",$kantorTujuanId);
+        })
+        ->get();   
+    }
+
     public static function getNextId() {
         if (Kendaraan::count() > 0) {
             $lastObject = Kendaraan::getAll()

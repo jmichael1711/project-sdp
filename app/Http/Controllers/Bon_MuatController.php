@@ -7,6 +7,7 @@ use App\Kantor;
 use App\Bon_Muat;
 use App\Kota;
 use App\Kurir_non_customer;
+use App\Kendaraan;
 class Bon_MuatController extends Controller
 {
 
@@ -26,13 +27,19 @@ class Bon_MuatController extends Controller
 
     public function findKurir(Request $request){
         $allKurir = Kurir_non_customer::sortKurir($request->kantorAsal,$request->kantorTujuan);
+        $allKendaraan = Kendaraan::sortKendaraan($request->kantorAsal,$request->kantorTujuan);
         $str = '';
         foreach($allKurir as $kurir){
             $str .= '<option class="form-control" value="'.$kurir->id.'">'.$kurir->nama.'</option>';
         }
+        $str .= '|';
+        if($allKendaraan->count() > 0){    
+            foreach($allKendaraan as $kendaraan){
+                $str .='<option class="form-control" value="'.$kendaraan->id.'">'.$kendaraan->nopol.'</option>';
+            }
+        }else $str .= '<option class="form-control" value="">-- TIDAK ADA KENDARAAN --</option>';
+        
         return $str;
-        // return response()->json(['allKurir' => $allKurir])->setStatusCode(200);
-       
     }
 
     public function fetch(Request $request)
