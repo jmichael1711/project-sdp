@@ -131,9 +131,20 @@ Page ini adalah untuk menambah pegawai baru.
     })
 
     $('#pass1, #pass2').on('keyup', function () {
-        var pass1 = $('#pass1');
-        var pass2 = $('#pass2');  
+        var password1 = $('#pass1');
+        var password2 = $('#pass2');
+        $.ajax({
+            method : "POST",
+            url : '/admin/bonmuat/checkPassword',
+            datatype : "json",
+            data : {pass1 : password1, pass2 : password2, _token : "{{ csrf_token() }}"},
+            success: function(result){
 
+            },
+            error: function(){
+                console.log('error');
+            }
+        });
     })
 </script>
 @endsection 
