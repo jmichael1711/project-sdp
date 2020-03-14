@@ -33,16 +33,16 @@ class Kurir_non_customer extends Model
     }
 
     public static function sortKurir($kantorAsalId,$kantorTujuanId){
-        return Kurir_non_customer::getAll()->when("posisi_kantor_1" == 1, function($query) use ($kantorAsalId,$kantorTujuanId){
+        return Kurir_non_customer::getAll()->when("posisi_di_kantor_1" == 1, function($query) use ($kantorAsalId,$kantorTujuanId){
             $query->where("kantor_1_id",$kantorAsalId)
             ->where("kantor_2_id",$kantorTujuanId);
-        })->when("posisi_kantor_1" == 0,function($query) use ($kantorAsalId,$kantorTujuanId){
+        })->when("posisi_di_kantor_1" == 0,function($query) use ($kantorAsalId,$kantorTujuanId){
             $query->where("kantor_2_id",$kantorAsalId)
             ->where("kantor_1_id",$kantorTujuanId);
         })
         ->get();   
     }
-
+    
     public static function getNextId() {
 
         if (Kurir_non_customer::count() > 0) {

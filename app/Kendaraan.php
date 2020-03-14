@@ -38,10 +38,10 @@ class Kendaraan extends Model
     }
 
     public static function sortKendaraan($kantorAsalId,$kantorTujuanId){
-        return Kendaraan::getAll()->when("posisi_kantor_1" == 1, function($query) use ($kantorAsalId,$kantorTujuanId){
+        return Kendaraan::getAll()->when("posisi_di_kantor_1" == 1, function($query) use ($kantorAsalId,$kantorTujuanId){
             $query->where("kantor_1_id",$kantorAsalId)
             ->where("kantor_2_id",$kantorTujuanId);
-        })->when("posisi_kantor_1" == 0,function($query) use ($kantorAsalId,$kantorTujuanId){
+        })->when("posisi_di_kantor_1" == 0,function($query) use ($kantorAsalId,$kantorTujuanId){
             $query->where("kantor_2_id",$kantorAsalId)
             ->where("kantor_1_id",$kantorTujuanId);
         })

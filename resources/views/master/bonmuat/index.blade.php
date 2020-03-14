@@ -41,8 +41,8 @@ Page ini adalah untuk menampilkan semua bon muat.
                                 <th>Status</th>
                             </thead>
                             <tbody>
-                                @if ($allBonMuat)
-                                    @foreach ($allBonMuat as $i)                                
+                                
+                                @foreach ($allBonMuat as $i)
                                 <tr onclick='editDetailBonMuat("{{$i->id}}")'>
                                     <td>{{$i->id}}</td>
                                     <td>{{$i->kantor_asal->alamat}}</td>
@@ -55,17 +55,21 @@ Page ini adalah untuk menampilkan semua bon muat.
                                     <td>{{$i->user_created}}</td>
                                     <td>{{$i->user_updated}}</td>
                                     @if ($i->is_deleted)
-                                    <td class="bg-danger text-center text-white">
-                                        NOT ACTIVE
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-danger">
+                                            NOT ACTIVE
+                                        </div>
                                     </td>    
                                     @else 
-                                    <td class="bg-success text-center text-white">
-                                        ACTIVE
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-success">
+                                            ACTIVE
+                                        </div>
                                     </td>
                                     @endif
                                 </tr>
                                     @endforeach
-                                @endif
+                                
                             </tbody>
                         </table>
                 </div>
