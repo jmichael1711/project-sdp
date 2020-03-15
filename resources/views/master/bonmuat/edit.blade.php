@@ -164,12 +164,45 @@ Page ini adalah untuk edit data bon muat.
             </div>
         </div>
     </div>
-
-    <div class="tab-pane tabs-animation fade show active" id="tab-content-1" role="tabpanel">
+    
+    @if (Session::has('success-suratjalan'))
+        <ul class="list-group mb-2">
+            <li class="list-group-item-success list-group-item">{{Session::get('success-suratjalan')}}</li>
+        </ul>
+        @php
+            Session::forget('success-suratjalan');
+        @endphp
+    @endif
+    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel"> 
         <div class="main-card mb-3 card">
-            <div style="overflow-x: auto" class="card-body"><h5 class="card-title">Semua Surat Jalan</h5>
+            <div class="card-body">
                 <div class="container">
-                    <table style="min-width: 100%;" class="table table-hover table-responsive bg-light text-dark" id="tableSuratJalan">
+                    <div class="col-md-2">
+                        <div class="position-relative form-group" style="bottom: 10%">
+                            <button class="mt-2 btn btn-primary">&nbsp Scan &nbsp</button>
+                        </div>
+                    </div>
+                    <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/store" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-row">
+                            <div class="col-md-3">
+                                <div class="position-relative form-group">
+                                    <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="resi_id" id="" 
+                                    placeholder="Id Resi" type="text" class="form-control" required>
+                                    <div class="invalid-feedback">
+                                        Id Resi tidak valid.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="position-relative form-group" style="bottom: 10%">
+                                    <button class="mt-2 btn btn-primary">Tambah</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <table class="table table-hover table-striped dataTable dtr-inline" id="tableSuratjalan">
                         <thead>
                             <th>Resi ID</th>
                             <th>Pengirim</th>
@@ -182,21 +215,43 @@ Page ini adalah untuk edit data bon muat.
                             <th>Updated At</th>
                             <th>User Created</th>
                             <th>User Updated</th>
+                            <th>Status</th>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($bonmuat->resis() as $i)
+                            @foreach ($bonmuat->resis as $i)
                             <tr>
                                 <td>{{$i->id}}</td>
-                                
+                                <td>{{$i->pesanan->nama_pengirim}}</td>
+                                <td>{{$i->pesanan->alamat_asal}}</td>
+                                <td>{{$i->pesanan->nama_penerima}}</td>
+                                <td>{{$i->pesanan->alamat_tujuan}}</td>
+                                <td>{{$i->pesanan->panjang}} x {{$i->pesanan->lebar}} x {{$i->pesanan->tinggi}}</td>
+                                @if ($i->pesanan->is_fragile)
+                                <td class="text-center text-white">
+                                    <div class="badge badge-danger">
+                                        Fragile
+                                    </div>
+                                </td>    
+                                @else 
+                                <td class="text-center text-white">
+                                    <div class="badge badge-success">
+                                        Fine
+                                    </div>
+                                </td>
+                                @endif
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
-                            @endforeach --}}
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 @endsection
 
@@ -211,6 +266,12 @@ Page ini adalah untuk edit data bon muat.
         var idKota = $('#kotaAsal').val();
         
     })
+
+    var table = $('#tableSuratJalan').DataTable({
+        "pagingType": 'full_numbers',
+        'paging': true,
+        'lengthMenu': [10,25, 50, 100]
+    });
 
     function isiKantor(posisi){
         var idKota = $('#kota'+posisi).val();

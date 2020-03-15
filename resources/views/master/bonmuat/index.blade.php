@@ -22,11 +22,11 @@ Page ini adalah untuk menampilkan semua bon muat.
             Session::forget('success-bonmuat');
         @endphp
     @endif
-        <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
-            <div class="main-card mb-3 card">
-                <div style="overflow-x: auto" class="card-body"><h5 class="card-title">Semua Bon Muat</h5>
-                    <div class="container">
-                        <table style="min-width: 100%;" class="table table-hover table-responsive bg-light text-dark" id="tableBonMuat">
+    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel"> 
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+                <div class="container">
+                    <table class="table table-hover table-striped dataTable dtr-inline" id="tableBonMuat">
                             <thead>
                                 <th>ID</th>
                                 <th>Kantor Asal</th>
@@ -41,7 +41,6 @@ Page ini adalah untuk menampilkan semua bon muat.
                                 <th>Status</th>
                             </thead>
                             <tbody>
-                                
                                 @foreach ($allBonMuat as $i)
                                 <tr onclick='editDetailBonMuat("{{$i->id}}")'>
                                     <td>{{$i->id}}</td>
@@ -69,7 +68,6 @@ Page ini adalah untuk menampilkan semua bon muat.
                                     @endif
                                 </tr>
                                     @endforeach
-                                
                             </tbody>
                         </table>
                 </div>
