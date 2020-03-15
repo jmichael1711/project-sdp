@@ -9,7 +9,7 @@
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk edit data bon muat.
+Page ini untuk edit data bon muat.
 @endsection
 
 @section('content')
@@ -26,9 +26,9 @@ Page ini adalah untuk edit data bon muat.
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div class="card-body">
-                <h5 class="card-title">Total Muatan : {{$bonmuat->total_muatan}} / 100 Kg</h5>
+                <h5 class="card-title">Total Muatan : {{$bonmuat->total_muatan}} / 1000 Kg</h5>
                 <div class="mb-3 progress">
-                    <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" style="width: 0%;"></div>
+                <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" style="width: {{$bonmuat->total_muatan/10}}%;"></div>
                 </div>
                     <div class="form-row">
                         <div class="col-md-2">
@@ -188,7 +188,7 @@ Page ini adalah untuk edit data bon muat.
                             <div class="col-md-3">
                                 <div class="position-relative form-group">
                                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="resi_id_surat_jalan" id="resi_id_surat_jalan" 
+                                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="resi_id" id="resi_id" 
                                     placeholder="Id Resi" type="text" class="form-control" required>
                                     <div class="invalid-feedback">
                                         Id Resi tidak valid.
@@ -211,6 +211,7 @@ Page ini adalah untuk edit data bon muat.
                                 <th>Alamat Asal</th>
                                 <th>Penerima</th>
                                 <th>Alamat Tujuan</th>
+                                <th>Berat</th>
                                 <th>Dimensi</th>
                                 <th>Fragile</th>
                                 <th>Created At</th>
@@ -228,6 +229,7 @@ Page ini adalah untuk edit data bon muat.
                                 <td>{{$i->pesanan->alamat_asal}}</td>
                                 <td>{{$i->pesanan->nama_penerima}}</td>
                                 <td>{{$i->pesanan->alamat_tujuan}}</td>
+                                <td>{{$i->pesanan->berat_barang}} Kg</td>
                                 <td>{{$i->pesanan->panjang}} x {{$i->pesanan->lebar}} x {{$i->pesanan->tinggi}}</td>
                                 @if ($i->pesanan->is_fragile)
                                 <td class="text-center text-white">
@@ -270,9 +272,9 @@ Page ini adalah untuk edit data bon muat.
 </div>
 @endsection
 
-@section('scripts')
+@section('scripts') 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function (){
         $("#upperlist-bonmuat").addClass("mm-active");
         $("#btn-bonmuat").attr("aria-expanded", "true");
         $("#list-bonmuat").attr("class", "mm-collapse mm-show");
@@ -281,7 +283,7 @@ Page ini adalah untuk edit data bon muat.
         var idKota = $('#kotaAsal').val();
         
     })
-
+    
     var table = $('#tableSuratJalan').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,

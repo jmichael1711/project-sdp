@@ -60,4 +60,8 @@ class Bon_MuatController extends Controller
         $bonmuat = Bon_Muat::findOrFail($id);
         return view('master.bonmuat.edit', compact('allKota', 'bonmuat'));
     }
+
+    public function addSuratJalan(Request $request){
+        
+    }
 }
