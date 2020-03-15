@@ -22,7 +22,7 @@ Page ini adalah untuk edit data bon muat.
             Session::forget('success');
         @endphp
     @endif
-
+    Combobox kurir dan kendaraan masih salah (query salah)
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div class="card-body">
@@ -178,17 +178,17 @@ Page ini adalah untuk edit data bon muat.
             <div class="card-body">
                 <div class="container">
                     <div class="col-md-2">
-                        <div class="position-relative form-group" style="bottom: 10%">
+                        <div class="position-relative form-group">
                             <button class="mt-2 btn btn-primary">&nbsp Scan &nbsp</button>
                         </div>
                     </div>
-                    <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/store" enctype="multipart/form-data">
+                    <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/addSuratJalan" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
                             <div class="col-md-3">
                                 <div class="position-relative form-group">
                                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="resi_id" id="" 
+                                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="resi_id_surat_jalan" id="resi_id_surat_jalan" 
                                     placeholder="Id Resi" type="text" class="form-control" required>
                                     <div class="invalid-feedback">
                                         Id Resi tidak valid.
@@ -202,20 +202,23 @@ Page ini adalah untuk edit data bon muat.
                             </div>
                         </div>
                     </form>
+                   
                     <table class="table table-hover table-striped dataTable dtr-inline" id="tableSuratjalan">
                         <thead>
-                            <th>Resi ID</th>
-                            <th>Pengirim</th>
-                            <th>Alamat Asal</th>
-                            <th>Penerima</th>
-                            <th>Alamat Tujuan</th>
-                            <th>Dimensi</th>
-                            <th>Fragile</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
-                            <th>User Created</th>
-                            <th>User Updated</th>
-                            <th>Status</th>
+                            <tr>
+                                <th>Resi ID</th>
+                                <th>Pengirim</th>
+                                <th>Alamat Asal</th>
+                                <th>Penerima</th>
+                                <th>Alamat Tujuan</th>
+                                <th>Dimensi</th>
+                                <th>Fragile</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
+                                <th>User Created</th>
+                                <th>User Updated</th>
+                                <th>Status</th>
+                            </tr>
                         </thead>
                         <tbody>
                             @foreach ($bonmuat->resis as $i)
@@ -239,11 +242,23 @@ Page ini adalah untuk edit data bon muat.
                                     </div>
                                 </td>
                                 @endif
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{$i->surat_jalan->created_at->diffForHumans()}}</td>
+                                <td>{{$i->surat_jalan->updated_at->diffForHumans()}}</td>
+                                <td>{{$i->surat_jalan->user_created}}</td>
+                                <td>{{$i->surat_jalan->user_updated}}</td>
+                                @if ($i->surat_jalan->telah_sampai)
+                                <td class="text-center text-white">
+                                    <div class="badge badge-success">
+                                        Finish
+                                    </div>
+                                </td>    
+                                @else 
+                                <td class="text-center text-white">
+                                    <div class="badge badge-warning">
+                                        On going
+                                    </div>
+                                </td>
+                                @endif
                             </tr>
                             @endforeach
                         </tbody>
