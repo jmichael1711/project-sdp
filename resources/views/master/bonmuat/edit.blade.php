@@ -222,6 +222,7 @@ Page ini untuk edit data bon muat.
                             </tr>
                         </thead>
                         <tbody>
+                            @if($bonmuat->resis->count() > 0)
                             @foreach ($bonmuat->resis as $i)
                             <tr>
                                 <td>{{$i->id}}</td>
@@ -263,6 +264,7 @@ Page ini untuk edit data bon muat.
                                 @endif
                             </tr>
                             @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>
