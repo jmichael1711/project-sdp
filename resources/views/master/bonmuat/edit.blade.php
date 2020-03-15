@@ -22,7 +22,7 @@ Page ini untuk edit data bon muat.
             Session::forget('success');
         @endphp
     @endif
-    Combobox kurir dan kendaraan masih salah (query salah)
+    
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div class="card-body">
@@ -202,8 +202,8 @@ Page ini untuk edit data bon muat.
                             </div>
                         </div>
                     </form>
-                   
-                    <table class="table table-hover table-striped dataTable dtr-inline" id="tableSuratjalan">
+                   <div style="overflow-x: auto">
+                    <table class="table table-hover table-striped dataTable dtr-inline" id="tableSuratJalan">
                         <thead>
                             <tr>
                                 <th>Resi ID</th>
@@ -267,6 +267,7 @@ Page ini untuk edit data bon muat.
                             @endif
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -283,7 +284,7 @@ Page ini untuk edit data bon muat.
         $("#header-bonmuat").attr("class", "mm-active");
 
         var idKota = $('#kotaAsal').val();
-        
+        refreshComboBox();
     })
     
     var table = $('#tableSuratJalan').DataTable({
@@ -295,7 +296,7 @@ Page ini untuk edit data bon muat.
     function isiKantor(posisi){
         var idKota = $('#kota'+posisi).val();
         refreshKantor(idKota,posisi);
-        refreshKurir();
+        refreshComboBox();
     }
     
     function refreshKantor(idKota, posisi){
@@ -314,15 +315,16 @@ Page ini untuk edit data bon muat.
         @endfor        
     }
 
-    function refreshKurir(){
+    function refreshComboBox(){
         var kantorAsal = $('#kantorAsal').val();
         var kantorTujuan = $('#kantorTujuan').val();
-        
+        var chosenKurir = $('#kurir').val();
+        var chosenKendaraan = $('#kendaraan').val();
         $.ajax({
             method : "POST",
-            url : '/admin/bonmuat/findKurir',
+            url : '/admin/bonmuat/find',
             datatype : "json",
-            data : { kantorAsal : kantorAsal,kantorTujuan : kantorTujuan, _token : "{{ csrf_token() }}" },
+            data : { kantorAsal : kantorAsal,kantorTujuan : kantorTujuan,kurir: chosenKurir,kendaraan: chosenKendaraan, _token : "{{ csrf_token() }}" },
             success: function(result){
                 var hasil = result.split('|');
                 $('#kurir').html(hasil[0]);
@@ -333,5 +335,6 @@ Page ini untuk edit data bon muat.
             }
         });
     }
+
 </script>
 @endsection

@@ -30,24 +30,33 @@ class Bon_MuatController extends Controller
         return redirect('/admin/bonmuat/create')->with(['success-bonmuat' => $success]);
     }
 
-    public function findKurir(Request $request){
+    public function find(Request $request){
         $allKurir = Kurir_non_customer::sortKurir($request->kantorAsal,$request->kantorTujuan);
         $allKendaraan = Kendaraan::sortKendaraan($request->kantorAsal,$request->kantorTujuan);
         $str = '';
         if($allKurir->count() > 0){
             foreach($allKurir as $kurir){
-                $str .= '<option class="form-control" value="'.$kurir->id.'">'.$kurir->nama.'</option>';
+                if($kurir->id == $request->kurir){
+                    $str .= '<option selected class="form-control" value="'.$kurir->id.'">'.$kurir->nama.'</option>';
+                }else{
+                    $str .= '<option class="form-control" value="'.$kurir->id.'">'.$kurir->nama.'</option>';
+                }
             }
         }else $str .= '<option class="form-control" value="">-- TIDAK ADA KURIR --</option>';
         
         $str .= '|';
         if($allKendaraan->count() > 0){    
             foreach($allKendaraan as $kendaraan){
-                $str .='<option class="form-control" value="'.$kendaraan->id.'">'.$kendaraan->nopol.'</option>';
+                if($kendaraan->id == $request->kendaraan){
+                    $str .='<option selected class="form-control" value="'.$kendaraan->id.'">'.$kendaraan->nopol.'</option>';
+                }else{
+                    $str .='<option class="form-control" value="'.$kendaraan->id.'">'.$kendaraan->nopol.'</option>';
+                }
             }
         }else $str .= '<option class="form-control" value="">-- TIDAK ADA KENDARAAN --</option>';
         return $str;
     }
+
 
     public function index() {
         $allBonMuat = Bon_muat::getAll()->get();

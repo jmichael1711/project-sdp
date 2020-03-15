@@ -131,13 +131,13 @@ Page ini adalah untuk menambah bon muat baru.
         var idKota = $('#kotaAsal').val();
         refreshKantor(idKota,"Asal");
         refreshKantor(idKota,"Tujuan");
-        refreshKurir();
+        refreshComboBox();
     })
 
     function isiKantor(posisi){
         var idKota = $('#kota'+posisi).val();
         refreshKantor(idKota,posisi);
-        refreshKurir();
+        refreshComboBox();
     }
     
     function refreshKantor(idKota, posisi){
@@ -156,12 +156,12 @@ Page ini adalah untuk menambah bon muat baru.
         @endfor        
     }
 
-    function refreshKurir(){
+    function refreshComboBox(){
         var kantorAsal = $('#kantorAsal').val();
         var kantorTujuan = $('#kantorTujuan').val();
         $.ajax({
             method : "POST",
-            url : '/admin/bonmuat/findKurir',
+            url : '/admin/bonmuat/find',
             datatype : "json",
             data : { kantorAsal : kantorAsal,kantorTujuan : kantorTujuan, _token : "{{ csrf_token() }}" },
             success: function(result){
