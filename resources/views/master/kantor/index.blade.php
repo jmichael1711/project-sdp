@@ -62,12 +62,16 @@ Page ini adalah untuk menampilkan semua kantor.
                                 <td>{{$i->created_at->diffForHumans()}}</td>
                                 <td>{{$i->updated_at->diffForHumans()}}</td>
                                 @if ($i->is_deleted)
-                                <td class="bg-danger text-center text-white">
-                                    NOT ACTIVE
+                                <td class="text-center text-white">
+                                    <div class="badge badge-danger">
+                                        NOT ACTIVE
+                                    </div>
                                 </td>    
                                 @else 
-                                <td class="bg-success text-center text-white">
-                                    ACTIVE
+                                <td class="text-center text-white">
+                                    <div class="badge badge-success">
+                                        ACTIVE
+                                    </div>
                                 </td>
                                 @endif
                             </tr>

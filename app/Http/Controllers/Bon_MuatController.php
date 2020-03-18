@@ -30,24 +30,33 @@ class Bon_MuatController extends Controller
         return redirect('/admin/bonmuat/create')->with(['success-bonmuat' => $success]);
     }
 
-    public function findKurir(Request $request){
+    public function find(Request $request){
         $allKurir = Kurir_non_customer::sortKurir($request->kantorAsal,$request->kantorTujuan);
         $allKendaraan = Kendaraan::sortKendaraan($request->kantorAsal,$request->kantorTujuan);
         $str = '';
         if($allKurir->count() > 0){
             foreach($allKurir as $kurir){
-                $str .= '<option class="form-control" value="'.$kurir->id.'">'.$kurir->nama.'</option>';
+                if($kurir->id == $request->kurir){
+                    $str .= '<option selected class="form-control" value="'.$kurir->id.'">'.$kurir->nama.'</option>';
+                }else{
+                    $str .= '<option class="form-control" value="'.$kurir->id.'">'.$kurir->nama.'</option>';
+                }
             }
         }else $str .= '<option class="form-control" value="">-- TIDAK ADA KURIR --</option>';
         
         $str .= '|';
         if($allKendaraan->count() > 0){    
             foreach($allKendaraan as $kendaraan){
-                $str .='<option class="form-control" value="'.$kendaraan->id.'">'.$kendaraan->nopol.'</option>';
+                if($kendaraan->id == $request->kendaraan){
+                    $str .='<option selected class="form-control" value="'.$kendaraan->id.'">'.$kendaraan->nopol.'</option>';
+                }else{
+                    $str .='<option class="form-control" value="'.$kendaraan->id.'">'.$kendaraan->nopol.'</option>';
+                }
             }
         }else $str .= '<option class="form-control" value="">-- TIDAK ADA KENDARAAN --</option>';
         return $str;
     }
+
 
     public function index() {
         $allBonMuat = Bon_muat::getAll()->get();
@@ -61,7 +70,39 @@ class Bon_MuatController extends Controller
         return view('master.bonmuat.edit', compact('allKota', 'bonmuat'));
     }
 
-    public function addSuratJalan(Request $request){
-        
+    public function update($id, Request $request) {
+        $request = $request->all();
+        $bonmuat = Bon_Muat::findOrFail($id);
+        $request['user_updated'] = Session::get('id');
+        $bonmuat->update($request);
+        $success = 'Bon Muat berhasil diubah.';
+        Session::put('success-bonmuat', $success);
+        return redirect('/admin/bonmuat');
+    }
+
+    public function addSuratJalan($id,Request $request){
+        $bonmuat = Bon_Muat::findorFail($id);
+        $resi = Resi::find($request["resi_id"]);
+        $found = false;
+        foreach($bonmuat->resis as $i){if($i->id == $request["resi_id"]) $found = true;}
+        if($resi == null){
+            $fail = "Resi tidak terdaftar";
+            Session::put('success-failsuratjalan', $fail);
+            return redirect('/admin/bonmuat/edit/'.$id);
+        }else if($found == true){
+            $fail = "Resi telah terdaftar";
+            Session::put('success-failsuratjalan', $fail);
+            return redirect('/admin/bonmuat/edit/'.$id);
+        }
+        else if($found == false){
+            $user = Session::get('id');
+            $bonmuat->resis()->attach($request["resi_id"],['user_created' => $user]);
+            $bonmuat->resis()->updateExistingPivot($request["resi_id"],['user_updated' => $user]);
+            $bonmuat->update(['total_muatan' => ($bonmuat->total_muatan+$resi->pesanan->berat_barang)]);
+            $bonmuat->update(['user_updated' => $user]);
+            $success = 'Surat Jalan berhasil ditambahkan.';
+            Session::put('success-suratjalan', $success);
+            return redirect('/admin/bonmuat/edit/'.$id);
+        }
     }
 }
