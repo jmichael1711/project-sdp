@@ -113,4 +113,13 @@ class Bon_MuatController extends Controller
             }
         }
     }
+
+    public function deleteSuratJalan(Request $request){
+        $bonmuat = Bon_Muat::findorFail($request->bonmuat);
+        $resi = Resi::findorFail($request->id);
+        $bonmuat->resis()->detach($request->id);
+        $bonmuat->update(['total_muatan' => ($bonmuat->total_muatan-$resi->pesanan->berat_barang)]);
+        return redirect('/admin/bonmuat/edit/'.$bonmuat->id);
+    }
+
 }
