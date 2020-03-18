@@ -22,7 +22,9 @@ Page ini untuk edit data bon muat.
             Session::forget('success');
         @endphp
     @endif
-    
+    <button id="triggerModal" type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal" style="display: none">
+        Trigger Modal
+    </button>
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div class="card-body">
@@ -136,7 +138,7 @@ Page ini untuk edit data bon muat.
                         <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">Status</label>
-                                <select class="form-control" name="is_deleted">
+                                <select class="form-control" name="is_deleted" id="status" onchange="changeStatus()">
                                     @if ($bonmuat->is_deleted)
                                         <option selected class="form-control" value="1">NOT ACTIVE</option>
                                         <option class="form-control" value="0">ACTIVE</option>
@@ -182,7 +184,7 @@ Page ini untuk edit data bon muat.
                             <button class="mt-2 btn btn-primary">&nbsp Scan &nbsp</button>
                         </div>
                     </div>
-                    <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/addSuratJalan" enctype="multipart/form-data">
+                <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/addSuratJalan/{{$bonmuat->id}}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
                             <div class="col-md-3">
@@ -285,6 +287,13 @@ Page ini untuk edit data bon muat.
 
         var idKota = $('#kotaAsal').val();
         refreshComboBox();
+        
+        if ('{{Session::has("success-failsuratjalan")}}'){
+            triggerNotification('{{Session::get("success-failsuratjalan")}}');
+            @php
+                Session::forget('success-failsuratjalan');
+            @endphp
+        } 
     })
     
     var table = $('#tableSuratJalan').DataTable({
@@ -292,11 +301,39 @@ Page ini untuk edit data bon muat.
         'paging': true,
         'lengthMenu': [10,25, 50, 100]
     });
-
+    var previousKotaAsal;
+    var previousKotaTujuan;
+    $("#kotaAsal").on('focus', function () {
+        previousKotaAsal = this.value;
+    });
+    $("#kotaTujuan").on('focus', function () {
+        previousKotaTujuan = this.value;
+    });
+    
+    function changeStatus(){
+        var permitted = true;
+        @foreach ($bonmuat->resis as $i)
+            @if($i->surat_jalan->telah_sampai == 0)
+                permitted = false;
+            @endif
+        @endforeach
+        
+        if(!permitted){
+            triggerNotification("Terdapat Surat Jalan yang belum selesai.");
+            $("#status").val("0");
+        } 
+    }
     function isiKantor(posisi){
-        var idKota = $('#kota'+posisi).val();
-        refreshKantor(idKota,posisi);
-        refreshComboBox();
+        var totalSuratJalan = {{$bonmuat->resis->count()}};
+        if(totalSuratJalan == 0){
+            var idKota = $('#kota'+posisi).val();
+            refreshKantor(idKota,posisi);
+            refreshComboBox();
+        }else{
+            triggerNotification("Terdapat Surat Jalan dalam Bon Muat. Hapuslah Surat Jalan terlebih dahulu.");
+            if(posisi == "Asal") $('#kotaAsal').val(previousKotaAsal);
+            else if(posisi == "Tujuan") $('#kotaTujuan').val(previousKotaTujuan);
+        }
     }
     
     function refreshKantor(idKota, posisi){
@@ -336,5 +373,28 @@ Page ini untuk edit data bon muat.
         });
     }
 
+    function triggerNotification(text){
+        $("#modalContent").html(text);
+        $("#triggerModal").click();
+    }
 </script>
-@endsection
+@endsection  
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0" id="modalContent"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

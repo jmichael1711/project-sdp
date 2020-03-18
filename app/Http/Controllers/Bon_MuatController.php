@@ -70,7 +70,32 @@ class Bon_MuatController extends Controller
         return view('master.bonmuat.edit', compact('allKota', 'bonmuat'));
     }
 
-    public function addSuratJalan(Request $request){
-        
+    public function update($id, Request $request) {
+        $request = $request->all();
+        $bonmuat = Bon_Muat::findOrFail($id);
+        $request['user_updated'] = Session::get('id');
+        $bonmuat->update($request);
+        $success = 'Bon Muat berhasil diubah.';
+        Session::put('success-bonmuat', $success);
+        return redirect('/admin/bonmuat');
+    }
+
+    public function addSuratJalan($id,Request $request){
+        $bonmuat = Bon_Muat::findorFail($id);
+        $resi = Resi::find($request["resi_id"]);
+        if($resi == null){
+            $fail = "Resi tidak terdaftar";
+            Session::put('success-failsuratjalan', $fail);
+            return redirect('/admin/bonmuat/edit/'.$id);
+        }else{
+            $user = Session::get('id');
+            $bonmuat->resis()->attach($request["resi_id"],['user_created' => $user]);
+            // $bonmuat->resis()->attach($request["resi_id"],['user_updated' => $user]);
+            $bonmuat->update(['total_muatan' => ($bonmuat->total_muatan+$resi->pesanan->berat_barang)]);
+            $bonmuat->update(['user_updated' => $user]);
+            $success = 'Surat Jalan berhasil ditambahkan.';
+            Session::put('success-suratjalan', $success);
+            return redirect('/admin/bonmuat/edit/'.$id);
+        }
     }
 }
