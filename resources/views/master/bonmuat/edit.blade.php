@@ -237,13 +237,13 @@ Page ini untuk edit data bon muat.
                                 @if ($i->pesanan->is_fragile)
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">
-                                        Fragile
+                                        FRAGILE
                                     </div>
                                 </td>    
                                 @else 
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
-                                        Fine
+                                        FINE
                                     </div>
                                 </td>
                                 @endif
@@ -254,13 +254,13 @@ Page ini untuk edit data bon muat.
                                 @if ($i->surat_jalan->telah_sampai)
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
-                                        Finish
+                                        FINISH 
                                     </div>
                                 </td>    
                                 @else 
                                 <td class="text-center text-white">
                                     <div class="badge badge-warning">
-                                        On going
+                                        ON GOING
                                     </div>
                                 </td>
                                 @endif

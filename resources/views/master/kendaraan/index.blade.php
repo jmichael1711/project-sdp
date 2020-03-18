@@ -50,22 +50,30 @@ Page ini adalah untuk melihat semua kendaraan.
                             <td><a href="/admin/kantor/edit/{{$i->kantor_2_id}}">{{$i->kantor_2_id}}</a></td>
                             <td>{{$i->nopol}}</td>
                             @if ($i->status)
-                            <td class="bg-danger text-center text-white">
-                                BUSY
+                            <td class="text-center text-white">
+                                <div class="badge badge-danger">
+                                    BUSY
+                                </div>
                             </td>    
                             @else 
-                            <td class="bg-success text-center text-white">
-                                FREE
+                            <td class="text-center text-white">
+                                <div class="badge badge-success">
+                                    FREE
+                                </div>
                             </td>
                             @endif
                             <td>{{$i->tahun_pembelian}}</td>
                             @if ($i->posisi_di_kantor_1)
-                            <td class="bg-primary text-center text-white">
-                                KANTOR 1
+                            <td class="text-center text-white">
+                                <div class="badge badge-info">
+                                    KANTOR 1
+                                </div>
                             </td>    
                             @else 
-                            <td class="bg-secondary text-center text-white">
-                                KANTOR 2
+                            <td class="text-center text-white">
+                                <div class="badge badge-secondary">
+                                    KANTOR 2
+                                </div>
                             </td>
                             @endif
                             <td>{{$i->created_at->diffForHumans()}}</td>
@@ -73,12 +81,16 @@ Page ini adalah untuk melihat semua kendaraan.
                             <td>{{$i->user_created}}</td>
                             <td>{{$i->user_updated}}</td>
                             @if ($i->is_deleted)
-                            <td class="bg-danger text-center text-white">
-                                NOT ACTIVE
+                            <td class="text-center text-white">
+                                <div class="badge badge-danger">
+                                    NOT ACTIVE
+                                </div>
                             </td>    
                             @else 
-                            <td class="bg-success text-center text-white">
-                                ACTIVE
+                            <td class="text-center text-white">
+                                <div class="badge badge-success">
+                                    ACTIVE
+                                </div>
                             </td>
                             @endif
                         </tr>
