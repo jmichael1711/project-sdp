@@ -389,6 +389,7 @@ Page ini untuk edit data bon muat.
             console.error("Please enable Camera!");
         }
     });
+    
     function triggerNotification(text){
         $("#modalContent").html(text);
         $("#triggerModal").click();
