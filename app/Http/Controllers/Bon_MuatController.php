@@ -85,29 +85,32 @@ class Bon_MuatController extends Controller
         $resi = Resi::find($request["resi_id"]);
         $found = false;
         $overweight = false;
-        foreach($bonmuat->resis as $i){if($i->id == $request["resi_id"]) $found = true;}
-        if($bonmuat->total_muatan+$resi->pesanan->berat_barang > 1000) $overweight = true;
         if($resi == null){
             $fail = "Resi tidak terdaftar";
             Session::put('success-failsuratjalan', $fail);
             return redirect('/admin/bonmuat/edit/'.$id);
-        }else if($found){
-            $fail = "Resi telah terdaftar";
-            Session::put('success-failsuratjalan', $fail);
-            return redirect('/admin/bonmuat/edit/'.$id);
-        }else if(!$found && $overweight){
-            $fail = "Berat melebihi batasan maksimal";
-            Session::put('success-failsuratjalan', $fail);
-            return redirect('/admin/bonmuat/edit/'.$id);
-        }else if(!$found && !$overweight){
-            $user = Session::get('id');
-            $bonmuat->resis()->attach($request["resi_id"],['user_created' => $user]);
-            $bonmuat->resis()->updateExistingPivot($request["resi_id"],['user_updated' => $user]);
-            $bonmuat->update(['total_muatan' => ($bonmuat->total_muatan+$resi->pesanan->berat_barang)]);
-            $bonmuat->update(['user_updated' => $user]);
-            $success = 'Surat Jalan berhasil ditambahkan.';
-            Session::put('success-suratjalan', $success);
-            return redirect('/admin/bonmuat/edit/'.$id);
+        }
+        if($resi != null){
+            foreach($bonmuat->resis as $i){if($i->id == $request["resi_id"]) $found = true;}
+            if($bonmuat->total_muatan+$resi->pesanan->berat_barang > 1000) $overweight = true;
+            if($found){
+                $fail = "Resi telah terdaftar";
+                Session::put('success-failsuratjalan', $fail);
+                return redirect('/admin/bonmuat/edit/'.$id);
+            }else if(!$found && $overweight){
+                $fail = "Berat melebihi batasan maksimal";
+                Session::put('success-failsuratjalan', $fail);
+                return redirect('/admin/bonmuat/edit/'.$id);
+            }else if(!$found && !$overweight){
+                $user = Session::get('id');
+                $bonmuat->resis()->attach($request["resi_id"],['user_created' => $user]);
+                $bonmuat->resis()->updateExistingPivot($request["resi_id"],['user_updated' => $user]);
+                $bonmuat->update(['total_muatan' => ($bonmuat->total_muatan+$resi->pesanan->berat_barang)]);
+                $bonmuat->update(['user_updated' => $user]);
+                $success = 'Surat Jalan berhasil ditambahkan.';
+                Session::put('success-suratjalan', $success);
+                return redirect('/admin/bonmuat/edit/'.$id);
+            }
         }
     }
 }

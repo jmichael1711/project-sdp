@@ -199,7 +199,7 @@ Page ini untuk edit data bon muat.
                             </div>
                             <div class="col-md-2">
                                 <div class="position-relative form-group" style="bottom: 10%">
-                                    <button class="mt-2 btn btn-primary">Tambah</button>
+                                    <button class="mt-2 btn btn-primary" id="tambahSuratJalan">Tambah</button>
                                 </div>
                             </div>
                         </div>
@@ -309,7 +309,7 @@ Page ini untuk edit data bon muat.
                 <video id="preview" style="width: 200px; height: 200px; border: 1px solid black;"></video>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeScanner()">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeScanner()" id="close">Close</button>
             </div>
         </div>
     </div>
@@ -334,6 +334,9 @@ Page ini untuk edit data bon muat.
         scanner.addListener('scan', function(content) {
             alert('Do you want to open this page?: ' + content);
             window.open(content, "_blank");
+            $("#resi_id").val(content);
+            $("#close").click();
+            $("#tambahSuratJalan").click();
         });
     })
     
