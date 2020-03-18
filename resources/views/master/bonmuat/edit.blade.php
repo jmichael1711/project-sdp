@@ -332,8 +332,8 @@ Page ini untuk edit data bon muat.
             @endphp
         } 
         scanner.addListener('scan', function(content) {
-        alert('Do you want to open this page?: ' + content);
-        window.open(content, "_blank");
+            alert('Do you want to open this page?: ' + content);
+            window.open(content, "_blank");
         });
     })
     
@@ -415,11 +415,10 @@ Page ini untuk edit data bon muat.
         });
     }
 
-    let scanner = new Instascan.Scanner(
-    {
+    let scanner = new Instascan.Scanner({
         video: document.getElementById('preview')
-    }
-    );
+    });
+
     function triggerScanner(){
         Instascan.Camera.getCameras().then(cameras => 
         {
@@ -441,6 +440,7 @@ Page ini untuk edit data bon muat.
             }
         });
     }
+    
     function triggerNotification(text){
         $("#modalContent").html(text);
         $("#triggerModal").click();
