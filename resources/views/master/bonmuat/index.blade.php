@@ -90,7 +90,8 @@ Page ini adalah untuk menampilkan semua bon muat.
     var table = $('#tableBonMuat').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,
-        'lengthMenu': [10,25, 50, 100]
+        'lengthMenu': [10,25, 50, 100],
+        "scrollX": true
     });
 
     function editDetailBonMuat(id){

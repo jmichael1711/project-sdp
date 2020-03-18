@@ -68,7 +68,8 @@ Page ini adalah untuk melihat semua Kota
     var table = $('#tableKota').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,
-        'lengthMenu': [10,25, 50]
+        'lengthMenu': [10,25, 50],
+        "scrollX": true
     });
 </script>
 @endsection
