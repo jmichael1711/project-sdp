@@ -483,7 +483,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>    </div>
+                    </div>    
+                </div>
                 <script src="{{asset('js/libs.js')}}"></script>
                 <script src="{{asset('js/jquery.js')}}"></script>
                 <script src="{{asset('js/formvalidationadmin.js')}}"></script>

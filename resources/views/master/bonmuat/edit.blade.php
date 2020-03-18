@@ -180,7 +180,7 @@ Page ini untuk edit data bon muat.
             <div class="card-body">
                 <div class="container">
                     <div class="col-md-2">
-                        <video id="preview"></video>
+                        <video id="preview" style="width: 150px; height: 150px; border: 1px solid black;"></video>
                     </div>
                 <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/addSuratJalan/{{$bonmuat->id}}" enctype="multipart/form-data">
                         @csrf
