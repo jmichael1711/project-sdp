@@ -179,9 +179,11 @@ Page ini untuk edit data bon muat.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
-                    <div class="col-md-2">
-                        <video id="preview" style="width: 150px; height: 150px; border: 1px solid black;"></video>
-                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()">
+                            &nbsp Scan &nbsp
+                        </button>
+                    </div><br>
                 <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/addSuratJalan/{{$bonmuat->id}}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
@@ -202,7 +204,6 @@ Page ini untuk edit data bon muat.
                             </div>
                         </div>
                     </form>
-                   <div style="overflow-x: auto">
                     <table class="table table-hover table-striped dataTable dtr-inline" id="tableSuratJalan">
                         <thead>
                             <tr>
@@ -268,13 +269,51 @@ Page ini untuk edit data bon muat.
                         </tbody>
                     </table>
                     </div>
-                </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
 
+{{-- Notification --}}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0" id="modalContent"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- Scanner Video --}}
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Scan Resi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body d-flex justify-content-center">
+                <video id="preview" style="width: 200px; height: 200px; border: 1px solid black;"></video>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeScanner()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 @section('scripts') 
 <script>
     $(document).ready(function (){
@@ -292,12 +331,17 @@ Page ini untuk edit data bon muat.
                 Session::forget('success-failsuratjalan');
             @endphp
         } 
+        scanner.addListener('scan', function(content) {
+        alert('Do you want to open this page?: ' + content);
+        window.open(content, "_blank");
+        });
     })
     
     var table = $('#tableSuratJalan').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,
-        'lengthMenu': [10,25, 50, 100]
+        'lengthMenu': [10,25, 50, 100],
+        "scrollX": true
     });
     var previousKotaAsal;
     var previousKotaTujuan;
@@ -372,24 +416,31 @@ Page ini untuk edit data bon muat.
     }
 
     let scanner = new Instascan.Scanner(
-        {
-            video: document.getElementById('preview')
-        }
-    );
-    scanner.addListener('scan', function(content) {
-        alert('Do you want to open this page?: ' + content);
-        window.open(content, "_blank");
-    });
-
-    Instascan.Camera.getCameras().then(cameras => 
     {
-        if(cameras.length > 0){
-            scanner.start(cameras[0]);
-        } else {
-            console.error("Please enable Camera!");
-        }
-    });
+        video: document.getElementById('preview')
+    }
+    );
+    function triggerScanner(){
+        Instascan.Camera.getCameras().then(cameras => 
+        {
+            if(cameras.length > 0){
+                scanner.start(cameras[0]);
+            } else {
+                console.error("Please enable Camera!");
+            }
+        });
+    }
     
+    function closeScanner(){
+        Instascan.Camera.getCameras().then(cameras => 
+        {
+            if(cameras.length > 0){
+                scanner.stop(cameras[0]);
+            } else {
+                console.error("Error Stop Camera");
+            }
+        });
+    }
     function triggerNotification(text){
         $("#modalContent").html(text);
         $("#triggerModal").click();
@@ -397,21 +448,4 @@ Page ini untuk edit data bon muat.
 </script>
 @endsection  
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p class="mb-0" id="modalContent"></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
+
