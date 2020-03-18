@@ -438,8 +438,8 @@ Page ini untuk edit data bon muat.
     let scanner = new Instascan.Scanner(
     {
         video: document.getElementById('preview')
-    }
-    );
+    });
+
     function triggerScanner(){
         Instascan.Camera.getCameras().then(cameras => 
         {
@@ -461,6 +461,7 @@ Page ini untuk edit data bon muat.
             }
         });
     }
+    
     function triggerNotification(text){
         $("#modalContent").html(text);
         $("#triggerModal").click();
