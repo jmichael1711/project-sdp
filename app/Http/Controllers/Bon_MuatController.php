@@ -83,14 +83,21 @@ class Bon_MuatController extends Controller
     public function addSuratJalan($id,Request $request){
         $bonmuat = Bon_Muat::findorFail($id);
         $resi = Resi::find($request["resi_id"]);
+        $found = false;
+        foreach($bonmuat->resis as $i){if($i->id == $request["resi_id"]) $found = true;}
         if($resi == null){
             $fail = "Resi tidak terdaftar";
             Session::put('success-failsuratjalan', $fail);
             return redirect('/admin/bonmuat/edit/'.$id);
-        }else{
+        }else if($found == true){
+            $fail = "Resi telah terdaftar";
+            Session::put('success-failsuratjalan', $fail);
+            return redirect('/admin/bonmuat/edit/'.$id);
+        }
+        else if($found == false){
             $user = Session::get('id');
             $bonmuat->resis()->attach($request["resi_id"],['user_created' => $user]);
-            // $bonmuat->resis()->attach($request["resi_id"],['user_updated' => $user]);
+            $bonmuat->resis()->updateExistingPivot($request["resi_id"],['user_updated' => $user]);
             $bonmuat->update(['total_muatan' => ($bonmuat->total_muatan+$resi->pesanan->berat_barang)]);
             $bonmuat->update(['user_updated' => $user]);
             $success = 'Surat Jalan berhasil ditambahkan.';
