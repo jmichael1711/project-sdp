@@ -180,9 +180,7 @@ Page ini untuk edit data bon muat.
             <div class="card-body">
                 <div class="container">
                     <div class="col-md-2">
-                        <div class="position-relative form-group">
-                            <button class="mt-2 btn btn-primary">&nbsp Scan &nbsp</button>
-                        </div>
+                        <video id="preview"></video>
                     </div>
                 <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/addSuratJalan/{{$bonmuat->id}}" enctype="multipart/form-data">
                         @csrf
@@ -373,6 +371,24 @@ Page ini untuk edit data bon muat.
         });
     }
 
+    let scanner = new Instascan.Scanner(
+        {
+            video: document.getElementById('preview')
+        }
+    );
+    scanner.addListener('scan', function(content) {
+        alert('Do you want to open this page?: ' + content);
+        window.open(content, "_blank");
+    });
+
+    Instascan.Camera.getCameras().then(cameras => 
+    {
+        if(cameras.length > 0){
+            scanner.start(cameras[0]);
+        } else {
+            console.error("Please enable Camera!");
+        }
+    });
     function triggerNotification(text){
         $("#modalContent").html(text);
         $("#triggerModal").click();

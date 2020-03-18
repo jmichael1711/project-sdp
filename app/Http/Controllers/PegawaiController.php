@@ -17,9 +17,22 @@ class PegawaiController extends Controller
         return view('master.pegawai.create',compact('allKota','nextId'));
     }
 
+    public function index(){
+        $allPegawai = Pegawai::getAll()->get();
+        return view('master.pegawai.index', compact('allPegawai'));
+    }
+
+    public function edit($id){
+        $pegawai = Pegawai::findOrFail($id);
+        $allKota = Kota::getAll()->get();
+        return view('master.pegawai.edit', compact('pegawai','allKota'));
+    }
+
     public function store(Request $request){
         $request = $request->all();
         $user = Session::get('id');
+        $request['user_created'] = $user;
+        $request['user_updated'] = $user;
 
         Pegawai::create($request);
         $success = "Pegawai berhasil di-inputkan.";
