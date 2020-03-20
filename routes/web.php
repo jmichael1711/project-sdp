@@ -161,6 +161,20 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::post('/admin/pesanan/store', 'PesananController@store');
     Route::get('/admin/pesanan/edit/{id}', 'PesananController@edit');
     Route::post('/admin/pesanan/update/{id}', 'PesananController@update');
+
+     //ADMIN - Kurir Customer
+     Route::get('/admin/kurir_customer', 'kurir_customerController@index');
+     Route::get('/admin/kurir_customer/create', 'kurir_customerController@create');
+     Route::post('/admin/kurir_customer/store', 'kurir_customerController@store');
+     Route::get('/admin/kurir_customer/edit/{id}', 'kurir_customerController@edit');
+     Route::post('/admin/kurir_customer/update/{id}', 'kurir_customerController@update');
+
+      //ADMIN - Kurir non customer
+    Route::get('/admin/kurir_non_customer', 'kurir_non_customerController@index');
+    Route::get('/admin/kurir_non_customer/create', 'kurir_non_customerController@create');
+    Route::post('/admin/kurir_non_customer/store', 'kurir_non_customerController@store');
+    Route::get('/admin/kurir_non_customer/edit/{id}', 'kurir_non_customerController@edit');
+    Route::post('/admin/kurir_non_customer/update/{id}', 'kurir_non_customerController@update');
 });
 
 
