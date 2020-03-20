@@ -35,18 +35,6 @@ Page ini adalah untuk menambahkan Pesanan
         <div class="form-row">
             <div class="col-md-4">
                 <div class="position-relative form-group">
-                    <label class="">ID resi</label>
-                    <select name="resi_id" class="form-control">
-                        @foreach ($listResiID as $i)
-                            <option class="form-control" value="{{$i->id}}">{{$i->id }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-4">
-                <div class="position-relative form-group">
                     <label class="">ID kurir</label>
                     <select name="kurir_customer_id" class="form-control">
                         @foreach ($listKurID as $i)

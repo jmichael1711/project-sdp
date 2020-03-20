@@ -385,6 +385,30 @@
                                     </ul>
                                 </li>
 
+                                {{-- SIDEBAR - Kurir Customer --}}
+                                <li id="upperlist-kurir_customer">
+                                    <a id="btn-kurir_customer" href="">
+                                        <i class="metismenu-icon pe-7s-study"></i>
+                                            Kurir Customer
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    <ul id="list-kurir_customer">
+                                        <li>
+                                            <a id="header-kurir_customer" href="{{ url('/admin/kurir_customer') }}">
+                                                <i class="metismenu-icon"></i>
+                                                List Kurir Customer
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a id="header-tambah-kurir_customer" href="{{ url('/admin/kurir_customer/create') }}">
+                                                <i class="metismenu-icon">
+                                                </i>
+                                                Tambah Kurir Customer
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
                                 {{-- SIDEBAR - BON MUAT --}}
                                 <li id="upperlist-bonmuat">
                                     <a id="btn-bonmuat" href="">
@@ -407,7 +431,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>                               
+                                </li>
 
                                 <li class="app-sidebar__heading">Report</li>
                                 <li>
@@ -483,7 +507,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>    
+                    </div>
                 </div>
                 <script src="{{asset('js/libs.js')}}"></script>
                 <script src="{{asset('js/jquery.js')}}"></script>

@@ -36,6 +36,7 @@ Page ini adalah untuk melihat semua pesanan
                             <th>Alamat dan Kota Tujuan</th>
                             <th>Nama Pengirim</th>
                             <th>Nama Penerima</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,14 +46,14 @@ Page ini adalah untuk melihat semua pesanan
                                 <td>{{$pesanan['resi_id']}}</td>
                                 <td>{{$pesanan['kurir_customer_id']}}</td>
                                 <td>{{$pesanan['berat_barang']}}</td>
-                                <td>{{$pesanan['alamat_asal']}}, {{$pesanan['kota_asal']}}}</td>
-                                <td>{{$pesanan['alamat_tujuan']}}, {{$pesanan['kota_tujuan']}}}</td>
+                                <td>{{$pesanan['alamat_asal']}}, {{$pesanan['kota_asal']}}</td>
+                                <td>{{$pesanan['alamat_tujuan']}}, {{$pesanan['kota_tujuan']}}</td>
                                 <td>{{$pesanan['nama_pengirim']}}</td>
                                 <td>{{$pesanan['nama_penerima']}}</td>
-                                @if ($city['is_deleted'] == 1)
-                                <td class="bg-danger text-center text-white">NOT ACTIVE</td>
+                                @if ($pesanan['status'] == 1)
+                                <td class="bg-success text-center text-white">FINISH</td>
                                 @else
-                                <td class="bg-success text-center text-white">ACTIVE</td>
+                                <td class="bg-danger text-center text-white">NOT FINISH</td>
                                 @endif
                             </tr>
                         @endforeach

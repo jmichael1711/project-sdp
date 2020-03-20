@@ -8,6 +8,7 @@ use App\Pesanan;
 use App\kota;
 use App\Kurir_customer;
 use App\Resi;
+use App\Pegawai;
 use Illuminate\Support\Facades\Session;
 
 class PesananController extends Controller
@@ -19,8 +20,10 @@ class PesananController extends Controller
     }
 
     public function create(){
+        $pegawai = Pegawai::findorFail(Session::get('id'));
+        $idkan = $pegawai->kantor->id;
         $listKota = Kota::getAll()->get();
-        $listKurID = Kurir_customer::getAll()->get();
+        $listKurID = Kurir_customer::getKurKantor($idkan)->get();
         $listResiID = Resi::getAll()->get();
         return view('master.pesanan.create', compact('listKota','listKurID','listResiID'));
     }
@@ -31,16 +34,10 @@ class PesananController extends Controller
         $request['id'] = Pesanan::getNextId();
         $request['user_created'] = $user;
         $request['user_updated'] = $user;
-        $boleh = Pesanan::cek($request['id']);
-        if($boleh == true){
-            Pesanan::create($request);
-            $success = "Pesanan berhasil di-tambahkan";
-            Session::put('success-pesanan', $success);
-        }else {
-            $failed = "Pesanan gagal didaftarkan";
-            Session::put('failed-pesanan', $failed);
-        }
-
+        $request['waktu_berangkat_kurir'] = date("Y-m-d H:i:s");
+        Pesanan::create($request);
+        $success = "Pesanan berhasil di-tambahkan";
+        Session::put('success-pesanan', $success);
         return redirect('/admin/pesanan');
     }
 

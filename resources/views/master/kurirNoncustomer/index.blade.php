@@ -32,6 +32,7 @@ Page ini adalah untuk melihat semua kurir customer.
                         <th>Nama</th>
                         <th>Jenis Kelamin</th>
                         <th>No Telpon</th>
+                        <th>Alamat</th>
                         <th>Nomor Polisi</th>
                         <th>Available</th>
                         <th>Status</th>
@@ -42,11 +43,7 @@ Page ini adalah untuk melihat semua kurir customer.
                                 <td>{{$kc['id']}}</td>
                                 <td>{{$kc['kantor_id']}}</td>
                                 <td>{{$kc['nama']}}</td>
-                                @if($kc['jenis_kelamin']== 0)
-                                    <td>Laki-Laki</td>
-                                @else
-                                    <td>Perempuan</td>
-                                @endif
+                                <td>{{$kc['jenis_kelamin']}}</td>
                                 <td>{{$kc['no_telp']}}</td>
                                 <td>{{$kc['nopol']}}</td>
                                 @if ($kc['status'] == 1)
@@ -54,7 +51,7 @@ Page ini adalah untuk melihat semua kurir customer.
                                 @else
                                 <td class="bg-success text-center text-white">AVAILABLE</td>
                                 @endif
-                                @if ($kc['is_deleted'] == 1)
+                                @if ($ck['is_deleted'] == 1)
                                 <td class="bg-danger text-center text-white">NOT ACTIVE</td>
                                 @else
                                 <td class="bg-success text-center text-white">ACTIVE</td>

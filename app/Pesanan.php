@@ -42,10 +42,10 @@ class Pesanan extends Model
             ->orderBy('created_at', 'desc')
             ->first()
             ;
-    
+
             $lastId = intval(substr($lastObject->id, 1, 8));
             $lastId = str_pad(strval($lastId + 1), 8, "0", STR_PAD_LEFT);
-    
+
             $newLastId = 'O' . $lastId . date('dmy');
             return $newLastId;
         } else {

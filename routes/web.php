@@ -172,11 +172,11 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
      Route::post('/admin/kurir_customer/update/{id}', 'kurir_customerController@update');
 
       //ADMIN - Kurir non customer
-    Route::get('/admin/kurir_non_customer', 'kurir_non_customerController@index');
-    Route::get('/admin/kurir_non_customer/create', 'kurir_non_customerController@create');
-    Route::post('/admin/kurir_non_customer/store', 'kurir_non_customerController@store');
-    Route::get('/admin/kurir_non_customer/edit/{id}', 'kurir_non_customerController@edit');
-    Route::post('/admin/kurir_non_customer/update/{id}', 'kurir_non_customerController@update');
+    Route::get('/admin/kurir_noncustomer', 'kurir_noncustomerController@index');
+    Route::get('/admin/kurir_noncustomer/create', 'kurir_noncustomerController@create');
+    Route::post('/admin/kurir_noncustomer/store', 'kurir_noncustomerController@store');
+    Route::get('/admin/kurir_noncustomer/edit/{id}', 'kurir_noncustomerController@edit');
+    Route::post('/admin/kurir_noncustomer/update/{id}', 'kurir_noncustomerController@update');
 });
 
 

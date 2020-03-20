@@ -32,8 +32,8 @@ Page ini adalah untuk mengubah kurir customer.
                     <div class="col-md-4">
                         <div class="position-relative form-group">
                             <label class="">ID Kantor</label>
-                            <select name="kantor_id" class="form-control">
-                                @foreach ($listKanID as $i)
+                            <select name="kurir_customer_id" class="form-control">
+                                @foreach ($listkanID as $i)
                                     <option class="form-control" value="{{$i->id}}">{{$i->id}} - {{$i->kota}}</option>
                                 @endforeach
                             </select>
@@ -56,7 +56,6 @@ Page ini adalah untuk mengubah kurir customer.
                     <div class="col-md-3">
                         <div class="position-relative form-group">
                             <label class="">Active</label>
-                            <select name="jenis_kelamin" class="form-control">
                                 @if ($kurcust->jenis_kelamin)
                                     <option selected class="form-control" value="1">Laki-Laki</option>
                                     <option class="form-control" value="0">Perempuan</option>
@@ -64,7 +63,6 @@ Page ini adalah untuk mengubah kurir customer.
                                     <option class="form-control" value="1">Laki-Laki</option>
                                     <option selected class="form-control" value="0">Perempuan</option>
                                 @endif
-                            </select>
                         </div>
                     </div>
                 </div>
@@ -120,22 +118,13 @@ Page ini adalah untuk mengubah kurir customer.
                     <div class="col-md-3">
                         <div class="position-relative form-group">
                             <label class="">Active</label>
-                            <select name="is_deleted" class="form-control">
-                                @if ($kurcust['is_deleted'] == 1)
-                                    <option class="form-control" value="0">ACTIVE</option>
-                                    <option selected class="form-control" value="1">NOT ACTIVE</option>
-                                @else
-                                    <option selected class="form-control" value="0">ACTIVE</option>
-                                    <option class="form-control" value="1">NOT ACTIVE</option>
-                                @endif
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-2">
-                        <div class="position-relative form-group">
-                            <button class="mt-2 btn btn-primary">Edit</button>
+                            @if ($kurcust->is_deleted)
+                                <option selected class="form-control" value="1">ACTIVE</option>
+                                <option class="form-control" value="0">NOT ACTIVE</option>
+                            @else
+                                <option class="form-control" value="1">ACTIVE</option>
+                                <option selected class="form-control" value="0">NOT ACTIVE</option>
+                            @endif
                         </div>
                     </div>
                 </div>
