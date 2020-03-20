@@ -5,34 +5,46 @@
 @endsection
 
 @section('title')
-    Edit Kurir customer
+    Edit Kurir Non customer
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk mengubah kurir customer.
+Page ini adalah untuk mengubah kurir Non customer.
 @endsection
 
 @section('content')
 <div class="tab-content">
-    @if (Session::has('success-kurir_customer'))
+    @if (Session::has('success-kurir_noncustomer'))
         <ul class="list-group mb-2">
-            <li class="list-group-item-success list-group-item">{{Session::get('success-kurir_customer')}}</li>
+            <li class="list-group-item-success list-group-item">{{Session::get('success-kurir_noncustomer')}}</li>
         </ul>
         @php
-            Session::forget('success-kurir_customer');
+            Session::forget('success-kurir_noncustomer');
         @endphp
     @endif
 
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div class="card-body">
-                <form novalidate class="needs-validation" method="post" action="/admin/kurir_customer/update/{{$kurcust->id}}" enctype="multipart/form-data">
+                <form novalidate class="needs-validation" method="post" action="/admin/kurir_noncustomer/update/{{$kurnoncust->id}}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-row">
                     <div class="col-md-4">
                         <div class="position-relative form-group">
-                            <label class="">ID Kantor</label>
-                            <select name="kurir_customer_id" class="form-control">
+                            <label class="">ID Kantor 1</label>
+                            <select name="kantor_1_id" class="form-control">
+                                @foreach ($listkanID as $i)
+                                    <option class="form-control" value="{{$i->id}}">{{$i->id}} - {{$i->kota}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-4">
+                        <div class="position-relative form-group">
+                            <label class="">ID Kantor 2</label>
+                            <select name="kantor_2_id" class="form-control">
                                 @foreach ($listkanID as $i)
                                     <option class="form-control" value="{{$i->id}}">{{$i->id}} - {{$i->kota}}</option>
                                 @endforeach
@@ -45,7 +57,7 @@ Page ini adalah untuk mengubah kurir customer.
                         <div class="position-relative form-group">
                             <label class="">Nama</label>
                             <input style="text-transform:uppercase" name="nama" id=""
-                            placeholder="NAMA KURIR" type="text" class="form-control" value="{{$kurcust->nama}}"required>
+                            placeholder="NAMA KURIR" type="text" class="form-control" value="{{$kurnoncust->nama}}"required>
                             <div class="invalid-feedback">
                                 Mohon inputkan Nama Kurir Customer yang valid.
                             </div>
@@ -55,8 +67,8 @@ Page ini adalah untuk mengubah kurir customer.
                 <div class="form-row">
                     <div class="col-md-3">
                         <div class="position-relative form-group">
-                            <label class="">Active</label>
-                                @if ($kurcust->jenis_kelamin)
+                            <label class="">Jenis Kelamin</label>
+                                @if ($kurnoncust->jenis_kelamin)
                                     <option selected class="form-control" value="1">Laki-Laki</option>
                                     <option class="form-control" value="0">Perempuan</option>
                                 @else
@@ -71,7 +83,7 @@ Page ini adalah untuk mengubah kurir customer.
                         <div class="position-relative form-group">
                             <label class="">No_telp</label>
                             <input style="text-transform:uppercase" name="no_telp" id=""
-                            placeholder="Nomor Telpon" type="text" class="form-control"  value="{{$kurcust->no_telp}}" required>
+                            placeholder="Nomor Telpon" type="text" class="form-control"  value="{{$kurnoncust->no_telp}}" required>
                             <div class="invalid-feedback">
                                 Mohon inputkan Nomor Telpon yang valid.
                             </div>
@@ -83,7 +95,7 @@ Page ini adalah untuk mengubah kurir customer.
                         <div class="position-relative form-group">
                             <label class="">Alamat</label>
                             <input style="text-transform:uppercase" name="alamat" id=""
-                            placeholder="Alamat" type="text" class="form-control"  value="{{$kurcust->alamat}}" required>
+                            placeholder="Alamat" type="text" class="form-control"  value="{{$kurnoncust->alamat}}" required>
                             <div class="invalid-feedback">
                                 Mohon inputkan alamat yang valid.
                             </div>
@@ -93,21 +105,9 @@ Page ini adalah untuk mengubah kurir customer.
                 <div class="form-row">
                     <div class="col-md-4">
                         <div class="position-relative form-group">
-                            <label class="">Nomor Polisi</label>
-                            <input style="text-transform:uppercase" name="nopol" id=""
-                            placeholder="NOMOR POLISI" type="text" class="form-control"  value="{{$kurcust->nopol}}" required>
-                            <div class="invalid-feedback">
-                                Mohon inputkan Nomor Polisi yang valid.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="col-md-4">
-                        <div class="position-relative form-group">
                             <label class="">Passsword</label>
                             <input style="text-transform:uppercase" name="password" id=""
-                            placeholder="Password" type="text" class="form-control"  value="{{$kurcust->password}}" required>
+                            placeholder="Password" type="text" class="form-control"  value="{{$kurnoncust->password}}" required>
                             <div class="invalid-feedback">
                                 Mohon inputkan password yang valid.
                             </div>
@@ -118,7 +118,7 @@ Page ini adalah untuk mengubah kurir customer.
                     <div class="col-md-3">
                         <div class="position-relative form-group">
                             <label class="">Active</label>
-                            @if ($kurcust->is_deleted)
+                            @if ($kurnoncust->is_deleted)
                                 <option selected class="form-control" value="1">ACTIVE</option>
                                 <option class="form-control" value="0">NOT ACTIVE</option>
                             @else
@@ -138,10 +138,10 @@ Page ini adalah untuk mengubah kurir customer.
 @section('scripts')
 <script>
     $(document).ready(function () {
-        $("#upperlist-pesanan").addClass("mm-active");
-        $("#btn-pesanan").attr("aria-expanded", "true");
-        $("#list-pesanan").attr("class", "mm-collapse mm-show");
-        $("#header-pesanan").attr("class", "mm-active");
+        $("#upperlist-kurir_noncustomer").addClass("mm-active");
+        $("#btn-kurir_noncustomer").attr("aria-expanded", "true");
+        $("#list-kurir_noncustomer").attr("class", "mm-collapse mm-show");
+        $("#header-kurir_noncustomer").attr("class", "mm-active");
     })
 </script>
 @endsection

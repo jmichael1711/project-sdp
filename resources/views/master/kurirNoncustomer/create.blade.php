@@ -5,34 +5,46 @@
 @endsection
 
 @section('title')
-    Create Kurir Customer
+    Create Kurir non Customer
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk menambah Kurir Customer baru.
+Page ini adalah untuk menambah Kurir non Customer baru.
 @endsection
 
 @section('content')
 <div class="tab-content">
-    @if (Session::has('success-kurir_customer'))
+    @if (Session::has('success-kurir_noncustomer'))
         <ul class="list-group mb-2">
-            <li class="list-group-item-success list-group-item">{{Session::get('success-kurir_customer')}}</li>
+            <li class="list-group-item-success list-group-item">{{Session::get('success-kurir_noncustomer')}}</li>
         </ul>
         @php
-            Session::forget('success-kurir_customer');
+            Session::forget('success-kurir_noncustomer');
         @endphp
     @endif
 
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
-            <div class="card-body"><h5 class="card-title">Kurir Customer</h5>
-                <form novalidate class="needs-validation" method="post" action="/admin/kurir_customer/store" enctype="multipart/form-data">
+            <div class="card-body"><h5 class="card-title">Kurir Non Customer</h5>
+                <form novalidate class="needs-validation" method="post" action="/admin/kurir_noncustomer/store" enctype="multipart/form-data">
                 @csrf
                     <div class="form-row">
                         <div class="col-md-4">
                             <div class="position-relative form-group">
-                                <label class="">ID Kantor</label>
-                                <select name="kantor_id" class="form-control">
+                                <label class="">ID Kantor 1</label>
+                                <select name="kantor_1_id" class="form-control">
+                                    @foreach ($listKanID as $i)
+                                        <option class="form-control" value="{{$i->id}}">{{$i->id}} - {{$i->kota}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <div class="position-relative form-group">
+                                <label class="">ID Kantor 2</label>
+                                <select name="kantor_2_id" class="form-control">
                                     @foreach ($listKanID as $i)
                                         <option class="form-control" value="{{$i->id}}">{{$i->id}} - {{$i->kota}}</option>
                                     @endforeach
@@ -47,7 +59,7 @@ Page ini adalah untuk menambah Kurir Customer baru.
                                 <input style="text-transform:uppercase" name="nama" id=""
                                 placeholder="NAMA KURIR" type="text" class="form-control" required>
                                 <div class="invalid-feedback">
-                                    Mohon inputkan Nama Kurir Customer yang valid.
+                                    Mohon inputkan Nama Kurir Non Customer yang valid.
                                 </div>
                             </div>
                         </div>
@@ -90,18 +102,6 @@ Page ini adalah untuk menambah Kurir Customer baru.
                     <div class="form-row">
                         <div class="col-md-4">
                             <div class="position-relative form-group">
-                                <label class="">Nomor Polisi</label>
-                                <input style="text-transform:uppercase" name="nopol" id=""
-                                placeholder="NOMOR POLISI" type="text" class="form-control" required>
-                                <div class="invalid-feedback">
-                                    Mohon inputkan Nomor Polisi yang valid.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <div class="position-relative form-group">
                                 <label class="">Passsword</label>
                                 <input style="text-transform:uppercase" name="password" id=""
                                 placeholder="Password" type="text" class="form-control" required>
@@ -128,10 +128,10 @@ Page ini adalah untuk menambah Kurir Customer baru.
 @section('scripts')
 <script>
     $(document).ready(function () {
-        $("#upperlist-kurir_customer").addClass("mm-active");
-        $("#btn-kurir_customer").attr("aria-expanded", "true");
-        $("#list-kurir_customer").attr("class", "mm-collapse mm-show");
-        $("#header-kurir_customer").attr("class", "mm-active");
+        $("#upperlist-kurir_noncustomer").addClass("mm-active");
+        $("#btn-kurir_noncustomer").attr("aria-expanded", "true");
+        $("#list-kurir_noncustomer").attr("class", "mm-collapse mm-show");
+        $("#header-tambah-kurir_noncustomer").attr("class", "mm-active");
     })
 </script>
 @endsection

@@ -131,7 +131,7 @@ Page ini adalah untuk menambah Kurir Customer baru.
         $("#upperlist-kurir_customer").addClass("mm-active");
         $("#btn-kurir_customer").attr("aria-expanded", "true");
         $("#list-kurir_customer").attr("class", "mm-collapse mm-show");
-        $("#header-kurir_customer").attr("class", "mm-active");
+        $("#header-tambah-kurir_customer").attr("class", "mm-active");
     })
 </script>
 @endsection

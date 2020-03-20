@@ -23,7 +23,7 @@ class Kurir_customerController extends Controller
     public function store(Request $request) {
         $request = $request->all();
         $request['id'] = Kurir_customer::getNextId();
-        $request['status'] = 0;
+        $request['status'] = 1;
         $user = Session::get('id');
         $request['user_created'] = $user;
         $request['user_updated'] = $user;

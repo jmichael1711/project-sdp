@@ -55,7 +55,7 @@ Page ini adalah untuk mengubah kurir customer.
                 <div class="form-row">
                     <div class="col-md-3">
                         <div class="position-relative form-group">
-                            <label class="">Active</label>
+                            <label class="">Jenis Kelamin</label>
                             <select name="jenis_kelamin" class="form-control">
                                 @if ($kurcust->jenis_kelamin)
                                     <option selected class="form-control" value="1">Laki-Laki</option>
@@ -149,10 +149,10 @@ Page ini adalah untuk mengubah kurir customer.
 @section('scripts')
 <script>
     $(document).ready(function () {
-        $("#upperlist-pesanan").addClass("mm-active");
-        $("#btn-pesanan").attr("aria-expanded", "true");
-        $("#list-pesanan").attr("class", "mm-collapse mm-show");
-        $("#header-pesanan").attr("class", "mm-active");
+        $("#upperlist-kurir_customer").addClass("mm-active");
+        $("#btn-kurir_customer").attr("aria-expanded", "true");
+        $("#list-kurir_customer").attr("class", "mm-collapse mm-show");
+        $("#header-kurir_customer").attr("class", "mm-active");
     })
 </script>
 @endsection
