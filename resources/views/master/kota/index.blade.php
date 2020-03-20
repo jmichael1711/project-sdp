@@ -37,9 +37,17 @@ Page ini adalah untuk melihat semua Kota
                             <tr onclick='editKota("{{$city->nama}}")'>
                                 <td>{{$city['nama']}}</td>
                                 @if ($city['is_deleted'] == 1)
-                                <td class="bg-danger text-center text-white">NOT ACTIVE</td>
+                                <td class="text-center text-white">
+                                    <div class="badge badge-danger">
+                                        NOT ACTIVE
+                                    </div>
+                                </td>
                                 @else
-                                <td class="bg-success text-center text-white">ACTIVE</td>
+                                <td class="text-center text-white">
+                                    <div class="badge badge-success">
+                                        ACTIVE
+                                    </div>
+                                </td>
                                 @endif
                             </tr>
                         @endforeach
@@ -68,7 +76,8 @@ Page ini adalah untuk melihat semua Kota
     var table = $('#tableKota').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,
-        'lengthMenu': [10,25, 50]
+        'lengthMenu': [10,25, 50],
+        "scrollX": true
     });
 </script>
 @endsection

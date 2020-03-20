@@ -38,15 +38,14 @@ class Kendaraan extends Model
     }
 
     public static function sortKendaraan($kantorAsalId,$kantorTujuanId){
-        return Kendaraan::getAll()->when("posisi_di_kantor_1" == 1, function($query) use ($kantorAsalId,$kantorTujuanId){
-            $query->where("kantor_1_id",$kantorAsalId)
-            ->where("kantor_2_id",$kantorTujuanId);
-        })->when("posisi_di_kantor_1" == 0,function($query) use ($kantorAsalId,$kantorTujuanId){
-            $query->where("kantor_2_id",$kantorAsalId)
-            ->where("kantor_1_id",$kantorTujuanId);
-        })
-        ->get();   
-    }
+        return Kendaraan::getAll()->where('posisi_di_kantor_1', '=', 1)
+        ->where('kantor_1_id', '=', $kantorAsalId)
+        ->where('kantor_2_id', '=', $kantorTujuanId)
+        ->orWhere('posisi_di_kantor_1', '=', 0)
+        ->where('kantor_1_id', '=', $kantorTujuanId)
+        ->where('kantor_2_id', '=', $kantorAsalId)
+        ->get();
+    }  
 
     public static function getNextId() {
         if (Kendaraan::count() > 0) {

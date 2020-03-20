@@ -55,12 +55,16 @@ Page ini adalah untuk menampilkan semua pengiriman customer.
                                 <td>{{$i->user_updated}}</td>
                                 <td>{{$i->updated_at->diffForHumans()}}</td>
                                 @if ($i->is_deleted)
-                                <td class="bg-danger text-center text-white">
-                                    NOT ACTIVE
+                                <td class="text-center text-white">
+                                    <div class="badge badge-danger">
+                                        NOT ACTIVE
+                                    </div>
                                 </td>    
                                 @else 
-                                <td class="bg-success text-center text-white">
-                                    ACTIVE
+                                <td class="text-center text-white">
+                                    <div class="badge badge-success">
+                                        ACTIVE
+                                    </div>
                                 </td>
                                 @endif
                             </tr>
@@ -87,7 +91,8 @@ Page ini adalah untuk menampilkan semua pengiriman customer.
     var table = $('#tablePengirimanCust').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,
-        'lengthMenu': [10,25, 50, 100]
+        'lengthMenu': [10,25, 50, 100],
+        "scrollX": true
     });
 
     function editKantor(id){

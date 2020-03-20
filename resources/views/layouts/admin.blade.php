@@ -483,11 +483,13 @@
                                 </div>
                             </div>
                         </div>
-                    </div>    </div>
+                    </div>    
+                </div>
                 <script src="{{asset('js/libs.js')}}"></script>
                 <script src="{{asset('js/jquery.js')}}"></script>
                 <script src="{{asset('js/formvalidationadmin.js')}}"></script>
                 <script src="{{asset('DataTables/datatables.min.js')}}" ></script>
+                <script src="{{asset('js/instascan.min.js')}}"></script>
                 @yield('scripts');
         </div>
     </div>
