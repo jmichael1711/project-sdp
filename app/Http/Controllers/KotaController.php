@@ -34,7 +34,7 @@ class KotaController extends Controller
             Session::put('failed-kota', $failed);
         }
 
-        return redirect('/admin/kota/create');
+        return redirect('/admin/kota');
     }
 
     public function edit($id) {

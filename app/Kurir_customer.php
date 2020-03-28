@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kurir_customer extends Model
 {
-    protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $guarded = ['created_at', 'updated_at'];
 
     public $primarykey = "id";
     //id has length 8
@@ -24,6 +24,10 @@ class Kurir_customer extends Model
         return Kurir_customer::where("is_deleted", 0);
     }
 
+    public static function getKurKantor($id) {
+        return Kurir_customer::where("kantor_id", $id);
+    }
+
     public static function count() {
         return Kurir_customer::getAll()->count();
     }
@@ -36,10 +40,10 @@ class Kurir_customer extends Model
             ->orderBy('created_at', 'desc')
             ->first()
             ;
-    
+
             $lastId = intval(substr($lastObject->id, 2, 6));
             $lastId = str_pad(strval($lastId + 1), 6, "0", STR_PAD_LEFT);
-    
+
             $newLastId = 'KC' . $lastId;
             return $newLastId;
         } else {

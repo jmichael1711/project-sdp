@@ -220,6 +220,7 @@ Page ini untuk edit data bon muat.
                                 <th>User Created</th>
                                 <th>User Updated</th>
                                 <th>Status</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -263,6 +264,7 @@ Page ini untuk edit data bon muat.
                                     </div>
                                 </td>
                                 @endif
+                                <td><button class="mb-2 mr-2 btn btn-danger deleteBtn" value="{{$i->id}}">Delete</button></td>
                             </tr>
                             @endforeach
                             @endif
@@ -332,8 +334,6 @@ Page ini untuk edit data bon muat.
             @endphp
         } 
         scanner.addListener('scan', function(content) {
-            alert('Do you want to open this page?: ' + content);
-            window.open(content, "_blank");
             $("#resi_id").val(content);
             $("#close").click();
             $("#tambahSuratJalan").click();
@@ -419,7 +419,25 @@ Page ini untuk edit data bon muat.
         });
     }
 
-    let scanner = new Instascan.Scanner({
+    $(".deleteBtn").click(function(){
+        var id = $(this).val();
+        var bonmuat = "{{$bonmuat->id}}";
+        $.ajax({
+            method : "POST",
+            url : '/admin/bonmuat/deleteSuratJalan',
+            datatype : "json",
+            data : { bonmuat : bonmuat,id : id, _token : "{{ csrf_token() }}" },
+            success: function(result){
+                window.location.reload();
+            },
+            error: function(){
+                console.log('error');
+            }
+        });
+    });
+
+    let scanner = new Instascan.Scanner(
+    {
         video: document.getElementById('preview')
     });
 

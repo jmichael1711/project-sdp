@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2020 at 04:59 PM
+-- Generation Time: Mar 18, 2020 at 06:24 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -50,7 +50,7 @@ CREATE TABLE `bon_muats` (
 --
 
 INSERT INTO `bon_muats` (`id`, `kendaraan_id`, `kurir_non_customer_id`, `total_muatan`, `kantor_asal_id`, `kantor_tujuan_id`, `user_created`, `user_updated`, `created_at`, `updated_at`, `is_deleted`) VALUES
-('B00000001030220', 'KE000001', 'KN000001', '20.0', 'KA000001', 'KA000002', '', 'P0000001', '0000-00-00 00:00:00', '2020-03-18 15:58:19', 0),
+('B00000001030220', 'KE000001', 'KN000001', '15.0', 'KA000001', 'KA000002', '', 'P0000001', '0000-00-00 00:00:00', '2020-03-18 17:23:52', 0),
 ('B00000002030220', 'KE000001', 'KN000002', '0.0', 'KA000001', 'KA000001', '', ' ', '2020-03-25 09:15:43', '2020-03-18 08:57:19', 0),
 ('B00000003030220', 'KE000001', 'KN000002', '0.0', 'KA000001', 'KA000001', '', ' ', '0000-00-00 00:00:00', '2020-03-18 08:56:28', 0);
 
@@ -245,7 +245,7 @@ CREATE TABLE `pegawais` (
   `updated_at` datetime NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   `user_created` varchar(8) NOT NULL,
-  `user_udpdated` varchar(8) NOT NULL
+  `user_updated` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -366,7 +366,7 @@ CREATE TABLE `surat_jalans` (
 
 INSERT INTO `surat_jalans` (`bon_muat_id`, `resi_id`, `telah_sampai`, `created_at`, `updated_at`, `is_deleted`, `user_created`, `user_updated`) VALUES
 ('B00000001030220', 'R0000001', 0, '2020-03-18 18:04:12', '2020-03-20 18:04:15', 0, '', ''),
-('B00000001030220', 'R0000002', 0, '2020-03-17 18:04:17', '2020-03-21 18:04:20', 0, '', '');
+('B00000001030220', 'R0000002', 0, '2020-03-18 17:23:52', '2020-03-18 17:23:52', 0, 'P0000001', 'P0000001');
 
 --
 -- Indexes for dumped tables
