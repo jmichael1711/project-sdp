@@ -161,7 +161,7 @@ Page ini untuk edit data bon muat.
                 </form>
             </div>
                 <div class="card-footer">
-                    <button type="button" data-toggle="collapse" href="#collapseEdit" class="btn btn-primary">Toggle</button>
+                    <button type="button" data-toggle="collapse" href="#collapseEdit" class="btn btn-primary">Edit Bon Muat</button>
                 </div>
             </div>
         </div>
@@ -348,6 +348,7 @@ Page ini untuk edit data bon muat.
     });
     var previousKotaAsal;
     var previousKotaTujuan;
+    
     $("#kotaAsal").on('focus', function () {
         previousKotaAsal = this.value;
     });

@@ -24,8 +24,19 @@ class PegawaiController extends Controller
 
     public function edit($id){
         $pegawai = Pegawai::findOrFail($id);
+        $kotaNow = $pegawai->kantor->getKota->nama;
         $allKota = Kota::getAll()->get();
-        return view('master.pegawai.edit', compact('pegawai','allKota'));
+        return view('master.pegawai.edit', compact('pegawai','allKota','kotaNow'));
+    }
+
+    public function update($id, Request $request){
+        $request = $request->all();
+        $pegawai = Pegawai::findOrFail($id);
+        $request['user_updated'] = Session::get('id');
+        $pegawai->update($request);
+        $success = 'Pegawai berhasil diubah.';
+        Session::put('success', $success);
+        return redirect('/admin/pegawai');
     }
 
     public function store(Request $request){
