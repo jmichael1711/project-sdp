@@ -23,7 +23,6 @@ class Resi extends Model
     public function pengiriman_customers() {
         return $this->belongsToMany('App\Pengiriman_Customer', 'd_pengiriman_customers')
         ->as('d_pengiriman_customer')
-        ->withPivot('telah_sampai')
         ->withTimestamps()
         ;
     }

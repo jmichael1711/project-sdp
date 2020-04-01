@@ -183,8 +183,9 @@ Page ini untuk edit data bon muat.
                         <button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()">
                             &nbsp Scan &nbsp
                         </button>
-                    </div><br>
-                <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/addSuratJalan/{{$bonmuat->id}}" enctype="multipart/form-data">
+                    </div>
+                    <br>
+                    <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/addSuratJalan/{{$bonmuat->id}}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
                             <div class="col-md-3">
@@ -270,7 +271,7 @@ Page ini untuk edit data bon muat.
                             @endif
                         </tbody>
                     </table>
-                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -291,7 +292,7 @@ Page ini untuk edit data bon muat.
                 <p class="mb-0" id="modalContent"></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -316,6 +317,7 @@ Page ini untuk edit data bon muat.
         </div>
     </div>
 </div>
+
 @section('scripts') 
 <script>
     $(document).ready(function (){
@@ -367,8 +369,9 @@ Page ini untuk edit data bon muat.
         if(!permitted){
             triggerNotification("Terdapat Surat Jalan yang belum selesai.");
             $("#status").val("0");
-        } 
+        }
     }
+
     function isiKantor(posisi){
         var totalSuratJalan = {{$bonmuat->resis->count()}};
         if(totalSuratJalan == 0){

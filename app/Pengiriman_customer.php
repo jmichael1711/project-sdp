@@ -19,11 +19,11 @@ class Pengiriman_customer extends Model
     public function kantor() {
         return $this->belongsTo('App\Kantor');
     }
-
+    
     public function resis() {
         return $this->belongsToMany('App\Resi', 'd_pengiriman_customers')
         ->as('d_pengiriman_customer')
-        ->withPivot('telah_sampai')
+        ->withPivot('telah_sampai', 'is_deleted', 'user_created', 'user_updated')
         ->withTimestamps()
         ;
     }
