@@ -108,7 +108,7 @@ class Bon_MuatController extends Controller
                 foreach($i->resis as $j){
                     if($j->id == $request['resi_id'] && $j->d_pengiriman_customer->telah_sampai == 0){
                         Session::put("success-failsuratjalan","Resi telah terdaftar di pengiriman customer dengan ID = " . $i->id);
-                        return redirect('/admin/pengirimanCustomer/edit/'.$id);
+                        return redirect('/admin/bonmuat/edit/'.$id);
                     }
                 }
             }
