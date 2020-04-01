@@ -452,7 +452,7 @@ Page ini adalah untuk mengubah data pengiriman customer.
             method : "POST",
             url : "/admin/pengirimanCustomer/deleteAll/{{$pengirimanCust->id}}",
             datatype : "json",
-            data : { id : id, _token : "{{ csrf_token() }}" },
+            data : { _token : "{{ csrf_token() }}" },
             success: function(result){
                 window.location.reload();
             },
