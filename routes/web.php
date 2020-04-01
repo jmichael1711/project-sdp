@@ -142,6 +142,7 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::get('/admin/pengirimanCustomer/edit/{id}', 'PengirimanCustomerController@edit');
     Route::post('/admin/pengirimanCustomer/update/{id}', 'PengirimanCustomerController@update');
     Route::post('/admin/pengirimanCustomer/addDetail/{id}', 'PengirimanCustomerController@addDetail');
+    Route::post('/admin/pengirimanCustomer/deleteDetail/{id}', 'PengirimanCustomerController@deleteDetail');
 
     //ADMIN - PEGAWAI
     Route::get('/admin/pegawai', 'PegawaiController@index');

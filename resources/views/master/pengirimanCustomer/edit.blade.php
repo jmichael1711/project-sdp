@@ -43,7 +43,7 @@ Page ini adalah untuk mengubah data pengiriman customer.
                     </div>
                 </div>
                 <div class="collapse" id="collapseEdit">
-                    <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/update/{{$pengirimanCust->id  }}" enctype="multipart/form-data">
+                    <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/update/{{$pengirimanCust->id}}" enctype="multipart/form-data">
                     @csrf
                         <div class="form-row">
                             <div class="col-md-4">
@@ -105,6 +105,22 @@ Page ini adalah untuk mengubah data pengiriman customer.
                                         > Tidak
                                         </label>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="position-relative form-group">
+                                    <label class="">Status</label>
+                                    <select class="form-control" name="is_deleted" id="status" onchange="changeStatus()">
+                                        @if ($pengirimanCust->is_deleted)
+                                            <option selected class="form-control" value="1">NOT ACTIVE</option>
+                                            <option class="form-control" value="0">ACTIVE</option>
+                                        @else
+                                            <option class="form-control" value="1">NOT ACTIVE</option>
+                                            <option selected class="form-control" value="0">ACTIVE</option>
+                                        @endif
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -223,12 +239,13 @@ Page ini adalah untuk mengubah data pengiriman customer.
                                     </div>
                                 </td>
                                 @endif
-                                <td><button class="mb-2 mr-2 btn btn-danger deleteBtn" value="{{$i->id}}">Delete</button></td>
+                                <td><button class="mb-2 mr-2 btn btn-danger" data-toggle="modal" onclick="passValue('{{$i->id}}')" data-target="#deleteDetail" value="{{$i->id}}">Delete</button></td>
                             </tr>
                             @endforeach
                             @endif
                         </tbody>
                     </table>
+                    <button class="mb-2 mr-2 mt-5 btn btn-danger pull-right" data-toggle="modal" data-target="#deleteAllDetail">DELETE ALL</button>
                 </div>
             </div>
         </div>
@@ -236,6 +253,47 @@ Page ini adalah untuk mengubah data pengiriman customer.
 </div>  
 @endsection
 
+{{-- Delete all detail --}}
+<div class="modal fade" id="deleteAllDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">APAKAH ANDA YAKIN?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            SEMUA DATA AKAN TERHAPUS JIKA MENEKAN TOMBOL DELETE ALL.
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger"onclick="deleteAllDetail()" data-dismiss="modal">DELETE ALL</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+{{-- Delete per detail --}}
+<div class="modal fade" id="deleteDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">APAKAH ANDA YAKIN?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            Apakah anda ingin menghapus data ini?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" id="deleteDetail" onclick="deleteDetail()" data-dismiss="modal">Delete</button>
+        </div>
+        </div>
+    </div>
+</div>
 
 {{-- Notification --}}
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -310,6 +368,20 @@ Page ini adalah untuk mengubah data pengiriman customer.
         "scrollX": true
     });
 
+    function changeStatus(){
+        var permitted = true;
+        @foreach ($pengirimanCust->resis as $i)
+            @if($i->d_pengiriman_customer->telah_sampai == 0)
+                permitted = false;
+            @endif
+        @endforeach
+        
+        if(!permitted){
+            triggerNotification("Terdapat detail pengiriman customer yang belum selesai.");
+            $("#status").val("0");
+        }
+    }
+
     let scanner = new Instascan.Scanner(
     {
         video: document.getElementById('preview')
@@ -353,6 +425,26 @@ Page ini adalah untuk mengubah data pengiriman customer.
         var idKota = $('#kota').val();
         var idKantor = $('#kantor').val();
         refreshCombobox(idKota, idKantor);
+    }
+
+    function passValue(id){
+        $("#deleteDetail").val(id);
+    }
+
+    function deleteDetail(){
+        var id = $('#deleteDetail').val();
+        $.ajax({
+            method : "POST",
+            url : "/admin/pengirimanCustomer/deleteDetail/{{$pengirimanCust->id}}",
+            datatype : "json",
+            data : { id : id, _token : "{{ csrf_token() }}" },
+            success: function(result){
+                window.location.reload();
+            },
+            error: function(){
+                console.log('error');
+            }
+        });
     }
 
     function refreshCombobox(idKota, idKantor){

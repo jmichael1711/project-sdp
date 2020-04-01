@@ -54,6 +54,14 @@ class PengirimanCustomerController extends Controller
         return redirect('/admin/pengirimanCustomer');
     }
 
+    public function deleteDetail($id, Request $request){
+        $pengirimanCust = Pengiriman_customer::findOrFail($id);
+        $resi = Resi::findorFail($request->id);
+        $pengirimanCust->resis()->detach($request->id);
+        $pengirimanCust->update(['total_muatan' => ($pengirimanCust->total_muatan-$resi->pesanan->berat_barang)]);
+        return redirect('/admin/pengirimanCustomer/edit/'.$id);
+    }
+
     public function addDetail($id, Request $request){
         $pengirimanCust = Pengiriman_customer::findOrFail($id);
         $resi = Resi::find($request['resi_id']);
@@ -94,7 +102,6 @@ class PengirimanCustomerController extends Controller
             $pengirimanCust->update(['user_updated' => $user]);
             Session::put('success-detail', 'Detail pengiriman customer berhasil ditambahkan.');
             return redirect('/admin/pengirimanCustomer/edit/'.$id);
-
         }
     }
 
