@@ -513,6 +513,21 @@ Page ini untuk edit data bon muat.
         });
     }
     
+    function deleteAllDetail(){
+        $.ajax({
+            method : "POST",
+            url : "/admin/bonmuat/deleteAll/{{$bonmuat->id}}",
+            datatype : "json",
+            data : { _token : "{{ csrf_token() }}" },
+            success: function(result){
+                window.location.reload();
+            },
+            error: function(){
+                console.log('error');
+            }
+        });
+    }
+
     function triggerNotification(text){
         $("#modalContent").html(text);
         $("#triggerModal").click();

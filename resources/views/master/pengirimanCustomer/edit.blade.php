@@ -447,6 +447,21 @@ Page ini adalah untuk mengubah data pengiriman customer.
         });
     }
 
+    function deleteAllDetail(){
+        $.ajax({
+            method : "POST",
+            url : "/admin/pengirimanCustomer/deleteAll/{{$pengirimanCust->id}}",
+            datatype : "json",
+            data : { id : id, _token : "{{ csrf_token() }}" },
+            success: function(result){
+                window.location.reload();
+            },
+            error: function(){
+                console.log('error');
+            }
+        });
+    }
+
     function refreshCombobox(idKota, idKantor){
         @for ($i = 0; $i < $allKota->count(); $i++)
             if(idKota == '{{$allKota[$i]->nama}}'){

@@ -143,7 +143,7 @@ class Bon_MuatController extends Controller
         return redirect('/admin/bonmuat/edit/'.$bonmuat->id);
     }
 
-    public function deleteAll(){
+    public function deleteAll($id){
         $bonmuat = Bon_Muat::findorFail($id);
         $totalMuatan = 0;
         foreach($bonmuat->resis as $i){
