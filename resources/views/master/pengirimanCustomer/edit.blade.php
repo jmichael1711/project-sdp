@@ -22,7 +22,9 @@ Page ini adalah untuk mengubah data pengiriman customer.
             Session::forget('success');
         @endphp
     @endif
-
+    <button id="triggerModal" type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal" style="display: none">
+        Trigger Modal
+    </button>
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div class="card-body">
