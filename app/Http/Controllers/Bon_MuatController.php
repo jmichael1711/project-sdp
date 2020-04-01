@@ -143,4 +143,15 @@ class Bon_MuatController extends Controller
         return redirect('/admin/bonmuat/edit/'.$bonmuat->id);
     }
 
+    public function deleteAll(){
+        $bonmuat = Bon_Muat::findorFail($id);
+        $totalMuatan = 0;
+        foreach($bonmuat->resis as $i){
+            $bonmuat->resis()->detach($i->id);
+            $totalMuatan += $i->pesanan->berat_barang;
+        }
+        $bonmuat->update(['total_muatan' => ($bonmuat->total_muatan-$totalMuatan)]);
+        return redirect('/admin/bonmuat/edit/'.$id);
+    }
+
 }
