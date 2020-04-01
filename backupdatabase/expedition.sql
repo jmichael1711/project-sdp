@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2020 at 06:24 PM
+-- Generation Time: Mar 20, 2020 at 02:08 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -50,8 +50,8 @@ CREATE TABLE `bon_muats` (
 --
 
 INSERT INTO `bon_muats` (`id`, `kendaraan_id`, `kurir_non_customer_id`, `total_muatan`, `kantor_asal_id`, `kantor_tujuan_id`, `user_created`, `user_updated`, `created_at`, `updated_at`, `is_deleted`) VALUES
-('B00000001030220', 'KE000001', 'KN000001', '15.0', 'KA000001', 'KA000002', '', 'P0000001', '0000-00-00 00:00:00', '2020-03-18 17:23:52', 0),
-('B00000002030220', 'KE000001', 'KN000002', '0.0', 'KA000001', 'KA000001', '', ' ', '2020-03-25 09:15:43', '2020-03-18 08:57:19', 0),
+('B00000001030220', 'KE000001', 'KN000001', '15.0', 'KA000001', 'KA000002', '', 'P0000001', '0000-00-00 00:00:00', '2020-03-18 17:28:35', 0),
+('B00000002030220', 'KE000001', 'KN000002', '0.0', 'KA000001', 'KA000001', '', 'P0000001', '2020-03-25 09:15:43', '2020-03-20 06:32:22', 0),
 ('B00000003030220', 'KE000001', 'KN000002', '0.0', 'KA000001', 'KA000001', '', ' ', '0000-00-00 00:00:00', '2020-03-18 08:56:28', 0);
 
 -- --------------------------------------------------------
@@ -174,7 +174,7 @@ INSERT INTO `kotas` (`nama`, `created_at`, `updated_at`, `user_created`, `user_u
 DROP TABLE IF EXISTS `kurir_customers`;
 CREATE TABLE `kurir_customers` (
   `id` varchar(8) NOT NULL,
-  `kantor_id` varchar(6) NOT NULL,
+  `kantor_id` varchar(8) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `jenis_kelamin` varchar(1) NOT NULL,
   `no_telp` varchar(12) NOT NULL,
@@ -206,7 +206,7 @@ CREATE TABLE `kurir_non_customers` (
   `alamat` varchar(1024) NOT NULL,
   `status` decimal(1,0) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `posisi_di_kantor_1` tinyint(1) NOT NULL,
+  `posisi_di_kantor_1` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
