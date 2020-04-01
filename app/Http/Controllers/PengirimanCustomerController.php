@@ -108,8 +108,8 @@ class PengirimanCustomerController extends Controller
     public function deleteAll(){
         $pengirimanCust = Pengiriman_customer::findorFail($id);
         $pengirimanCust->resis()->detach();
-        $bonmuat->update(['total_muatan' => 0]);
-        return redirect('/admin/bonmuat/edit/'.$id);
+        $pengirimanCust->update(['total_muatan' => 0]);
+        return redirect('/admin/pengirimanCustomer/edit/'.$id);
     }
 
 }
