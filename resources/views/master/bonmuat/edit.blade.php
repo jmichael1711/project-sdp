@@ -265,18 +265,61 @@ Page ini untuk edit data bon muat.
                                     </div>
                                 </td>
                                 @endif
-                                <td><button class="mb-2 mr-2 btn btn-danger deleteBtn" value="{{$i->id}}">Delete</button></td>
+                                <td><button class="mb-2 mr-2 btn btn-danger" data-toggle="modal" onclick="passValue('{{$i->id}}')" data-target="#deleteDetail" value="{{$i->id}}">Delete</button></td>
                             </tr>
                             @endforeach
                             @endif
                         </tbody>
                     </table>
+                    <button class="mb-2 mr-2 mt-5 btn btn-danger pull-right" data-toggle="modal" data-target="#deleteAllDetail">DELETE ALL</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
+
+{{-- Delete all detail --}}
+<div class="modal fade" id="deleteAllDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">APAKAH ANDA YAKIN?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            SEMUA DATA AKAN TERHAPUS JIKA MENEKAN TOMBOL DELETE ALL.
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger"onclick="deleteAllDetail()" data-dismiss="modal">DELETE ALL</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+{{-- Delete per detail --}}
+<div class="modal fade" id="deleteDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">APAKAH ANDA YAKIN?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            Apakah anda ingin menghapus data ini?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" id="deleteDetail" onclick="deleteDetail()" data-dismiss="modal">Delete</button>
+        </div>
+        </div>
+    </div>
+</div>
 
 {{-- Notification --}}
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -422,8 +465,12 @@ Page ini untuk edit data bon muat.
         });
     }
 
-    $(".deleteBtn").click(function(){
-        var id = $(this).val();
+    function passValue(id){
+        $("#deleteDetail").val(id);
+    }
+
+    function deleteDetail(){
+        var id = $("#deleteDetail").val();
         var bonmuat = "{{$bonmuat->id}}";
         $.ajax({
             method : "POST",
@@ -437,7 +484,7 @@ Page ini untuk edit data bon muat.
                 console.log('error');
             }
         });
-    });
+    }
 
     let scanner = new Instascan.Scanner(
     {
