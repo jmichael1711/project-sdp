@@ -9,6 +9,7 @@ use App\Kota;
 use App\Kurir_non_customer;
 use App\Resi;
 use App\Kendaraan;
+use App\Pengiriman_customer;
 use Illuminate\Support\Facades\Session;
 class Bon_MuatController extends Controller
 {
@@ -82,6 +83,8 @@ class Bon_MuatController extends Controller
 
     public function addSuratJalan($id,Request $request){
         $bonmuat = Bon_Muat::findorFail($id);
+        $allBonMuat = Bon_Muat::getAll()->get();
+        $allPengirimanCust = Pengiriman_customer::getAll()->get();
         $resi = Resi::find($request["resi_id"]);
         $found = false;
         $overweight = false;
@@ -91,6 +94,24 @@ class Bon_MuatController extends Controller
             return redirect('/admin/bonmuat/edit/'.$id);
         }
         if($resi != null){
+            foreach($allBonMuat as $i){    
+                foreach($i->resis as $j){
+                    if($j->id == $request["resi_id"] && $j->surat_jalan->telah_sampai == 0){
+                        $fail = "Resi telah terdaftar di bon muat dengan ID = ". $i->id;
+                        Session::put('success-failsuratjalan', $fail);
+                        return redirect('/admin/bonmuat/edit/'.$id);
+                    }
+                }
+            }
+            
+            foreach($allPengirimanCust as $i){
+                foreach($i->resis as $j){
+                    if($j->id == $request['resi_id'] && $j->d_pengiriman_customer->telah_sampai == 0){
+                        Session::put("success-failsuratjalan","Resi telah terdaftar di pengiriman customer dengan ID = " . $i->id);
+                        return redirect('/admin/pengirimanCustomer/edit/'.$id);
+                    }
+                }
+            }
             foreach($bonmuat->resis as $i){if($i->id == $request["resi_id"]) $found = true;}
             if($bonmuat->total_muatan+$resi->pesanan->berat_barang > 1000) $overweight = true;
             if($found){
