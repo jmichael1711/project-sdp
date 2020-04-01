@@ -134,6 +134,7 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::post('/admin/bonmuat/find', 'Bon_MuatController@find');
     Route::post('/admin/bonmuat/addSuratJalan/{id}', 'Bon_MuatController@addSuratJalan');
     Route::post('/admin/bonmuat/deleteSuratJalan', 'Bon_MuatController@deleteSuratJalan');
+    Route::post('/admin/bonmuat/deleteAll/{id}', 'Bon_MuatController@deleteAll');
 
     //ADMIN - PENGIRIMAN CUSTOMER
     Route::get('/admin/pengirimanCustomer', 'PengirimanCustomerController@index');
@@ -143,6 +144,7 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::post('/admin/pengirimanCustomer/update/{id}', 'PengirimanCustomerController@update');
     Route::post('/admin/pengirimanCustomer/addDetail/{id}', 'PengirimanCustomerController@addDetail');
     Route::post('/admin/pengirimanCustomer/deleteDetail/{id}', 'PengirimanCustomerController@deleteDetail');
+    Route::post('/admin/pengirimanCustomer/deleteAll/{id}', 'PengirimanCustomerController@deleteAll');
 
     //ADMIN - PEGAWAI
     Route::get('/admin/pegawai', 'PegawaiController@index');
