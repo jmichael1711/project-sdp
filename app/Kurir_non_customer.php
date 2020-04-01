@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kurir_non_customer extends Model
 {
-    protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $guarded = ['created_at', 'updated_at'];
 
     public $primarykey = "id";
     //id has length 8
@@ -41,7 +41,7 @@ class Kurir_non_customer extends Model
         ->where('kantor_2_id', '=', $kantorAsalId)
         ->get();
     }
-    
+
     public static function getNextId() {
 
         if (Kurir_non_customer::count() > 0) {
@@ -50,10 +50,10 @@ class Kurir_non_customer extends Model
             ->orderBy('created_at', 'desc')
             ->first()
             ;
-    
+
             $lastId = intval(substr($lastObject->id, 2, 6));
             $lastId = str_pad(strval($lastId + 1), 6, "0", STR_PAD_LEFT);
-    
+
             $newLastId = 'KN' . $lastId;
             return $newLastId;
         } else {
