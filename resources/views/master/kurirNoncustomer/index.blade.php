@@ -59,19 +59,42 @@ Page ini adalah untuk melihat semua kurir Non Customer.
                                 @endif
                                 <td>{{$kc['no_telp']}}</td>
                                 @if ($kc['posisi_di_kantor_1'] == 1)
-                                <td class="bg-success text-center text-white">TRUE</td>
+                                <td class="text-center text-white">
+                                    <div class="badge badge-success">
+                                    TRUE
+                                </td>
                                 @else
-                                <td class="bg-danger text-center text-white">FALSE</td>
+                                <td class="text-center text-white">
+                                    <div class="badge badge-danger">
+                                    FALSE
+                                    </div>
+                                </td>
                                 @endif
                                 @if ($kc['status'] == 1)
-                                <td class="bg-success text-center text-white">AVAILABLE</td>
+                                <td class="text-center text-white">
+                                    <div class="badge badge-success">
+                                    AVAILABLE
+                                    </div>
+                                </td>
                                 @else
-                                <td class="bg-danger text-center text-white">BUSY</td>
+                                <td class="text-center text-white">
+                                    <div class="badge badge-danger">
+                                    BUSY
+                                    </div>
+                                </td>
                                 @endif
                                 @if ($kc['is_deleted'] == 1)
-                                <td class="bg-danger text-center text-white">NOT ACTIVE</td>
+                                <td class="text-center text-white">
+                                    <div class="badge badge-danger">
+                                    NOT ACTIVE
+                                    </div>
+                                </td>
                                 @else
-                                <td class="bg-success text-center text-white">ACTIVE</td>
+                                <td class="text-center text-white">
+                                    <div class="badge badge-success">
+                                    ACTIVE
+                                    </div>
+                                </td>
                                 @endif
                             </tr>
                          @endforeach

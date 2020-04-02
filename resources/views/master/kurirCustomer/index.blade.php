@@ -50,14 +50,30 @@ Page ini adalah untuk melihat semua kurir customer.
                                 <td>{{$kc['no_telp']}}</td>
                                 <td>{{$kc['nopol']}}</td>
                                 @if ($kc['status'] == 1)
-                                <td class="bg-success text-center text-white">AVAILABLE</td>
+                                <td class="text-center text-white">
+                                    <div class="badge badge-success">
+                                    AVAILABLE
+                                    </div>
+                                </td>
                                 @else
-                                <td class="bg-danger text-center text-white">BUSY</td>
+                                <td class="text-center text-white">
+                                    <div class="badge badge-danger">
+                                    BUSY
+                                    </div>
+                                </td>
                                 @endif
                                 @if ($kc['is_deleted'] == 1)
-                                <td class="bg-danger text-center text-white">NOT ACTIVE</td>
+                                <td class="text-center text-white">
+                                    <div class="badge badge-danger">
+                                    NOT ACTIVE
+                                    </div>
+                                </td>
                                 @else
-                                <td class="bg-success text-center text-white">ACTIVE</td>
+                                <td class="text-center text-white">
+                                    <div class="badge badge-success">
+                                    ACTIVE
+                                    </div>
+                                </td>
                                 @endif
                             </tr>
                          @endforeach
