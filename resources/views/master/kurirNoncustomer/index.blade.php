@@ -52,7 +52,11 @@ Page ini adalah untuk melihat semua kurir Non Customer.
                                 <td>{{$kc['kantor_1_id']}}</td>
                                 <td>{{$kc['kantor_2_id']}}</td>
                                 <td>{{$kc['nama']}}</td>
-                                <td>{{$kc['jenis_kelamin']}}</td>
+                                @if($kc['jenis_kelamin']== 0)
+                                    <td>Laki-Laki</td>
+                                @else
+                                    <td>Perempuan</td>
+                                @endif
                                 <td>{{$kc['no_telp']}}</td>
                                 @if ($kc['posisi_di_kantor_1'] == 1)
                                 <td class="bg-success text-center text-white">TRUE</td>
