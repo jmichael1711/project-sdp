@@ -67,7 +67,7 @@ Page ini untuk edit data bon muat.
                         <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">Kantor Asal</label>
-                                <select name="kantor_asal_id" class="form-control" id="kantorAsal" required>
+                                <select name="kantor_asal_id" class="form-control" id="kantorAsal" onchange="refreshComboBox()" required>
                                     <option selected class="form-control" value="{{$bonmuat->kantor_asal->id}}">{{$bonmuat->kantor_asal->alamat}}</option>
                                     @foreach($bonmuat->kantor_asal->getKota->kantor as $kantor)
                                         @if($bonmuat->kantor_asal->id != $kantor->id)
@@ -100,7 +100,7 @@ Page ini untuk edit data bon muat.
                         <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">Kantor Tujuan</label>
-                                <select name="kantor_tujuan_id" class="form-control" id="kantorTujuan" required>
+                                <select name="kantor_tujuan_id" class="form-control" id="kantorTujuan" onchange="refreshComboBox()" required>
                                     <option selected class="form-control" value="{{$bonmuat->kantor_tujuan->id}}">{{$bonmuat->kantor_tujuan->alamat}}</option>
                                     @foreach($bonmuat->kantor_tujuan->getKota->kantor as $kantor)
                                         @if($bonmuat->kantor_tujuan->id != $kantor->id)
