@@ -32,6 +32,7 @@ class KotaController extends Controller
         }else {
             $failed = "Nama kota sudah terdaftar";
             Session::put('failed-kota', $failed);
+            return redirect('/admin/kota/create');
         }
 
         return redirect('/admin/kota');

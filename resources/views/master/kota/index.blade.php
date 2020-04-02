@@ -24,8 +24,8 @@ Page ini adalah untuk melihat semua Kota
     @endif
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
-            <div class="card-body">
-                <table class="table table-hover table-striped dataTable dtr-inline" id="tableKota">
+            <div style="overflow-x: auto" class="card-body">
+                <table style="min-width: 100%;"  class="table table-hover table-striped dataTable dtr-inline" id="tableKota">
                     <thead>
                         <tr>
                             <th>Nama</th>
