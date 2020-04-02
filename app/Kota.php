@@ -17,7 +17,7 @@ class Kota extends Model
         //1. nama yg dituju
         //2. foreign key
         //3. primary key model ini
-        return $this->hasMany('App\Kantor', 'kota', 'nama');
+        return $this->hasMany('App\Kantor', 'kota', 'nama')->where('is_deleted',0);
     }
 
     public static function cek($nama){

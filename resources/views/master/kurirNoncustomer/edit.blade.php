@@ -33,7 +33,7 @@ Page ini adalah untuk mengubah kurir Non customer.
                         <div class="position-relative form-group">
                             <label class="">ID Kantor 1</label>
                             <select name="kantor_1_id" class="form-control">
-                                @foreach ($listkanID as $i)
+                                @foreach ($listKanID as $i)
                                     <option class="form-control" value="{{$i->id}}">{{$i->id}} - {{$i->kota}}</option>
                                 @endforeach
                             </select>
@@ -45,7 +45,7 @@ Page ini adalah untuk mengubah kurir Non customer.
                         <div class="position-relative form-group">
                             <label class="">ID Kantor 2</label>
                             <select name="kantor_2_id" class="form-control">
-                                @foreach ($listkanID as $i)
+                                @foreach ($listKanID as $i)
                                     <option class="form-control" value="{{$i->id}}">{{$i->id}} - {{$i->kota}}</option>
                                 @endforeach
                             </select>
@@ -68,6 +68,7 @@ Page ini adalah untuk mengubah kurir Non customer.
                     <div class="col-md-3">
                         <div class="position-relative form-group">
                             <label class="">Jenis Kelamin</label>
+                            <select name="jenis_kelamin" class="form-control">
                                 @if ($kurnoncust->jenis_kelamin)
                                     <option selected class="form-control" value="1">Laki-Laki</option>
                                     <option class="form-control" value="0">Perempuan</option>
@@ -75,6 +76,7 @@ Page ini adalah untuk mengubah kurir Non customer.
                                     <option class="form-control" value="1">Laki-Laki</option>
                                     <option selected class="form-control" value="0">Perempuan</option>
                                 @endif
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -118,13 +120,22 @@ Page ini adalah untuk mengubah kurir Non customer.
                     <div class="col-md-3">
                         <div class="position-relative form-group">
                             <label class="">Active</label>
+                            <select name="is_deleted" class="form-control">
                             @if ($kurnoncust->is_deleted)
-                                <option selected class="form-control" value="1">ACTIVE</option>
-                                <option class="form-control" value="0">NOT ACTIVE</option>
+                                <option selected class="form-control" value="1">NOT ACTIVE</option>
+                                <option class="form-control" value="0">ACTIVE</option>
                             @else
-                                <option class="form-control" value="1">ACTIVE</option>
-                                <option selected class="form-control" value="0">NOT ACTIVE</option>
+                                <option class="form-control" value="1">NOT ACTIVE</option>
+                                <option selected class="form-control" value="0">ACTIVE</option>
                             @endif
+                        </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-2">
+                        <div class="position-relative form-group">
+                            <button class="mt-2 btn btn-primary">Edit</button>
                         </div>
                     </div>
                 </div>

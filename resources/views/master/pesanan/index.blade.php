@@ -25,7 +25,8 @@ Page ini adalah untuk melihat semua pesanan
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div class="card-body">
-                <table class="table table-hover table-striped dataTable dtr-inline" id="tablePesanan">
+                <div class="container">
+                    <table class="table table-hover table-striped dataTable dtr-inline" id="tablePesanan">
                     <thead>
                         <tr>
                             <th>Id Pesanan</th>
@@ -58,7 +59,6 @@ Page ini adalah untuk melihat semua pesanan
                             </tr>
                         @endforeach
                     </tbody>
-
                 </table>
             </div>
         </div>

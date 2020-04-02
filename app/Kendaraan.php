@@ -38,12 +38,15 @@ class Kendaraan extends Model
     }
 
     public static function sortKendaraan($kantorAsalId,$kantorTujuanId){
-        return Kendaraan::getAll()->where('posisi_di_kantor_1', '=', 1)
+        return Kendaraan::getAll()
+        ->where('posisi_di_kantor_1', '=', 1)
         ->where('kantor_1_id', '=', $kantorAsalId)
         ->where('kantor_2_id', '=', $kantorTujuanId)
+        ->where('is_deleted',0)
         ->orWhere('posisi_di_kantor_1', '=', 0)
         ->where('kantor_1_id', '=', $kantorTujuanId)
         ->where('kantor_2_id', '=', $kantorAsalId)
+        ->where('is_deleted',0)
         ->get();
     }  
 
