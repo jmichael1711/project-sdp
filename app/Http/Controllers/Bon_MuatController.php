@@ -60,9 +60,8 @@ class Bon_MuatController extends Controller
 
 
     public function index() {
-        $allBonMuat = Bon_muat::orderBy('is_deleted', 'desc')->get();
-        $allResi = Resi::get();
-        return view('master.bonmuat.index',compact('allBonMuat','allResi'));
+        $allBonMuat = Bon_muat::get();
+        return view('master.bonmuat.index',compact('allBonMuat'));
     }
 
     public function edit($id) {

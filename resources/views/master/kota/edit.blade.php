@@ -41,7 +41,7 @@
                                 <label class="">Kota</label>
                                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nama" id=""
-                                    placeholder="Nama Kota" type="text" class="form-control" value="{{$kota->nama}}" required>
+                                    placeholder="Nama Kota" type="text" class="form-control" value="{{$kota->nama}}" required {{$kota->is_deleted ? 'disabled' : ''}}>
                             </div>
                         </div>
                     </div>

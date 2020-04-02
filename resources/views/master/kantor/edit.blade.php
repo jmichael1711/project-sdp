@@ -44,7 +44,7 @@ Page ini adalah untuk mengubah data kantor.
                                 <label class="">Alamat</label>
                                 <textarea style="resize: none;" rows="5" oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="alamat"
-                                placeholder="ALAMAT" type="text" class="form-control" required>{{$kantor->alamat}}</textarea>
+                                placeholder="ALAMAT" type="text" class="form-control" required {{$kantor->is_deleted ? 'disabled' : ''}}>{{$kantor->alamat}}</textarea>
                                 <div class="invalid-feedback">
                                     Mohon inputkan alamat valid.
                                 </div>
@@ -57,7 +57,7 @@ Page ini adalah untuk mengubah data kantor.
                                 <label class="">Nomor Telepon</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="no_telp" id=""
-                                placeholder="NO TELP" type="text" class="form-control" value="{{$kantor->no_telp}}" required>
+                                placeholder="NO TELP" type="text" class="form-control" value="{{$kantor->no_telp}}" required {{$kantor->is_deleted ? 'disabled' : ''}}>
                                 <div class="invalid-feedback">
                                     Mohon inputkan nomor telepon valid.
                                 </div>
@@ -68,7 +68,7 @@ Page ini adalah untuk mengubah data kantor.
                         <div class="col-md-3">
                             <div class="position-relative form-group">
                                 <label class="">Jenis Kantor</label>
-                                <select name="is_warehouse" class="form-control">
+                                <select name="is_warehouse" class="form-control" {{$kantor->is_deleted ? 'disabled' : ''}}>
                                     @if ($kantor->is_warehouse)
                                         <option value="1" class="form-control">WAREHOUSE</option>
                                     @else
@@ -82,7 +82,7 @@ Page ini adalah untuk mengubah data kantor.
                         <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">Kota</label>
-                                <select name="kota" class="form-control">
+                                <select name="kota" class="form-control" {{$kantor->is_deleted ? 'disabled' : ''}}>
                                     @foreach ($listKota as $i)
                                         @if ($i->nama == $kantor->kota)
                                             <option selected class="form-control" value="{{$i->nama}}">{{$i->nama}}</option>
@@ -100,7 +100,7 @@ Page ini adalah untuk mengubah data kantor.
                                 <label class="">Longitude</label>
                                 <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="longitude"
-                                placeholder="0.000000" step="0.000001" type="number" max="999.999999" min="0.000000" class="form-control" value="{{$kantor->longitude}}">
+                                placeholder="0.000000" step="0.000001" type="number" max="999.999999" min="0.000000" class="form-control" value="{{$kantor->longitude}}" {{$kantor->is_deleted ? 'disabled' : ''}}>
                                 <div class="invalid-feedback">
                                     Mohon inputkan longitude valid. Longitude untuk kantor bisa di search di web.
                                 </div>
@@ -111,7 +111,7 @@ Page ini adalah untuk mengubah data kantor.
                                 <label class="">Latitude</label>
                                 <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="latitude"
-                                placeholder="0.000000" step="0.000001" type="number" max="999.999999" min="0.000000" class="form-control"  value="{{$kantor->latitude}}">
+                                placeholder="0.000000" step="0.000001" type="number" max="999.999999" min="0.000000" class="form-control"  value="{{$kantor->latitude}}" {{$kantor->is_deleted ? 'disabled' : ''}}>
                                 <div class="invalid-feedback">
                                     Mohon inputkan latitude valid. Latitude untuk kantor bisa di search di web.
                                 </div>
