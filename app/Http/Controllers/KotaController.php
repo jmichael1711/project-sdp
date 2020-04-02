@@ -47,9 +47,16 @@ class KotaController extends Controller
         $request = $request->all();
         $kota = kota::findOrFail($nama);
         $request['user_updated'] = Session::get('id');
-        $kota->update($request);
-        $success = "Kota $nama berhasil diupdate.";
-        Session::put('success-kota', $success);
-        return redirect('/admin/kota');
+        $boleh = kota::cek($request['nama']);
+        if($boleh == true){
+            $kota->update($request);
+            $success = "Kota $nama berhasil diupdate.";
+            Session::put('success-kota', $success);
+            return redirect('/admin/kota');
+        }else {
+            $failed = "Nama kota sudah terdaftar";
+            Session::put('failed-kota', $failed);
+            return redirect('/admin/kota/edit/' . $nama);
+        }
     }
 }
