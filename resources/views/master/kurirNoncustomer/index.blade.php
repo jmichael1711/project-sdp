@@ -37,7 +37,7 @@ Page ini adalah untuk melihat semua kurir Non Customer.
                     <thead>
                         <th>ID</th>
                         <th>ID kantor 1</th>
-                        <th>ID kantor 1</th>
+                        <th>ID kantor 2</th>
                         <th>Nama</th>
                         <th>Jenis Kelamin</th>
                         <th>No Telpon</th>

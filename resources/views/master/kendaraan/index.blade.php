@@ -24,7 +24,7 @@ Page ini adalah untuk melihat semua kendaraan.
     @endif
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
-            <div style="overflow-x: auto" class="card-body"><h5 class="card-title">Semua Kendaraan</h5>
+            <div style="overflow-x: auto" class="card-body">
                 <table style="min-width: 100%;" class="table table-hover table-striped dataTable dtr-inline" id="tableKendaraan">
                     <thead>
                         <th>ID</th>

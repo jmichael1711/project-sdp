@@ -22,7 +22,14 @@
             Session::forget('success');
         @endphp
     @endif
-
+    @if (Session::has('failed-kota'))
+    <ul class="list-group mb-2">
+        <li class="list-group-item-danger list-group-item">{{Session::get('failed-kota')}}</li>
+    </ul>
+    @php
+        Session::forget('failed-kota');
+    @endphp
+    @endif
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div class="card-body">
