@@ -32,8 +32,9 @@ Page ini adalah untuk melihat semua kurir Non Customer.
     @endif
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
-            <div style="overflow-x: auto" class="card-body"><h5 class="card-title">Semua Kurir Non Customer</h5>
-                <table style="min-width: 100%;" class="table table-hover table-striped dataTable dtr-inline" id="tableKendaraan">
+            <div class="card-body">
+            <div class="container">
+                <table class="table table-hover table-striped dataTable dtr-inline" id="tableKurirNonCustomer">
                     <thead>
                         <th>ID</th>
                         <th>ID kantor 1</th>
@@ -52,7 +53,11 @@ Page ini adalah untuk melihat semua kurir Non Customer.
                                 <td>{{$kc['kantor_1_id']}}</td>
                                 <td>{{$kc['kantor_2_id']}}</td>
                                 <td>{{$kc['nama']}}</td>
-                                <td>{{$kc['jenis_kelamin']}}</td>
+                                @if($kc['jenis_kelamin']== 0)
+                                    <td>Laki-Laki</td>
+                                @else
+                                    <td>Perempuan</td>
+                                @endif
                                 <td>{{$kc['no_telp']}}</td>
                                 @if ($kc['posisi_di_kantor_1'] == 1)
                                 <td class="text-center text-white">
@@ -98,6 +103,7 @@ Page ini adalah untuk melihat semua kurir Non Customer.
                 </table>
             </div>
         </div>
+        </div>
     </div>
 </div>
 @endsection
@@ -115,7 +121,7 @@ Page ini adalah untuk melihat semua kurir Non Customer.
         window.location.href='/admin/kurir_noncustomer/edit/' + id;
     }
 
-    var table = $('#tablekurnoncust').DataTable({
+    var table = $('#tableKurirNonCustomer').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,
         'lengthMenu': [10,25, 50, 100]

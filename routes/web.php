@@ -99,7 +99,9 @@ Route::get('/logout', 'LoginController@logout')->name('logout');
 //INSIDE GUEST GROUP
 Route::group(['middleware' => ['checkstatus:guest']], function () {
     //LOGIN
-    Route::get('/', 'LoginController@index');
+    Route::get('/', function () {
+        return view('customer.index');
+    });
     Route::get('/login', 'LoginController@index');
     Route::post('/attemptlogin', 'LoginController@attemptLogin');
 });

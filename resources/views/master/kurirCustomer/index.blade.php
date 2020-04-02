@@ -24,8 +24,9 @@ Page ini adalah untuk melihat semua kurir customer.
     @endif
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
-            <div style="overflow-x: auto" class="card-body"><h5 class="card-title">Semua Kurir Customer</h5>
-                <table style="min-width: 100%;" class="table table-hover table-striped dataTable dtr-inline" id="tableKendaraan">
+            <div class="card-body">
+            <div class="container">
+                <table class="table table-hover table-striped dataTable dtr-inline" id="tableKurirCustomer">
                     <thead>
                         <th>ID</th>
                         <th>ID kantor</th>
@@ -81,6 +82,7 @@ Page ini adalah untuk melihat semua kurir customer.
                 </table>
             </div>
         </div>
+        </div>
     </div>
 </div>
 @endsection
@@ -98,10 +100,11 @@ Page ini adalah untuk melihat semua kurir customer.
         window.location.href='/admin/kurir_customer/edit/' + id;
     }
 
-    var table = $('#tableKurcust').DataTable({
+    var table = $('#tableKurirCustomer').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,
-        'lengthMenu': [10,25, 50, 100]
+        'lengthMenu': [10,25, 50, 100],
+        "scrollX": true
     });
 </script>
 @endsection
