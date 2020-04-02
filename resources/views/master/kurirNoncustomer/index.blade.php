@@ -33,7 +33,7 @@ Page ini adalah untuk melihat semua kurir Non Customer.
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div style="overflow-x: auto" class="card-body"><h5 class="card-title">Semua Kurir Non Customer</h5>
-                <table style="min-width: 100%;" class="table table-hover table-striped dataTable dtr-inline" id="tableKendaraan">
+                <table style="min-width: 100%;" class="table table-hover table-striped dataTable dtr-inline" id="tableKurirNonCustomer">
                     <thead>
                         <th>ID</th>
                         <th>ID kantor 1</th>
@@ -119,7 +119,7 @@ Page ini adalah untuk melihat semua kurir Non Customer.
         window.location.href='/admin/kurir_noncustomer/edit/' + id;
     }
 
-    var table = $('#tablekurnoncust').DataTable({
+    var table = $('#tableKurirNonCustomer').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,
         'lengthMenu': [10,25, 50, 100]
