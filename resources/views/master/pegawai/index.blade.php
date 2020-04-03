@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title-icon')
-<i class="pe-7s-tools icon-gradient bg-mean-fruit"></i>
+<i class="pe-7s-users icon-gradient bg-mean-fruit"></i>
 @endsection
 
 @section('title')
@@ -26,6 +26,8 @@ Page ini adalah untuk menampilkan semua pegawai.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
+                    <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/pegawai/create')}}';">Tambah Data</button>
+                    <br><hr>
                     <table class="table table-hover table-striped dataTable dtr-inline" id="tablePegawai">
                         <thead>
                             <tr>
@@ -65,12 +67,16 @@ Page ini adalah untuk menampilkan semua pegawai.
                                 <td>{{$i->user_updated}}</td>
                                 <td>{{$i->updated_at->diffForHumans()}}</td>
                                 @if ($i->is_deleted)
-                                <td class="bg-danger text-center text-white">
+                                <td class="text-center text-white">
+                                    <div class="badge badge-danger">
                                     NOT ACTIVE
+                                    </div>
                                 </td>    
                                 @else 
-                                <td class="bg-success text-center text-white">
+                                <td class="text-center text-white">
+                                    <div class="badge badge-success">
                                     ACTIVE
+                                    </div>
                                 </td>
                                 @endif
                             </tr>

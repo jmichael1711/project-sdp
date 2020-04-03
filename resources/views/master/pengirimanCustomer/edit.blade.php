@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title-icon')
-<i class="pe-7s-tools icon-gradient bg-mean-fruit"></i>
+<i class="pe-7s-gift icon-gradient bg-mean-fruit"></i>
 @endsection
 
 @section('title')
@@ -369,16 +369,19 @@ Page ini adalah untuk mengubah data pengiriman customer.
     });
 
     function changeStatus(){
-        var permitted = true;
-        @foreach ($pengirimanCust->resis as $i)
-            @if($i->d_pengiriman_customer->telah_sampai == 0)
-                permitted = false;
-            @endif
-        @endforeach
-        
-        if(!permitted){
-            triggerNotification("Terdapat detail pengiriman customer yang belum selesai.");
-            $("#status").val("0");
+        var stat = $("#status").val();
+        if(stat == "1"){
+            var permitted = true;
+            @foreach ($pengirimanCust->resis as $i)
+                @if($i->d_pengiriman_customer->telah_sampai == 0)
+                    permitted = false;
+                @endif
+            @endforeach
+            
+            if(!permitted){
+                triggerNotification("Terdapat detail pengiriman customer yang belum selesai.");
+                $("#status").val("0");
+            }
         }
     }
 

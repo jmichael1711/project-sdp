@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title-icon')
-<i class="pe-7s-tools icon-gradient bg-mean-fruit"></i>
+<i class="pe-7s-home icon-gradient bg-mean-fruit"></i>
 @endsection
 
 @section('title')
@@ -23,10 +23,13 @@ Halaman ini untuk menampilkan semua data kantor.
             Session::forget('success-kantor');
         @endphp
     @endif
-    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel"> 
         <div class="main-card mb-3 card">
-            <div style="overflow-x: auto" class="card-body">
-                <table style="min-width: 100%;"  class="table table-hover table-striped dataTable dtr-inline" id="tableKantor">
+            <div class="card-body">
+                <div class="container">
+                    <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/kantor/create')}}';">Tambah Data</button>
+                    <br><hr>
+                    <table class="table table-hover table-striped dataTable dtr-inline" id="tableKantor">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -83,7 +86,8 @@ Halaman ini untuk menampilkan semua data kantor.
                             @endforeach
                         @endif
                     </tbody>
-                </table>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

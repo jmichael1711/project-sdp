@@ -65,6 +65,7 @@ class KantorController extends Controller
     }
 
     public function store(Request $request) {
+        date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $request['id'] = Kantor::getNextId();
         $user = Session::get('id');
@@ -84,6 +85,7 @@ class KantorController extends Controller
     }
 
     public function update($id, Request $request) {
+        date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $kantor = Kantor::findOrFail($id);
         $request['user_updated'] = Session::get('id');

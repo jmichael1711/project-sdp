@@ -25,6 +25,7 @@ class PengirimanCustomerController extends Controller
     }
 
     public function store(Request $request){
+        date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $user = Session::get('id');
         $request['user_created'] = $user;
@@ -45,6 +46,7 @@ class PengirimanCustomerController extends Controller
     }
 
     public function update($id, Request $request) {
+        date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $pengirimanCust = Pengiriman_customer::findOrFail($id);
         $request['user_updated'] = Session::get('id');
@@ -63,6 +65,7 @@ class PengirimanCustomerController extends Controller
     }
 
     public function addDetail($id, Request $request){
+        date_default_timezone_set("Asia/Jakarta");
         $pengirimanCust = Pengiriman_customer::findOrFail($id);
         $resi = Resi::find($request['resi_id']);
         $diBonMuat = 'false';

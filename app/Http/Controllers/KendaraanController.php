@@ -20,6 +20,7 @@ class KendaraanController extends Controller
     }
 
     public function store(Request $request) {
+        date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $request['id'] = Kendaraan::getNextId();
         $user = Session::get('id');
@@ -40,6 +41,7 @@ class KendaraanController extends Controller
     }
 
     public function update($id, Request $request) {
+        date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $request['updated_at'] = Session::get('id');
         $kantor = Kendaraan::findOrFail($id);
