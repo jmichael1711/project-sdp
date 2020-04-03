@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    TAMBAH DATA KANTOR
+TAMBAH DATA KENDARAAN
 @endsection
 
 @section('subtitle')
@@ -25,13 +25,13 @@ Halaman ini untuk menambah data kendaraan.
 
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
-            <div class="card-body"><h5 class="card-title">Kendaraan Baru</h5>
+            <div class="card-body">
                 <form novalidate class="needs-validation" method="post" action="/admin/kendaraan/store" enctype="multipart/form-data">
                 @csrf
                     <div class="form-row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
-                                <label class="">Kota</label>
+                                <label class="">Kota 1</label>
                                 <select id="kota1" class="form-control" onchange="refreshKantor('kota1', 'kantor1')" required>
                                     @foreach ($listKota as $i)
                                         <option class="form-control" value="{{$i->nama}}">{{$i->nama}}</option>
@@ -41,9 +41,9 @@ Halaman ini untuk menambah data kendaraan.
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-12">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
-                                <label class="">Kantor 1</label>
+                                <label class="">Alamat Kantor 1</label>
                                 <select name="kantor_1_id" class="form-control" id="kantor1" onchange="kantor1Changed()" required>
                                     
                                 </select>
@@ -51,9 +51,9 @@ Halaman ini untuk menambah data kendaraan.
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
-                                <label class="">Kota</label>
+                                <label class="">Kota 2</label>
                                 <select id="kota2" class="form-control" onchange="refreshKantor('kota2', 'kantor2')" required>
                                     @foreach ($listKota as $i)
                                         <option class="form-control" value="{{$i->nama}}">{{$i->nama}}</option>
@@ -63,9 +63,9 @@ Halaman ini untuk menambah data kendaraan.
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-12">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
-                                <label class="">Kantor 2</label>
+                                <label class="">Alamat Kantor 2</label>
                                 <select name="kantor_2_id" class="form-control" id="kantor2" required>
                                     
                                 </select>
@@ -73,44 +73,44 @@ Halaman ini untuk menambah data kendaraan.
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Nomor Polisi</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nopol" id="" 
                                 placeholder="NO POLISI" type="text" class="form-control" maxlength="9" required>
                                 <div class="invalid-feedback">
-                                    Mohon inputkan nomor polisi valid.
+                                    Mohon input nomor polisi yang valid.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Tahun Pembelian</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="tahun_pembelian" id="" 
-                                placeholder="2010" type="number" class="form-control" max="2020" min="0" value="2010" required>
+                                placeholder="TAHUN PEMBELIAN" type="number" class="form-control" max="2020" min="0" required>
                                 <div class="invalid-feedback" >
-                                    Mohon inputkan tahun valid.
+                                    Mohon input tahun pembelian yang valid.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-12">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Posisi</label>
                                 <select name="posisi_di_kantor_1" class="form-control" id="kantor2">
-                                    <option value="1">Kantor 1</option>
-                                    <option value="0">Kantor 2</option>
+                                    <option value="1">Alamat Kantor 1</option>
+                                    <option value="0">Alamat Kantor 2</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-2">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <button class="mt-2 btn btn-primary">Tambah</button>
                             </div>
@@ -152,9 +152,9 @@ Halaman ini untuk menambah data kendaraan.
                             s = s + `<option value='{{$kantor->id}}'>{{$kantor->alamat}}</option>`;
                         }
                     @endforeach
-                    $('#' +idKantor).html(s)
+                    $('#' + idKantor).html(s);
                 @else
-                    $('#' + idKantor).empty()
+                    $('#' + idKantor).html('<option value="">-- TIDAK ADA KANTOR --</option>');
                 @endif
             }
         @endforeach
