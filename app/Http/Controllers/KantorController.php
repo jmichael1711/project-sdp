@@ -59,8 +59,9 @@ class KantorController extends Controller
     }
 
     public function create() {
+        $nextId = Kantor::getNextId();
         $listKota = Kota::getAll()->get();
-        return view('master.kantor.create', compact('listKota'));
+        return view('master.kantor.create', compact('listKota', 'nextId'));
     }
 
     public function store(Request $request) {

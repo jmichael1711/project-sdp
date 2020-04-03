@@ -34,6 +34,8 @@ Halaman ini untuk menampilkan semua data kota.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
+                    <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/kota/create')}}';">Tambah Data</button>
+                    <br><hr>
                     <table class="table table-hover table-striped dataTable dtr-inline" id="tableKota">
                     <thead>
                         <tr>
@@ -42,7 +44,7 @@ Halaman ini untuk menampilkan semua data kota.
                             <th>Diubah Oleh</th>
                             <th>Dibuat Tanggal</th>
                             <th>Dibuat Oleh</th>
-                            <th>Deleted</th>
+                            <th>Status Aktif</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,13 +58,13 @@ Halaman ini untuk menampilkan semua data kota.
                                 @if ($city['is_deleted'] == 1)
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">
-                                        NOT ACTIVE
+                                        TIDAK AKTIF
                                     </div>
                                 </td>
                                 @else
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
-                                        ACTIVE
+                                        AKTIF
                                     </div>
                                 </td>
                                 @endif
