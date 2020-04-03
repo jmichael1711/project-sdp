@@ -252,7 +252,7 @@
                                         <li>
                                             <a id="header-pesanan" href="{{ url('/admin/pesanan') }}">
                                                 <i class="metismenu-icon"></i>
-                                                List Pesanan
+                                                Semua Pesanan
                                             </a>
                                         </li>
                                         <li>
@@ -276,7 +276,7 @@
                                         <li>
                                             <a id="header-bonmuat" href="{{ url('/admin/bonmuat') }}">
                                                 <i class="metismenu-icon"></i>
-                                                List Bon Muat
+                                                Semua Bon Muat
                                             </a>
                                         </li>
                                         <li>
@@ -300,7 +300,7 @@
                                         <li>
                                             <a id="header-pengirimanCustomer" href="{{ url('/admin/pengirimanCustomer') }}">
                                                 <i class="metismenu-icon"></i>
-                                                List Pengiriman Cust
+                                                Semua Pengiriman Cust
                                             </a>
                                         </li>
                                         <li>
@@ -326,7 +326,7 @@
                                         <li>
                                             <a id="header-pegawai" href="{{ url('/admin/pegawai') }}">
                                                 <i class="metismenu-icon"></i>
-                                                List Pegawai
+                                                Semua Pegawai
                                             </a>
                                         </li>
                                         <li>
@@ -350,7 +350,7 @@
                                         <li>
                                             <a id="header-kurir_noncustomer" href="{{ url('/admin/kurir_noncustomer') }}">
                                                 <i class="metismenu-icon"></i>
-                                                List Kurir Non Customer
+                                                Semua Kurir Non Customer
                                             </a>
                                         </li>
                                         <li>
@@ -374,7 +374,7 @@
                                         <li>
                                             <a id="header-kurir_customer" href="{{ url('/admin/kurir_customer') }}">
                                                 <i class="metismenu-icon"></i>
-                                                List Kurir Customer
+                                                Semua Kurir Customer
                                             </a>
                                         </li>
                                         <li>
@@ -399,7 +399,7 @@
                                         <li>
                                             <a id="header-kota" href="{{ url('/admin/kota') }}">
                                                 <i class="metismenu-icon"></i>
-                                                List Kota
+                                                Semua Kota
                                             </a>
                                         </li>
                                         <li>
@@ -423,7 +423,7 @@
                                         <li>
                                             <a id="header-kantor" href="{{ url('/admin/kantor') }}">
                                                 <i class="metismenu-icon"></i>
-                                                List Kantor
+                                                Semua Kantor
                                             </a>
                                         </li>
                                         <li>
@@ -447,7 +447,7 @@
                                         <li>
                                             <a id="header-kendaraan" href="{{ url('/admin/kendaraan') }}">
                                                 <i class="metismenu-icon"></i>
-                                                List Kendaraan
+                                                Semua Kendaraan
                                             </a>
                                         </li>
                                         <li>

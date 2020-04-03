@@ -28,7 +28,7 @@ class KotaController extends Controller
         $boleh = kota::cek($request['nama']);
         if($boleh == true){
             Kota::create($request);
-            $success = "Kota berhasil didaftarkan.";
+            $success = "Data Kota berhasil didaftarkan.";
             Session::put('success-kota', $success);
         }else {
             $failed = "Nama kota telah terdaftar.";
@@ -53,7 +53,7 @@ class KotaController extends Controller
         $boleh = kota::cek($request['nama']);
         if($boleh == true){
             $kota->update($request);
-            $success = "Kota $nama berhasil diubah.";
+            $success = "Data Kota $nama berhasil diubah.";
             Session::put('success-kota', $success);
             return redirect('/admin/kota');
         }else {

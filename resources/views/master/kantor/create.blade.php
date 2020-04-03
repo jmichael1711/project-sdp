@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Create Kantor
+TAMBAH DATA KANTOR
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk menambah kantor baru.
+Halaman ini untuk menambah data kantor.
 @endsection
 
 @section('content')
@@ -22,40 +22,49 @@ Page ini adalah untuk menambah kantor baru.
             Session::forget('success-kantor');
         @endphp
     @endif
-
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <form novalidate class="needs-validation" method="post" action="/admin/kantor/store" enctype="multipart/form-data">
                 @csrf
                     <div class="form-row">
-                        <div class="col-md-12">
+                        <div class="col-md-5">
+                            <div class="position-relative form-group">
+                                <label class="">ID</label>
+                                <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" disabled id=""
+                                placeholder="ID" type="text" class="form-control" value="{{$nextId}}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Alamat</label>
                                 <textarea style="resize: none;" rows="5" oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="alamat"
                                 placeholder="ALAMAT" type="text" class="form-control" required></textarea>
                                 <div class="invalid-feedback">
-                                    Mohon inputkan alamat valid.
+                                    Mohon input alamat yang valid.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Nomor Telepon</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="no_telp" id="" 
                                 placeholder="NO TELP" type="text" class="form-control" required>
                                 <div class="invalid-feedback">
-                                    Mohon inputkan nomor telepon valid.
+                                    Mohon input nomor telepon yang valid.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Jenis Kantor</label>
                                 <select name="is_warehouse" class="form-control">
@@ -66,7 +75,7 @@ Page ini adalah untuk menambah kantor baru.
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Kota</label>
                                 <select name="kota" class="form-control">
@@ -85,7 +94,7 @@ Page ini adalah untuk menambah kantor baru.
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="longitude" 
                                 placeholder="0.000000" step="0.000001" type="number" max="999.999999" min="0.000000" class="form-control">
                                 <div class="invalid-feedback">
-                                    Mohon inputkan longitude valid.
+                                    Mohon input longitude yang valid.
                                 </div>
                             </div>
                         </div>
@@ -96,7 +105,7 @@ Page ini adalah untuk menambah kantor baru.
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="latitude" 
                                 placeholder="0.000000" step="0.000001" type="number" max="999.999999" min="0.000000" class="form-control">
                                 <div class="invalid-feedback">
-                                    Mohon inputkan latitude valid.
+                                    Mohon input latitude yang valid.
                                 </div>
                             </div>
                         </div>

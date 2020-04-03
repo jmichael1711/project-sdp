@@ -44,7 +44,7 @@ Halaman ini untuk menampilkan semua data kota.
                             <th>Diubah Oleh</th>
                             <th>Dibuat Tanggal</th>
                             <th>Dibuat Oleh</th>
-                            <th>Deleted</th>
+                            <th>Status Aktif</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,13 +58,13 @@ Halaman ini untuk menampilkan semua data kota.
                                 @if ($city['is_deleted'] == 1)
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">
-                                        NOT ACTIVE
+                                        TIDAK AKTIF
                                     </div>
                                 </td>
                                 @else
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
-                                        ACTIVE
+                                        AKTIF
                                     </div>
                                 </td>
                                 @endif
