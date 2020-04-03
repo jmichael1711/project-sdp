@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Session;
 
 class KotaController extends Controller
 {
-
     public function index(){
         $kota = kota::all();
         return view('master.kota.index',['kota' => $kota]);

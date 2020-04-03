@@ -94,10 +94,11 @@ Route::get('/admin', function () {
 });
 
 //FREE ROUTE
-Route::get('/', function () {
-    return view('customer.index');
-});
+Route::get('/', 'CustomerController@index');
 Route::get('/logout', 'LoginController@logout')->name('logout');
+Route::get('/pesan', 'CustomerController@order');
+Route::post('/inputpesanan', 'CustomerController@inputPesanan');
+Route::get('/pesanselesai', 'CustomerController@pesanSelesai');
 
 //INSIDE GUEST GROUP
 Route::group(['middleware' => ['checkstatus:guest']], function () {
