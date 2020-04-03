@@ -29,7 +29,7 @@ class Bon_MuatController extends Controller
         $request['user_updated'] = $user;
         $success = "Bon muat berhasil didaftarkan.";
         Bon_muat::create($request);
-        return redirect('/admin/bonmuat/create')->with(['success-bonmuat' => $success]);
+        return redirect('/admin/bonmuat')->with(['success-bonmuat' => $success]);
     }
 
     public function find(Request $request){
