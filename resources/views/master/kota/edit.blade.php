@@ -38,7 +38,7 @@ Halaman ini untuk mengubah data kota.
                     <div class="form-row">
                         <div class="col-md-5">
                             <div class="position-relative form-group">
-                                <label class="">Kota</label>
+                                <label class="">Nama Kota</label>
                                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nama" id=""
                                     placeholder="Nama Kota" type="text" class="form-control" value="{{$kota->nama}}" required {{$kota->is_deleted ? 'disabled' : ''}}>
@@ -46,9 +46,9 @@ Halaman ini untuk mengubah data kota.
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
-                                <label class="">Status</label>
+                                <label class="">Deleted</label>
                                 <select class="form-control" name="is_deleted">
                                     @if ($kota->is_deleted)
                                         <option selected class="form-control" value="1">NOT ACTIVE</option>
