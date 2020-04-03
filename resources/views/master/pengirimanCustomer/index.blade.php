@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    List Pengiriman Customer
+    SEMUA DATA PENGIRIMAN CUSTOMER
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk menampilkan semua pengiriman customer.
+Halaman ini untuk menampilkan semua data pengiriman customer.
 @endsection
 
 @section('content')

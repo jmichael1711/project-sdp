@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Semua Pesanan
+SEMUA DATA PESANAN
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk melihat semua pesanan
+Halaman ini untuk menampilkan semua data pesanan.
 @endsection
 
 @section('content')

@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Edit Pengiriman Customer
+    UBAH DATA PENGIRIMAN CUSTOMER
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk mengubah data pengiriman customer.
+Halaman ini untuk mengubah data pengiriman customer.
 @endsection
 
 @section('content')

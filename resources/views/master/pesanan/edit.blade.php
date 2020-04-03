@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Edit Kota
+UBAH DATA KOTA
 @endsection
 
 @section('subtitle')
-    Page ini adalah untuk mengedit Kota
+Halaman ini untuk mengubah data kota
 @endsection
 
 @section('content')

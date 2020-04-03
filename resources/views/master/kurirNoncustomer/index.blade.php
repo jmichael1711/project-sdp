@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Semua Kurir Non Customer
+SEMUA DATA KURIR NON CUSTOMER
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk melihat semua kurir Non Customer.
+Halaman ini untuk menampilkan semua data kurir non customer.
 @endsection
 
 @section('content')

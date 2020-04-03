@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Edit Pegawai
+    UBAH DATA PEGAWAI
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk mengubah data pegawai.
+Halaman ini untuk mengubah data pegawai.
 @endsection
 
 @section('content')
@@ -29,9 +29,9 @@ Page ini adalah untuk mengubah data pegawai.
             <form novalidate class="needs-validation" method="post" action="/admin/pegawai/update/{{$pegawai->id  }}" enctype="multipart/form-data">
                 @csrf
                     <div class="form-row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
-                                <label class="">ID Pengiriman Customer</label>
+                                <label class="">ID</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" 
                                 type="text" class="form-control" value="{{$pegawai->id}}" readonly>
@@ -39,29 +39,29 @@ Page ini adalah untuk mengubah data pegawai.
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Nama</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nama"
                                 placeholder="NAMA" type="text" value="{{$pegawai->nama}}" class="form-control" required>
-                                <div class="invalid-feedback">Mohon inputkan nama.</div>
+                                <div class="invalid-feedback">Mohon input nama yang valid.</div>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Password</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="password" id="pass1" 
                                 placeholder="Password" type="password" value="{{$pegawai->password}}" class="form-control" required>
-                                <div class="invalid-feedback pass">Inputkan password.</div>
+                                <div class="invalid-feedback pass">Mohon input password yang valid.</div>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Jenis Kelamin</label>
                                 <br>
@@ -87,34 +87,34 @@ Page ini adalah untuk mengubah data pegawai.
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Nomor Telepon</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="no_telp" 
                                 placeholder="NOMOR TELEPON" type="text" value="{{$pegawai->no_telp}}" class="form-control" required>
                                 <div class="invalid-feedback">
-                                    Mohon inputkan nomor telepon.
+                                    Mohon input nomor telepon yang valid.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Alamat</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="alamat"
                                 placeholder="ALAMAT" type="text" value="{{$pegawai->alamat}}" class="form-control">
                                 <div class="invalid-feedback">
-                                    Mohon inputkan alamat.
+                                    Mohon input alamat yang valid.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <hr>
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Kota</label>
                                 <select id="kota" class="form-control" onchange='isiKantor()' required>
@@ -129,7 +129,7 @@ Page ini adalah untuk mengubah data pegawai.
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Kantor</label>
                                 <select name="kantor_id" id="kantor" class="form-control" required>
@@ -141,22 +141,28 @@ Page ini adalah untuk mengubah data pegawai.
                                     @endforeach
                                 </select>
                                 <div class="invalid-feedback">
-                                    Mohon pilih kantor asal.
+                                    Mohon pilih kantor asal yang valid.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Jabatan</label>
                                 <select name="jabatan" class="form-control" required>
-                                    @if($pegawai->jabatan == 'pegawai')
-                                        <option class="form-control" value="pegawai">Pegawai</option>
+                                    @if($pegawai->jabatan == 'kasir')
+                                        <option class="form-control" value="kasir" selected>Kasir</option>
+                                        <option class="form-control" value="pegawai">Pegawai Biasa</option>
+                                        <option class="form-control" value="admin">Admin</option>
+                                    @elseif($pegawai->jabatan == 'pegawai')
+                                        <option class="form-control" value="kasir">Kasir</option>
+                                        <option class="form-control" value="pegawai" selected>Pegawai Biasa</option>
                                         <option class="form-control" value="admin">Admin</option>
                                     @else
-                                        <option class="form-control" value="admin">Admin</option>
-                                        <option class="form-control" value="pegawai">Pegawai</option>
+                                        <option class="form-control" value="kasir">Kasir</option>
+                                        <option class="form-control" value="pegawai">Pegawai Biasa</option>
+                                        <option class="form-control" value="admin" selected>Admin</option>
                                     @endif
                                 </select> 
                             </div>
@@ -164,16 +170,16 @@ Page ini adalah untuk mengubah data pegawai.
                     </div>
                     <hr>
                     <div class="form-row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
-                                <label class="">Status</label>
+                                <label class="">Status Aktif</label>
                                 <select class="form-control" name="is_deleted">
                                     @if ($pegawai->is_deleted)
-                                        <option class="form-control" value="0">ACTIVE</option>
-                                        <option selected class="form-control" value="1">NOT ACTIVE</option>
+                                        <option class="form-control" value="0">AKTIF</option>
+                                        <option selected class="form-control" value="1">TIDAK AKTIF</option>
                                     @else
-                                        <option selected class="form-control" value="0">ACTIVE</option>
-                                        <option class="form-control" value="1">NOT ACTIVE</option>
+                                        <option selected class="form-control" value="0">AKTIF</option>
+                                        <option class="form-control" value="1">TIDAK AKTIF</option>
                                     @endif
                                 </select>
                             </div>
@@ -182,7 +188,7 @@ Page ini adalah untuk mengubah data pegawai.
                     <div class="form-row">
                         <div class="col-md-2">
                             <div class="position-relative form-group">
-                                <button class="mt-2 btn btn-primary">Edit</button>
+                                <button class="mt-2 btn btn-primary">Ubah</button>
                             </div>
                         </div>
                     </div>

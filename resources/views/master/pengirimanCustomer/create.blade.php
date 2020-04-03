@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Pengiriman Customer
+    TAMBAH DATA PENGIRIMAN CUSTOMER
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk menambah data pengiriman customer.
+Halaman ini untuk menambah data pengiriman customer.
 @endsection
 
 @section('content')
