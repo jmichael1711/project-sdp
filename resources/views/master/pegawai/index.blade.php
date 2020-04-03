@@ -32,17 +32,17 @@ Halaman ini untuk menampilkan semua data pegawai.
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>ID Kantor</th>
+                                <th>Alamat Kantor</th>
                                 <th>Nama</th>
                                 <th>Jabatan</th>
                                 <th>Jenis Kelamin</th>
                                 <th>Alamat</th>
-                                <th>Nomor Telepon</th>
-                                <th>User Created</th>
-                                <th>Created At</th>
-                                <th>User Updated</th>
-                                <th>Updated At</th>
-                                <th>Is Deleted</th>
+                                <th>No. Telp</th>
+                                <th>Diubah Tanggal</th>
+                                <th>Diubah Oleh</th>
+                                <th>Dibuat Tanggal</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Status Aktif</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -50,7 +50,7 @@ Halaman ini untuk menampilkan semua data pegawai.
                                 @foreach ($allPegawai as $i)
                             <tr onclick='editKantor("{{$i->id}}")'>
                                 <td>{{$i->id}}</td>
-                                <td>{{$i->kantor_id}}</td>
+                                <td>{{$i->kantor->alamat}}, {{$i->kantor->getKota->nama}}</td>
                                 <td>{{$i->nama}}</td>
                                 <td>{{$i->jabatan}}</td>
                                 <td>
@@ -63,19 +63,19 @@ Halaman ini untuk menampilkan semua data pegawai.
                                 <td>{{$i->alamat}}</td>
                                 <td>{{$i->no_telp}}</td>
                                 <td>{{$i->user_created}}</td>
-                                <td>{{$i->created_at->diffForHumans()}}</td>
+                                <td>{{$i->created_at}}</td>
                                 <td>{{$i->user_updated}}</td>
-                                <td>{{$i->updated_at->diffForHumans()}}</td>
+                                <td>{{$i->updated_at}}</td>
                                 @if ($i->is_deleted)
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">
-                                    NOT ACTIVE
+                                    TIDAK AKTIF
                                     </div>
                                 </td>    
                                 @else 
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
-                                    ACTIVE
+                                    AKTIF
                                     </div>
                                 </td>
                                 @endif

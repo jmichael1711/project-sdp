@@ -239,7 +239,7 @@
                                         Dashboard Page
                                     </a>
                                 </li>
-                                <li class="app-sidebar__heading">CONTOH</li>
+                                <li class="app-sidebar__heading">CUSTOMER</li>
 
                                 {{-- SIDEBAR - Pesanan --}}
                                 <li id="upperlist-pesanan">
@@ -320,7 +320,7 @@
                                     </ul>
                                 </li>
 
-                                <li class="app-sidebar__heading">CONTOH</li>
+                                <li class="app-sidebar__heading">PEGAWAI</li>
 
                                 {{-- SIDEBAR - PEGAWAI --}}
                                 <li id="upperlist-pegawai">
@@ -394,7 +394,7 @@
                                     </ul>
                                 </li>
 
-                                <li class="app-sidebar__heading">CONTOH</li>
+                                <li class="app-sidebar__heading">PERUSAHAAN</li>
                                 {{-- SIDEBAR - KOTA --}}
                                 <li id="upperlist-kota">
                                     <a id="btn-kota" href="">

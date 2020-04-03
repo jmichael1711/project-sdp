@@ -50,13 +50,21 @@ Halaman ini untuk menambah data pegawai.
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-5">
+                        <div class="col-md-7">
                             <div class="position-relative form-group">
                                 <label class="">Password</label>
-                                <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="password" id="pass1" 
-                                placeholder="Password" type="password" class="form-control" required>
-                                <div class="invalid-feedback pass">Mohon input password yang valid.</div>
+                                <br>
+                                <div class="form-check-inline col-md-8">
+                                <input id="password-field" oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="password" id="pass1" 
+                                    placeholder="Password" type="password" class="form-control" required>
+                                </div>
+                                <div class="form-check-inline">
+                                    <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                </div>
+                                <div class="invalid-feedback">
+                                    Mohon input password yang valid.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -120,7 +128,7 @@ Halaman ini untuk menambah data pegawai.
                     <div class="form-row">
                         <div class="col-md-5">
                             <div class="position-relative form-group">
-                                <label class="">Kantor</label>
+                                <label class="">Alamat Kantor</label>
                                 <select name="kantor_id" id="kantor" class="form-control" required></select>
                                 <div class="invalid-feedback">
                                     Mohon pilih kantor asal yang valid.
@@ -180,5 +188,14 @@ Halaman ini untuk menambah data pegawai.
             }
         });
     }
+    $(".toggle-password").click(function() {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
 </script>
 @endsection 

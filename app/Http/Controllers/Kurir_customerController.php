@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Kota;
 use App\Kantor;
 use App\Kurir_customer;
 use Illuminate\Support\Facades\Session;
@@ -16,8 +17,9 @@ class Kurir_customerController extends Controller
     }
 
     public function create(){
-        $listKanID = Kantor::getAll()->get();
-        return view('master.kurirCustomer.create',['listKanID' => $listKanID]);
+        $allKota = Kota::getAll()->get();
+        $nextId = Kurir_customer::getNextId();
+        return view('master.kurirCustomer.create',compact('nextId', 'allKota'));
     }
 
     public function store(Request $request) {
@@ -29,16 +31,16 @@ class Kurir_customerController extends Controller
         $request['user_created'] = $user;
         $request['user_updated'] = $user;
         Kurir_customer::create($request);
-        $success = "kurir customer berhasil di-tambahkan";
+        $success = "Data kurir customer berhasil didaftarkan.";
         Session::put('success-kurir_customer', $success);
         return redirect('/admin/kurir_customer');
     }
 
     public function edit($id) {
-        $listKurcust = Kurir_customer::getAll()->get();
-        $listKanID = Kantor::getAll()->get();
         $kurcust = Kurir_customer::findOrFail($id);
-        return view('master.kurirCustomer.edit', compact('listKurcust', 'kurcust','listKanID'));
+        $kotaNow = $kurcust->kantor->getKota->nama;
+        $allKota = Kota::getAll()->get();
+        return view('master.kurirCustomer.edit', compact('kurcust', 'allKota', 'kotaNow'));
     }
 
     public function update($id, Request $request) {
@@ -47,7 +49,7 @@ class Kurir_customerController extends Controller
         $kurcust = Kurir_customer::findOrFail($id);
         $request['user_updated'] = Session::get('id');
         $kurcust->update($request);
-        $success = "Kurir Customer dengan id: $id berhasil diupdate.";
+        $success = "Data kurir customer $id berhasil diubah.";
         Session::put('success-kurir_customer', $success);
         return redirect('/admin/kurir_customer');
     }
