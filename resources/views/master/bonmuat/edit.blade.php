@@ -179,12 +179,9 @@ Halaman ini untuk mengubah data bon muat.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
-                    <div class="col-md-3">
-                        <button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()" {{$bonmuat->is_deleted ? 'disabled' : ''}}>
-                            &nbsp Scan &nbsp
-                        </button>
-                    </div>
-                    <br>
+                    <button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()" {{$bonmuat->is_deleted ? 'disabled' : ''}}>
+                        &nbsp Scan &nbsp
+                    </button>
                     <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/addSuratJalan/{{$bonmuat->id}}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
@@ -205,6 +202,7 @@ Halaman ini untuk mengubah data bon muat.
                             </div>
                         </div>
                     </form>
+                    <hr>
                     <table class="table table-hover table-striped dataTable dtr-inline" id="tableSuratJalan">
                         <thead>
                             <tr>

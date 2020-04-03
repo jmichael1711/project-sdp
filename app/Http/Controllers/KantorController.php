@@ -9,49 +9,7 @@ use Illuminate\Support\Facades\Session;
 
 class KantorController extends Controller
 {
-    public function getListKota() {
-        $list = [
-            'KABUPATEN BANGKALAN',
-            'KABUPATEN BANYUWANGI',
-            'KABUPATEN BLITAR',
-            'KABUPATEN BOJONEGORO',
-            'KABUPATEN BONDOWOSO',
-            'KABUPATEN GRESIK',
-            'KABUPATEN JEMBER',
-            'KABUPATEN JOMBANG',
-            'KABUPATEN KEDIRI',
-            'KABUPATEN LAMONGAN',
-            'KABUPATEN LUMAJANG',
-            'KABUPATEN MADIUN',
-            'KABUPATEN MAGETAN',
-            'KABUPATEN MALANG',
-            'KABUPATEN MOJOKERTO',
-            'KABUPATEN NGANJUK',
-            'KABUPATEN NGAWI',
-            'KABUPATEN PACITAN',
-            'KABUPATEN PAMEKASAN',
-            'KABUPATEN PASURUAN',
-            'KABUPATEN PONOROGO',
-            'KABUPATEN PROBOLINGGO',
-            'KABUPATEN SAMPANG',
-            'KABUPATEN SIDOARJO',
-            'KABUPATEN SITUBONDO',
-            'KABUPATEN SUMENEP',
-            'KABUPATEN TRENGGALEK',
-            'KABUPATEN TUBAN',
-            'KABUPATEN TULUNGAGUNG',
-            'KOTA BATU',
-            'KOTA BLITAR',
-            'KOTA KEDIRI',
-            'KOTA MADIUN',
-            'KOTA MALANG',
-            'KOTA MOJOKERTO',
-            'KOTA PASURUAN',
-            'KOTA PROBOLINGGO',
-            'KOTA SURABAYA'
-        ];
-        return $list;
-    }
+    
 
     public function index() {
         $kantors = Kantor::all();

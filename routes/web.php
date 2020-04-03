@@ -94,10 +94,11 @@ Route::get('/admin', function () {
 });
 
 //FREE ROUTE
-Route::get('/', function () {
-    return view('customer.index');
-});
+Route::get('/', 'CustomerController@index');
 Route::get('/logout', 'LoginController@logout')->name('logout');
+Route::get('/pesan', 'CustomerController@order');
+Route::post('/inputpesanan', 'CustomerController@inputPesanan');
+Route::get('/pesanselesai', 'CustomerController@pesanSelesai');
 
 //INSIDE GUEST GROUP
 Route::group(['middleware' => ['checkstatus:guest']], function () {
@@ -139,6 +140,8 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::post('/admin/bonmuat/deleteSuratJalan', 'Bon_MuatController@deleteSuratJalan');
     Route::post('/admin/bonmuat/deleteAll/{id}', 'Bon_MuatController@deleteAll');
     Route::get('/admin/bonmuat/incomingbonmuat', 'Bon_MuatController@incomingbonmuat');
+    Route::get('/admin/bonmuat/editSuratJalan/{id}', 'Bon_MuatController@editSuratJalan');
+    Route::post('/admin/bonmuat/updateSuratJalan/{id}', 'Bon_MuatController@updateSuratJalan');
 
     //ADMIN - PENGIRIMAN CUSTOMER
     Route::get('/admin/pengirimanCustomer', 'PengirimanCustomerController@index');
