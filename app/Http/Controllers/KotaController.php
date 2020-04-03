@@ -20,6 +20,7 @@ class KotaController extends Controller
     }
 
     public function store(Request $request) {
+        date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $user = Session::get('id');
         $request['user_created'] = $user;
@@ -45,6 +46,7 @@ class KotaController extends Controller
     }
 
     public function update($nama, Request $request) {
+        date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $kota = kota::findOrFail($nama);
         $request['user_updated'] = Session::get('id');

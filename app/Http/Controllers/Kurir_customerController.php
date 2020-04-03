@@ -21,6 +21,7 @@ class Kurir_customerController extends Controller
     }
 
     public function store(Request $request) {
+        date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $request['id'] = Kurir_customer::getNextId();
         $request['status'] = 1;
@@ -41,6 +42,7 @@ class Kurir_customerController extends Controller
     }
 
     public function update($id, Request $request) {
+        date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $kurcust = Kurir_customer::findOrFail($id);
         $request['user_updated'] = Session::get('id');

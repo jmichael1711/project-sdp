@@ -29,6 +29,7 @@ class PesananController extends Controller
     }
 
     public function store(Request $request) {
+        date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $user = Session::get('id');
         $request['id'] = Pesanan::getNextId();
@@ -48,6 +49,7 @@ class PesananController extends Controller
     }
 
     public function update($id, Request $request) {
+        date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $orders = Pesanan::findOrFail($id);
         $request['user_updated'] = Session::get('id');

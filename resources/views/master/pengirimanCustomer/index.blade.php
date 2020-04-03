@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title-icon')
-<i class="pe-7s-tools icon-gradient bg-mean-fruit"></i>
+<i class="pe-7s-gift icon-gradient bg-mean-fruit"></i>
 @endsection
 
 @section('title')
@@ -26,6 +26,8 @@ Page ini adalah untuk menampilkan semua pengiriman customer.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
+                    <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/pengirimanCustomer/create')}}';">Tambah Data</button>
+                    <br><hr>
                     <table class="table table-hover table-striped dataTable dtr-inline" id="tablePengirimanCust">
                         <thead>
                             <tr>

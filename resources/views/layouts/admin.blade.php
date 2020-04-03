@@ -342,7 +342,7 @@
                                 {{-- SIDEBAR - Kurir Customer --}}
                                 <li id="upperlist-kurir_customer">
                                     <a id="btn-kurir_customer" href="">
-                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        <i class="metismenu-icon pe-7s-bicycle"></i>
                                             Kurir Customer
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
@@ -366,7 +366,7 @@
                                 {{-- SIDEBAR - Kurir Non Customer --}}
                                 <li id="upperlist-kurir_noncustomer">
                                     <a id="btn-kurir_noncustomer" href="">
-                                        <i class="metismenu-icon pe-7s-bicycle"></i>
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
                                             Kurir Non Customer
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
