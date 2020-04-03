@@ -69,7 +69,7 @@
                     </div> -->
                     <ul class="header-menu nav">
                         <li class="nav-item">
-                            <a href="/user" class="nav-link">
+                            <a href="/" class="nav-link">
                                 <i class="nav-link-icon fa fa-database"> </i>
                                 Go to Website
                             </a>

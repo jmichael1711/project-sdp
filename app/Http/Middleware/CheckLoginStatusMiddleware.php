@@ -16,8 +16,8 @@ class CheckLoginStatusMiddleware
      */
     public function handle($request, Closure $next, $pageType)
     {
-        if (Session::has("id")) {
-            $status = Session::get("id");
+        if (Session::has("loginstatus")) {
+            $status = Session::get("loginstatus");
             // if ($status == 2) {
             //     //if not admin
             //     if ($pageType == "admin" || $pageType == "guest") {

@@ -46,8 +46,8 @@ Page ini adalah untuk melihat semua kendaraan.
                             
                         <tr onclick='editKendaraan("{{$i->id}}")'>
                             <td> {{$i->id}} </td>
-                            <td><a href="/admin/kantor/edit/{{$i->kantor_1_id}}">{{$i->kantor_1_id}}</a> </td>
-                            <td><a href="/admin/kantor/edit/{{$i->kantor_2_id}}">{{$i->kantor_2_id}}</a></td>
+                            <td><a href="/admin/kantor/edit/{{$i->kantor_1->alamat}}">{{$i->kantor_1->alamat}}</a> </td>
+                            <td><a href="/admin/kantor/edit/{{$i->kantor_2->alama}}">{{$i->kantor_2->alama}}</a></td>
                             <td>{{$i->nopol}}</td>
                             @if ($i->status)
                             <td class="text-center text-white">
