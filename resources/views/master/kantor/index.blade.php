@@ -24,8 +24,8 @@ Page ini adalah untuk menampilkan semua kantor.
     @endif
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
-            <div class="card-body">
-                <table class="table table-hover table-striped dataTable dtr-inline" id="tableKantor">
+            <div style="overflow-x: auto" class="card-body">
+                <table style="min-width: 100%;"  class="table table-hover table-striped dataTable dtr-inline" id="tableKantor">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -50,11 +50,11 @@ Page ini adalah untuk menampilkan semua kantor.
                                 <td>{{$i->kota}}</td>
                                 @if ($i->is_warehouse)
                                 <td>
-                                    KANTOR CABANG
+                                    WAREHOUSE
                                 </td>    
                                 @else 
                                 <td>
-                                    WAREHOUSE
+                                    KANTOR CABANG
                                 </td>
                                 @endif
                                 <td>{{$i->longitude}}</td>

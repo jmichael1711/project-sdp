@@ -56,7 +56,7 @@ Page ini adalah untuk menambah bon muat baru.
                         <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">Kantor Asal</label>
-                                <select name="kantor_asal_id" class="form-control" id="kantorAsal" required>
+                                <select name="kantor_asal_id" class="form-control" id="kantorAsal" onchange="refreshComboBox()" required>
                                 </select>
                             </div>
                         </div>
@@ -79,7 +79,7 @@ Page ini adalah untuk menambah bon muat baru.
                         <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">Kantor Tujuan</label>
-                                <select name="kantor_tujuan_id" class="form-control" id="kantorTujuan" required>
+                                <select name="kantor_tujuan_id" class="form-control" id="kantorTujuan" onchange="refreshComboBox()" required>
                                 </select>
                             </div>
                         </div>

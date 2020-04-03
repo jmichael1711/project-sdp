@@ -22,7 +22,14 @@ Halaman ini untuk mengubah data kota.
             Session::forget('success');
         @endphp
     @endif
-
+    @if (Session::has('failed-kota'))
+    <ul class="list-group mb-2">
+        <li class="list-group-item-danger list-group-item">{{Session::get('failed-kota')}}</li>
+    </ul>
+    @php
+        Session::forget('failed-kota');
+    @endphp
+    @endif
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div class="card-body">
@@ -34,7 +41,7 @@ Halaman ini untuk mengubah data kota.
                                 <label class="">Kota</label>
                                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nama" id=""
-                                    placeholder="Nama Kota" type="text" class="form-control" value="{{$kota->nama}}" required>
+                                    placeholder="Nama Kota" type="text" class="form-control" value="{{$kota->nama}}" required {{$kota->is_deleted ? 'disabled' : ''}}>
                             </div>
                         </div>
                     </div>

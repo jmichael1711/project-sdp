@@ -16,11 +16,11 @@ class Kurir_non_customer extends Model
     public $incrementing = false;
 
     public function kantor_1() {
-        return $this->belongsTo('App\Kantor', 'kantor_1_id');
+        return $this->belongsTo('App\Kantor', 'kantor_1_id')->where('is_deleted',0);
     }
 
     public function kantor_2() {
-        return $this->belongsTo('App\Kantor', 'kantor_2_id');
+        return $this->belongsTo('App\Kantor', 'kantor_2_id')->where('is_deleted',0);
     }
 
     //static functions for query
@@ -33,12 +33,15 @@ class Kurir_non_customer extends Model
     }
 
     public static function sortKurir($kantorAsalId,$kantorTujuanId){
-        return Kurir_non_customer::getAll()->where('posisi_di_kantor_1', '=', 1)
+        return Kurir_non_customer::getAll()
+        ->where('posisi_di_kantor_1', '=', 1)
         ->where('kantor_1_id', '=', $kantorAsalId)
         ->where('kantor_2_id', '=', $kantorTujuanId)
+        ->where('is_deleted',0)
         ->orWhere('posisi_di_kantor_1', '=', 0)
         ->where('kantor_1_id', '=', $kantorTujuanId)
         ->where('kantor_2_id', '=', $kantorAsalId)
+        ->where('is_deleted',0)
         ->get();
     }
 

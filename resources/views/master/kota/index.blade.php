@@ -22,10 +22,19 @@ Halaman ini untuk menampilkan semua data kota.
             Session::forget('success-kota');
         @endphp
     @endif
-    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+    @if (Session::has('failed-kota'))
+    <ul class="list-group mb-2">
+        <li class="list-group-item-danger list-group-item">{{Session::get('failed-kota')}}</li>
+    </ul>
+    @php
+        Session::forget('failed-kota');
+    @endphp
+@endif
+    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel"> 
         <div class="main-card mb-3 card">
             <div class="card-body">
-                <table class="table table-hover table-striped dataTable dtr-inline" id="tableKota">
+                <div class="container">
+                    <table class="table table-hover table-striped dataTable dtr-inline" id="tableKota">
                     <thead>
                         <tr>
                             <th>Nama</th>
@@ -52,8 +61,8 @@ Halaman ini untuk menampilkan semua data kota.
                             </tr>
                         @endforeach
                     </tbody>
-                   
-                </table>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -76,7 +85,7 @@ Halaman ini untuk menampilkan semua data kota.
     var table = $('#tableKota').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,
-        'lengthMenu': [10,25, 50],
+        'lengthMenu': [10,25,50,100],
         "scrollX": true
     });
 </script>

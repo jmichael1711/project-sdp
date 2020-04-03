@@ -25,7 +25,8 @@ Page ini adalah untuk melihat semua pesanan
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div class="card-body">
-                <table class="table table-hover table-striped dataTable dtr-inline" id="tablePesanan">
+                <div class="container">
+                    <table class="table table-hover table-striped dataTable dtr-inline" id="tablePesanan">
                     <thead>
                         <tr>
                             <th>Id Pesanan</th>
@@ -51,14 +52,21 @@ Page ini adalah untuk melihat semua pesanan
                                 <td>{{$pesanan['nama_pengirim']}}</td>
                                 <td>{{$pesanan['nama_penerima']}}</td>
                                 @if ($pesanan['status'] == 1)
-                                <td class="bg-success text-center text-white">FINISH</td>
+                                <td class="text-center text-white">
+                                    <div class="badge badge-success">
+                                    FINISH
+                                    </div>
+                                </td>
                                 @else
-                                <td class="bg-danger text-center text-white">NOT FINISH</td>
+                                <td class="text-center text-white">
+                                    <div class="badge badge-danger">
+                                    NOT FINISH
+                                    </div>
+                                </td>
                                 @endif
                             </tr>
                         @endforeach
                     </tbody>
-
                 </table>
             </div>
         </div>
