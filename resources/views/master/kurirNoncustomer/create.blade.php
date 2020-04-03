@@ -90,8 +90,9 @@ Halaman ini untuk menambah data kurir non customer
                         <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">Alamat</label>
-                                <input style="text-transform:uppercase" name="alamat" id=""
-                                placeholder="Alamat" type="text" class="form-control" required>
+                                <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="alamat"
+                                placeholder="ALAMAT" type="text" class="form-control" required>
                                 <div class="invalid-feedback">
                                     Mohon inputkan alamat yang valid.
                                 </div>

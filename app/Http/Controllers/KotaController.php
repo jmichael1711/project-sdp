@@ -50,7 +50,7 @@ class KotaController extends Controller
         $request = $request->all();
         $kota = kota::findOrFail($nama);
         $request['user_updated'] = Session::get('id');
-        $boleh = kota::cek($request['nama']);
+        $boleh = kota::cekedit($request['nama']);
         if($boleh == true){
             $kota->update($request);
             $success = "Data Kota $nama berhasil diubah.";

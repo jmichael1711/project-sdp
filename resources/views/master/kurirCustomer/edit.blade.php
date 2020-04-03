@@ -44,8 +44,9 @@ Halaman ini untuk mengubah data kurir customer.
                     <div class="col-md-3">
                         <div class="position-relative form-group">
                             <label class="">Nama</label>
-                            <input style="text-transform:uppercase" name="nama" id=""
-                            placeholder="NAMA KURIR" type="text" class="form-control" value="{{$kurcust->nama}}"required>
+                            <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                            this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nama"
+                            placeholder="NAMA KURIR" type="text" class="form-control" value="{{$kurcust->nama}}" required>
                             <div class="invalid-feedback">
                                 Mohon inputkan Nama Kurir Customer yang valid.
                             </div>
@@ -84,8 +85,9 @@ Halaman ini untuk mengubah data kurir customer.
                     <div class="col-md-4">
                         <div class="position-relative form-group">
                             <label class="">Alamat</label>
-                            <input style="text-transform:uppercase" name="alamat" id=""
-                            placeholder="Alamat" type="text" class="form-control"  value="{{$kurcust->alamat}}" required>
+                            <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                            this.setSelectionRange(p, p);" style="text-transform:uppercase" name="alamat"
+                            placeholder="ALAMAT" type="text" class="form-control" value="{{$kurcust->alamat}}" required>
                             <div class="invalid-feedback">
                                 Mohon inputkan alamat yang valid.
                             </div>
@@ -96,8 +98,9 @@ Halaman ini untuk mengubah data kurir customer.
                     <div class="col-md-4">
                         <div class="position-relative form-group">
                             <label class="">Nomor Polisi</label>
-                            <input style="text-transform:uppercase" name="nopol" id=""
-                            placeholder="NOMOR POLISI" type="text" class="form-control"  value="{{$kurcust->nopol}}" required>
+                            <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                            this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nopol"
+                            placeholder="NOMOR POLISI" type="text" class="form-control" value="{{$kurcust->nopol}}" required>
                             <div class="invalid-feedback">
                                 Mohon inputkan Nomor Polisi yang valid.
                             </div>

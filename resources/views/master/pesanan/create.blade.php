@@ -197,7 +197,8 @@ Halaman ini untuk menampilkan semua data pesanan.
             <div class="col-md-3">
                 <div class="position-relative form-group">
                     <label class="">Keterangan</label>
-                    <input style="text-transform:uppercase" name="keterangan" id=""
+                    <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="keterangan" id=""
                     placeholder="KETERANGAN" type="text" class="form-control">
                 </div>
             </div>

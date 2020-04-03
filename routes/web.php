@@ -94,14 +94,15 @@ Route::get('/admin', function () {
 });
 
 //FREE ROUTE
+Route::get('/', function () {
+    return view('customer.index');
+});
 Route::get('/logout', 'LoginController@logout')->name('logout');
 
 //INSIDE GUEST GROUP
 Route::group(['middleware' => ['checkstatus:guest']], function () {
     //LOGIN
-    Route::get('/', function () {
-        return view('customer.index');
-    });
+    
     Route::get('/login', 'LoginController@index');
     Route::post('/attemptlogin', 'LoginController@attemptLogin');
 });
@@ -110,7 +111,7 @@ Route::group(['middleware' => ['checkstatus:guest']], function () {
 Route::group(['middleware' => ['checkstatus:admin']], function () {
     //INDEX
     Route::get('/admin', function () {
-        echo 'IKI ADMIN YO';
+        return view('master.index');
     });
 
     //ADMIN - KANTOR
