@@ -118,6 +118,7 @@ Halaman ini untuk mengubah data kantor.
                             </div>
                         </div>
                     </div>
+                    <hr>
                     <div class="form-row">
                         <div class="col-md-5">
                             <div class="position-relative form-group">

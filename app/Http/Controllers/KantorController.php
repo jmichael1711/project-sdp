@@ -73,7 +73,7 @@ class KantorController extends Controller
         $request['user_created'] = $user;
         $request['user_updated'] = $user;
         Kantor::create($request);   
-        $success = "Kantor berhasil didaftarkan.";
+        $success = "Data kantor berhasil didaftarkan.";
         Session::put('success-kantor', $success);
         return redirect('/admin/kantor/create');
     }
@@ -90,7 +90,7 @@ class KantorController extends Controller
         $kantor = Kantor::findOrFail($id);
         $request['user_updated'] = Session::get('id');
         $kantor->update($request);
-        $success = 'Kantor berhasil diubah.';
+        $success = 'Data kantor '.$id.' berhasil diubah.';
         Session::put('success-kantor', $success);
         return redirect('/admin/kantor');
     }

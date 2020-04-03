@@ -29,9 +29,9 @@ Page ini adalah untuk menambah pegawai baru.
                 <form novalidate class="needs-validation" method="post" action="/admin/pegawai/store" enctype="multipart/form-data">
                 @csrf
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
-                                <label class="">ID Pegawai</label>
+                                <label class="">ID</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" 
                                 type="text" class="form-control" value="{{$nextId}}" readonly>
@@ -39,29 +39,29 @@ Page ini adalah untuk menambah pegawai baru.
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Nama</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nama"
                                 placeholder="NAMA" type="text" class="form-control" required>
-                                <div class="invalid-feedback">Mohon inputkan nama.</div>
+                                <div class="invalid-feedback">Mohon input nama yang valid.</div>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Password</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="password" id="pass1" 
                                 placeholder="Password" type="password" class="form-control" required>
-                                <div class="invalid-feedback pass">Inputkan password.</div>
+                                <div class="invalid-feedback pass">Mohon input password yang valid.</div>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Jenis Kelamin</label>
                                 <br>
@@ -79,34 +79,34 @@ Page ini adalah untuk menambah pegawai baru.
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Nomor Telepon</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="no_telp" 
                                 placeholder="NOMOR TELEPON" type="text" class="form-control" required>
                                 <div class="invalid-feedback">
-                                    Mohon inputkan nomor telepon.
+                                    Mohon input nomor telepon yang valid.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Alamat</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="alamat"
                                 placeholder="ALAMAT" type="text" class="form-control">
                                 <div class="invalid-feedback">
-                                    Mohon inputkan alamat.
+                                    Mohon input alamat yang valid.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <hr>
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Kota</label>
                                 <select id="kota" class="form-control" onchange='isiKantor()' required>
@@ -118,22 +118,23 @@ Page ini adalah untuk menambah pegawai baru.
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Kantor</label>
                                 <select name="kantor_id" id="kantor" class="form-control" required></select>
                                 <div class="invalid-feedback">
-                                    Mohon pilih kantor asal.
+                                    Mohon pilih kantor asal yang valid.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Jabatan</label>
                                 <select name="jabatan" class="form-control" required>
-                                    <option class="form-control" value="pegawai">Pegawai</option>
+                                    <option class="form-control" value="kasir">Kasir</option>
+                                    <option class="form-control" value="pegawai">Pegawai Biasa</option>
                                     <option class="form-control" value="admin">Admin</option>
                                 </select> 
                             </div>

@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Semua Kendaraan
+SEMUA DATA KENDARAAN
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk melihat semua kendaraan.
+Halaman ini untuk menampilkan semua data kendaraan.
 @endsection
 
 @section('content')
@@ -31,17 +31,17 @@ Page ini adalah untuk melihat semua kendaraan.
                     <table class="table table-hover table-striped dataTable dtr-inline" id="tableKendaraan">
                     <thead>
                         <th>ID</th>
-                        <th>Kantor 1</th>
-                        <th>Kantor 2</th>
+                        <th>Alamat Kantor 1</th>
+                        <th>Alamat Kantor 2</th>
                         <th>Nomor Polisi</th>
                         <th>Status Kendaraan</th>
                         <th>Tahun Pembelian</th>
                         <th>Posisi</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
-                        <th>User Created</th>
-                        <th>User Updated</th>
-                        <th>Status</th>
+                        <th>Diubah Tanggal</th>
+                        <th>Diubah Oleh</th>
+                        <th>Dibuat Tanggal</th>
+                        <th>Dibuat Oleh</th>
+                        <th>Status Aktif</th>
                     </thead>
                     <tbody>
                         @if ($kendaraans)
@@ -49,19 +49,19 @@ Page ini adalah untuk melihat semua kendaraan.
                             
                         <tr onclick='editKendaraan("{{$i->id}}")'>
                             <td> {{$i->id}} </td>
-                            <td><a href="/admin/kantor/edit/{{$i->kantor_1_id}}">{{$i->kantor_1_id}}</a> </td>
-                            <td><a href="/admin/kantor/edit/{{$i->kantor_2_id}}">{{$i->kantor_2_id}}</a></td>
+                            <td>{{$i->kantor_1->alamat}}, {{$i->kantor_1->getKota->nama}} </td>
+                            <td>{{$i->kantor_2->alamat}}, {{$i->kantor_2->getKota->nama}}</td>
                             <td>{{$i->nopol}}</td>
                             @if ($i->status)
                             <td class="text-center text-white">
                                 <div class="badge badge-danger">
-                                    BUSY
+                                    SIBUK
                                 </div>
                             </td>    
                             @else 
                             <td class="text-center text-white">
                                 <div class="badge badge-success">
-                                    FREE
+                                    TERSEDIA
                                 </div>
                             </td>
                             @endif
@@ -79,20 +79,20 @@ Page ini adalah untuk melihat semua kendaraan.
                                 </div>
                             </td>
                             @endif
-                            <td>{{$i->created_at->diffForHumans()}}</td>
-                            <td>{{$i->updated_at->diffForHumans()}}</td>
-                            <td>{{$i->user_created}}</td>
+                            <td>{{$i->updated_at}}</td>
                             <td>{{$i->user_updated}}</td>
+                            <td>{{$i->created_at}}</td>
+                            <td>{{$i->user_created}}</td>
                             @if ($i->is_deleted)
                             <td class="text-center text-white">
                                 <div class="badge badge-danger">
-                                    NOT ACTIVE
+                                    TIDAK AKTIF
                                 </div>
                             </td>    
                             @else 
                             <td class="text-center text-white">
                                 <div class="badge badge-success">
-                                    ACTIVE
+                                    AKTIF
                                 </div>
                             </td>
                             @endif

@@ -150,7 +150,7 @@ Page ini adalah untuk menambah bon muat baru.
                 @if(count($allKantor) > 0)
                     $('#kantor'+posisi).html('@foreach ($allKantor as $kantor)<option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>@endforeach');
                 @else
-                    $('#kantor'+posisi).html('<option>-- TIDAK ADA KANTOR --</option>');
+                    $('#kantor'+posisi).html('<option value="">-- TIDAK ADA KANTOR --</option>');
                 @endif
             }
         @endfor        
