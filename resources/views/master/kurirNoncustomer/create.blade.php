@@ -56,11 +56,10 @@ Page ini adalah untuk menambah Kurir non Customer baru.
                         <div class="col-md-3">
                             <div class="position-relative form-group">
                                 <label class="">Nama</label>
-                                <input style="text-transform:uppercase" name="nama" id=""
+                                <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nama"
                                 placeholder="NAMA KURIR" type="text" class="form-control" required>
-                                <div class="invalid-feedback">
-                                    Mohon inputkan Nama Kurir Non Customer yang valid.
-                                </div>
+                                <div class="invalid-feedback">Mohon inputkan nama.</div>
                             </div>
                         </div>
                     </div>
