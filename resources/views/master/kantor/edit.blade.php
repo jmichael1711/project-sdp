@@ -1,15 +1,15 @@
 @extends('layouts.admin')
 
 @section('title-icon')
-<i class="pe-7s-tools icon-gradient bg-mean-fruit"></i>
+<i class="pe-7s-home icon-gradient bg-mean-fruit"></i>
 @endsection
 
 @section('title')
-    Edit Kantor
+UBAH DATA KANTOR
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk mengubah data kantor.
+Halaman ini untuk mengubah data kantor.
 @endsection
 
 @section('content')
@@ -29,7 +29,7 @@ Page ini adalah untuk mengubah data kantor.
                 <form novalidate class="needs-validation" method="post" action="/admin/kantor/update/{{$kantor->id}}" enctype="multipart/form-data">
                 @csrf
                     <div class="form-row">
-                        <div class="col-md-2">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">ID</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
@@ -39,33 +39,33 @@ Page ini adalah untuk mengubah data kantor.
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-12">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Alamat</label>
                                 <textarea style="resize: none;" rows="5" oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="alamat"
                                 placeholder="ALAMAT" type="text" class="form-control" required {{$kantor->is_deleted ? 'disabled' : ''}}>{{$kantor->alamat}}</textarea>
                                 <div class="invalid-feedback">
-                                    Mohon inputkan alamat valid.
+                                    Mohon input alamat yang valid.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Nomor Telepon</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="no_telp" id=""
                                 placeholder="NO TELP" type="text" class="form-control" value="{{$kantor->no_telp}}" required {{$kantor->is_deleted ? 'disabled' : ''}}>
                                 <div class="invalid-feedback">
-                                    Mohon inputkan nomor telepon valid.
+                                    Mohon input nomor telepon yang valid.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Jenis Kantor</label>
                                 <select name="is_warehouse" class="form-control" {{$kantor->is_deleted ? 'disabled' : ''}}>
@@ -79,7 +79,7 @@ Page ini adalah untuk mengubah data kantor.
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Kota</label>
                                 <select name="kota" class="form-control" {{$kantor->is_deleted ? 'disabled' : ''}}>
@@ -102,7 +102,7 @@ Page ini adalah untuk mengubah data kantor.
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="longitude"
                                 placeholder="0.000000" step="0.000001" type="number" max="999.999999" min="0.000000" class="form-control" value="{{$kantor->longitude}}" {{$kantor->is_deleted ? 'disabled' : ''}}>
                                 <div class="invalid-feedback">
-                                    Mohon inputkan longitude valid. Longitude untuk kantor bisa di search di web.
+                                    Mohon input longitude yang valid.
                                 </div>
                             </div>
                         </div>
@@ -113,22 +113,22 @@ Page ini adalah untuk mengubah data kantor.
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="latitude"
                                 placeholder="0.000000" step="0.000001" type="number" max="999.999999" min="0.000000" class="form-control"  value="{{$kantor->latitude}}" {{$kantor->is_deleted ? 'disabled' : ''}}>
                                 <div class="invalid-feedback">
-                                    Mohon inputkan latitude valid. Latitude untuk kantor bisa di search di web.
+                                    Mohon input latitude yang valid.
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
-                                <label class="">Status</label>
+                                <label class="">Status Aktif</label>
                                 <select class="form-control" name="is_deleted">
                                     @if ($kantor->is_deleted)
-                                        <option selected class="form-control" value="1">NOT ACTIVE</option>
-                                        <option class="form-control" value="0">ACTIVE</option>
+                                        <option selected class="form-control" value="1">TIDAK AKTIF</option>
+                                        <option class="form-control" value="0">AKTIF</option>
                                     @else
-                                        <option class="form-control" value="1">NOT ACTIVE</option>
-                                        <option selected class="form-control" value="0">ACTIVE</option>
+                                        <option class="form-control" value="1">TIDAK AKTIF</option>
+                                        <option selected class="form-control" value="0">AKTIF</option>
                                     @endif
                                 </select>
                             </div>
@@ -137,7 +137,7 @@ Page ini adalah untuk mengubah data kantor.
                     <div class="form-row">
                         <div class="col-md-2">
                             <div class="position-relative form-group">
-                                <button class="mt-2 btn btn-primary">Edit</button>
+                                <button class="mt-2 btn btn-primary">Ubah</button>
                             </div>
                         </div>
                     </div>

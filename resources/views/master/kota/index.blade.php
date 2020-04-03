@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title-icon')
-<i class="pe-7s-tools icon-gradient bg-mean-fruit"></i>
+<i class="pe-7s-map-2 icon-gradient bg-mean-fruit"></i>
 @endsection
 
 @section('title')
@@ -34,27 +34,37 @@ Halaman ini untuk menampilkan semua data kota.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
+                    <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/kota/create')}}';">Tambah Data</button>
+                    <br><hr>
                     <table class="table table-hover table-striped dataTable dtr-inline" id="tableKota">
                     <thead>
                         <tr>
                             <th>Nama</th>
-                            <th>Status</th>
+                            <th>Diubah Tanggal</th>
+                            <th>Diubah Oleh</th>
+                            <th>Dibuat Tanggal</th>
+                            <th>Dibuat Oleh</th>
+                            <th>Status Aktif</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($kota as $city)
                             <tr onclick='editKota("{{$city->nama}}")'>
                                 <td>{{$city['nama']}}</td>
+                                <td>{{$city['updated_at']}}</td>
+                                <td>{{$city['user_updated']}}</td>
+                                <td>{{$city['created_at']}}</td>
+                                <td>{{$city['user_created']}}</td>
                                 @if ($city['is_deleted'] == 1)
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">
-                                        NOT ACTIVE
+                                        TIDAK AKTIF
                                     </div>
                                 </td>
                                 @else
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
-                                        ACTIVE
+                                        AKTIF
                                     </div>
                                 </td>
                                 @endif

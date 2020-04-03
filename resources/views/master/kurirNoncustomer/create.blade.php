@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title-icon')
-<i class="pe-7s-tools icon-gradient bg-mean-fruit"></i>
+<i class="pe-7s-rocket icon-gradient bg-mean-fruit"></i>
 @endsection
 
 @section('title')

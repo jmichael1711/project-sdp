@@ -20,6 +20,7 @@ class KotaController extends Controller
     }
 
     public function store(Request $request) {
+        date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $user = Session::get('id');
         $request['user_created'] = $user;
@@ -27,10 +28,10 @@ class KotaController extends Controller
         $boleh = kota::cek($request['nama']);
         if($boleh == true){
             Kota::create($request);
-            $success = "kota berhasil di-tambahkan";
+            $success = "Data Kota berhasil didaftarkan.";
             Session::put('success-kota', $success);
         }else {
-            $failed = "Nama kota sudah terdaftar";
+            $failed = "Nama kota telah terdaftar.";
             Session::put('failed-kota', $failed);
             return redirect('/admin/kota/create');
         }
@@ -45,17 +46,18 @@ class KotaController extends Controller
     }
 
     public function update($nama, Request $request) {
+        date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $kota = kota::findOrFail($nama);
         $request['user_updated'] = Session::get('id');
         $boleh = kota::cekedit($request['nama']);
         if($boleh == true){
             $kota->update($request);
-            $success = "Kota $nama berhasil diupdate.";
+            $success = "Data Kota $nama berhasil diubah.";
             Session::put('success-kota', $success);
             return redirect('/admin/kota');
         }else {
-            $failed = "Nama kota sudah terdaftar";
+            $failed = "Nama kota telah terdaftar.";
             Session::put('failed-kota', $failed);
             return redirect('/admin/kota/edit/' . $nama);
         }
