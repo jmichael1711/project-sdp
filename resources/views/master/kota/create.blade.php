@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title-icon')
-<i class="pe-7s-tools icon-gradient bg-mean-fruit"></i>
+<i class="pe-7s-map-2 icon-gradient bg-mean-fruit"></i>
 @endsection
 
 @section('title')
@@ -30,30 +30,36 @@ Halaman ini untuk menambah data kota.
             Session::forget('failed-kota');
         @endphp
     @endif
-    <form novalidate class="needs-validation" method="post" action="/admin/kota/store" enctype="multipart/form-data">
-        {{csrf_field()}}
-        <div class="form-row">
-            <div class="col-md-5">
-                <div class="position-relative form-group">
-                    <label class="">Nama Kota</label>
-                    <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nama" id=""
-                    placeholder="NAMA KOTA" type="text" class="form-control" required>
-                    <div class="invalid-feedback">
-                        Mohon inputkan nama kota yang valid.
+    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+                <form novalidate class="needs-validation" method="post" action="/admin/kota/store" enctype="multipart/form-data">
+                    {{csrf_field()}}
+                    <div class="form-row">
+                        <div class="col-md-5">
+                            <div class="position-relative form-group">
+                                <label class="">Nama Kota</label>
+                                <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nama" id=""
+                                placeholder="NAMA KOTA" type="text" class="form-control" required>
+                                <div class="invalid-feedback">
+                                    Mohon input nama kota yang valid.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-2">
+                            <div class="position-relative form-group">
+                                <button class="mt-2 btn btn-primary">Tambah</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-2">
-                <div class="position-relative form-group">
-                    <button class="mt-2 btn btn-primary">Tambah</button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
-    </form>
 @endsection
 
 @section('scripts')

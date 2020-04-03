@@ -1,15 +1,16 @@
 @extends('layouts.admin')
 
 @section('title-icon')
-<i class="pe-7s-tools icon-gradient bg-mean-fruit"></i>
+<i class="pe-7s-home icon-gradient bg-mean-fruit"></i>
 @endsection
 
 @section('title')
-    List Kantor
+SEMUA DATA KANTOR
+
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk menampilkan semua kantor.
+Halaman ini untuk menampilkan semua data kantor.
 @endsection
 
 @section('content')
@@ -22,10 +23,13 @@ Page ini adalah untuk menampilkan semua kantor.
             Session::forget('success-kantor');
         @endphp
     @endif
-    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel"> 
         <div class="main-card mb-3 card">
-            <div style="overflow-x: auto" class="card-body">
-                <table style="min-width: 100%;"  class="table table-hover table-striped dataTable dtr-inline" id="tableKantor">
+            <div class="card-body">
+                <div class="container">
+                    <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/kantor/create')}}';">Tambah Data</button>
+                    <br><hr>
+                    <table class="table table-hover table-striped dataTable dtr-inline" id="tableKantor">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -35,9 +39,11 @@ Page ini adalah untuk menampilkan semua kantor.
                             <th>Jenis</th>
                             <th>Longitude</th>
                             <th>Latitude</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
-                            <th>Status</th>
+                            <th>Diubah Tanggal</th>
+                            <th>Diubah Oleh</th>
+                            <th>Dibuat Tanggal</th>
+                            <th>Dibuat Oleh</th>
+                            <th>Status Aktif</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,18 +65,20 @@ Page ini adalah untuk menampilkan semua kantor.
                                 @endif
                                 <td>{{$i->longitude}}</td>
                                 <td>{{$i->latitude}}</td>
-                                <td>{{$i->created_at->diffForHumans()}}</td>
-                                <td>{{$i->updated_at->diffForHumans()}}</td>
+                                <td>{{$i->updated_at}}</td>
+                                <td>{{$i->user_updated}}</td>
+                                <td>{{$i->created_at}}</td>
+                                <td>{{$i->user_created}}</td>
                                 @if ($i->is_deleted)
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">
-                                        NOT ACTIVE
+                                        TIDAK AKTIF
                                     </div>
                                 </td>    
                                 @else 
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
-                                        ACTIVE
+                                        AKTIF
                                     </div>
                                 </td>
                                 @endif
@@ -78,7 +86,8 @@ Page ini adalah untuk menampilkan semua kantor.
                             @endforeach
                         @endif
                     </tbody>
-                </table>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

@@ -35,7 +35,24 @@ class Kota extends Model
         return Kota::where('is_deleted',0);
     }
 
+    public static function getAll2($nama){
+        return Kota::where('nama','<>',$nama);
+    }
+
     public static function count(){
         return Kota::getAll()->count();
     }
+
+    public static function cekedit($nama){
+        $kota = kota::getAll2($nama);
+        $boleh = true;
+        foreach ($kota as $city){
+            if($city['nama'] == $nama){
+                $boleh = false;
+            }
+        }
+        return $boleh;
+    }
+
+
 }

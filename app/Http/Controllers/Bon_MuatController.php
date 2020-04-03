@@ -21,6 +21,7 @@ class Bon_MuatController extends Controller
     }
 
     public function store(Request $request) {
+        date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $request['id'] = Bon_muat::getNextId();
         $user = Session::get('id');
@@ -71,6 +72,7 @@ class Bon_MuatController extends Controller
     }
 
     public function update($id, Request $request) {
+        date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $bonmuat = Bon_Muat::findOrFail($id);
         $request['user_updated'] = Session::get('id');
@@ -81,6 +83,7 @@ class Bon_MuatController extends Controller
     }
 
     public function addSuratJalan($id,Request $request){
+        date_default_timezone_set("Asia/Jakarta");
         $bonmuat = Bon_Muat::findorFail($id);
         $allBonMuat = Bon_Muat::getAll()->get();
         $allPengirimanCust = Pengiriman_customer::getAll()->get();

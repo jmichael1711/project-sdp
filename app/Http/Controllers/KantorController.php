@@ -59,11 +59,13 @@ class KantorController extends Controller
     }
 
     public function create() {
+        $nextId = Kantor::getNextId();
         $listKota = Kota::getAll()->get();
-        return view('master.kantor.create', compact('listKota'));
+        return view('master.kantor.create', compact('listKota', 'nextId'));
     }
 
     public function store(Request $request) {
+        date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $request['id'] = Kantor::getNextId();
         $user = Session::get('id');
@@ -83,6 +85,7 @@ class KantorController extends Controller
     }
 
     public function update($id, Request $request) {
+        date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $kantor = Kantor::findOrFail($id);
         $request['user_updated'] = Session::get('id');

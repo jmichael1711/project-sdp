@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title-icon')
-<i class="pe-7s-tools icon-gradient bg-mean-fruit"></i>
+<i class="pe-7s-note2 icon-gradient bg-mean-fruit"></i>
 @endsection
 
 @section('title')
@@ -213,8 +213,9 @@
                         <div class="col-md-3">
                             <div class="position-relative form-group">
                                 <label class="">Keterangan</label>
-                                <input style="text-transform:uppercase" name="keterangan" id=""
-                                placeholder="KETERANGAN" type="text" value={{$pesanan->keterangan}} class="form-control">
+                                <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="keterangan" id=""
+                                placeholder="KETERANGAN" type="text" value={{$pesanan->keterangan}} class="form-control" required>
                             </div>
                         </div>
                     </div>
