@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Create Pesanan
+TAMBAH DATA PESANAN
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk menambahkan Pesanan
+Halaman ini untuk menampilkan semua data pesanan.
 @endsection
 
 @section('content')

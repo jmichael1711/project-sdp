@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Edit Bon Muat
+    UBAH DATA BON MUAT
 @endsection
 
 @section('subtitle')
-Page ini untuk edit data bon muat.
+Halaman ini untuk mengubah data bon muat.
 @endsection
 
 @section('content')

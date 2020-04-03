@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Create Bon Muat
+    TAMBAH DATA BON MUAT
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk menambah bon muat baru.
+Halaman ini untuk menambah data bon muat.
 @endsection
 
 @section('content')

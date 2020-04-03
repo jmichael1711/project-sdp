@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    SEMUA DATA BON MUAT
+    SEMUA DATA BON MUAT YANG AKAN DATANG
 @endsection
 
 @section('subtitle')
-Halaman ini untuk menampilkan semua data bon muat.
+Halaman ini untuk menampilkan semua data bon muat yang akan datang.
 @endsection
 
 @section('content')
@@ -26,7 +26,27 @@ Halaman ini untuk menampilkan semua data bon muat.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
-                    <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/bonmuat/create')}}';">Tambah Data</button>
+                    <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/addSuratJalan" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-row">
+                            <div class="col-md-3">
+                                <div class="position-relative form-group">
+                                    <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="resi_id" id="resi_id" 
+                                    placeholder="Id Bon Muat" type="text" class="form-control" required>
+                                    <div class="invalid-feedback">
+                                        Id Bon Muat tidak valid.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="position-relative form-group" style="bottom: 10%">
+                                    <button class="mt-2 btn btn-primary" id="tambahSuratJalan">Tambah</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/bonmuat/create')}}';">Scan</button>
                     <br><hr>
                     <table class="table table-hover table-striped dataTable dtr-inline" id="tableBonMuat">
                             <thead>
@@ -55,16 +75,23 @@ Halaman ini untuk menampilkan semua data bon muat.
                                     <td>{{$i->updated_at->diffForHumans()}}</td>
                                     <td>{{$i->user_created}}</td>
                                     <td>{{$i->user_updated}}</td>
-                                    @if ($i->is_deleted)
+                                    @foreach($i->resis as $j)
+                                        @if($j->surat_jalan->telah_sampai == "0")
+                                            @php
+                                                $finish = false;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                    @if ($finish == false)
                                     <td class="text-center text-white">
-                                        <div class="badge badge-danger">
-                                            NOT ACTIVE
+                                        <div class="badge badge-warning">
+                                            BELUM SELESAI
                                         </div>
                                     </td>    
                                     @else 
                                     <td class="text-center text-white">
                                         <div class="badge badge-success">
-                                            ACTIVE
+                                            SELESAI
                                         </div>
                                     </td>
                                     @endif
@@ -83,10 +110,10 @@ Halaman ini untuk menampilkan semua data bon muat.
 <script>
     $(document).ready(function () {
         //UNTUK SIDEBAR
-        $("#upperlist-bonmuat").addClass("mm-active");
-        $("#btn-bonmuat").attr("aria-expanded", "true");
-        $("#list-bonmuat").attr("class", "mm-collapse mm-show");
-        $("#header-bonmuat").attr("class", "mm-active");
+        $("#upperlist-incoming-bonmuat").addClass("mm-active");
+        $("#btn-incoming-bonmuat").attr("aria-expanded", "true");
+        $("#list-incoming-bonmuat").attr("class", "mm-collapse mm-show");
+        $("#header-incoming-bonmuat").attr("class", "mm-active");
     })
 
     var table = $('#tableBonMuat').DataTable({

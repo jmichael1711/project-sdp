@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Edit Pegawai
+    UBAH DATA PEGAWAI
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk mengubah data pegawai.
+Halaman ini untuk mengubah data pegawai.
 @endsection
 
 @section('content')

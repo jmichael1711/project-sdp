@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Create Pegawai
+TAMBAH DATA PEGAWAI
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk menambah pegawai baru.
+Halaman ini untuk menambah data pegawai.
 @endsection
 
 @section('content')
