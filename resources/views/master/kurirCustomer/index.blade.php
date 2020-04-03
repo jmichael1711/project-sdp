@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Semua Kurir Customer
+    SEMUA DATA KURIR CUSTOMER
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk melihat semua kurir customer.
+Halaman ini untuk menampilkan semua data kurir customer.
 @endsection
 
 @section('content')

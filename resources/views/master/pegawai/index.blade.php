@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    List Pegawai
+    SEMUA DATA PEGAWAI
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk menampilkan semua pegawai.
+Halaman ini untuk menampilkan semua data pegawai.
 @endsection
 
 @section('content')

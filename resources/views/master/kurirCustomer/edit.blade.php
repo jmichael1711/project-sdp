@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Edit Kurir customer
+    UBAH DATA KURIR CUSTOMER
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk mengubah kurir customer.
+Halaman ini untuk mengubah data kurir customer.
 @endsection
 
 @section('content')

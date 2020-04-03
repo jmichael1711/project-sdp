@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Edit Kendaraan
+    UBAH DATA KENDARAAN
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk mengubah kendaraan.
+Halaman ini untuk mengubah data kendaraan.
 @endsection
 
 @section('content')

@@ -346,30 +346,6 @@
                                             Kurir Customer
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
-                                    <ul id="list-kurir_noncustomer">
-                                        <li>
-                                            <a id="header-kurir_noncustomer" href="{{ url('/admin/kurir_noncustomer') }}">
-                                                <i class="metismenu-icon"></i>
-                                                Semua Kurir Non Customer
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a id="header-tambah-kurir_noncustomer" href="{{ url('/admin/kurir_noncustomer/create') }}">
-                                                <i class="metismenu-icon">
-                                                </i>
-                                                Tambah Kurir Non Customer
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                {{-- SIDEBAR - Kurir Non Customer --}}
-                                <li id="upperlist-kurir_noncustomer">
-                                    <a id="btn-kurir_noncustomer" href="">
-                                        <i class="metismenu-icon pe-7s-rocket"></i>
-                                            Kurir Non Customer
-                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                                    </a>
                                     <ul id="list-kurir_customer">
                                         <li>
                                             <a id="header-kurir_customer" href="{{ url('/admin/kurir_customer') }}">
@@ -382,6 +358,30 @@
                                                 <i class="metismenu-icon">
                                                 </i>
                                                 Tambah Kurir Customer
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                {{-- SIDEBAR - Kurir Non Customer --}}
+                                <li id="upperlist-kurir_noncustomer">
+                                    <a id="btn-kurir_noncustomer" href="">
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                            Kurir Non Customer
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    <ul id="list-kurir_noncustomer">
+                                        <li>
+                                            <a id="header-kurir_noncustomer" href="{{ url('/admin/kurir_noncustomer') }}">
+                                                <i class="metismenu-icon"></i>
+                                                Semua Kurir Non Customer
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a id="header-tambah-kurir_noncustomer" href="{{ url('/admin/kurir_noncustomer/create') }}">
+                                                <i class="metismenu-icon">
+                                                </i>
+                                                Tambah Kurir Non Customer
                                             </a>
                                         </li>
                                     </ul>

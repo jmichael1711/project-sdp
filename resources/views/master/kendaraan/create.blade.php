@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Create Kantor
+    TAMBAH DATA KANTOR
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk menambah kendaraan baru.
+Halaman ini untuk menambah data kendaraan.
 @endsection
 
 @section('content')

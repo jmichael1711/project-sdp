@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Semua Kendaraan
+    SEMUA DATA KENDARAAN
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk melihat semua kendaraan.
+Halaman ini untuk menampilkan semua data kendaraan.
 @endsection
 
 @section('content')

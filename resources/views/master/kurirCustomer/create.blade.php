@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Create Kurir Customer
+    TAMBAH DATA KURIR CUSTOMER
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk menambah Kurir Customer baru.
+Halaman ini untuk menambah data kurir customer.
 @endsection
 
 @section('content')

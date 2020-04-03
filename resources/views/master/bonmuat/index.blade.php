@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    List Bon Muat
+    SEMUA DATA BON MUAT
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk menampilkan semua bon muat.
+Halaman ini untuk menampilkan semua data bon muat.
 @endsection
 
 @section('content')
