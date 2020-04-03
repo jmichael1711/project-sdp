@@ -235,7 +235,7 @@
                                 <li class="app-sidebar__heading">Dashboards</li>
                                 <li>
                                     <a id="header-dashboard" href="{{ url('/admin') }}">
-                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        <i class="metismenu-icon pe-7s-display2"></i>
                                         Dashboard Page
                                     </a>
                                 </li>
@@ -284,6 +284,13 @@
                                                 <i class="metismenu-icon">
                                                 </i>
                                                 Tambah Bon Muat
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a id="header-incoming-bonmuat" href="{{ url('/admin/bonmuat/incomingbonmuat') }}">
+                                                <i class="metismenu-icon">
+                                                </i>
+                                                Bon Muat yang akan datang
                                             </a>
                                         </li>
                                     </ul>

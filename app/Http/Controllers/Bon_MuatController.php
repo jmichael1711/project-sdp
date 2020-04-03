@@ -152,4 +152,9 @@ class Bon_MuatController extends Controller
         return redirect('/admin/bonmuat/edit/'.$id);
     }
 
+    public function incomingbonmuat(){
+        $allBonMuat = Bon_Muat::getAll()->get();
+        return view('master.bonmuat.incomingbonmuat',compact('allBonMuat'));
+    }
+
 }

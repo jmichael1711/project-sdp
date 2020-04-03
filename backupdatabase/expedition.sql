@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2020 at 09:41 AM
+-- Generation Time: Apr 03, 2020 at 11:12 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -50,9 +50,9 @@ CREATE TABLE `bon_muats` (
 --
 
 INSERT INTO `bon_muats` (`id`, `kendaraan_id`, `kurir_non_customer_id`, `total_muatan`, `kantor_asal_id`, `kantor_tujuan_id`, `user_created`, `user_updated`, `created_at`, `updated_at`, `is_deleted`) VALUES
-('B00000001030220', 'KE000001', 'KN000001', '15.0', 'KA000001', 'KA000002', '', 'P0000001', '0000-00-00 00:00:00', '2020-03-18 17:28:35', 0),
+('B00000001030220', 'KE000001', 'KN000001', '15.0', 'KA000001', 'KA000002', '', 'P0000001', '0000-00-00 00:00:00', '2020-04-03 03:45:33', 0),
 ('B00000002030220', 'KE000001', 'KN000002', '0.0', 'KA000001', 'KA000001', '', 'P0000001', '2020-03-25 09:15:43', '2020-03-20 06:32:22', 0),
-('B00000003030220', 'KE000001', 'KN000002', '0.0', 'KA000001', 'KA000001', '', ' ', '0000-00-00 00:00:00', '2020-03-18 08:56:28', 0);
+('B00000003030220', 'KE000001', 'KN000002', '0.0', 'KA000001', 'KA000001', '', 'P0000001', '0000-00-00 00:00:00', '2020-04-02 16:02:43', 0);
 
 -- --------------------------------------------------------
 
@@ -108,7 +108,7 @@ CREATE TABLE `kantors` (
 --
 
 INSERT INTO `kantors` (`id`, `alamat`, `no_telp`, `kota`, `is_warehouse`, `created_at`, `updated_at`, `is_deleted`, `longitude`, `latitude`, `user_created`, `user_updated`) VALUES
-('KA000001', 'dgjdh', '23141512', 'SURABAYA', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, '1.00000', '1.00000', '', ''),
+('KA000001', 'dgjdh', '23141512', 'SURABAYA', 0, '0000-00-00 00:00:00', '2020-04-02 15:24:32', 0, '1.00000', '1.00000', '', 'P0000001'),
 ('KA000002', 'ASDF', '12345678', 'SIDOARJO', 0, '2020-03-06 15:44:30', '2020-03-06 15:44:33', 0, '0.00000', '0.00000', ' ', ' ');
 
 -- --------------------------------------------------------
@@ -162,8 +162,44 @@ CREATE TABLE `kotas` (
 --
 
 INSERT INTO `kotas` (`nama`, `created_at`, `updated_at`, `user_created`, `user_updated`, `is_deleted`) VALUES
-('SIDOARJO', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', '', 0),
-('SURABAYA', '0000-00-00 00:00:00', '0000-00-00 00:00:00', ' ', ' ', 0);
+('KABUPATEN BANGKALAN', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN BANYUWANGI', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN BLITAR', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN BOJONEGORO', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN BONDOWOSO', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN GRESIK', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN JEMBER', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN JOMBANG', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN KEDIRI', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN LAMONGAN', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN LUMAJANG', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN MADIUN', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN MAGETAN', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN MALANG', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN MOJOKERTO', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN NGANJUK', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN NGAWI', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN PACITAN', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN PAMEKASAN', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN PASURUAN', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN PONOROGO', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN PROBOLINGGO', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN SAMPANG', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN SIDOARJO', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN SITUBONDO', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN SUMENEP', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN TRENGGALEK', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN TUBAN', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KABUPATEN TULUNGAGUNG', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KOTA BATU', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KOTA BLITAR', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KOTA KEDIRI', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KOTA MADIUN', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KOTA MALANG', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KOTA MOJOKERTO', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KOTA PASURUAN', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KOTA PROBOLINGGO', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0),
+('KOTA SURABAYA', '2020-04-03 16:11:37', '2020-04-03 16:11:37', 'P0000001', 'P0000001', 0);
 
 -- --------------------------------------------------------
 
@@ -188,6 +224,13 @@ CREATE TABLE `kurir_customers` (
   `user_created` varchar(8) NOT NULL,
   `user_updated` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kurir_customers`
+--
+
+INSERT INTO `kurir_customers` (`id`, `kantor_id`, `nama`, `jenis_kelamin`, `no_telp`, `alamat`, `status`, `nopol`, `password`, `created_at`, `updated_at`, `is_deleted`, `user_created`, `user_updated`) VALUES
+('KC000000', 'KA000002', 'ENRICHO', 'l', '789456', 'baratang jaya', '1', 'l 4569 ab', '123', '2020-04-03 12:28:16', '2020-04-03 12:28:16', 0, 'P0000001', 'P0000001');
 
 -- --------------------------------------------------------
 
@@ -248,6 +291,13 @@ CREATE TABLE `pegawais` (
   `user_updated` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `pegawais`
+--
+
+INSERT INTO `pegawais` (`id`, `kantor_id`, `nama`, `alamat`, `no_telp`, `jenis_kelamin`, `jabatan`, `password`, `created_at`, `updated_at`, `is_deleted`, `user_created`, `user_updated`) VALUES
+('PE000000', 'KA000002', 'ENRICHO', 'BARATANG JAYA', '789456', 'P', 'pegawai', '123', '2020-04-03 03:57:47', '2020-04-03 03:57:47', 0, 'P0000001', 'P0000001');
+
 -- --------------------------------------------------------
 
 --
@@ -267,6 +317,13 @@ CREATE TABLE `pengiriman_customers` (
   `user_created` varchar(8) NOT NULL,
   `user_updated` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pengiriman_customers`
+--
+
+INSERT INTO `pengiriman_customers` (`id`, `kurir_customer_id`, `total_muatan`, `menuju_penerima`, `kantor_id`, `created_at`, `updated_at`, `is_deleted`, `user_created`, `user_updated`) VALUES
+('P00000000030420', 'KC000000', '0.0', 1, 'KA000002', '2020-04-03 12:28:19', '2020-04-03 12:28:19', 0, 'P0000001', 'P0000001');
 
 -- --------------------------------------------------------
 
@@ -289,8 +346,8 @@ CREATE TABLE `pesanans` (
   `lebar` decimal(3,0) NOT NULL,
   `panjang` decimal(3,0) NOT NULL,
   `tinggi` decimal(3,0) NOT NULL,
-  `no_telp_pengirim` decimal(12,0) NOT NULL,
-  `no_telp_penerima` decimal(12,0) NOT NULL,
+  `no_telp_pengirim` varchar(20) NOT NULL,
+  `no_telp_penerima` varchar(20) NOT NULL,
   `keterangan` varchar(255) DEFAULT NULL,
   `is_fragile` tinyint(1) NOT NULL,
   `email_pengirim` varchar(255) NOT NULL,
