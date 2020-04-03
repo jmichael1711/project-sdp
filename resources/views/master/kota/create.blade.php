@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Create Kota
+    TAMBAH DATA KOTA
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk menambah kota
+Halaman ini untuk menambah data kota.
 @endsection
 
 @section('content')
@@ -33,7 +33,7 @@ Page ini adalah untuk menambah kota
     <form novalidate class="needs-validation" method="post" action="/admin/kota/store" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="form-row">
-            <div class="col-md-3">
+            <div class="col-md-5">
                 <div class="position-relative form-group">
                     <label class="">Nama Kota</label>
                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();

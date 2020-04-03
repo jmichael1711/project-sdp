@@ -239,84 +239,12 @@
                                         Dashboard Page
                                     </a>
                                 </li>
-                                <li class="app-sidebar__heading">Contents</li>
-
-                                {{-- SIDEBAR - KOTA --}}
-                                <li id="upperlist-kota">
-                                    <a id="btn-kota" href="">
-                                        <i class="metismenu-icon pe-7s-study"></i>
-                                            Kota
-                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                                    </a>
-                                    <ul id="list-kota">
-                                        <li>
-                                            <a id="header-kota" href="{{ url('/admin/kota') }}">
-                                                <i class="metismenu-icon"></i>
-                                                List Kota
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a id="header-tambah-kota" href="{{ url('/admin/kota/create') }}">
-                                                <i class="metismenu-icon">
-                                                </i>
-                                                Tambah kota
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                {{-- SIDEBAR - KANTOR --}}
-                                <li id="upperlist-kantor">
-                                    <a id="btn-kantor" href="">
-                                        <i class="metismenu-icon pe-7s-study"></i>
-                                            Kantor
-                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                                    </a>
-                                    <ul id="list-kantor">
-                                        <li>
-                                            <a id="header-kantor" href="{{ url('/admin/kantor') }}">
-                                                <i class="metismenu-icon"></i>
-                                                List Kantor
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a id="header-tambah-kantor" href="{{ url('/admin/kantor/create') }}">
-                                                <i class="metismenu-icon">
-                                                </i>
-                                                Tambah Kantor
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-
-                                {{-- SIDEBAR - KENDARAAN --}}
-                                <li id="upperlist-kendaraan">
-                                    <a id="btn-kendaraan" href="">
-                                        <i class="metismenu-icon pe-7s-study"></i>
-                                            Kendaraan
-                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                                    </a>
-                                    <ul id="list-kendaraan">
-                                        <li>
-                                            <a id="header-kendaraan" href="{{ url('/admin/kendaraan') }}">
-                                                <i class="metismenu-icon"></i>
-                                                Semua Kendaraan
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a id="header-tambah-kendaraan" href="{{ url('/admin/kendaraan/create') }}">
-                                                <i class="metismenu-icon">
-                                                </i>
-                                                Tambah Kendaraan
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                <li class="app-sidebar__heading">CONTOH</li>
 
                                 {{-- SIDEBAR - Pesanan --}}
                                 <li id="upperlist-pesanan">
                                     <a id="btn-pesanan" href="">
-                                        <i class="metismenu-icon pe-7s-study"></i>
+                                        <i class="metismenu-icon pe-7s-note2"></i>
                                             Pesanan
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
@@ -324,7 +252,7 @@
                                         <li>
                                             <a id="header-pesanan" href="{{ url('/admin/pesanan') }}">
                                                 <i class="metismenu-icon"></i>
-                                                Semua Pesanan
+                                                List Pesanan
                                             </a>
                                         </li>
                                         <li>
@@ -336,11 +264,35 @@
                                         </li>
                                     </ul>
                                 </li>
+                                
+                                {{-- SIDEBAR - BON MUAT --}}
+                                <li id="upperlist-bonmuat">
+                                    <a id="btn-bonmuat" href="">
+                                        <i class="metismenu-icon pe-7s-box1"></i>
+                                            Bon Muat
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    <ul id="list-bonmuat">
+                                        <li>
+                                            <a id="header-bonmuat" href="{{ url('/admin/bonmuat') }}">
+                                                <i class="metismenu-icon"></i>
+                                                List Bon Muat
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a id="header-tambah-bonmuat" href="{{ url('/admin/bonmuat/create') }}">
+                                                <i class="metismenu-icon">
+                                                </i>
+                                                Tambah Bon Muat
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
 
                                 {{-- SIDEBAR - PENGIRIMAN CUSTOMER --}}
                                 <li id="upperlist-pengirimanCustomer">
                                     <a id="btn-pengirimanCustomer" href="">
-                                        <i class="metismenu-icon pe-7s-study"></i>
+                                        <i class="metismenu-icon pe-7s-gift"></i>
                                             Pengiriman Cust
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
@@ -361,10 +313,12 @@
                                     </ul>
                                 </li>
 
+                                <li class="app-sidebar__heading">CONTOH</li>
+
                                 {{-- SIDEBAR - PEGAWAI --}}
                                 <li id="upperlist-pegawai">
                                     <a id="btn-pegawai" href="">
-                                        <i class="metismenu-icon pe-7s-study"></i>
+                                        <i class="metismenu-icon pe-7s-users"></i>
                                             Pegawai
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
@@ -388,7 +342,7 @@
                                 {{-- SIDEBAR - Kurir Customer --}}
                                 <li id="upperlist-kurir_customer">
                                     <a id="btn-kurir_customer" href="">
-                                        <i class="metismenu-icon pe-7s-study"></i>
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
                                             Kurir Customer
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
@@ -412,7 +366,7 @@
                                 {{-- SIDEBAR - Kurir Non Customer --}}
                                 <li id="upperlist-kurir_noncustomer">
                                     <a id="btn-kurir_noncustomer" href="">
-                                        <i class="metismenu-icon pe-7s-study"></i>
+                                        <i class="metismenu-icon pe-7s-bicycle"></i>
                                             Kurir Non Customer
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
@@ -433,43 +387,79 @@
                                     </ul>
                                 </li>
 
-                                {{-- SIDEBAR - BON MUAT --}}
-                                <li id="upperlist-bonmuat">
-                                    <a id="btn-bonmuat" href="">
-                                        <i class="metismenu-icon pe-7s-study"></i>
-                                            Bon Muat
+                                <li class="app-sidebar__heading">CONTOH</li>
+                                {{-- SIDEBAR - KOTA --}}
+                                <li id="upperlist-kota">
+                                    <a id="btn-kota" href="">
+                                        <i class="metismenu-icon pe-7s-map-2"></i>
+                                            Kota
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
-                                    <ul id="list-bonmuat">
+                                    <ul id="list-kota">
                                         <li>
-                                            <a id="header-bonmuat" href="{{ url('/admin/bonmuat') }}">
+                                            <a id="header-kota" href="{{ url('/admin/kota') }}">
                                                 <i class="metismenu-icon"></i>
-                                                List Bon Muat
+                                                List Kota
                                             </a>
                                         </li>
                                         <li>
-                                            <a id="header-tambah-bonmuat" href="{{ url('/admin/bonmuat/create') }}">
+                                            <a id="header-tambah-kota" href="{{ url('/admin/kota/create') }}">
                                                 <i class="metismenu-icon">
                                                 </i>
-                                                Tambah Bon Muat
+                                                Tambah kota
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
 
-                                <li class="app-sidebar__heading">Report</li>
-                                <li>
-                                    <a id="header-report-ebooks" href="/admin/report/ebooks">
-                                        <i class="metismenu-icon pe-7s-bookmarks"></i>
-                                        eBooks
+                                {{-- SIDEBAR - KANTOR --}}
+                                <li id="upperlist-kantor">
+                                    <a id="btn-kantor" href="">
+                                        <i class="metismenu-icon pe-7s-home"></i>
+                                            Kantor
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
+                                    <ul id="list-kantor">
+                                        <li>
+                                            <a id="header-kantor" href="{{ url('/admin/kantor') }}">
+                                                <i class="metismenu-icon"></i>
+                                                List Kantor
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a id="header-tambah-kantor" href="{{ url('/admin/kantor/create') }}">
+                                                <i class="metismenu-icon">
+                                                </i>
+                                                Tambah Kantor
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                <li>
-                                    <a id="header-report-others" href="/admin/report/others">
-                                        <i class="metismenu-icon pe-7s-ball"></i>
-                                        Others
+
+                                {{-- SIDEBAR - KENDARAAN --}}
+                                <li id="upperlist-kendaraan">
+                                    <a id="btn-kendaraan" href="">
+                                        <i class="metismenu-icon pe-7s-car"></i>
+                                            Kendaraan
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
+                                    <ul id="list-kendaraan">
+                                        <li>
+                                            <a id="header-kendaraan" href="{{ url('/admin/kendaraan') }}">
+                                                <i class="metismenu-icon"></i>
+                                                List Kendaraan
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a id="header-tambah-kendaraan" href="{{ url('/admin/kendaraan/create') }}">
+                                                <i class="metismenu-icon">
+                                                </i>
+                                                Tambah Kendaraan
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
+
                             </ul>
                         </div>
                     </div>

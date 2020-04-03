@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Semua Kota
+    SEMUA DATA KOTA
 @endsection
 
 @section('subtitle')
-Page ini adalah untuk melihat semua Kota
+Halaman ini untuk menampilkan semua data kota.
 @endsection
 
 @section('content')
