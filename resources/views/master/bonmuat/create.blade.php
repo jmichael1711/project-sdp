@@ -29,7 +29,7 @@ Page ini adalah untuk menambah bon muat baru.
                 <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/store" enctype="multipart/form-data">
                 @csrf
                     <div class="form-row">
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">ID Bon Muat</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();

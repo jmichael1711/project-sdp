@@ -48,8 +48,7 @@ Page ini adalah untuk mengubah kendaraan.
                         <div class="col-md-12">
                             <div class="position-relative form-group">
                                 <label class="">Kantor 1</label>
-                                <select value="{{$i->kantor_1_id}}" name="kantor_1_id" class="form-control" id="kantor1" onchange="kantor1Changed()" required>
-                                    
+                                <select value="{{$i->kantor_1_id}}" name="kantor_1_id" class="form-control" id="kantor1" onchange="kantor1Changed()" required {{$kendaraan->is_deleted ? 'disabled' : ''}}>
                                 </select>
                             </div>
                         </div>
@@ -58,7 +57,7 @@ Page ini adalah untuk mengubah kendaraan.
                         <div class="col-md-4">
                             <div class="position-relative form-group">
                                 <label class="">Kota</label>
-                                <select id="kota2" class="form-control" onchange="refreshKantor('kota2', 'kantor2')" required>
+                                <select id="kota2" class="form-control" onchange="refreshKantor('kota2', 'kantor2')" required {{$kendaraan->is_deleted ? 'disabled' : ''}}>
                                     @foreach ($listKota as $i)
                                         @if ($kendaraan->kantor_2 && $i->nama == $kendaraan->kantor_2->kota)
                                             <option selected class="form-control" value="{{$i->nama}}">{{$i->nama}}</option>
@@ -74,7 +73,7 @@ Page ini adalah untuk mengubah kendaraan.
                         <div class="col-md-12">
                             <div class="position-relative form-group">
                                 <label class="">Kantor 2</label>
-                                <select name="kantor_2_id" class="form-control" id="kantor2" required>
+                                <select name="kantor_2_id" class="form-control" id="kantor2" required {{$kendaraan->is_deleted ? 'disabled' : ''}}>
                                     
                                 </select>
                             </div>
@@ -86,7 +85,7 @@ Page ini adalah untuk mengubah kendaraan.
                                 <label class="">Nomor Polisi</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nopol" id="" 
-                                placeholder="NO POLISI" type="text" class="form-control" maxlength="9" value="{{$kendaraan->nopol}}" required>
+                                placeholder="NO POLISI" type="text" class="form-control" maxlength="9" value="{{$kendaraan->nopol}}" required {{$kendaraan->is_deleted ? 'disabled' : ''}}>
                                 <div class="invalid-feedback">
                                     Mohon inputkan nomor polisi valid.
                                 </div>
@@ -99,7 +98,7 @@ Page ini adalah untuk mengubah kendaraan.
                                 <label class="">Tahun Pembelian</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="tahun_pembelian" id="" 
-                                placeholder="2010" type="number" class="form-control" max="2020" min="0" value="{{$kendaraan->tahun_pembelian}}" required>
+                                placeholder="2010" type="number" class="form-control" max="2020" min="0" value="{{$kendaraan->tahun_pembelian}}" required {{$kendaraan->is_deleted ? 'disabled' : ''}}>
                                 <div class="invalid-feedback" >
                                     Mohon inputkan tahun valid.
                                 </div>
@@ -110,7 +109,7 @@ Page ini adalah untuk mengubah kendaraan.
                         <div class="col-md-12">
                             <div class="position-relative form-group">
                                 <label class="">Posisi</label>
-                                <select name="posisi_di_kantor_1" class="form-control" id="kantor2">
+                                <select name="posisi_di_kantor_1" class="form-control" id="kantor2" {{$kendaraan->is_deleted ? 'disabled' : ''}}>
                                     @if ($kendaraan->posisi_di_kantor_1)
                                         <option selected value="1">Kantor 1</option>
                                         <option value="0">Kantor 2</option>

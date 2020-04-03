@@ -5,11 +5,11 @@
 @endsection
 
 @section('title')
-    Edit Kota
+    UBAH DATA KOTA
 @endsection
 
 @section('subtitle')
-    Page ini adalah untuk mengedit Kota
+Halaman ini untuk mengubah data kota.
 @endsection
 
 @section('content')
@@ -36,12 +36,12 @@
                 <form novalidate class="needs-validation" method="post" action="/admin/kota/update/{{$kota->nama}}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-row">
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Kota</label>
                                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nama" id=""
-                                    placeholder="Nama Kota" type="text" class="form-control" value="{{$kota->nama}}" required>
+                                    placeholder="Nama Kota" type="text" class="form-control" value="{{$kota->nama}}" required {{$kota->is_deleted ? 'disabled' : ''}}>
                             </div>
                         </div>
                     </div>

@@ -52,9 +52,17 @@ Page ini adalah untuk melihat semua pesanan
                                 <td>{{$pesanan['nama_pengirim']}}</td>
                                 <td>{{$pesanan['nama_penerima']}}</td>
                                 @if ($pesanan['status'] == 1)
-                                <td class="bg-success text-center text-white">FINISH</td>
+                                <td class="text-center text-white">
+                                    <div class="badge badge-success">
+                                    FINISH
+                                    </div>
+                                </td>
                                 @else
-                                <td class="bg-danger text-center text-white">NOT FINISH</td>
+                                <td class="text-center text-white">
+                                    <div class="badge badge-danger">
+                                    NOT FINISH
+                                    </div>
+                                </td>
                                 @endif
                             </tr>
                         @endforeach

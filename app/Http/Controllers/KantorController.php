@@ -71,7 +71,7 @@ class KantorController extends Controller
         $request['user_created'] = $user;
         $request['user_updated'] = $user;
         Kantor::create($request);   
-        $success = "Kantor berhasil di-inputkan.";
+        $success = "Kantor berhasil didaftarkan.";
         Session::put('success-kantor', $success);
         return redirect('/admin/kantor/create');
     }

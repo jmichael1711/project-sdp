@@ -19,19 +19,19 @@ class Bon_muat extends Model
     public $incrementing = false;
 
     public function kendaraan() {
-        return $this->belongsTo('App\Kendaraan')->where('is_deleted',0);
+        return $this->belongsTo('App\Kendaraan');
     }
 
     public function kurir_non_customer() {
-        return $this->belongsTo('App\Kurir_non_customer')->where('is_deleted',0);
+        return $this->belongsTo('App\Kurir_non_customer');
     }
 
     public function kantor_asal() {
-        return $this->belongsTo('App\Kantor','kantor_asal_id')->where('is_deleted',0);
+        return $this->belongsTo('App\Kantor','kantor_asal_id');
     }
 
     public function kantor_tujuan() {
-        return $this->belongsTo('App\Kantor','kantor_tujuan_id')->where('is_deleted',0);
+        return $this->belongsTo('App\Kantor','kantor_tujuan_id');
     }
 
     public function kota_asal(){

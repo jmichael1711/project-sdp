@@ -18,7 +18,7 @@ class Kantor extends Model
     public $incrementing = false;
 
     public function kendaraans() {
-        return $this->hasMany('App\Kendaraan');
+        return $this->hasMany('App\Kendaraan')->where('is_deleted',0);
     }
     
     public function getKota(){
@@ -26,7 +26,7 @@ class Kantor extends Model
     }
 
     public function kurir_customer() {
-        return $this->hasMany('App\Kurir_customer');
+        return $this->hasMany('App\Kurir_customer')->where('is_deleted',0);
     }
 
     public function kurir_non_customer() {
@@ -42,12 +42,12 @@ class Kantor extends Model
 
     public function kurir_non_customer_1() {
         //Gets Kurir, IF the foreign key which references Kantor is kantor_1_id
-        return $this->hasMany('App\Kurir_non_customer', 'kantor_1_id');
+        return $this->hasMany('App\Kurir_non_customer', 'kantor_1_id')->where('is_deleted',0);
     }
 
     public function kurir_non_customer_2() {
         //Gets Kurir, IF the foreign key which references Kantor is kantor_2_id
-        return $this->hasMany('App\Kurir_non_customer', 'kantor_2_id');
+        return $this->hasMany('App\Kurir_non_customer', 'kantor_2_id')->where('is_deleted',0);
     }
 
     //static functions for query
