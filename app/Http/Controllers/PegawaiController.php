@@ -50,7 +50,7 @@ class PegawaiController extends Controller
         Pegawai::create($request);
         $success = "Data pegawai berhasil didaftarkan.";
 
-        return redirect('/admin/pegawai/create')->with(['success' => $success]);
+        return redirect('/admin/pegawai')->with(['success' => $success]);
     }
 
     public function isiKantor(Request $request){

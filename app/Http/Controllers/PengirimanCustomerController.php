@@ -32,9 +32,9 @@ class PengirimanCustomerController extends Controller
         $request['user_updated'] = $user;
 
         Pengiriman_customer::create($request);
-        $success = "Pengiriman Customer berhasil di-inputkan.";
+        $success = "Data pengiriman customer berhasil didaftarkan.";
 
-        return redirect('/admin/pengirimanCustomer/create')->with(['success' => $success]);
+        return redirect('/admin/pengirimanCustomer')->with(['success' => $success]);
     }
 
     public function edit($id){
@@ -51,7 +51,7 @@ class PengirimanCustomerController extends Controller
         $pengirimanCust = Pengiriman_customer::findOrFail($id);
         $request['user_updated'] = Session::get('id');
         $pengirimanCust->update($request);
-        $success = 'Pengiriman Customer berhasil diubah.';
+        $success = "Data pengiriman customer $id berhasil diubah.";
         Session::put('success', $success);
         return redirect('/admin/pengirimanCustomer');
     }

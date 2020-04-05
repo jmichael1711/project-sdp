@@ -32,15 +32,15 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>ID Kantor</th>
-                                <th>ID Kurir Customer</th>
-                                <th>Menuju Penerima</th>
+                                <th>Alamat Kantor</th>
+                                <th>Data Kurir</th>
+                                <th>Tujuan</th>
                                 <th>Total Muatan</th>
-                                <th>User Created</th>
-                                <th>Created At</th>
-                                <th>User Updated</th>
-                                <th>Updated At</th>
-                                <th>Is Deleted</th>
+                                <th>Diubah Tanggal</th>
+                                <th>Diubah Oleh</th>
+                                <th>Dibuat Tanggal</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Status Aktif</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,24 +48,30 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
                                 @foreach ($allPengirimanCust as $i)
                             <tr onclick='editKantor("{{$i->id}}")'>
                                 <td>{{$i->id}}</td>
-                                <td>{{$i->kantor_id}}</td>
-                                <td>{{$i->kurir_customer_id}}</td>
-                                <td>{{$i->menuju_penerima}}</td>
+                                <td>{{$i->kantor->alamat}}, {{$i->kantor->getKota->nama}}</td>
+                                <td>{{$i->kurir_customer->nama}}<br>({{$i->kurir_customer->nopol}})</td>
+                                <td>
+                                    @if($i->menuju_penerima == 1)
+                                        MENUJU KE PENERIMA
+                                    @else 
+                                        MENUJU KE PENGIRIM
+                                    @endif
+                                </td>
                                 <td>{{$i->total_muatan}}</td>
-                                <td>{{$i->user_created}}</td>
-                                <td>{{$i->created_at->diffForHumans()}}</td>
+                                <td>{{$i->updated_at}}</td>
                                 <td>{{$i->user_updated}}</td>
-                                <td>{{$i->updated_at->diffForHumans()}}</td>
+                                <td>{{$i->created_at}}</td>
+                                <td>{{$i->user_created}}</td>
                                 @if ($i->is_deleted)
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">
-                                        NOT ACTIVE
+                                        TIDAK AKTIF
                                     </div>
                                 </td>    
                                 @else 
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
-                                        ACTIVE
+                                        AKTIF
                                     </div>
                                 </td>
                                 @endif
