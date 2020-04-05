@@ -1,15 +1,15 @@
 @extends('layouts.admin')
 
 @section('title-icon')
-<i class="pe-7s-users icon-gradient bg-mean-fruit"></i>
+<i class="pe-7s-gift icon-gradient bg-mean-fruit"></i>
 @endsection
 
 @section('title')
-    SEMUA DATA PEGAWAI
+    SEMUA DATA PENGIRIMAN CUSTOMER MENUJU PENGIRIM
 @endsection
 
 @section('subtitle')
-Halaman ini untuk menampilkan semua data pegawai.
+Halaman ini untuk menampilkan semua data pengiriman customer yang menuju ke pengirim.
 @endsection
 
 @section('content')
@@ -26,18 +26,15 @@ Halaman ini untuk menampilkan semua data pegawai.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
-                    <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/pegawai/create')}}';">Tambah Data</button>
+                    <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/pengirimanCustomer/create')}}';">Tambah Data</button>
                     <br><hr>
-                    <table class="table table-hover table-striped dataTable dtr-inline" id="tablePegawai">
+                    <table class="table table-hover table-striped dataTable dtr-inline" id="tablePengirimanCust">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Alamat Kantor</th>
-                                <th>Nama</th>
-                                <th>Jabatan</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Alamat</th>
-                                <th>No. Telp</th>
+                                <th>ID Kantor</th>
+                                <th>ID Kurir Customer</th>
+                                <th>Total Muatan</th>
                                 <th>Diubah Tanggal</th>
                                 <th>Diubah Oleh</th>
                                 <th>Dibuat Tanggal</th>
@@ -46,22 +43,13 @@ Halaman ini untuk menampilkan semua data pegawai.
                             </tr>
                         </thead>
                         <tbody>
-                            @if ($allPegawai)
-                                @foreach ($allPegawai as $i)
+                            @if ($allPengirimanCust)
+                                @foreach ($allPengirimanCust as $i)
                             <tr onclick='editKantor("{{$i->id}}")'>
                                 <td>{{$i->id}}</td>
-                                <td>{{$i->kantor->alamat}}, {{$i->kantor->getKota->nama}}</td>
-                                <td>{{$i->nama}}</td>
-                                <td>{{$i->jabatan}}</td>
-                                <td>
-                                    @if ($i->jenis_kelamin == 'P')
-                                        PRIA
-                                    @else
-                                        WANITA
-                                    @endif
-                                </td>
-                                <td>{{$i->alamat}}</td>
-                                <td>{{$i->no_telp}}</td>
+                                <td>{{$i->kantor_id}}</td>
+                                <td>{{$i->kurir_customer_id}}</td>
+                                <td>{{$i->total_muatan}}</td>
                                 <td>{{$i->updated_at}}</td>
                                 <td>{{$i->user_updated}}</td>
                                 <td>{{$i->created_at}}</td>
@@ -69,13 +57,13 @@ Halaman ini untuk menampilkan semua data pegawai.
                                 @if ($i->is_deleted)
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">
-                                    TIDAK AKTIF
+                                        TIDAK AKTIF
                                     </div>
                                 </td>    
                                 @else 
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
-                                    AKTIF
+                                        AKTIF
                                     </div>
                                 </td>
                                 @endif
@@ -94,22 +82,22 @@ Halaman ini untuk menampilkan semua data pegawai.
 @section('scripts')
 <script>
     $(document).ready(function () {
-        $("#upperlist-pegawai").addClass("mm-active");
-        $("#btn-pegawai").attr("aria-expanded", "true");
-        $("#list-pegawai").attr("class", "mm-collapse mm-show");
-        $("#header-pegawai").attr("class", "mm-active");
+        $("#upperlist-pengirim-pengirimanCustomer").addClass("mm-active");
+        $("#btn-pengirim-pengirimanCustomer").attr("aria-expanded", "true");
+        $("#list-pengirim-pengirimanCustomer").attr("class", "mm-collapse mm-show");
+        $("#header-pengirim-pengirimanCustomer").attr("class", "mm-active");
     })
 
-    var table = $('#tablePegawai').DataTable({
+    var table = $('#tablePengirimanCust').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,
         'lengthMenu': [10,25, 50, 100],
         "scrollX": true
     });
 
-    function editKantor(id){
-        window.location.href='/admin/pegawai/edit/' + id;
-    }
+    // function editKantor(id){
+    //     window.location.href='/admin/pengirimanCustomer/edit/' + id;
+    // }
 
 </script>
 @endsection 

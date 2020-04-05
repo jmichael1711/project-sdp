@@ -1,15 +1,15 @@
 @extends('layouts.admin')
 
 @section('title-icon')
-<i class="pe-7s-box1 icon-gradient bg-mean-fruit"></i>
+<i class="pe-7s-gift icon-gradient bg-mean-fruit"></i>
 @endsection
 
 @section('title')
-    UBAH DATA SURAT JALAN
+    UBAH DATA DETAIL PENGIRIMAN CUSTOMER PENERIMA
 @endsection
 
 @section('subtitle')
-Halaman ini untuk mengubah data surat jalan.
+Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
 @endsection
 
 @section('content')
@@ -28,79 +28,57 @@ Halaman ini untuk mengubah data surat jalan.
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div class="card-body">
-                <h5 class="card-title">Total Muatan : {{$bonmuat->total_muatan}} / 1000 Kg</h5>
+                <h5 class="card-title">Total Muatan : {{$pengirimanCust->total_muatan}} / 20 Kg</h5>
                 <div class="mb-3 progress">
-                <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" style="width: {{$bonmuat->total_muatan/10}}%;"></div>
+                    <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" style="width: {{$pengirimanCust->total_muatan*5}}%;"></div>
                 </div>
                 <div class="form-row">
-                    <div class="col-md-2">
+                    <div class="col-md-5">
                         <div class="position-relative form-group">
-                            <label class="">ID</label>
+                            <label class="">ID Pengiriman Customer</label>
                             <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                            this.setSelectionRange(p, p);" style="text-transform:uppercase"  disabled 
-                            placeholder="ID" type="text" class="form-control" value="{{$bonmuat->id}}" readonly>
+                            this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" 
+                            type="text" class="form-control" value="{{$pengirimanCust->id}}" readonly>
                         </div>
                     </div>
                 </div>
                 <div class="collapse" id="collapseEdit">
-                
-                <div class="form-row">
-                    <div class="col-md-4">
-                        <div class="position-relative form-group">
-                            <label class="">Kantor Asal</label>
-                            <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                            this.setSelectionRange(p, p);" style="text-transform:uppercase"  disabled
-                            placeholder="ID" type="text" class="form-control" value="{{$bonmuat->kantor_asal->alamat}}" readonly>
+                        <div class="form-row">
+                            <div class="col-md-5">
+                                <div class="position-relative form-group">
+                                    <label class="">Kantor</label>
+                                    <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                                    this.setSelectionRange(p, p);" style="text-transform:uppercase" disabled 
+                                    placeholder="ID" type="text" class="form-control" value="{{$pengirimanCust->kantor->alamat}}" readonly>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="col-md-4">
-                        <div class="position-relative form-group">
-                            <label class="">Kantor Tujuan</label>
-                            <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                            this.setSelectionRange(p, p);" style="text-transform:uppercase" disabled 
-                            placeholder="ID" type="text" class="form-control" value="{{$bonmuat->kantor_tujuan->alamat}}" readonly>
+                        <div class="form-row">
+                            <div class="col-md-5">
+                                <div class="position-relative form-group">
+                                    <label class="">Kurir Customer</label>
+                                    <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                                    this.setSelectionRange(p, p);" style="text-transform:uppercase" disabled 
+                                    placeholder="ID" type="text" class="form-control" value="{{$pengirimanCust->kurir_customer->nama}} - {{$pengirimanCust->kurir_customer->nopol}}" readonly>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="col-md-4">
-                        <div class="position-relative form-group">
-                            <label class="">Kurir</label>
-                            <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                            this.setSelectionRange(p, p);" style="text-transform:uppercase"  disabled 
-                            placeholder="ID" type="text" class="form-control" value="{{$bonmuat->kurir_non_customer->nama}}" readonly>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="col-md-4">
-                        <div class="position-relative form-group">
-                            <label class="">Kendaraan</label>
-                            <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                            this.setSelectionRange(p, p);" style="text-transform:uppercase"  disabled 
-                            placeholder="ID" type="text" class="form-control" value="{{$bonmuat->kendaraan->nopol}}" readonly>
-                        </div>
-                    </div>
-                </div>
+                <hr>
                 </div>
                 <div class="card-footer">
-                    <button type="button" data-toggle="collapse" href="#collapseEdit" class="btn btn-primary">Detail Bon Muat</button>
+                    <button type="button" data-toggle="collapse" href="#collapseEdit" class="btn btn-primary">Detail Pengiriman Customer</button>
                 </div>
             </div>
         </div>
     </div>
-    
-    @if (Session::has('success-suratjalan'))
+
+        
+    @if (Session::has('success-detail'))
         <ul class="list-group mb-2">
-            <li class="list-group-item-success list-group-item">{{Session::get('success-suratjalan')}}</li>
+            <li class="list-group-item-success list-group-item">{{Session::get('success-detail')}}</li>
         </ul>
         @php
-            Session::forget('success-suratjalan');
+            Session::forget('success-detail');
         @endphp
     @endif
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel"> 
@@ -110,7 +88,7 @@ Halaman ini untuk mengubah data surat jalan.
                     <button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()" {{$status}}>
                         &nbsp Scan &nbsp
                     </button>
-                    <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/updateSuratJalan/{{$bonmuat->id}}" enctype="multipart/form-data">
+                    <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/updateDetailPenerima/{{$pengirimanCust->id}}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
                             <div class="col-md-3">
@@ -125,13 +103,13 @@ Halaman ini untuk mengubah data surat jalan.
                             </div>
                             <div class="col-md-2">
                                 <div class="position-relative form-group" style="bottom: 10%">
-                                    <button class="mt-2 btn btn-primary" id="updateSuratJalan" {{$status}}>Selesai</button>
+                                    <button class="mt-2 btn btn-primary" id="updateStatus" {{$status}}>Selesai</button>
                                 </div>
                             </div>
                         </div>
                     </form>
                     <hr>
-                    <table class="table table-hover table-striped dataTable dtr-inline" id="tableSuratJalan">
+                    <table class="table table-hover table-striped dataTable dtr-inline" id="tableDetail">
                         <thead>
                             <tr>
                                 <th>Resi ID</th>
@@ -151,8 +129,8 @@ Halaman ini untuk mengubah data surat jalan.
                             </tr>
                         </thead>
                         <tbody>
-                            @if($bonmuat->resis->count() > 0)
-                            @foreach ($bonmuat->resis as $i)
+                            @if($pengirimanCust->resis->count() > 0)
+                            @foreach ($pengirimanCust->resis as $i)
                             <tr>
                                 <td>{{$i->id}}</td>
                                 <td>{{$i->pesanan->nama_pengirim}}</td>
@@ -174,14 +152,14 @@ Halaman ini untuk mengubah data surat jalan.
                                     </div>
                                 </td>
                                 @endif
-                                <td>{{$i->surat_jalan->created_at}}</td>
-                                <td>{{$i->surat_jalan->updated_at}}</td>
-                                <td>{{$i->surat_jalan->user_created}}</td>
-                                <td>{{$i->surat_jalan->user_updated}}</td>
-                                @if ($i->surat_jalan->telah_sampai)
+                                <td>{{$i->d_pengiriman_customer->created_at}}</td>
+                                <td>{{$i->d_pengiriman_customer->updated_at}}</td>
+                                <td>{{$i->d_pengiriman_customer->user_created}}</td>
+                                <td>{{$i->d_pengiriman_customer->user_updated}}</td>
+                                @if ($i->d_pengiriman_customer->telah_sampai)
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
-                                        SELESAI
+                                        SELESAI 
                                     </div>
                                 </td>    
                                 @else 
@@ -201,9 +179,8 @@ Halaman ini untuk mengubah data surat jalan.
             </div>
         </div>
     </div>
-</div>
+</div>  
 @endsection
-
 
 {{-- Notification --}}
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -245,34 +222,37 @@ Halaman ini untuk mengubah data surat jalan.
     </div>
 </div>
 
-@section('scripts') 
+
+@section('scripts')
 <script>
-    $(document).ready(function (){
-        $("#upperlist-incoming-bonmuat").addClass("mm-active");
-        $("#btn-incoming-bonmuat").attr("aria-expanded", "true");
-        $("#list-incoming-bonmuat").attr("class", "mm-collapse mm-show");
-        $("#header-incoming-bonmuat").attr("class", "mm-active");
-        
-        if ('{{Session::has("success-failsuratjalan")}}'){
-            triggerNotification('{{Session::get("success-failsuratjalan")}}');
+    $(document).ready(function () {
+        $("#upperlist-penerima-pengirimanCustomer").addClass("mm-active");
+        $("#btn-penerima-pengirimanCustomer").attr("aria-expanded", "true");
+        $("#list-penerima-pengirimanCustomer").attr("class", "mm-collapse mm-show");
+        $("#header-penerima-pengirimanCustomer").attr("class", "mm-active");
+    
+        if ('{{Session::has("fail-detail")}}'){
+            triggerNotification('{{Session::get("fail-detail")}}');
             @php
-                Session::forget('success-failsuratjalan');
+                Session::forget('fail-detail');
             @endphp
         } 
+        
         scanner.addListener('scan', function(content) {
             $("#resi_id").val(content);
             $("#close").click();
-            $("#updateSuratJalan").click();
+            $("#updateStatus").click();
         });
+        
     })
-    
-    var table = $('#tableSuratJalan').DataTable({
+
+    var table = $('#tableDetail').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,
         'lengthMenu': [10,25, 50, 100],
         "scrollX": true
     });
- 
+
     let scanner = new Instascan.Scanner(
     {
         video: document.getElementById('preview')
@@ -298,13 +278,12 @@ Halaman ini untuk mengubah data surat jalan.
                 console.error("Error Stop Camera");
             }
         });
-    } 
-
+    }
+    
     function triggerNotification(text){
         $("#modalContent").html(text);
         $("#triggerModal").click();
     }
+
 </script>
-@endsection  
-
-
+@endsection 

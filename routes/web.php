@@ -152,6 +152,10 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::post('/admin/pengirimanCustomer/addDetail/{id}', 'PengirimanCustomerController@addDetail');
     Route::post('/admin/pengirimanCustomer/deleteDetail/{id}', 'PengirimanCustomerController@deleteDetail');
     Route::post('/admin/pengirimanCustomer/deleteAll/{id}', 'PengirimanCustomerController@deleteAll');
+    Route::get('/admin/pengirimanCustomer/pengirim', 'PengirimanCustomerController@pengirim');
+    Route::get('/admin/pengirimanCustomer/penerima', 'PengirimanCustomerController@penerima');
+    Route::get('/admin/pengirimanCustomer/editPenerima/{id}', 'PengirimanCustomerController@editPenerima');
+    Route::post('/admin/pengirimanCustomer/updateDetailPenerima/{id}', 'PengirimanCustomerController@updateDetailPenerima');
 
     //ADMIN - PEGAWAI
     Route::get('/admin/pegawai', 'PegawaiController@index');

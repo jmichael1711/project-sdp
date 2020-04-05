@@ -228,13 +228,13 @@ Halaman ini untuk mengubah data pengiriman customer.
                                 @if ($i->d_pengiriman_customer->telah_sampai)
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
-                                        FINISH 
+                                        SELESAI
                                     </div>
                                 </td>    
                                 @else 
                                 <td class="text-center text-white">
                                     <div class="badge badge-warning">
-                                        ON GOING
+                                        BELUM SELESAI
                                     </div>
                                 </td>
                                 @endif

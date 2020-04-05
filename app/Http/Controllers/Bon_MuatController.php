@@ -174,11 +174,9 @@ class Bon_MuatController extends Controller
     public function updateSuratJalan($id,Request $request){
         date_default_timezone_set("Asia/Jakarta");
         $user = Session::get('id');
-        $resi = Resi::find($request["resi_id"]);
         $bonmuat = Bon_Muat::findOrFail($id);
         $sampai =  $bonmuat->resis()->where("resi_id",$request["resi_id"])->first()->surat_jalan->telah_sampai;
         if($sampai == 0){
-            $bonmuat->update(['total_muatan' => ($bonmuat->total_muatan-$resi->pesanan->berat_barang)]);
             $bonmuat->update(['user_updated' => $user]); 
             $bonmuat->resis()->updateExistingPivot($request["resi_id"],['telah_sampai' => 1]);
             $bonmuat->resis()->updateExistingPivot($request["resi_id"],['user_updated' => $user]);

@@ -90,13 +90,13 @@ Halaman ini untuk menampilkan semua data kurir non customer.
                                 @if ($kc['is_deleted'] == 1)
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">
-                                    NOT ACTIVE
+                                    TIDAK AKTIF
                                     </div>
                                 </td>
                                 @else
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
-                                    ACTIVE
+                                    AKTIF
                                     </div>
                                 </td>
                                 @endif

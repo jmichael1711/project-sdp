@@ -246,20 +246,20 @@ Halaman ini untuk mengubah data bon muat.
                                     </div>
                                 </td>
                                 @endif
-                                <td>{{$i->surat_jalan->created_at->diffForHumans()}}</td>
-                                <td>{{$i->surat_jalan->updated_at->diffForHumans()}}</td>
+                                <td>{{$i->surat_jalan->created_at}}</td>
+                                <td>{{$i->surat_jalan->updated_at}}</td>
                                 <td>{{$i->surat_jalan->user_created}}</td>
                                 <td>{{$i->surat_jalan->user_updated}}</td>
                                 @if ($i->surat_jalan->telah_sampai)
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
-                                        FINISH 
+                                        SELESAI 
                                     </div>
                                 </td>    
                                 @else 
                                 <td class="text-center text-white">
                                     <div class="badge badge-warning">
-                                        ON GOING
+                                        BELUM SELESAI
                                     </div>
                                 </td>
                                 @endif

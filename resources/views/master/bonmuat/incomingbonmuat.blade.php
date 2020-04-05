@@ -38,10 +38,10 @@ Halaman ini untuk menampilkan semua data bon muat yang akan datang.
                                 <th>Kendaraan</th>
                                 <th>Kurir</th>
                                 <th>Total Muatan</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
-                                <th>User Created</th>
-                                <th>User Updated</th>
+                                <th>Diubah Tanggal</th>
+                                <th>Diubah Oleh</th>
+                                <th>Dibuat Tanggal</th>
+                                <th>Dibuat Oleh</th>
                                 <th>Status</th>
                             </thead>
                             <tbody>
@@ -53,10 +53,10 @@ Halaman ini untuk menampilkan semua data bon muat yang akan datang.
                                     <td>{{$i->kendaraan->nopol}}</td>
                                     <td>{{$i->kurir_non_customer->nama}}</td>
                                     <td>{{$i->total_muatan.' Kg'}}</td>
-                                    <td>{{$i->created_at->diffForHumans()}}</td>
-                                    <td>{{$i->updated_at->diffForHumans()}}</td>
-                                    <td>{{$i->user_created}}</td>
+                                    <td>{{$i->updated_at}}</td>
                                     <td>{{$i->user_updated}}</td>
+                                    <td>{{$i->created_at}}</td>
+                                    <td>{{$i->user_created}}</td>
                                     @php
                                     $finish = true;
                                     @endphp

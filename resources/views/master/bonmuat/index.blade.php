@@ -36,11 +36,11 @@ Halaman ini untuk menampilkan semua data bon muat.
                                 <th>Kendaraan</th>
                                 <th>Kurir</th>
                                 <th>Total Muatan</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
-                                <th>User Created</th>
-                                <th>User Updated</th>
-                                <th>Is Deleted</th>
+                                <th>Diubah Tanggal</th>
+                                <th>Diubah Oleh</th>
+                                <th>Dibuat Tanggal</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Status Aktif</th>
                             </thead>
                             <tbody>
                                 @foreach ($allBonMuat as $i)
@@ -51,25 +51,25 @@ Halaman ini untuk menampilkan semua data bon muat.
                                     <td>{{$i->kendaraan->nopol}}</td>
                                     <td>{{$i->kurir_non_customer->nama}}</td>
                                     <td>{{$i->total_muatan.' Kg'}}</td>
-                                    <td>{{$i->created_at->diffForHumans()}}</td>
-                                    <td>{{$i->updated_at->diffForHumans()}}</td>
-                                    <td>{{$i->user_created}}</td>
+                                    <td>{{$i->updated_at}}</td>
                                     <td>{{$i->user_updated}}</td>
+                                    <td>{{$i->created_at}}</td>
+                                    <td>{{$i->user_created}}</td>
                                     @if ($i->is_deleted)
                                     <td class="text-center text-white">
                                         <div class="badge badge-danger">
-                                            NOT ACTIVE
+                                            TIDAK AKTIF
                                         </div>
                                     </td>    
                                     @else 
                                     <td class="text-center text-white">
                                         <div class="badge badge-success">
-                                            ACTIVE
+                                            AKTIF
                                         </div>
                                     </td>
                                     @endif
                                 </tr>
-                                    @endforeach
+                                @endforeach
                             </tbody>
                         </table>
                 </div>
