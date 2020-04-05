@@ -31,7 +31,6 @@ class Kurir_noncustomerController extends Controller
         $request['user_created'] = $user;
         $request['user_updated'] = $user;
         $request['status'] = 1;
-        $request['posisi_di_kantor_1'] = 1;
 
         if($request['kantor_1_id'] != $request['kantor_2_id']){
             Kurir_non_customer::create($request);

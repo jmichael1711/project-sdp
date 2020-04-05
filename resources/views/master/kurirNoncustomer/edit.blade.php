@@ -190,6 +190,22 @@ Halaman ini untuk mengubah data kurir non customer.
                             </div>
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="col-md-5">
+                            <div class="position-relative form-group">
+                                <label class="">Posisi</label>
+                                <select name="posisi_di_kantor_1" class="form-control" id="kantor2" {{$kurcust->is_deleted ? 'disabled' : ''}}>
+                                    @if ($kurcust->posisi_di_kantor_1)
+                                        <option selected value="1">Alamat Kantor 1</option>
+                                        <option value="0">Alamat Kantor 2</option>
+                                    @else
+                                        <option value="1">Alamat Kantor 1</option>
+                                        <option selected value="0">Alamat Kantor 2</option>
+                                    @endif
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <hr>
                     <div class="form-row">
                         <div class="col-md-5">

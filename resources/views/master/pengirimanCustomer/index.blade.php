@@ -36,11 +36,11 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
                                 <th>ID Kurir Customer</th>
                                 <th>Menuju Ke</th>
                                 <th>Total Muatan</th>
-                                <th>User Created</th>
-                                <th>Created At</th>
-                                <th>User Updated</th>
-                                <th>Updated At</th>
-                                <th>Is Deleted</th>
+                                <th>Diubah Tanggal</th>
+                                <th>Diubah Oleh</th>
+                                <th>Dibuat Tanggal</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Status Aktif</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,20 +64,20 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
                                 </td>    
                                 @endif
                                 <td>{{$i->total_muatan}}</td>
-                                <td>{{$i->user_created}}</td>
-                                <td>{{$i->created_at->diffForHumans()}}</td>
+                                <td>{{$i->updated_at}}</td>
                                 <td>{{$i->user_updated}}</td>
-                                <td>{{$i->updated_at->diffForHumans()}}</td>
+                                <td>{{$i->created_at}}</td>
+                                <td>{{$i->user_created}}</td>
                                 @if ($i->is_deleted)
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">
-                                        NOT ACTIVE
+                                        TIDAK AKTIF
                                     </div>
                                 </td>    
                                 @else 
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
-                                        ACTIVE
+                                        AKTIF
                                     </div>
                                 </td>
                                 @endif

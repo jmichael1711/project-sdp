@@ -167,6 +167,17 @@ Halaman ini untuk menambah data kurir non customer
                         </div>
                     </div>
                     <div class="form-row">
+                        <div class="col-md-5">
+                            <div class="position-relative form-group">
+                                <label class="">Posisi</label>
+                                <select name="posisi_di_kantor_1" class="form-control">
+                                    <option value="1">Alamat Kantor 1</option>
+                                    <option value="0">Alamat Kantor 2</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
                         <div class="col-md-2">
                             <div class="position-relative form-group">
                                 <button class="mt-2 btn btn-primary">Tambah</button>

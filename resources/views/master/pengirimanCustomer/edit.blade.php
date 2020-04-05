@@ -33,7 +33,7 @@ Halaman ini untuk mengubah data pengiriman customer.
                     <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" style="width: {{$pengirimanCust->total_muatan*5}}%;"></div>
                 </div>
                 <div class="form-row">
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <div class="position-relative form-group">
                             <label class="">ID Pengiriman Customer</label>
                             <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
@@ -46,7 +46,7 @@ Halaman ini untuk mengubah data pengiriman customer.
                     <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/update/{{$pengirimanCust->id}}" enctype="multipart/form-data">
                     @csrf
                         <div class="form-row">
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kota</label>
                                     <select id="kota" class="form-control" onchange='isiKantorAsal()' required>
@@ -61,29 +61,29 @@ Halaman ini untuk mengubah data pengiriman customer.
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kantor Asal</label>
                                     <select name="kantor_id" id="kantor" class="form-control" onchange='isiKurirCustomer()' required></select>
                                     <div class="invalid-feedback">
-                                        Mohon pilih kantor asal.
+                                        Mohon pilih kantor asal yang valid.
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kurir Customer</label>
                                     <select name="kurir_customer_id" id="kurir" class="form-control" required></select>
                                     <div class="invalid-feedback">
-                                        Mohon pilih kurir customer.
+                                        Mohon pilih kurir customer yang valid.
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Apakah kurir menuju ke penerima?</label>
                                     <br>
@@ -108,17 +108,18 @@ Halaman ini untuk mengubah data pengiriman customer.
                                 </div>
                             </div>
                         </div>
+                        <hr>
                         <div class="form-row">
                             <div class="col-md-4">
                                 <div class="position-relative form-group">
-                                    <label class="">Status</label>
+                                    <label class="">Status Aktif</label>
                                     <select class="form-control" name="is_deleted" id="status" onchange="changeStatus()">
                                         @if ($pengirimanCust->is_deleted)
-                                            <option selected class="form-control" value="1">NOT ACTIVE</option>
-                                            <option class="form-control" value="0">ACTIVE</option>
+                                            <option selected class="form-control" value="1">TIDAK AKTIF</option>
+                                            <option class="form-control" value="0">AKTIF</option>
                                         @else
-                                            <option class="form-control" value="1">NOT ACTIVE</option>
-                                            <option selected class="form-control" value="0">ACTIVE</option>
+                                            <option class="form-control" value="1">TIDAK AKTIF</option>
+                                            <option selected class="form-control" value="0">AKTIF</option>
                                         @endif
                                     </select>
                                 </div>
@@ -127,7 +128,7 @@ Halaman ini untuk mengubah data pengiriman customer.
                         <div class="form-row">
                             <div class="col-md-2">
                                 <div class="position-relative form-group">
-                                    <button class="mt-2 btn btn-primary">Edit</button>
+                                    <button class="mt-2 btn btn-primary">Ubah</button>
                                 </div>
                             </div>
                         </div>
