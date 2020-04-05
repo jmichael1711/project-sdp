@@ -87,6 +87,7 @@ Halaman ini untuk menampilkan semua data bon muat.
         $("#btn-bonmuat").attr("aria-expanded", "true");
         $("#list-bonmuat").attr("class", "mm-collapse mm-show");
         $("#header-bonmuat").attr("class", "mm-active");
+
     })
 
     var table = $('#tableBonMuat').DataTable({
