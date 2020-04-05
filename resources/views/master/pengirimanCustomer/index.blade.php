@@ -34,7 +34,7 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
                                 <th>ID</th>
                                 <th>ID Kantor</th>
                                 <th>ID Kurir Customer</th>
-                                <th>Menuju Penerima</th>
+                                <th>Menuju Ke</th>
                                 <th>Total Muatan</th>
                                 <th>User Created</th>
                                 <th>Created At</th>
@@ -50,7 +50,19 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
                                 <td>{{$i->id}}</td>
                                 <td>{{$i->kantor_id}}</td>
                                 <td>{{$i->kurir_customer_id}}</td>
-                                <td>{{$i->menuju_penerima}}</td>
+                                @if($i->menuju_penerima == 0)
+                                <td class="text-center text-white">
+                                    <div class="badge badge-primary">
+                                        Pengirim
+                                    </div>
+                                </td> 
+                                @else
+                                <td class="text-center text-white">
+                                    <div class="badge badge-success">
+                                        Penerima
+                                    </div>
+                                </td>    
+                                @endif
                                 <td>{{$i->total_muatan}}</td>
                                 <td>{{$i->user_created}}</td>
                                 <td>{{$i->created_at->diffForHumans()}}</td>

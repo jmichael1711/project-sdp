@@ -40,7 +40,7 @@ Halaman ini untuk menampilkan semua data bon muat.
                                 <th>Updated At</th>
                                 <th>User Created</th>
                                 <th>User Updated</th>
-                                <th>Status</th>
+                                <th>Is Deleted</th>
                             </thead>
                             <tbody>
                                 @foreach ($allBonMuat as $i)

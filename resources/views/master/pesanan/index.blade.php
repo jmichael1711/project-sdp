@@ -39,7 +39,7 @@ Halaman ini untuk menampilkan semua data pesanan.
                             <th>Alamat dan Kota Tujuan</th>
                             <th>Nama Pengirim</th>
                             <th>Nama Penerima</th>
-                            <th>Status</th>
+                            <th>Status Aktif</th>
                         </tr>
                     </thead>
                     <tbody>
