@@ -110,7 +110,7 @@ Halaman ini untuk mengubah data pengiriman customer.
                         </div>
                         <hr>
                         <div class="form-row">
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Status Aktif</label>
                                     <select class="form-control" name="is_deleted" id="status" onchange="changeStatus()">
@@ -154,9 +154,7 @@ Halaman ini untuk mengubah data pengiriman customer.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
-                    <button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()">
-                        &nbsp Scan &nbsp
-                    </button>
+                    <button type="button" class="btn mr-2 mb-2 btn-primary pull-right" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()">Scan Pesanan</button>
                     <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/addDetail/{{$pengirimanCust->id}}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
@@ -181,20 +179,20 @@ Halaman ini untuk mengubah data pengiriman customer.
                     <table class="table table-hover table-striped dataTable dtr-inline" id="tableDetail">
                         <thead>
                             <tr>
-                                <th>Resi ID</th>
+                                <th>ID</th>
                                 <th>Pengirim</th>
-                                <th>Alamat Asal</th>
+                                <th>Alamat Pengirim</th>
                                 <th>Penerima</th>
-                                <th>Alamat Tujuan</th>
+                                <th>Alamat Penerima</th>
                                 <th>Berat</th>
                                 <th>Dimensi</th>
                                 <th>Fragile</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
-                                <th>User Created</th>
-                                <th>User Updated</th>
-                                <th>Status</th>
-                                <th>Delete</th>
+                                <th>Status Pesanan</th>
+                                <th>Diubah Tanggal</th>
+                                <th>Diubah Oleh</th>
+                                <th>Dibuat Tanggal</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Perintah</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -221,10 +219,6 @@ Halaman ini untuk mengubah data pengiriman customer.
                                     </div>
                                 </td>
                                 @endif
-                                <td>{{$i->d_pengiriman_customer->created_at->diffForHumans()}}</td>
-                                <td>{{$i->d_pengiriman_customer->updated_at->diffForHumans()}}</td>
-                                <td>{{$i->d_pengiriman_customer->user_created}}</td>
-                                <td>{{$i->d_pengiriman_customer->user_updated}}</td>
                                 @if ($i->d_pengiriman_customer->telah_sampai)
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
@@ -238,6 +232,10 @@ Halaman ini untuk mengubah data pengiriman customer.
                                     </div>
                                 </td>
                                 @endif
+                                <td>{{$i->d_pengiriman_customer->updated_at}}</td>
+                                <td>{{$i->d_pengiriman_customer->user_updated}}</td>
+                                <td>{{$i->d_pengiriman_customer->created_at}}</td>
+                                <td>{{$i->d_pengiriman_customer->user_created}}</td>
                                 <td><button class="mb-2 mr-2 btn btn-danger" data-toggle="modal" onclick="passValue('{{$i->id}}')" data-target="#deleteDetail" value="{{$i->id}}">Delete</button></td>
                             </tr>
                             @endforeach
@@ -284,7 +282,7 @@ Halaman ini untuk mengubah data pengiriman customer.
             </button>
         </div>
         <div class="modal-body">
-            Apakah anda ingin menghapus data ini?
+            DATA INI AKAN TERHAPUS JIKA MENEKAN TOMBOL DELETE.
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -31,59 +31,59 @@ Halaman ini untuk menampilkan semua data bon muat yang akan datang.
                     </button>
                     <br><hr>
                     <table class="table table-hover table-striped dataTable dtr-inline" id="tableBonMuat">
-                            <thead>
-                                <th>ID</th>
-                                <th>Kantor Asal</th>
-                                <th>Kantor Tujuan</th>
-                                <th>Kendaraan</th>
-                                <th>Kurir</th>
-                                <th>Total Muatan</th>
-                                <th>Diubah Tanggal</th>
-                                <th>Diubah Oleh</th>
-                                <th>Dibuat Tanggal</th>
-                                <th>Dibuat Oleh</th>
-                                <th>Status</th>
-                            </thead>
-                            <tbody>
-                                @foreach ($allBonMuat as $i)
-                                <tr onclick='editSuratJalan("{{$i->id}}")'>
-                                    <td>{{$i->id}}</td>
-                                    <td>{{$i->kantor_asal->alamat}}</td>
-                                    <td>{{$i->kantor_tujuan->alamat}}</td>
-                                    <td>{{$i->kendaraan->nopol}}</td>
-                                    <td>{{$i->kurir_non_customer->nama}}</td>
-                                    <td>{{$i->total_muatan.' Kg'}}</td>
-                                    <td>{{$i->updated_at}}</td>
-                                    <td>{{$i->user_updated}}</td>
-                                    <td>{{$i->created_at}}</td>
-                                    <td>{{$i->user_created}}</td>
-                                    @php
-                                    $finish = true;
-                                    @endphp
-                                    @foreach($i->resis as $j)
-                                        @if($j->surat_jalan->telah_sampai == "0")
-                                            @php
-                                                $finish = false;
-                                            @endphp
-                                        @endif
-                                    @endforeach
-                                    @if ($finish == false)
-                                    <td class="text-center text-white">
-                                        <div class="badge badge-warning">
-                                            BELUM SELESAI
-                                        </div>
-                                    </td>    
-                                    @else 
-                                    <td class="text-center text-white">
-                                        <div class="badge badge-success">
-                                            SELESAI
-                                        </div>
-                                    </td>
+                        <thead>
+                            <th>ID</th>
+                            <th>Kantor Asal</th>
+                            <th>Kantor Tujuan</th>
+                            <th>Kendaraan</th>
+                            <th>Kurir</th>
+                            <th>Total Muatan</th>
+                            <th>Diubah Tanggal</th>
+                            <th>Diubah Oleh</th>
+                            <th>Dibuat Tanggal</th>
+                            <th>Dibuat Oleh</th>
+                            <th>Status</th>
+                        </thead>
+                        <tbody>
+                            @foreach ($allBonMuat as $i)
+                            <tr onclick='editSuratJalan("{{$i->id}}")'>
+                                <td>{{$i->id}}</td>
+                                <td>{{$i->kantor_asal->alamat}}</td>
+                                <td>{{$i->kantor_tujuan->alamat}}</td>
+                                <td>{{$i->kendaraan->nopol}}</td>
+                                <td>{{$i->kurir_non_customer->nama}}</td>
+                                <td>{{$i->total_muatan.' Kg'}}</td>
+                                <td>{{$i->updated_at}}</td>
+                                <td>{{$i->user_updated}}</td>
+                                <td>{{$i->created_at}}</td>
+                                <td>{{$i->user_created}}</td>
+                                @php
+                                $finish = true;
+                                @endphp
+                                @foreach($i->resis as $j)
+                                    @if($j->surat_jalan->telah_sampai == "0")
+                                        @php
+                                            $finish = false;
+                                        @endphp
                                     @endif
-                                </tr>
-                                    @endforeach
-                            </tbody>
-                        </table>
+                                @endforeach
+                                @if ($finish == false)
+                                <td class="text-center text-white">
+                                    <div class="badge badge-warning">
+                                        BELUM SELESAI
+                                    </div>
+                                </td>    
+                                @else 
+                                <td class="text-center text-white">
+                                    <div class="badge badge-success">
+                                        SELESAI
+                                    </div>
+                                </td>
+                                @endif
+                            </tr>
+                                @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>  
