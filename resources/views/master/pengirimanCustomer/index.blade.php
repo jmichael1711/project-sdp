@@ -13,6 +13,23 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
 @endsection
 
 @section('content')
+<ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
+    <li class="nav-item">
+        <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
+            <span>Semua</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1">
+            <span>Pengirim</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2">
+            <span>Penerima</span>
+        </a>
+    </li>
+</ul>
 <div class="tab-content">
     @if (Session::has('success'))
         <ul class="list-group mb-2">
