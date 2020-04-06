@@ -30,136 +30,135 @@ Halaman ini untuk mengubah data bon muat.
             <div class="card-body">
                 <h5 class="card-title">Total Muatan : {{$bonmuat->total_muatan}} / 1000 Kg</h5>
                 <div class="mb-3 progress">
-                <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" style="width: {{$bonmuat->total_muatan/10}}%;"></div>
+                    <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" style="width: {{$bonmuat->total_muatan/10}}%;"></div>
                 </div>
-                    <div class="form-row">
-                        <div class="col-md-2">
-                            <div class="position-relative form-group">
-                                <label class="">ID</label>
-                                <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" disabled id=""
-                                placeholder="ID" type="text" class="form-control" value="{{$bonmuat->id}}" readonly>
-                            </div>
+                <div class="form-row">
+                    <div class="col-md-2">
+                        <div class="position-relative form-group">
+                            <label class="">ID</label>
+                            <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                            this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" disabled id=""
+                            placeholder="ID" type="text" class="form-control" value="{{$bonmuat->id}}" readonly>
                         </div>
                     </div>
-                    <div class="collapse" id="collapseEdit">
+                </div>
+                <div class="collapse" id="collapseEdit">
                     <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/update/{{$bonmuat->id}}" enctype="multipart/form-data">
                     @csrf
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="position-relative form-group">
+                                    <label class="">Kota Asal</label>
+                                    <select class="form-control" id="kotaAsal" onchange='isiKantor("Asal")' {{$bonmuat->is_deleted ? 'disabled' : ''}}>
+                                        @foreach ($allKota as $kota)
+                                            @if($bonmuat->kantor_asal->kota == $kota->nama)
+                                            <option selected class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
+                                            @else
+                                            <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <div class="position-relative form-group">
-                                <label class="">Kota Asal</label>
-                                <select class="form-control" id="kotaAsal" onchange='isiKantor("Asal")' {{$bonmuat->is_deleted ? 'disabled' : ''}}>
-                                    @foreach ($allKota as $kota)
-                                        @if($bonmuat->kantor_asal->kota == $kota->nama)
-                                        <option selected class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
-                                        @else
-                                        <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="position-relative form-group">
+                                    <label class="">Kantor Asal</label>
+                                    <select name="kantor_asal_id" class="form-control" id="kantorAsal" onchange="refreshComboBox()" required {{$bonmuat->is_deleted ? 'disabled' : ''}}>
+                                        <option selected class="form-control" value="{{$bonmuat->kantor_asal->id}}">{{$bonmuat->kantor_asal->alamat}}</option>
+                                        @foreach($bonmuat->kantor_asal->getKota->kantor as $kantor)
+                                            @if($bonmuat->kantor_asal->id != $kantor->id)
+                                            <option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                   
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <div class="position-relative form-group">
-                                <label class="">Kantor Asal</label>
-                                <select name="kantor_asal_id" class="form-control" id="kantorAsal" onchange="refreshComboBox()" required {{$bonmuat->is_deleted ? 'disabled' : ''}}>
-                                    <option selected class="form-control" value="{{$bonmuat->kantor_asal->id}}">{{$bonmuat->kantor_asal->alamat}}</option>
-                                    @foreach($bonmuat->kantor_asal->getKota->kantor as $kantor)
-                                        @if($bonmuat->kantor_asal->id != $kantor->id)
-                                        <option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <div class="position-relative form-group">
-                                <label class="">Kota Tujuan</label>
-                                <select class="form-control" id="kotaTujuan" onchange='isiKantor("Tujuan")' {{$bonmuat->is_deleted ? 'disabled' : ''}}>
-                                    @foreach ($allKota as $kota)
-                                        @if($bonmuat->kantor_tujuan->kota == $kota->nama)
-                                        <option selected class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
-                                        @else
-                                        <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="position-relative form-group">
+                                    <label class="">Kota Tujuan</label>
+                                    <select class="form-control" id="kotaTujuan" onchange='isiKantor("Tujuan")' {{$bonmuat->is_deleted ? 'disabled' : ''}}>
+                                        @foreach ($allKota as $kota)
+                                            @if($bonmuat->kantor_tujuan->kota == $kota->nama)
+                                            <option selected class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
+                                            @else
+                                            <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <div class="position-relative form-group">
-                                <label class="">Kantor Tujuan</label>
-                                <select name="kantor_tujuan_id" class="form-control" id="kantorTujuan" onchange="refreshComboBox()" required {{$bonmuat->is_deleted ? 'disabled' : ''}}>
-                                    <option selected class="form-control" value="{{$bonmuat->kantor_tujuan->id}}">{{$bonmuat->kantor_tujuan->alamat}}</option>
-                                    @foreach($bonmuat->kantor_tujuan->getKota->kantor as $kantor)
-                                        @if($bonmuat->kantor_tujuan->id != $kantor->id)
-                                        <option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="position-relative form-group">
+                                    <label class="">Kantor Tujuan</label>
+                                    <select name="kantor_tujuan_id" class="form-control" id="kantorTujuan" onchange="refreshComboBox()" required {{$bonmuat->is_deleted ? 'disabled' : ''}}>
+                                        <option selected class="form-control" value="{{$bonmuat->kantor_tujuan->id}}">{{$bonmuat->kantor_tujuan->alamat}}</option>
+                                        @foreach($bonmuat->kantor_tujuan->getKota->kantor as $kantor)
+                                            @if($bonmuat->kantor_tujuan->id != $kantor->id)
+                                            <option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="position-relative form-group">
+                                    <label class="">Kurir</label>
+                                    <select name="kurir_non_customer_id" class="form-control" id="kurir" required {{$bonmuat->is_deleted ? 'disabled' : ''}}>
+                                        <option selected class="form-control" value="{{$bonmuat->kurir_non_customer->id}}">{{$bonmuat->kurir_non_customer->nama}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="position-relative form-group">
+                                    <label class="">Kendaraan</label>
+                                    <select name="kendaraan_id" class="form-control" id="kendaraan" required {{$bonmuat->is_deleted ? 'disabled' : ''}}>
+                                        <option selected class="form-control" value="{{$bonmuat->kendaraan->id}}">{{$bonmuat->kendaraan->nopol}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <div class="position-relative form-group">
-                                <label class="">Kurir</label>
-                                <select name="kurir_non_customer_id" class="form-control" id="kurir" required {{$bonmuat->is_deleted ? 'disabled' : ''}}>
-                                    <option selected class="form-control" value="{{$bonmuat->kurir_non_customer->id}}">{{$bonmuat->kurir_non_customer->nama}}</option>
-                                </select>
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="position-relative form-group">
+                                    <label class="">Status</label>
+                                    <select class="form-control" name="is_deleted" id="status" onchange="changeStatus()">
+                                        @if ($bonmuat->is_deleted)
+                                            <option selected class="form-control" value="1">NOT ACTIVE</option>
+                                            <option class="form-control" value="0">ACTIVE</option>
+                                        @else
+                                            <option class="form-control" value="1">NOT ACTIVE</option>
+                                            <option selected class="form-control" value="0">ACTIVE</option>
+                                        @endif
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <div class="position-relative form-group">
-                                <label class="">Kendaraan</label>
-                                <select name="kendaraan_id" class="form-control" id="kendaraan" required {{$bonmuat->is_deleted ? 'disabled' : ''}}>
-                                    <option selected class="form-control" value="{{$bonmuat->kendaraan->id}}">{{$bonmuat->kendaraan->nopol}}</option>
-                                </select>
+                        <div class="form-row">
+                            <div class="col-md-2">
+                                <div class="position-relative form-group">
+                                    <button class="mt-2 btn btn-primary">Edit</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                   
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <div class="position-relative form-group">
-                                <label class="">Status</label>
-                                <select class="form-control" name="is_deleted" id="status" onchange="changeStatus()">
-                                    @if ($bonmuat->is_deleted)
-                                        <option selected class="form-control" value="1">NOT ACTIVE</option>
-                                        <option class="form-control" value="0">ACTIVE</option>
-                                    @else
-                                        <option class="form-control" value="1">NOT ACTIVE</option>
-                                        <option selected class="form-control" value="0">ACTIVE</option>
-                                    @endif
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="col-md-2">
-                            <div class="position-relative form-group">
-                                <button class="mt-2 btn btn-primary">Edit</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
+                    </form>
+                </div>
                 <div class="card-footer">
                     <button type="button" data-toggle="collapse" href="#collapseEdit" class="btn btn-primary">Edit Bon Muat</button>
                 </div>
@@ -441,7 +440,7 @@ Halaman ini untuk mengubah data bon muat.
                 @else
                     $('#kantor'+posisi).html('<option value="">-- TIDAK ADA KANTOR --</option>');
                 @endif
-            }
+            }   
         @endfor        
     }
 

@@ -31,6 +31,7 @@ class Pengiriman_customer extends Model
         ->withTimestamps()
         ;
     }
+    
 
     //static functions for query
     public static function getAll() {
