@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2020 at 02:28 PM
+-- Generation Time: Apr 07, 2020 at 02:31 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -304,8 +304,8 @@ CREATE TABLE IF NOT EXISTS `pegawais` (
 
 INSERT INTO `pegawais` (`id`, `kantor_id`, `nama`, `alamat`, `no_telp`, `jenis_kelamin`, `jabatan`, `password`, `created_at`, `updated_at`, `is_deleted`, `user_created`, `user_updated`) VALUES
 ('PE000000', 'KA000002', 'ENRICHO', 'BARATANG JAYA', '789456', 'W', 'admin', '83878c91171338902e0fe0fb97a8c47a', '2020-04-03 03:57:47', '2020-04-05 20:28:39', 0, 'P0000001', 'P0000001'),
-('PE000001', 'KA000002', 'HW', 'KEDUNGDORO', '789456', 'L', 'pegawai', '83878c91171338902e0fe0fb97a8c47a', '2020-04-03 03:57:47', '2020-04-05 20:28:39', 0, 'P0000001', 'P0000001'),
-('PE000002', 'KA000002', 'JM', 'PAKUWON CITY', '789456', 'L', 'kasir', '83878c91171338902e0fe0fb97a8c47a', '2020-04-03 03:57:47', '2020-04-05 20:28:39', 0, 'P0000001', 'P0000001'),
+('PE000001', 'KA000002', 'HW', 'KEDUNGDORO', '789456', 'P', 'pegawai', '83878c91171338902e0fe0fb97a8c47a', '2020-04-03 03:57:47', '2020-04-05 20:28:39', 0, 'P0000001', 'P0000001'),
+('PE000002', 'KA000002', 'JM', 'PAKUWON CITY', '789456', 'P', 'kasir', '83878c91171338902e0fe0fb97a8c47a', '2020-04-03 03:57:47', '2020-04-05 20:28:39', 0, 'P0000001', 'P0000001'),
 ('PE000003', 'KA000002', 'WILLIAM', 'KALONGAN', '789456', 'W', 'admin', '83878c91171338902e0fe0fb97a8c47a', '2020-04-03 03:57:47', '2020-04-05 20:28:39', 0, 'P0000001', 'P0000001');
 
 -- --------------------------------------------------------
