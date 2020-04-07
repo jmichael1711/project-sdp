@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Pegawai;
+use App\Kurir_customer;
+use App\Kurir_non_customer;
 
 class LoginController extends Controller
 {
@@ -19,10 +22,10 @@ class LoginController extends Controller
     public function attemptlogin(Request $request) {
         $input = $request->all();
 
-        $username = $input['username'];
-        $password = $input['password'];
+        $username = strtoupper($input['username']);
+        $password = md5($input['password']);
 
-        if ($username == "admin" && $password == "admin") {
+        if ($username != "" && $password != "") {
             //THIS IS TO BE CHANGED
             //id is for the person's ID
             //loginstatus is for the person's role
@@ -32,17 +35,69 @@ class LoginController extends Controller
             //3 = kasir
             //4 = pegawai
 
-            
+            if (substr($username, 0, 2) == "PE") {
+                $pegawai = Pegawai::getAll()
+                ->where('id', $username)
+                ->where('password', $password)
+                ->first();
 
-            Session::put('id', 'P0000001');
-            //find or fail pegawai disini
-            //tulis login status berdasarkan rolenya
-            Session::put('loginstatus', 0);
+                if (!$pegawai) {
+                    Session::put('status', 'Username / Password salah.');
+                    return redirect("/login");
+                }
 
-            if (Session::get('loginstatus') == 0) {
-                return redirect("/admin/kantor");
+                //found
+                $jabatan = $pegawai->jabatan;
+
+                if ($jabatan == "admin") {
+                    Session::put('loginstatus', 0);
+                    Session::put('id', $username);
+                    return redirect("/admin/kantor");
+
+                } else if ($jabatan == "pegawai") {
+                    Session::put('loginstatus', 4);
+                    Session::put('id', $username);
+                    return redirect("/admin/kantor");
+
+                } else if ($jabatan == "kasir") {
+                    Session::put('loginstatus', 3);
+                    Session::put('id', $username);
+                    return redirect("/admin/kantor");
+
+                } else {
+                    Session::put('status', 'Ada masalah pada jabatan anda.');
+                    return redirect("/login");
+                }
+            } else if (substr($username, 0, 2) == "KC") {
+                $kurir = Kurir_customer::getAll()
+                ->where('id', $username)
+                ->where('password', $password)
+                ->first();
+
+                if (!$kurir) {
+                    Session::put('status', 'Username / Password salah.');
+                    return redirect("/login");
+                }
+
+                Session::put('loginstatus', 2);
+                Session::put('id', $username);
+                return redirect("/");
+
+            } else if (substr($username, 0, 2) == "KN") {
+                $kurir = Kurir_non_customer::getAll()
+                ->where('id', $username)
+                ->where('password', $password)
+                ->first();
+
+                if (!$kurir) {
+                    Session::put('status', 'Username / Password salah.');
+                    return redirect("/login");
+                }
+
+                Session::put('loginstatus', 1);
+                Session::put('id', $username);
+                return redirect("/");
             }
-            
         } 
         Session::put('status', 'Username / Password salah.');
         return redirect("/login");

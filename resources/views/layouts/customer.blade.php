@@ -78,7 +78,13 @@
                 @yield('links')
                 
                 <li><a href="/pesan" class="{{$page == 'pesan' ? 'active' : ''}} nav-link">Pesan</a></li>
-                <li><a href="/login" class="nav-link">Login</a></li>
+                @if (Session::has('loginstatus'))
+                    <li><a href="/admin-page">Admin Page</a></li>
+                    <li><a href="/logout" class="nav-link">Logout</a></li>
+                @else
+                    <li><a href="/login" class="nav-link">Login</a></li>
+                @endif
+               
               </ul>
             </nav>
 

@@ -68,17 +68,14 @@ Route::get('/try', function () {
     //where a AND (b or c)
 
     //dd($bonmuat);
-
     //dd(Bon_muat::findorfail('B00000001030220')->kendaraan);
 
     // $bonmuat = Bon_muat::first();
     // foreach ($bonmuat->resis as $r) {
     //     dd($r->surat_jalan);
     // }
-
-    //Session::put('he', 'A');
-    //echo Session::get('he');
-    Session::put('id', 'P0000001');
+    
+    echo md5("p");
 });
 
 Route::get('/form', function () {
@@ -95,7 +92,7 @@ Route::get('/admin', function () {
 
 //FREE ROUTE
 Route::get('/', 'CustomerController@index');
-Route::get('/logout', 'LoginController@logout')->name('logout');
+Route::get('/logout', 'LoginController@logout');
 Route::get('/pesan', 'CustomerController@order');
 Route::post('/inputpesanan', 'CustomerController@inputPesanan');
 Route::get('/pesanselesai', 'CustomerController@pesanSelesai');
@@ -103,9 +100,12 @@ Route::get('/pesanselesai', 'CustomerController@pesanSelesai');
 //INSIDE GUEST GROUP
 Route::group(['middleware' => ['checkstatus:guest']], function () {
     //LOGIN
-    
     Route::get('/login', 'LoginController@index');
     Route::post('/attemptlogin', 'LoginController@attemptLogin');
+});
+
+Route::group(['middleware' => ['checkstatus:kurir_customer']], function () {
+    Route::get('/kurir-customer', 'KurirCustomerController@index');
 });
 
 //INSIDE ADMIN GROUP

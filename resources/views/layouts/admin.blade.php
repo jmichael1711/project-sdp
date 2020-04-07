@@ -92,7 +92,7 @@
                                     </div>
                                 </div>
                                 <div class="widget-content-right header-user-info ml-3">
-                                    <form action="{{route ('logout')}}" method="get">
+                                    <form action="/logout" method="get">
                                         <button class="btn btn-danger">Logout</button>
                                     </form>
                                 </div>

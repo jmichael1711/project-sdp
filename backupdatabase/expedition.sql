@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 06, 2020 at 04:37 PM
+-- Generation Time: Apr 07, 2020 at 02:28 PM
 -- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.2
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,7 +31,7 @@ USE `expedition`;
 --
 
 DROP TABLE IF EXISTS `bon_muats`;
-CREATE TABLE `bon_muats` (
+CREATE TABLE IF NOT EXISTS `bon_muats` (
   `id` varchar(15) NOT NULL,
   `kendaraan_id` varchar(8) NOT NULL,
   `kurir_non_customer_id` varchar(8) NOT NULL,
@@ -43,7 +43,8 @@ CREATE TABLE `bon_muats` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
-  `waktu_berangkat` datetime DEFAULT NULL
+  `waktu_berangkat` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -63,7 +64,7 @@ INSERT INTO `bon_muats` (`id`, `kendaraan_id`, `kurir_non_customer_id`, `total_m
 --
 
 DROP TABLE IF EXISTS `d_pengiriman_customers`;
-CREATE TABLE `d_pengiriman_customers` (
+CREATE TABLE IF NOT EXISTS `d_pengiriman_customers` (
   `resi_id` varchar(15) NOT NULL,
   `pengiriman_customer_id` varchar(15) NOT NULL,
   `telah_sampai` tinyint(1) NOT NULL DEFAULT 0,
@@ -72,7 +73,8 @@ CREATE TABLE `d_pengiriman_customers` (
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   `user_created` varchar(8) NOT NULL,
   `user_updated` varchar(8) NOT NULL DEFAULT 'Default',
-  `password` varchar(4) DEFAULT NULL
+  `password` varchar(4) DEFAULT NULL,
+  PRIMARY KEY (`resi_id`,`pengiriman_customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -93,7 +95,7 @@ INSERT INTO `d_pengiriman_customers` (`resi_id`, `pengiriman_customer_id`, `tela
 --
 
 DROP TABLE IF EXISTS `kantors`;
-CREATE TABLE `kantors` (
+CREATE TABLE IF NOT EXISTS `kantors` (
   `id` varchar(8) NOT NULL,
   `alamat` varchar(1024) NOT NULL,
   `no_telp` varchar(12) NOT NULL,
@@ -105,7 +107,8 @@ CREATE TABLE `kantors` (
   `longitude` decimal(8,5) NOT NULL,
   `latitude` decimal(8,5) NOT NULL,
   `user_created` varchar(8) NOT NULL,
-  `user_updated` varchar(8) NOT NULL
+  `user_updated` varchar(8) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -123,7 +126,7 @@ INSERT INTO `kantors` (`id`, `alamat`, `no_telp`, `kota`, `is_warehouse`, `creat
 --
 
 DROP TABLE IF EXISTS `kendaraans`;
-CREATE TABLE `kendaraans` (
+CREATE TABLE IF NOT EXISTS `kendaraans` (
   `id` varchar(8) NOT NULL,
   `kantor_1_id` varchar(8) NOT NULL,
   `kantor_2_id` varchar(8) NOT NULL,
@@ -135,7 +138,8 @@ CREATE TABLE `kendaraans` (
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   `posisi_di_kantor_1` tinyint(1) NOT NULL,
   `user_created` varchar(8) NOT NULL,
-  `user_updated` varchar(8) NOT NULL
+  `user_updated` varchar(8) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -154,13 +158,14 @@ INSERT INTO `kendaraans` (`id`, `kantor_1_id`, `kantor_2_id`, `nopol`, `status`,
 --
 
 DROP TABLE IF EXISTS `kotas`;
-CREATE TABLE `kotas` (
+CREATE TABLE IF NOT EXISTS `kotas` (
   `nama` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `user_created` varchar(8) NOT NULL,
   `user_updated` varchar(8) NOT NULL,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT 0
+  `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`nama`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -207,7 +212,7 @@ INSERT INTO `kotas` (`nama`, `created_at`, `updated_at`, `user_created`, `user_u
 --
 
 DROP TABLE IF EXISTS `kurir_customers`;
-CREATE TABLE `kurir_customers` (
+CREATE TABLE IF NOT EXISTS `kurir_customers` (
   `id` varchar(8) NOT NULL,
   `kantor_id` varchar(8) NOT NULL,
   `nama` varchar(255) NOT NULL,
@@ -221,7 +226,8 @@ CREATE TABLE `kurir_customers` (
   `updated_at` datetime NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   `user_created` varchar(8) NOT NULL,
-  `user_updated` varchar(8) NOT NULL
+  `user_updated` varchar(8) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -238,7 +244,7 @@ INSERT INTO `kurir_customers` (`id`, `kantor_id`, `nama`, `jenis_kelamin`, `no_t
 --
 
 DROP TABLE IF EXISTS `kurir_non_customers`;
-CREATE TABLE `kurir_non_customers` (
+CREATE TABLE IF NOT EXISTS `kurir_non_customers` (
   `id` varchar(8) NOT NULL,
   `kantor_1_id` varchar(8) NOT NULL,
   `kantor_2_id` varchar(8) NOT NULL,
@@ -253,7 +259,8 @@ CREATE TABLE `kurir_non_customers` (
   `updated_at` datetime NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   `user_created` varchar(8) NOT NULL,
-  `user_updated` varchar(8) NOT NULL
+  `user_updated` varchar(8) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -274,7 +281,7 @@ INSERT INTO `kurir_non_customers` (`id`, `kantor_1_id`, `kantor_2_id`, `nama`, `
 --
 
 DROP TABLE IF EXISTS `pegawais`;
-CREATE TABLE `pegawais` (
+CREATE TABLE IF NOT EXISTS `pegawais` (
   `id` varchar(8) NOT NULL,
   `kantor_id` varchar(8) NOT NULL,
   `nama` varchar(255) NOT NULL,
@@ -287,7 +294,8 @@ CREATE TABLE `pegawais` (
   `updated_at` datetime NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   `user_created` varchar(8) NOT NULL,
-  `user_updated` varchar(8) NOT NULL
+  `user_updated` varchar(8) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -295,7 +303,10 @@ CREATE TABLE `pegawais` (
 --
 
 INSERT INTO `pegawais` (`id`, `kantor_id`, `nama`, `alamat`, `no_telp`, `jenis_kelamin`, `jabatan`, `password`, `created_at`, `updated_at`, `is_deleted`, `user_created`, `user_updated`) VALUES
-('PE000000', 'KA000002', 'ENRICHO', 'BARATANG JAYA', '789456', 'W', 'pegawai', '123', '2020-04-03 03:57:47', '2020-04-05 20:28:39', 0, 'P0000001', 'P0000001');
+('PE000000', 'KA000002', 'ENRICHO', 'BARATANG JAYA', '789456', 'W', 'admin', '83878c91171338902e0fe0fb97a8c47a', '2020-04-03 03:57:47', '2020-04-05 20:28:39', 0, 'P0000001', 'P0000001'),
+('PE000001', 'KA000002', 'HW', 'KEDUNGDORO', '789456', 'L', 'pegawai', '83878c91171338902e0fe0fb97a8c47a', '2020-04-03 03:57:47', '2020-04-05 20:28:39', 0, 'P0000001', 'P0000001'),
+('PE000002', 'KA000002', 'JM', 'PAKUWON CITY', '789456', 'L', 'kasir', '83878c91171338902e0fe0fb97a8c47a', '2020-04-03 03:57:47', '2020-04-05 20:28:39', 0, 'P0000001', 'P0000001'),
+('PE000003', 'KA000002', 'WILLIAM', 'KALONGAN', '789456', 'W', 'admin', '83878c91171338902e0fe0fb97a8c47a', '2020-04-03 03:57:47', '2020-04-05 20:28:39', 0, 'P0000001', 'P0000001');
 
 -- --------------------------------------------------------
 
@@ -304,7 +315,7 @@ INSERT INTO `pegawais` (`id`, `kantor_id`, `nama`, `alamat`, `no_telp`, `jenis_k
 --
 
 DROP TABLE IF EXISTS `pengiriman_customers`;
-CREATE TABLE `pengiriman_customers` (
+CREATE TABLE IF NOT EXISTS `pengiriman_customers` (
   `id` varchar(15) NOT NULL,
   `kurir_customer_id` varchar(8) DEFAULT NULL,
   `total_muatan` decimal(5,1) NOT NULL DEFAULT 0.0,
@@ -315,7 +326,8 @@ CREATE TABLE `pengiriman_customers` (
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   `user_created` varchar(8) NOT NULL,
   `user_updated` varchar(8) NOT NULL,
-  `waktu_berangkat` datetime DEFAULT NULL
+  `waktu_berangkat` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -333,7 +345,7 @@ INSERT INTO `pengiriman_customers` (`id`, `kurir_customer_id`, `total_muatan`, `
 --
 
 DROP TABLE IF EXISTS `pesanans`;
-CREATE TABLE `pesanans` (
+CREATE TABLE IF NOT EXISTS `pesanans` (
   `id` varchar(15) NOT NULL,
   `resi_id` varchar(15) DEFAULT NULL,
   `kurir_customer_id` varchar(8) DEFAULT NULL,
@@ -359,7 +371,8 @@ CREATE TABLE `pesanans` (
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   `waktu_berangkat_kurir` datetime DEFAULT NULL,
   `user_created` varchar(8) DEFAULT NULL,
-  `user_updated` varchar(8) DEFAULT NULL
+  `user_updated` varchar(8) DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -378,7 +391,7 @@ INSERT INTO `pesanans` (`id`, `resi_id`, `kurir_customer_id`, `berat_barang`, `a
 --
 
 DROP TABLE IF EXISTS `resis`;
-CREATE TABLE `resis` (
+CREATE TABLE IF NOT EXISTS `resis` (
   `id` varchar(15) NOT NULL,
   `pesanan_id` varchar(15) NOT NULL,
   `pegawai_id` varchar(8) NOT NULL,
@@ -388,7 +401,8 @@ CREATE TABLE `resis` (
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   `status` decimal(1,0) NOT NULL DEFAULT 0,
   `user_created` varchar(8) NOT NULL,
-  `user_updated` varchar(8) NOT NULL
+  `user_updated` varchar(8) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -407,7 +421,7 @@ INSERT INTO `resis` (`id`, `pesanan_id`, `pegawai_id`, `harga`, `created_at`, `u
 --
 
 DROP TABLE IF EXISTS `surat_jalans`;
-CREATE TABLE `surat_jalans` (
+CREATE TABLE IF NOT EXISTS `surat_jalans` (
   `bon_muat_id` varchar(15) NOT NULL,
   `resi_id` varchar(15) NOT NULL,
   `telah_sampai` tinyint(1) NOT NULL DEFAULT 0,
@@ -415,7 +429,8 @@ CREATE TABLE `surat_jalans` (
   `updated_at` datetime NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   `user_created` varchar(8) NOT NULL,
-  `user_updated` varchar(8) NOT NULL DEFAULT 'Default'
+  `user_updated` varchar(8) NOT NULL DEFAULT 'Default',
+  PRIMARY KEY (`bon_muat_id`,`resi_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -425,82 +440,6 @@ CREATE TABLE `surat_jalans` (
 INSERT INTO `surat_jalans` (`bon_muat_id`, `resi_id`, `telah_sampai`, `created_at`, `updated_at`, `is_deleted`, `user_created`, `user_updated`) VALUES
 ('B00000001030220', 'R0000001', 1, '2020-03-18 18:04:12', '2020-04-05 22:36:18', 0, '', 'P0000001'),
 ('B00000001030220', 'R0000002', 1, '2020-03-18 17:23:52', '2020-04-03 17:54:57', 0, 'P0000001', 'P0000001');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `bon_muats`
---
-ALTER TABLE `bon_muats`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `d_pengiriman_customers`
---
-ALTER TABLE `d_pengiriman_customers`
-  ADD PRIMARY KEY (`resi_id`,`pengiriman_customer_id`);
-
---
--- Indexes for table `kantors`
---
-ALTER TABLE `kantors`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `kendaraans`
---
-ALTER TABLE `kendaraans`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `kotas`
---
-ALTER TABLE `kotas`
-  ADD PRIMARY KEY (`nama`);
-
---
--- Indexes for table `kurir_customers`
---
-ALTER TABLE `kurir_customers`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `kurir_non_customers`
---
-ALTER TABLE `kurir_non_customers`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `pegawais`
---
-ALTER TABLE `pegawais`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `pengiriman_customers`
---
-ALTER TABLE `pengiriman_customers`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `pesanans`
---
-ALTER TABLE `pesanans`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `resis`
---
-ALTER TABLE `resis`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `surat_jalans`
---
-ALTER TABLE `surat_jalans`
-  ADD PRIMARY KEY (`bon_muat_id`,`resi_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
