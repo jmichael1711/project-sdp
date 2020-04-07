@@ -22,14 +22,6 @@ Halaman ini untuk menampilkan semua data kurir non customer.
             Session::forget('success-kurir_noncustomer');
         @endphp
     @endif
-    @if (Session::has('failed-kurir_noncustomer'))
-        <ul class="list-group mb-2">
-            <li class="list-group-item-danger list-group-item">{{Session::get('failed-kurir_noncustomer')}}</li>
-        </ul>
-        @php
-            Session::forget('failed-kurir_noncustomer');
-        @endphp
-    @endif
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div class="card-body">
@@ -39,63 +31,72 @@ Halaman ini untuk menampilkan semua data kurir non customer.
                 <table class="table table-hover table-striped dataTable dtr-inline" id="tableKurirNonCustomer">
                     <thead>
                         <th>ID</th>
-                        <th>ID kantor 1</th>
-                        <th>ID kantor 2</th>
+                        <th>Alamat Kantor 1</th>
+                        <th>Alamat Kantor 2</th>
                         <th>Nama</th>
                         <th>Jenis Kelamin</th>
-                        <th>No Telpon</th>
-                        <th>Posisi di kantor 1</th>
-                        <th>Available</th>
-                        <th>Status</th>
+                        <th>No. Telp</th>
+                        <th>Posisi</th>
+                        <th>Status Kurir</th>
+                        <th>Diubah Tanggal</th>
+                        <th>Diubah Oleh</th>
+                        <th>Dibuat Tanggal</th>
+                        <th>Dibuat Oleh</th>
+                        <th>Status Aktif</th>
                     </thead>
                     <tbody>
                         @foreach ($kurnoncust as $kc)
                             <tr onclick='editkurnoncust("{{$kc->id}}")'>
                                 <td>{{$kc['id']}}</td>
-                                <td>{{$kc['kantor_1_id']}}</td>
-                                <td>{{$kc['kantor_2_id']}}</td>
+                                <td>{{$kc->kantor_1->alamat}}, {{$kc->kantor_1->getKota->nama}}</td>
+                                <td>{{$kc->kantor_2->alamat}}, {{$kc->kantor_2->getKota->nama}}</td>
                                 <td>{{$kc['nama']}}</td>
-                                @if($kc['jenis_kelamin']== 0)
-                                    <td>Laki-Laki</td>
+                                @if($kc['jenis_kelamin']== 'P')
+                                    <td>PRIA</td>
                                 @else
-                                    <td>Perempuan</td>
+                                    <td>WANITA</td>
                                 @endif
                                 <td>{{$kc['no_telp']}}</td>
                                 @if ($kc['posisi_di_kantor_1'] == 1)
                                 <td class="text-center text-white">
-                                    <div class="badge badge-success">
-                                    TRUE
-                                </td>
+                                    <div class="badge badge-info">
+                                        KANTOR 1
+                                    </div>
+                                </td>  
                                 @else
                                 <td class="text-center text-white">
-                                    <div class="badge badge-danger">
-                                    FALSE
+                                    <div class="badge badge-secondary">
+                                        KANTOR 2
                                     </div>
                                 </td>
                                 @endif
                                 @if ($kc['status'] == 1)
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
-                                    AVAILABLE
+                                        TERSEDIA
                                     </div>
                                 </td>
                                 @else
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">
-                                    BUSY
+                                        SIBUK
                                     </div>
-                                </td>
+                                </td>  
                                 @endif
+                                <td>{{$kc['updated_at']}}</td>
+                                <td>{{$kc['user_updated']}}</td>
+                                <td>{{$kc['created_at']}}</td>
+                                <td>{{$kc['user_created']}}</td>
                                 @if ($kc['is_deleted'] == 1)
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">
-                                    NOT ACTIVE
+                                    TIDAK AKTIF
                                     </div>
                                 </td>
                                 @else
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
-                                    ACTIVE
+                                    AKTIF
                                     </div>
                                 </td>
                                 @endif
@@ -126,7 +127,8 @@ Halaman ini untuk menampilkan semua data kurir non customer.
     var table = $('#tableKurirNonCustomer').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,
-        'lengthMenu': [10,25, 50, 100]
+        'lengthMenu': [10,25, 50, 100],
+        "scrollX": true
     });
 </script>
 @endsection

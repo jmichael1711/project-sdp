@@ -33,7 +33,7 @@ class KantorController extends Controller
         Kantor::create($request);   
         $success = "Data kantor berhasil didaftarkan.";
         Session::put('success-kantor', $success);
-        return redirect('/admin/kantor/create');
+        return redirect('/admin/kantor');
     }
 
     public function edit($id) {

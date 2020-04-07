@@ -32,9 +32,9 @@ class PengirimanCustomerController extends Controller
         $request['user_updated'] = $user;
 
         Pengiriman_customer::create($request);
-        $success = "Pengiriman Customer berhasil di-inputkan.";
+        $success = "Data pengiriman customer berhasil didaftarkan.";
 
-        return redirect('/admin/pengirimanCustomer/create')->with(['success' => $success]);
+        return redirect('/admin/pengirimanCustomer')->with(['success' => $success]);
     }
 
     public function edit($id){
@@ -51,7 +51,7 @@ class PengirimanCustomerController extends Controller
         $pengirimanCust = Pengiriman_customer::findOrFail($id);
         $request['user_updated'] = Session::get('id');
         $pengirimanCust->update($request);
-        $success = 'Pengiriman Customer berhasil diubah.';
+        $success = "Data pengiriman customer $id berhasil diubah.";
         Session::put('success', $success);
         return redirect('/admin/pengirimanCustomer');
     }
@@ -113,6 +113,46 @@ class PengirimanCustomerController extends Controller
         $pengirimanCust->resis()->detach();
         $pengirimanCust->update(['total_muatan' => 0]);
         return redirect('/admin/pengirimanCustomer/edit/'.$id);
+    }
+
+    public function pengirim(){
+        $allPengirimanCust = Pengiriman_customer::where("menuju_penerima",0)->get();
+        return view('master.pengirimanCustomer.pengirim',compact('allPengirimanCust')); 
+    }
+
+    public function penerima(){
+        $allPengirimanCust = Pengiriman_customer::where("menuju_penerima",1)->get();
+        return view('master.pengirimanCustomer.penerima',compact('allPengirimanCust')); 
+    }
+
+    public function editPenerima($id){
+        $pengirimanCust = Pengiriman_customer::findOrFail($id);
+        $status = "disabled";
+        foreach($pengirimanCust->resis as $i){
+            if($i->d_pengiriman_customer->telah_sampai == 0){
+                $status = "";
+            }
+        } 
+        return view('master.pengirimanCustomer.editPenerima', compact('pengirimanCust','status'));
+    }
+
+    public function updateDetailPenerima($id,Request $request){
+        date_default_timezone_set("Asia/Jakarta");
+        $user = Session::get('id');
+        $pengirimanCust = Pengiriman_customer::findOrFail($id);
+        $sampai =  $pengirimanCust->resis()->where("resi_id",$request["resi_id"])->first()->d_pengiriman_customer->telah_sampai;
+        if($sampai == 0){
+            $pengirimanCust->update(['user_updated' => $user]); 
+            $pengirimanCust->resis()->updateExistingPivot($request["resi_id"],['telah_sampai' => 1]);
+            $pengirimanCust->resis()->updateExistingPivot($request["resi_id"],['user_updated' => $user]);
+            $success = 'Detail Pengiriman Customer '. $request["resi_id"]. ' telah selesai.';
+            Session::put('success', $success);
+            return redirect('/admin/pengirimanCustomer/editPenerima/'.$id);
+        }else if($sampai == 1){
+            $fail = "Resi ". $request["resi_id"] ." telah discan.";
+            Session::put('success-faildetail', $fail);
+            return redirect('/admin/pengirimanCustomer/editPenerima/'.$id);
+        }
     }
 
 }

@@ -29,7 +29,7 @@ class Bon_MuatController extends Controller
         $request['user_updated'] = $user;
         $success = "Bon muat berhasil didaftarkan.";
         Bon_muat::create($request);
-        return redirect('/admin/bonmuat/create')->with(['success-bonmuat' => $success]);
+        return redirect('/admin/bonmuat')->with(['success-bonmuat' => $success]);
     }
 
     public function find(Request $request){
@@ -153,8 +153,41 @@ class Bon_MuatController extends Controller
     }
 
     public function incomingbonmuat(){
-        $allBonMuat = Bon_Muat::getAll()->get();
+        // jika admin kota maka harus ambil bon muat yang akan datang ke kota itu saja
+        // jika pegawai atau kasir maka harus ambil bon muat yang akan datang ke kantor itu saja
+        // jika admin super maka ambil semua bon muat yang ada
+        $allBonMuat = Bon_Muat::getAll()->get(); //untuk admin super
         return view('master.bonmuat.incomingbonmuat',compact('allBonMuat'));
     }
 
+    public function editSuratJalan($id) {
+        $bonmuat = Bon_Muat::findOrFail($id);
+        $status = "disabled";
+        foreach($bonmuat->resis as $i){
+            if($i->surat_jalan->telah_sampai == 0){
+                $status = "";
+            }
+        } 
+        return view('master.bonmuat.editSuratJalan', compact('bonmuat','status'));
+    }
+
+    public function updateSuratJalan($id,Request $request){
+        date_default_timezone_set("Asia/Jakarta");
+        $user = Session::get('id');
+        $bonmuat = Bon_Muat::findOrFail($id);
+        $sampai =  $bonmuat->resis()->where("resi_id",$request["resi_id"])->first()->surat_jalan->telah_sampai;
+        if($sampai == 0){
+            $bonmuat->update(['user_updated' => $user]); 
+            $bonmuat->resis()->updateExistingPivot($request["resi_id"],['telah_sampai' => 1]);
+            $bonmuat->resis()->updateExistingPivot($request["resi_id"],['user_updated' => $user]);
+            $success = 'Surat Jalan '. $request["resi_id"]. ' telah selesai.';
+            Session::put('success-suratjalan', $success);
+            return redirect('/admin/bonmuat/editSuratJalan/'.$id);
+        }else if($sampai == 1){
+            $fail = "Resi ". $request["resi_id"] ." telah discan.";
+            Session::put('success-failsuratjalan', $fail);
+            return redirect('/admin/bonmuat/editSuratJalan/'.$id);
+        }
+        
+    }
 }

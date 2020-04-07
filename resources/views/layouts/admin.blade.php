@@ -239,7 +239,7 @@
                                         Dashboard Page
                                     </a>
                                 </li>
-                                <li class="app-sidebar__heading">CONTOH</li>
+                                <li class="app-sidebar__heading">CUSTOMER</li>
 
                                 {{-- SIDEBAR - Pesanan --}}
                                 <li id="upperlist-pesanan">
@@ -317,10 +317,24 @@
                                                 Tambah Pengiriman Cust
                                             </a>
                                         </li>
+                                        <li>
+                                            <a id="header-pengirim-pengirimanCustomer" href="{{ url('/admin/pengirimanCustomer/pengirim') }}">
+                                                <i class="metismenu-icon">
+                                                </i>
+                                                Semua Menuju Pengirim
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a id="header-penerima-pengirimanCustomer" href="{{ url('/admin/pengirimanCustomer/penerima') }}">
+                                                <i class="metismenu-icon">
+                                                </i>
+                                                Semua Menuju Penerima
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
 
-                                <li class="app-sidebar__heading">CONTOH</li>
+                                <li class="app-sidebar__heading">PEGAWAI</li>
 
                                 {{-- SIDEBAR - PEGAWAI --}}
                                 <li id="upperlist-pegawai">
@@ -374,27 +388,27 @@
                                 <li id="upperlist-kurir_noncustomer">
                                     <a id="btn-kurir_noncustomer" href="">
                                         <i class="metismenu-icon pe-7s-rocket"></i>
-                                            Kurir Non Customer
+                                            Kurir Non Cust
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
                                     <ul id="list-kurir_noncustomer">
                                         <li>
                                             <a id="header-kurir_noncustomer" href="{{ url('/admin/kurir_noncustomer') }}">
                                                 <i class="metismenu-icon"></i>
-                                                Semua Kurir Non Customer
+                                                Semua Kurir Non Cust
                                             </a>
                                         </li>
                                         <li>
                                             <a id="header-tambah-kurir_noncustomer" href="{{ url('/admin/kurir_noncustomer/create') }}">
                                                 <i class="metismenu-icon">
                                                 </i>
-                                                Tambah Kurir Non Customer
+                                                Tambah Kurir Non Cust
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
 
-                                <li class="app-sidebar__heading">CONTOH</li>
+                                <li class="app-sidebar__heading">PERUSAHAAN</li>
                                 {{-- SIDEBAR - KOTA --}}
                                 <li id="upperlist-kota">
                                     <a id="btn-kota" href="">

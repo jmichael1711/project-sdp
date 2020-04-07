@@ -28,10 +28,10 @@ class KendaraanController extends Controller
         $request['user_created'] = $user;
         $request['user_updated'] = $user;
         Kendaraan::create($request);   
-        $success = "Kendaraan berhasil di-inputkan.";
+        $success = "Data kendaraan berhasil didaftarkan.";
 
         Session::put('success-kendaraan', $success);
-        return redirect('/admin/kendaraan/create');
+        return redirect('/admin/kendaraan');
     }
 
     public function edit($id) {
@@ -46,7 +46,7 @@ class KendaraanController extends Controller
         $request['updated_at'] = Session::get('id');
         $kantor = Kendaraan::findOrFail($id);
         $kantor->update($request);
-        $success = 'Kendaraan berhasil diubah.';
+        $success = "Data kendaraan $id berhasil diubah.";
         Session::put('success-kendaraan', $success);
         return redirect('/admin/kendaraan');
     }

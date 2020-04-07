@@ -33,7 +33,7 @@ Halaman ini untuk mengubah data pengiriman customer.
                     <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" style="width: {{$pengirimanCust->total_muatan*5}}%;"></div>
                 </div>
                 <div class="form-row">
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <div class="position-relative form-group">
                             <label class="">ID Pengiriman Customer</label>
                             <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
@@ -46,7 +46,7 @@ Halaman ini untuk mengubah data pengiriman customer.
                     <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/update/{{$pengirimanCust->id}}" enctype="multipart/form-data">
                     @csrf
                         <div class="form-row">
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kota</label>
                                     <select id="kota" class="form-control" onchange='isiKantorAsal()' required>
@@ -61,29 +61,29 @@ Halaman ini untuk mengubah data pengiriman customer.
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kantor Asal</label>
                                     <select name="kantor_id" id="kantor" class="form-control" onchange='isiKurirCustomer()' required></select>
                                     <div class="invalid-feedback">
-                                        Mohon pilih kantor asal.
+                                        Mohon pilih kantor asal yang valid.
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kurir Customer</label>
                                     <select name="kurir_customer_id" id="kurir" class="form-control" required></select>
                                     <div class="invalid-feedback">
-                                        Mohon pilih kurir customer.
+                                        Mohon pilih kurir customer yang valid.
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Apakah kurir menuju ke penerima?</label>
                                     <br>
@@ -108,17 +108,18 @@ Halaman ini untuk mengubah data pengiriman customer.
                                 </div>
                             </div>
                         </div>
+                        <hr>
                         <div class="form-row">
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="position-relative form-group">
-                                    <label class="">Status</label>
+                                    <label class="">Status Aktif</label>
                                     <select class="form-control" name="is_deleted" id="status" onchange="changeStatus()">
                                         @if ($pengirimanCust->is_deleted)
-                                            <option selected class="form-control" value="1">NOT ACTIVE</option>
-                                            <option class="form-control" value="0">ACTIVE</option>
+                                            <option selected class="form-control" value="1">TIDAK AKTIF</option>
+                                            <option class="form-control" value="0">AKTIF</option>
                                         @else
-                                            <option class="form-control" value="1">NOT ACTIVE</option>
-                                            <option selected class="form-control" value="0">ACTIVE</option>
+                                            <option class="form-control" value="1">TIDAK AKTIF</option>
+                                            <option selected class="form-control" value="0">AKTIF</option>
                                         @endif
                                     </select>
                                 </div>
@@ -127,7 +128,7 @@ Halaman ini untuk mengubah data pengiriman customer.
                         <div class="form-row">
                             <div class="col-md-2">
                                 <div class="position-relative form-group">
-                                    <button class="mt-2 btn btn-primary">Edit</button>
+                                    <button class="mt-2 btn btn-primary">Ubah</button>
                                 </div>
                             </div>
                         </div>
@@ -153,12 +154,7 @@ Halaman ini untuk mengubah data pengiriman customer.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
-                    <div class="col-md-3">
-                        <button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()">
-                            &nbsp Scan &nbsp
-                        </button>
-                    </div>
-                    <br>
+                    <button type="button" class="btn mr-2 mb-2 btn-primary pull-right" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()">Scan Pesanan</button>
                     <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/addDetail/{{$pengirimanCust->id}}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
@@ -179,23 +175,24 @@ Halaman ini untuk mengubah data pengiriman customer.
                             </div>
                         </div>
                     </form>
+                    <hr>
                     <table class="table table-hover table-striped dataTable dtr-inline" id="tableDetail">
                         <thead>
                             <tr>
-                                <th>Resi ID</th>
+                                <th>ID</th>
                                 <th>Pengirim</th>
-                                <th>Alamat Asal</th>
+                                <th>Alamat Pengirim</th>
                                 <th>Penerima</th>
-                                <th>Alamat Tujuan</th>
+                                <th>Alamat Penerima</th>
                                 <th>Berat</th>
                                 <th>Dimensi</th>
                                 <th>Fragile</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
-                                <th>User Created</th>
-                                <th>User Updated</th>
-                                <th>Status</th>
-                                <th>Delete</th>
+                                <th>Status Pesanan</th>
+                                <th>Diubah Tanggal</th>
+                                <th>Diubah Oleh</th>
+                                <th>Dibuat Tanggal</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Perintah</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -222,23 +219,23 @@ Halaman ini untuk mengubah data pengiriman customer.
                                     </div>
                                 </td>
                                 @endif
-                                <td>{{$i->d_pengiriman_customer->created_at->diffForHumans()}}</td>
-                                <td>{{$i->d_pengiriman_customer->updated_at->diffForHumans()}}</td>
-                                <td>{{$i->d_pengiriman_customer->user_created}}</td>
-                                <td>{{$i->d_pengiriman_customer->user_updated}}</td>
                                 @if ($i->d_pengiriman_customer->telah_sampai)
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
-                                        FINISH 
+                                        SELESAI
                                     </div>
                                 </td>    
                                 @else 
                                 <td class="text-center text-white">
                                     <div class="badge badge-warning">
-                                        ON GOING
+                                        BELUM SELESAI
                                     </div>
                                 </td>
                                 @endif
+                                <td>{{$i->d_pengiriman_customer->updated_at}}</td>
+                                <td>{{$i->d_pengiriman_customer->user_updated}}</td>
+                                <td>{{$i->d_pengiriman_customer->created_at}}</td>
+                                <td>{{$i->d_pengiriman_customer->user_created}}</td>
                                 <td><button class="mb-2 mr-2 btn btn-danger" data-toggle="modal" onclick="passValue('{{$i->id}}')" data-target="#deleteDetail" value="{{$i->id}}">Delete</button></td>
                             </tr>
                             @endforeach
@@ -285,7 +282,7 @@ Halaman ini untuk mengubah data pengiriman customer.
             </button>
         </div>
         <div class="modal-body">
-            Apakah anda ingin menghapus data ini?
+            DATA INI AKAN TERHAPUS JIKA MENEKAN TOMBOL DELETE.
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

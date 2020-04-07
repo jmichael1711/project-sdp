@@ -19,6 +19,10 @@ class Pengiriman_customer extends Model
     public function kantor() {
         return $this->belongsTo('App\Kantor');
     }
+
+    public function kurir_customer() {
+        return $this->belongsTo('App\Kurir_customer');
+    }
     
     public function resis() {
         return $this->belongsToMany('App\Resi', 'd_pengiriman_customers')
@@ -27,6 +31,7 @@ class Pengiriman_customer extends Model
         ->withTimestamps()
         ;
     }
+    
 
     //static functions for query
     public static function getAll() {

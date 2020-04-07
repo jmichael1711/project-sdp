@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Kantor;
+use App\Kota;
 use App\Kurir_non_customer;
 use Illuminate\Support\Facades\Session;
 
@@ -16,8 +17,9 @@ class Kurir_noncustomerController extends Controller
     }
 
     public function create(){
-        $listKanID = Kantor::getAll()->get();
-        return view('master.kurirNoncustomer.create',['listKanID' => $listKanID]);
+        $allKota = Kota::getAll()->get();
+        $nextId = Kurir_non_customer::getNextId();
+        return view('master.kurirNoncustomer.create',compact('nextId', 'allKota'));
     }
 
     public function store(Request $request) {
@@ -29,25 +31,26 @@ class Kurir_noncustomerController extends Controller
         $request['user_created'] = $user;
         $request['user_updated'] = $user;
         $request['status'] = 1;
-        $request['posisi_di_kantor_1'] = 1;
 
         if($request['kantor_1_id'] != $request['kantor_2_id']){
             Kurir_non_customer::create($request);
-            $success = "kurir Non Customer berhasil di-tambahkan";
+            $success = "Data kurir non customer berhasil didaftarkan.";
             Session::put('success-kurir_noncustomer', $success);
+            return redirect('/admin/kurir_noncustomer');
         }else {
-            $failed = "kurir Non Customer gagal di-tambahkan karena id kantor 1 dan id kantor 2 sama";
+            $failed = "Data kurir non customer gagal didaftarkan. Alamat kantor 1 dan alamat kantor 2 sama.";
             Session::put('failed-kurir_noncustomer', $failed);
+            return redirect('/admin/kurir_noncustomer/create');
         }
 
-        return redirect('/admin/kurir_noncustomer');
     }
 
     public function edit($id) {
-        $listKurnoncust = Kurir_non_customer::getAll()->get();
-        $listKanID = Kantor::getAll()->get();
-        $kurnoncust = Kurir_non_customer::findOrFail($id);
-        return view('master.kurirNoncustomer.edit', compact('listKurnoncust', 'kurnoncust','listKanID'));
+        $kurcust = Kurir_non_customer::findOrFail($id);
+        $kotaNow1 = $kurcust->kantor_1->getKota->nama;
+        $kotaNow2 = $kurcust->kantor_2->getKota->nama;
+        $allKota = Kota::getAll()->get();
+        return view('master.kurirNoncustomer.edit', compact('kurcust','kotaNow1', 'kotaNow2', 'allKota'));
     }
 
     public function update($id, Request $request) {
@@ -56,7 +59,7 @@ class Kurir_noncustomerController extends Controller
         $kurnoncust = Kurir_non_customer::findOrFail($id);
         $request['user_updated'] = Session::get('id');
         $kurnoncust->update($request);
-        $success = "Kurir Non Customer dengan id: $id berhasil diupdate.";
+        $success = "Data kurir non customer $id berhasil diubah.";
         Session::put('success-kurir_noncustomer', $success);
         return redirect('/admin/kurir_noncustomer');
     }

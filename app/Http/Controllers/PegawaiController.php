@@ -18,7 +18,7 @@ class PegawaiController extends Controller
     }
 
     public function index(){
-        $allPegawai = Pegawai::getAll()->get();
+        $allPegawai = Pegawai::get();
         return view('master.pegawai.index', compact('allPegawai'));
     }
 
@@ -35,7 +35,7 @@ class PegawaiController extends Controller
         $pegawai = Pegawai::findOrFail($id);
         $request['user_updated'] = Session::get('id');
         $pegawai->update($request);
-        $success = 'Pegawai berhasil diubah.';
+        $success = 'Data pegawai '.$id.' berhasil diubah.';
         Session::put('success', $success);
         return redirect('/admin/pegawai');
     }
@@ -48,9 +48,9 @@ class PegawaiController extends Controller
         $request['user_updated'] = $user;
 
         Pegawai::create($request);
-        $success = "Pegawai berhasil di-inputkan.";
+        $success = "Data pegawai berhasil didaftarkan.";
 
-        return redirect('/admin/pegawai/create')->with(['success' => $success]);
+        return redirect('/admin/pegawai')->with(['success' => $success]);
     }
 
     public function isiKantor(Request $request){
@@ -59,11 +59,9 @@ class PegawaiController extends Controller
         ->first();
         
         $kantor = $kota->kantor;
-        $response = '';
-        if(count($kantor) == 0){
-            $response = '<option value="">-- TIDAK ADA KANTOR --</option>';
-        }
-        else{
+        $response = '<option value="">-- TIDAK ADA KANTOR --</option>';
+        if(count($kantor) != 0){
+            $response = '';
             foreach($kantor as $i){
                 $response .= '<option value="' . $i->id . '">' . $i->alamat . '</option>';
             }

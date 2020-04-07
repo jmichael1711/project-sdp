@@ -44,19 +44,27 @@ Halaman ini untuk mengubah data pegawai.
                                 <label class="">Nama</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nama"
-                                placeholder="NAMA" type="text" value="{{$pegawai->nama}}" class="form-control" required>
+                                placeholder="NAMA" type="text" value="{{$pegawai->nama}}" class="form-control" required {{$pegawai->is_deleted ? 'disabled' : ''}}>
                                 <div class="invalid-feedback">Mohon input nama yang valid.</div>
                             </div>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-5">
+                        <div class="col-md-7">
                             <div class="position-relative form-group">
                                 <label class="">Password</label>
-                                <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="password" id="pass1" 
-                                placeholder="Password" type="password" value="{{$pegawai->password}}" class="form-control" required>
-                                <div class="invalid-feedback pass">Mohon input password yang valid.</div>
+                                <br>
+                                <div class="form-check-inline col-md-8">
+                                    <input id="password-field" oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="password" id="pass1" 
+                                    placeholder="Password" type="password" value="{{$pegawai->password}}" class="form-control" required {{$pegawai->is_deleted ? 'disabled' : ''}}>
+                                </div>
+                                <div class="form-check-inline">
+                                    <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                </div>
+                                <div class="invalid-feedback">
+                                    Mohon input password yang valid.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -71,7 +79,7 @@ Halaman ini untuk mengubah data pegawai.
                                       @if($pegawai->jenis_kelamin == "P")
                                         checked
                                       @endif
-                                      > Pria
+                                      {{$pegawai->is_deleted ? 'disabled' : ''}}> Pria
                                     </label>
                                   </div>
                                   <div class="form-check-inline">
@@ -80,7 +88,7 @@ Halaman ini untuk mengubah data pegawai.
                                       @if($pegawai->jenis_kelamin == "W")
                                         checked
                                       @endif
-                                      > Wanita
+                                      {{$pegawai->is_deleted ? 'disabled' : ''}}> Wanita
                                     </label>
                                   </div>
                             </div>
@@ -92,7 +100,7 @@ Halaman ini untuk mengubah data pegawai.
                                 <label class="">Nomor Telepon</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="no_telp" 
-                                placeholder="NOMOR TELEPON" type="text" value="{{$pegawai->no_telp}}" class="form-control" required>
+                                placeholder="NOMOR TELEPON" type="text" value="{{$pegawai->no_telp}}" class="form-control" required {{$pegawai->is_deleted ? 'disabled' : ''}}>
                                 <div class="invalid-feedback">
                                     Mohon input nomor telepon yang valid.
                                 </div>
@@ -105,7 +113,7 @@ Halaman ini untuk mengubah data pegawai.
                                 <label class="">Alamat</label>
                                 <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="alamat"
-                                placeholder="ALAMAT" type="text" value="{{$pegawai->alamat}}" class="form-control">
+                                placeholder="ALAMAT" type="text" value="{{$pegawai->alamat}}" class="form-control" {{$pegawai->is_deleted ? 'disabled' : ''}}>
                                 <div class="invalid-feedback">
                                     Mohon input alamat yang valid.
                                 </div>
@@ -117,10 +125,11 @@ Halaman ini untuk mengubah data pegawai.
                         <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Kota</label>
-                                <select id="kota" class="form-control" onchange='isiKantor()' required>
-                                    <option class="form-control" value="{{$kotaNow}}">{{$kotaNow}}</option>
+                                <select id="kota" class="form-control" onchange='isiKantor()' required {{$pegawai->is_deleted ? 'disabled' : ''}}>
                                     @foreach ($allKota as $kota)
-                                        @if($kota->nama != $kotaNow)
+                                        @if($kota->nama == $kotaNow)
+                                            <option class="form-control" value="{{$kota->nama}}" selected>{{$kota->nama}}</option>
+                                        @else 
                                             <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
                                         @endif
                                     @endforeach
@@ -131,8 +140,8 @@ Halaman ini untuk mengubah data pegawai.
                     <div class="form-row">
                         <div class="col-md-5">
                             <div class="position-relative form-group">
-                                <label class="">Kantor</label>
-                                <select name="kantor_id" id="kantor" class="form-control" required>
+                                <label class="">Alamat Kantor</label>
+                                <select name="kantor_id" id="kantor" class="form-control" required {{$pegawai->is_deleted ? 'disabled' : ''}}>
                                     <option selected class="form-control" value="{{$pegawai->kantor->id}}">{{$pegawai->kantor->alamat}}</option>
                                     @foreach($pegawai->kantor->getKota->kantor as $kantor)
                                         @if($pegawai->kantor->id != $kantor->id)
@@ -150,7 +159,7 @@ Halaman ini untuk mengubah data pegawai.
                         <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Jabatan</label>
-                                <select name="jabatan" class="form-control" required>
+                                <select name="jabatan" class="form-control" required {{$pegawai->is_deleted ? 'disabled' : ''}}>
                                     @if($pegawai->jabatan == 'kasir')
                                         <option class="form-control" value="kasir" selected>Kasir</option>
                                         <option class="form-control" value="pegawai">Pegawai Biasa</option>
@@ -217,7 +226,7 @@ Halaman ini untuk mengubah data pegawai.
             datatype : "json",
             data : { kota : kota, _token : "{{ csrf_token() }}" },
             success: function(result){
-                $('#kantor_id').html(result);
+                $('#kantor').html(result);
             },
             error: function(){
                 console.log('error');
@@ -225,5 +234,14 @@ Halaman ini untuk mengubah data pegawai.
         });
     }
 
+    $(".toggle-password").click(function() {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
 </script>
 @endsection 

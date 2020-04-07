@@ -5,31 +5,14 @@
 @endsection
 
 @section('title')
-    SEMUA DATA PENGIRIMAN CUSTOMER
+    SEMUA DATA PENGIRIMAN CUSTOMER MENUJU PENGIRIM
 @endsection
 
 @section('subtitle')
-Halaman ini untuk menampilkan semua data pengiriman customer.
+Halaman ini untuk menampilkan semua data pengiriman customer yang menuju ke pengirim.
 @endsection
 
 @section('content')
-<ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
-    <li class="nav-item">
-        <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
-            <span>Semua</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1">
-            <span>Pengirim</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2">
-            <span>Penerima</span>
-        </a>
-    </li>
-</ul>
 <div class="tab-content">
     @if (Session::has('success'))
         <ul class="list-group mb-2">
@@ -51,12 +34,12 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
                                 <th>ID</th>
                                 <th>ID Kantor</th>
                                 <th>ID Kurir Customer</th>
-                                <th>Menuju Ke</th>
                                 <th>Total Muatan</th>
                                 <th>Diubah Tanggal</th>
                                 <th>Diubah Oleh</th>
                                 <th>Dibuat Tanggal</th>
                                 <th>Dibuat Oleh</th>
+                                <th>Status</th>
                                 <th>Status Aktif</th>
                             </tr>
                         </thead>
@@ -67,24 +50,34 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
                                 <td>{{$i->id}}</td>
                                 <td>{{$i->kantor_id}}</td>
                                 <td>{{$i->kurir_customer_id}}</td>
-                                @if($i->menuju_penerima == 0)
-                                <td class="text-center text-white">
-                                    <div class="badge badge-primary">
-                                        Pengirim
-                                    </div>
-                                </td> 
-                                @else
-                                <td class="text-center text-white">
-                                    <div class="badge badge-success">
-                                        Penerima
-                                    </div>
-                                </td>    
-                                @endif
                                 <td>{{$i->total_muatan}}</td>
                                 <td>{{$i->updated_at}}</td>
                                 <td>{{$i->user_updated}}</td>
                                 <td>{{$i->created_at}}</td>
                                 <td>{{$i->user_created}}</td>
+                                @php
+                                $finish = true;
+                                @endphp
+                                @foreach($i->resis as $j)
+                                    @if($j->d_pengiriman_customer->telah_sampai == "0")
+                                        @php
+                                            $finish = false;
+                                        @endphp
+                                    @endif
+                                @endforeach
+                                @if ($finish == false)
+                                <td class="text-center text-white">
+                                    <div class="badge badge-warning">
+                                        BELUM SELESAI
+                                    </div>
+                                </td>    
+                                @else 
+                                <td class="text-center text-white">
+                                    <div class="badge badge-success">
+                                        SELESAI
+                                    </div>
+                                </td>
+                                @endif
                                 @if ($i->is_deleted)
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">
@@ -113,10 +106,10 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
 @section('scripts')
 <script>
     $(document).ready(function () {
-        $("#upperlist-pengirimanCustomer").addClass("mm-active");
-        $("#btn-pengirimanCustomer").attr("aria-expanded", "true");
-        $("#list-pengirimanCustomer").attr("class", "mm-collapse mm-show");
-        $("#header-pengirimanCustomer").attr("class", "mm-active");
+        $("#upperlist-penerima-pengirimanCustomer").addClass("mm-active");
+        $("#btn-penerima-pengirimanCustomer").attr("aria-expanded", "true");
+        $("#list-penerima-pengirimanCustomer").attr("class", "mm-collapse mm-show");
+        $("#header-penerima-pengirimanCustomer").attr("class", "mm-active");
     })
 
     var table = $('#tablePengirimanCust').DataTable({
@@ -127,7 +120,7 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
     });
 
     function editKantor(id){
-        window.location.href='/admin/pengirimanCustomer/edit/' + id;
+        window.location.href='/admin/pengirimanCustomer/editPenerima/' + id;
     }
 
 </script>

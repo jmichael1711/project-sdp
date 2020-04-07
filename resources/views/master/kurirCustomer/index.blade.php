@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    SEMUA DATA KURIR CUSTOMER
+SEMUA DATA KURIR CUSTOMER
 @endsection
 
 @section('subtitle')
@@ -31,50 +31,58 @@ Halaman ini untuk menampilkan semua data kurir customer.
                 <table class="table table-hover table-striped dataTable dtr-inline" id="tableKurirCustomer">
                     <thead>
                         <th>ID</th>
-                        <th>ID kantor</th>
+                        <th>Alamat Kantor</th>
                         <th>Nama</th>
                         <th>Jenis Kelamin</th>
-                        <th>No Telpon</th>
+                        <th>No. Telp</th>
                         <th>Nomor Polisi</th>
-                        <th>Available</th>
-                        <th>Status</th>
+                        <th>Status Kurir</th>
+                        <th>Diubah Tanggal</th>
+                        <th>Diubah Oleh</th>
+                        <th>Dibuat Tanggal</th>
+                        <th>Dibuat Oleh</th>
+                        <th>Status Aktif</th>
                     </thead>
                     <tbody>
                         @foreach ($kurcust as $kc)
                             <tr onclick='editKurcust("{{$kc->id}}")'>
                                 <td>{{$kc['id']}}</td>
-                                <td>{{$kc['kantor_id']}}</td>
+                                <td>{{$kc->kantor->alamat}}, {{$kc->kantor->getKota->nama}}</td>
                                 <td>{{$kc['nama']}}</td>
-                                @if($kc['jenis_kelamin']== 0)
-                                    <td>Laki-Laki</td>
+                                @if($kc['jenis_kelamin']== 'P')
+                                    <td>PRIA</td>
                                 @else
-                                    <td>Perempuan</td>
+                                    <td>WANITA</td>
                                 @endif
                                 <td>{{$kc['no_telp']}}</td>
                                 <td>{{$kc['nopol']}}</td>
                                 @if ($kc['status'] == 1)
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
-                                    AVAILABLE
+                                    TERSEDIA
                                     </div>
                                 </td>
                                 @else
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">
-                                    BUSY
+                                    SIBUK
                                     </div>
                                 </td>
                                 @endif
+                                <td>{{$kc['updated_at']}}</td>
+                                <td>{{$kc['user_updated']}}</td>
+                                <td>{{$kc['created_at']}}</td>
+                                <td>{{$kc['user_created']}}</td>
                                 @if ($kc['is_deleted'] == 1)
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">
-                                    NOT ACTIVE
+                                    TIDAK AKTIF
                                     </div>
                                 </td>
                                 @else
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
-                                    ACTIVE
+                                    AKTIF
                                     </div>
                                 </td>
                                 @endif
