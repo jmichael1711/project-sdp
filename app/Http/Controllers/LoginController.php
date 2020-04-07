@@ -27,9 +27,12 @@ class LoginController extends Controller
             //id is for the person's ID
             //loginstatus is for the person's role
             //0 = admin
-            //1 = kurir
-            //2 = kasir
-            //3 = pegawai buruh
+            //1 = kurir customer
+            //2 = kurir non customer
+            //3 = kasir
+            //4 = pegawai
+
+            
 
             Session::put('id', 'P0000001');
             //find or fail pegawai disini
