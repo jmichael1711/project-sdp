@@ -20,7 +20,7 @@
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="depot/css/style.css">
-    @yield('styles')
+
   </head>
 
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -69,21 +69,16 @@
 
 
           <div class="site-logo">
-            <a href="/" class="text-black"><span class="text-primary">Depot</a>
+            <span class="text-primary">TeamAte Expedition
           </div>
 
           <div class="col-12">
             <nav class="site-navigation text-right ml-auto " role="navigation">
               <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
                 @yield('links')
-                
-                <li><a href="/pesan" class="{{$page == 'pesan' ? 'active' : ''}} nav-link">Pesan</a></li>
-                @if (Session::has('loginstatus'))
-                    <li><a href="/admin">Admin Page</a></li>
-                    <li><a href="/logout" class="nav-link">Logout</a></li>
-                @else
-                    <li><a href="/login" class="nav-link">Login</a></li>
-                @endif
+                <li><a href="/kurir-customer" class="nav-link">Home</a></li>
+                <li><a href="/kurir-customer/history" class="nav-link">History</a></li>
+                <li><a href="/logout" class="nav-link">Logout</a></li>
                
               </ul>
             </nav>
@@ -171,7 +166,6 @@
   <script src="depot/js/aos.js"></script>
 
   <script src="depot/js/main.js"></script>
-  @yield('scripts')
 
 
   </body>

@@ -185,6 +185,13 @@ Halaman ini untuk menampilkan semua data bon muat.
         "scrollX": true
     });
 
+    var table1 = $('#tableBonMuat1').DataTable({
+        "pagingType": 'full_numbers',
+        'paging': true,
+        'lengthMenu': [10,25, 50, 100],
+        "scrollX": true
+    });
+
     function editDetailBonMuat(id){
         window.location.href='/admin/bonmuat/edit/' + id;
     }

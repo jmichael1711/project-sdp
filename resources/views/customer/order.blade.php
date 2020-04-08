@@ -33,6 +33,12 @@
             </div>
             <div class="form-group row">
                 <div class="col-md-12">
+                    <label for="">Kode Pos Pengirim</label>
+                    <input type="text" class="form-control" name="kode_pos_pengirim" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-12">
                     <label for="">Kota Asal</label>
                     <select name="kota_asal" class="form-control" required>
                         @foreach ($listKota as $i)
@@ -70,6 +76,12 @@
                 <div class="col-md-12">
                     <label for="">Alamat Tujuan</label>
                     <input type="text" class="form-control" name="alamat_tujuan" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="">Kode Pos Penerima</label>
+                    <input type="text" class="form-control" name="kode_pos_penerima" required>
                 </div>
             </div>
             <div class="form-group row">
@@ -129,7 +141,7 @@
             </div>
             
             <div class="form-group row">
-                <div class="col-md-6 mr-auto">
+                <div class="col-md-12 mr-auto">
                 <input type="submit" class="btn btn-block btn-primary text-white py-3 px-5" value="Buat Pesanan">
                 </div>
             </div>
