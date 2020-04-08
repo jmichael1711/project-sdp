@@ -103,7 +103,7 @@ Halaman ini untuk menampilkan semua data bon muat.
     </div>
 
     {{-- bonmuat1 --}}
-    <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel"> 
+    <div class="tab-pane tabs-animation fade show active" id="tab-content-1" role="tabpanel"> 
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
@@ -179,13 +179,6 @@ Halaman ini untuk menampilkan semua data bon muat.
     });
 
     var table2 = $('#tableBonMuatKantorIni').DataTable({
-        "pagingType": 'full_numbers',
-        'paging': true,
-        'lengthMenu': [10,25, 50, 100],
-        "scrollX": true
-    });
-
-    var table1 = $('#tableBonMuat1').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,
         'lengthMenu': [10,25, 50, 100],

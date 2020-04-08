@@ -85,28 +85,33 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
                                     @endif
                                     <td>{{$i->total_muatan}}</td>
                                     @if($i->waktu_berangkat == null)
-                                        <td class="text-center text-white">
-                                            <div class="badge badge-danger">
-                                                Belum Berangkat
-                                            </div>
-                                        </td> 
+                                        <td>KOSONG</td>    
                                     @else
                                         <td class="text-center text-white">{{$i->waktu_berangkat}}</td>    
+                                    @endif
+                                    @if($i->waktu_sampai_kantor == null)
+                                        <td>KOSONG</td>    
+                                    @else
+                                        <td class="text-center text-white">{{$i->waktu_sampai_kantor}}</td>    
                                     @endif
                                     @if($i->waktu_berangkat == null)
                                         <td class="text-center text-white">
                                             <div class="badge badge-danger">
-                                                Belum Berangkat
+                                                BELUM BERANGKAT
                                             </div>
                                         </td> 
                                     @elseif($i->waktu_sampai_kantor == null)
                                         <td class="text-center text-white">
                                             <div class="badge badge-danger">
-                                                Belum Selesai
+                                                PERJALANAN
                                             </div>
                                         </td> 
                                     @else
-                                        <td class="text-center text-white">{{$i->waktu_berangkat}}</td>    
+                                        <td class="text-center text-white">
+                                            <div class="badge badge-danger">
+                                                SELESAI
+                                            </div>
+                                        </td>  
                                     @endif
                                     <td>{{$i->updated_at}}</td>
                                     <td>{{$i->user_updated}}</td>
@@ -126,8 +131,12 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
                                     </td>
                                     @endif
                                     <td>
-                                        @if ($i->)
-                                            <button class="mb-2 mr-2 btn btn-danger" data-toggle="modal" onclick="passValue('{{$i->id}}')" data-target="#deleteDetail" value="{{$i->id}}">Delete</button>
+                                        @if ($i->waktu_berangkat == null)
+                                            <button class="mb-2 mr-2 btn btn-primary" onclick="startPengiriman('{{$i->id}}')">MULAI</button>
+                                        @elseif ($i->waktu_sampai_kantor == null)
+                                            <button class="mb-2 mr-2 btn btn-success" onclick="finishPengiriman('{{$i->id}}')">SELESAI</button>
+                                        @else
+                                            SELESAI
                                         @endif
                                     </td>
                                 </tr>
@@ -307,6 +316,10 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
         $("#tab-content-2").removeClass("show active");
         $("#tab-content-3").removeClass("show active");
     })
+
+    function startPengiriman(id){
+
+    }
 
     var table = $('#tablePengirimanCust1').DataTable({
         "pagingType": 'full_numbers',
