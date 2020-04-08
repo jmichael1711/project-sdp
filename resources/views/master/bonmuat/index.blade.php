@@ -16,7 +16,7 @@ Halaman ini untuk menampilkan semua data bon muat.
 <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
     <li class="nav-item">
         <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
-            <span>SEDANG MASUK</span>
+            <span>AKAN DATANG</span>
         </a>
     </li>
     <li class="nav-item">
@@ -43,7 +43,7 @@ Halaman ini untuk menampilkan semua data bon muat.
                         &nbsp Scan &nbsp
                     </button>
                     <br><hr>
-                    <table class="table table-hover table-striped dataTable dtr-inline" id="tableBonMuat">
+                    <table class="table table-hover table-striped dataTable dtr-inline" id="tableBonMuatYangAkanDatang">
                         <thead>
                             <th>ID</th>
                             <th>Kantor Asal</th>
@@ -109,7 +109,7 @@ Halaman ini untuk menampilkan semua data bon muat.
                 <div class="container">
                     <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/bonmuat/create')}}';">Tambah Data</button>
                     <br><hr>
-                    <table class="table table-hover table-striped dataTable dtr-inline" id="tableBonMuat">
+                    <table class="table table-hover table-striped dataTable dtr-inline" id="tableBonMuatKantorIni">
                         <thead>
                             <th>ID</th>
                             <th>Kantor Asal</th>
@@ -171,7 +171,14 @@ Halaman ini untuk menampilkan semua data bon muat.
 
     })
 
-    var table = $('#tableBonMuat').DataTable({
+    var table = $('#tableBonMuatYangAkanDatang').DataTable({
+        "pagingType": 'full_numbers',
+        'paging': true,
+        'lengthMenu': [10,25, 50, 100],
+        "scrollX": true
+    });
+
+    var table2 = $('#tableBonMuatKantorIni').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,
         'lengthMenu': [10,25, 50, 100],

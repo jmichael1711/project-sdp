@@ -25,7 +25,7 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
         </a>
     </li>
     <li class="nav-item">
-        <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2">
+        <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-3">
             <span>Penerima</span>
         </a>
     </li>
