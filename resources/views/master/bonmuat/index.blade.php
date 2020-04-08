@@ -109,7 +109,7 @@ Halaman ini untuk menampilkan semua data bon muat.
                 <div class="container">
                     <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/bonmuat/create')}}';">Tambah Data</button>
                     <br><hr>
-                    <table class="table table-hover table-striped dataTable dtr-inline" id="tableBonMuat">
+                    <table class="table table-hover table-striped dataTable dtr-inline" id="tableBonMuat1">
                         <thead>
                             <th>ID</th>
                             <th>Kantor Asal</th>
@@ -172,6 +172,13 @@ Halaman ini untuk menampilkan semua data bon muat.
     })
 
     var table = $('#tableBonMuat').DataTable({
+        "pagingType": 'full_numbers',
+        'paging': true,
+        'lengthMenu': [10,25, 50, 100],
+        "scrollX": true
+    });
+
+    var table1 = $('#tableBonMuat1').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,
         'lengthMenu': [10,25, 50, 100],

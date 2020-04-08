@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Pengiriman_customer;
+use App\Kurir_customer;
 use App\Bon_Muat;
 use App\Kota;
 use App\Resi;
@@ -21,7 +22,9 @@ class PengirimanCustomerController extends Controller
 
     public function index(){
         $allPengirimanCust = Pengiriman_customer::getAll()->get();
-        return view('master.pengirimanCustomer.index',compact('allPengirimanCust'));
+        $pengirimanCustPengirim = Pengiriman_customer::getAll()->where("menuju_penerima","0")->get();
+        $pengirimanCustPenerima = Pengiriman_customer::getAll()->where("menuju_penerima","1")->get();
+        return view('master.pengirimanCustomer.index',compact('allPengirimanCust','pengirimanCustPengirim','pengirimanCustPenerima'));
     }
 
     public function store(Request $request){
@@ -30,6 +33,10 @@ class PengirimanCustomerController extends Controller
         $user = Session::get('id');
         $request['user_created'] = $user;
         $request['user_updated'] = $user;
+
+        $kurir = Kurir_customer::findOrFail($request['kurir_customer_id']);
+        $kurir->status = "0";
+        $kurir->save();
 
         Pengiriman_customer::create($request);
         $success = "Data pengiriman customer berhasil didaftarkan.";

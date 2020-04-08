@@ -75,16 +75,16 @@ Halaman ini untuk menambah data pengiriman customer.
                     <div class="form-row">
                         <div class="col-md-5">
                             <div class="position-relative form-group">
-                                <label class="">Apakah kurir menuju ke penerima?</label>
+                                <label class="">Tujuan</label>
                                 <br>
                                 <div class="form-check-inline">
                                     <label class="form-check-label">
-                                      <input type="radio" class="form-check-input" name="menuju_penerima" value="1" checked> Ya
+                                      <input type="radio" class="form-check-input" name="menuju_penerima" value="1" checked> Penerima
                                     </label>
                                   </div>
                                   <div class="form-check-inline">
                                     <label class="form-check-label">
-                                      <input type="radio" class="form-check-input" name="menuju_penerima" value="0"> Tidak
+                                      <input type="radio" class="form-check-input" name="menuju_penerima" value="0"> Pengirim
                                     </label>
                                   </div>
                             </div>
@@ -140,8 +140,9 @@ Halaman ini untuk menambah data pengiriman customer.
                 if(idKantor == "null"){
                     @if(count($allKantor) > 0)
                         $('#kantor').html('@foreach ($allKantor as $kantor)<option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>@endforeach');
+                        @php $ada = 0; @endphp
                         @if(count($allKantor[0]->kurir_customer) > 0)
-                            $('#kurir').html('@foreach ($allKantor[0]->kurir_customer as $kurir)<option class="form-control" value="{{$kurir->id}}">{{$kurir->nama . " (" . $kurir->nopol . ")"}}</option>@endforeach');
+                            $('#kurir').html('@foreach ($allKantor[0]->kurir_customer as $kurir) @if($kurir->status == "1") <option class="form-control" value="{{$kurir->id}}">{{$kurir->nama . " (" . $kurir->nopol . ")"}}</option> @endif @endforeach');
                         @else
                             $('#kurir').html('<option value="">-- TIDAK ADA KURIR --</option>');
                         @endif
@@ -154,7 +155,7 @@ Halaman ini untuk menambah data pengiriman customer.
                     @for ($j = 0; $j < $allKantor->count(); $j++)
                     if(idKantor == '{{$allKantor[$j]->id}}'){
                         @if(count($allKantor[$j]->kurir_customer) > 0)
-                            $('#kurir').html('@foreach ($allKantor[$j]->kurir_customer as $kurir)<option class="form-control" value="{{$kurir->id}}">{{$kurir->nama . " (" . $kurir->nopol . ")"}}</option>@endforeach');
+                            $('#kurir').html('@foreach ($allKantor[$j]->kurir_customer as $kurir) @if($kurir->status == "1") <option class="form-control" value="{{$kurir->id}}">{{$kurir->nama . " (" . $kurir->nopol . ")"}}</option> @endif @endforeach');
                         @else
                             $('#kurir').html('<option value="">-- TIDAK ADA KURIR --</option>');
                         @endif
@@ -162,7 +163,16 @@ Halaman ini untuk menambah data pengiriman customer.
                     @endfor
                 }
             }
+            if($("#kurir").html() == "  "){
+                $("#kurir").html('<option value="">-- TIDAK ADA KURIR --</option>');
+            }
+            if($("#kantor").html() == "  "){
+                $("#kantor").html('<option value="">-- TIDAK ADA KANTOR --</option>');
+            }
         @endfor
+    }
+
+    function refreshOld(){
     }
 </script>
 @endsection 

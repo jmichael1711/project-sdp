@@ -85,7 +85,7 @@ Halaman ini untuk mengubah data pengiriman customer.
                         <div class="form-row">
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
-                                    <label class="">Apakah kurir menuju ke penerima?</label>
+                                    <label class="">Tujuan</label>
                                     <br>
                                     <div class="form-check-inline">
                                         <label class="form-check-label">
@@ -93,7 +93,7 @@ Halaman ini untuk mengubah data pengiriman customer.
                                         @if($pengirimanCust->menuju_penerima == '1')
                                             checked
                                         @endif
-                                        > Ya
+                                        > Penerima
                                         </label>
                                     </div>
                                     <div class="form-check-inline">
@@ -102,7 +102,7 @@ Halaman ini untuk mengubah data pengiriman customer.
                                         @if($pengirimanCust->menuju_penerima == '0')
                                             checked
                                         @endif
-                                        > Tidak
+                                        > Pengirim
                                         </label>
                                     </div>
                                 </div>
