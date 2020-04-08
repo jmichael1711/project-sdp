@@ -73,9 +73,7 @@ Route::get('/try', function () {
     // $bonmuat = Bon_muat::first();
     // foreach ($bonmuat->resis as $r) {
     //     dd($r->surat_jalan);
-    // }
-    
-    echo md5("p");
+    //
 });
 
 Route::get('/form', function () {
@@ -105,7 +103,7 @@ Route::group(['middleware' => ['checkstatus:guest']], function () {
 });
 
 Route::group(['middleware' => ['checkstatus:kurir_customer']], function () {
-    Route::get('/kurir-customer', 'KurirCustomerController@index');
+    Route::get('/kurir-customer', 'KurirController@indexKurirCustomer');
 });
 
 //INSIDE ADMIN GROUP

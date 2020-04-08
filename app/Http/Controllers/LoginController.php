@@ -52,16 +52,19 @@ class LoginController extends Controller
                 if ($jabatan == "admin") {
                     Session::put('loginstatus', 0);
                     Session::put('id', $username);
+                    Session::put('name',$pegawai->nama);
                     return redirect("/admin/kantor");
 
                 } else if ($jabatan == "pegawai") {
                     Session::put('loginstatus', 4);
                     Session::put('id', $username);
+                    Session::put('name',$pegawai->nama);
                     return redirect("/admin/kantor");
 
                 } else if ($jabatan == "kasir") {
                     Session::put('loginstatus', 3);
                     Session::put('id', $username);
+                    Session::put('name',$pegawai->nama);
                     return redirect("/admin/kantor");
 
                 } else {
@@ -81,7 +84,8 @@ class LoginController extends Controller
 
                 Session::put('loginstatus', 2);
                 Session::put('id', $username);
-                return redirect("/");
+                Session::put('name',$kurir->nama);
+                return redirect("/kurir-customer");
 
             } else if (substr($username, 0, 2) == "KN") {
                 $kurir = Kurir_non_customer::getAll()
@@ -96,7 +100,8 @@ class LoginController extends Controller
 
                 Session::put('loginstatus', 1);
                 Session::put('id', $username);
-                return redirect("/");
+                Session::put('name',$kurir->nama);
+                return redirect("/kurir-non-customer");
             }
         } 
         Session::put('status', 'Username / Password salah.');
