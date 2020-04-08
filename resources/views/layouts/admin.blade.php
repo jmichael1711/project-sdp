@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Analytics Dashboard - This is an example dashboard created using build-in elements and components.</title>
+    <title>Admin Page for TeamAte Expedition</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
@@ -85,14 +85,14 @@
                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
                                         <!-- User name -->
-                                        {{$adminname ?? ''}}
+                                        {{Session::get('name') ?? ''}}
                                     </div>
                                     <div class="widget-subheading">
                                         TeamAte Expedition System
                                     </div>
                                 </div>
                                 <div class="widget-content-right header-user-info ml-3">
-                                    <form action="{{route ('logout')}}" method="get">
+                                    <form action="/logout" method="get">
                                         <button class="btn btn-danger">Logout</button>
                                     </form>
                                 </div>
