@@ -107,7 +107,7 @@ Halaman ini untuk mengubah data surat jalan.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
-                    <button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()" {{$status}}>
+                    <button type="button" class="btn mr-2 mb-2 btn-primary pull-right" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()" {{$status}}>
                         &nbsp Scan &nbsp
                     </button>
                     <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/updateSuratJalan/{{$bonmuat->id}}" enctype="multipart/form-data">
@@ -147,7 +147,6 @@ Halaman ini untuk mengubah data surat jalan.
                                 <th>User Created</th>
                                 <th>User Updated</th>
                                 <th>Status</th>
-                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -191,7 +190,6 @@ Halaman ini untuk mengubah data surat jalan.
                                     </div>
                                 </td>
                                 @endif
-                                <td><button class="mb-2 mr-2 btn btn-danger" data-toggle="modal" onclick="passValue('{{$i->id}}')" data-target="#deleteDetail" value="{{$i->id}}">Delete</button></td>
                             </tr>
                             @endforeach
                             @endif

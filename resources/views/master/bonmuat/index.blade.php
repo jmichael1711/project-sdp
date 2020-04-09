@@ -51,25 +51,33 @@ Halaman ini untuk menampilkan semua data bon muat.
                             <th>Kendaraan</th>
                             <th>Kurir</th>
                             <th>Total Muatan</th>
+                            <th>Waktu Berangkat</th>
+                            <th>Waktu Sampai</th>
+                            <th>Status Perjalanan</th>
                             <th>Diubah Tanggal</th>
                             <th>Diubah Oleh</th>
                             <th>Dibuat Tanggal</th>
                             <th>Dibuat Oleh</th>
-                            <th>Status</th>
                         </thead>
                         <tbody>
-                            @foreach ($allBonMuat as $i)
+                            @foreach ($allIncomingBonMuat as $i)
                             <tr onclick='editSuratJalan("{{$i->id}}")'>
                                 <td>{{$i->id}}</td>
-                                <td>{{$i->kantor_asal->alamat}}</td>
-                                <td>{{$i->kantor_tujuan->alamat}}</td>
+                                <td>{{$i->kantor_asal->alamat}}, {{$i->kantor_asal->kota}}</td>
+                                <td>{{$i->kantor_tujuan->alamat}}, {{$i->kantor_tujuan->kota}}</td>
                                 <td>{{$i->kendaraan->nopol}}</td>
                                 <td>{{$i->kurir_non_customer->nama}}</td>
                                 <td>{{$i->total_muatan.' Kg'}}</td>
-                                <td>{{$i->updated_at}}</td>
-                                <td>{{$i->user_updated}}</td>
-                                <td>{{$i->created_at}}</td>
-                                <td>{{$i->user_created}}</td>
+                                @if($i->waktu_berangkat == null)
+                                    <td>KOSONG</td>    
+                                @else
+                                    <td class="text-center">{{$i->waktu_berangkat}}</td>    
+                                @endif
+                                @if($i->waktu_sampai == null)
+                                    <td>KOSONG</td>    
+                                @else
+                                    <td class="text-center">{{$i->waktu_sampai}}</td>    
+                                @endif
                                 @php
                                 $finish = true;
                                 @endphp
@@ -80,19 +88,37 @@ Halaman ini untuk menampilkan semua data bon muat.
                                         @endphp
                                     @endif
                                 @endforeach
-                                @if ($finish == false)
-                                <td class="text-center text-white">
-                                    <div class="badge badge-warning">
-                                        BELUM SELESAI
-                                    </div>
-                                </td>    
-                                @else 
-                                <td class="text-center text-white">
-                                    <div class="badge badge-success">
-                                        SELESAI
-                                    </div>
-                                </td>
+                                @if($i->waktu_berangkat == null)
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-warning">
+                                            BELUM BERANGKAT
+                                        </div>
+                                    </td> 
+                                @elseif($i->waktu_sampai == null)
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-danger">
+                                            PERJALANAN
+                                        </div>
+                                    </td> 
+                                @else
+                                    @if ($finish == false)
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-warning">
+                                            SEDANG PROSES
+                                        </div>
+                                    </td>    
+                                    @else 
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-success">
+                                            SELESAI
+                                        </div>
+                                    </td>
+                                    @endif 
                                 @endif
+                                <td>{{$i->updated_at}}</td>
+                                <td>{{$i->user_updated}}</td>
+                                <td>{{$i->created_at}}</td>
+                                <td>{{$i->user_created}}</td>
                             </tr>
                                 @endforeach
                         </tbody>
@@ -117,40 +143,76 @@ Halaman ini untuk menampilkan semua data bon muat.
                             <th>Kendaraan</th>
                             <th>Kurir</th>
                             <th>Total Muatan</th>
+                            <th>Waktu Berangkat</th>
+                            <th>Waktu Sampai</th>
+                            <th>Status Perjalanan</th>
                             <th>Diubah Tanggal</th>
                             <th>Diubah Oleh</th>
                             <th>Dibuat Tanggal</th>
                             <th>Dibuat Oleh</th>
-                            <th>Status Aktif</th>
                         </thead>
                         <tbody>
                             @foreach ($allBonMuat as $i)
                             <tr onclick='editDetailBonMuat("{{$i->id}}")'>
                                 <td>{{$i->id}}</td>
-                                <td>{{$i->kantor_asal->alamat}}</td>
-                                <td>{{$i->kantor_tujuan->alamat}}</td>
+                                <td>{{$i->kantor_asal->alamat}}, {{$i->kantor_asal->kota}}</td>
+                                <td>{{$i->kantor_tujuan->alamat}}, {{$i->kantor_tujuan->kota}}</td>
                                 <td>{{$i->kendaraan->nopol}}</td>
                                 <td>{{$i->kurir_non_customer->nama}}</td>
                                 <td>{{$i->total_muatan.' Kg'}}</td>
+                                @if($i->waktu_berangkat == null)
+                                    <td>KOSONG</td>    
+                                @else
+                                    <td class="text-center">{{$i->waktu_berangkat}}</td>    
+                                @endif
+                                @if($i->waktu_sampai == null)
+                                    <td>KOSONG</td>    
+                                @else
+                                    <td class="text-center">{{$i->waktu_sampai}}</td>    
+                                @endif
+                                @php
+                                $finish = true;
+                                @endphp
+                                @foreach($i->resis as $j)
+                                    @if($j->surat_jalan->telah_sampai == "0")
+                                        @php
+                                            $finish = false;
+                                        @endphp
+                                    @endif
+                                @endforeach
+                                @if($i->waktu_berangkat == null)
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-warning">
+                                            BELUM BERANGKAT
+                                        </div>
+                                    </td> 
+                                @elseif($i->waktu_sampai == null)
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-danger">
+                                            PERJALANAN
+                                        </div>
+                                    </td> 
+                                @else
+                                    @if ($finish == false)
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-warning">
+                                            SEDANG PROSES
+                                        </div>
+                                    </td>    
+                                    @else 
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-success">
+                                            SELESAI
+                                        </div>
+                                    </td>
+                                    @endif 
+                                @endif
                                 <td>{{$i->updated_at}}</td>
                                 <td>{{$i->user_updated}}</td>
                                 <td>{{$i->created_at}}</td>
                                 <td>{{$i->user_created}}</td>
-                                @if ($i->is_deleted)
-                                <td class="text-center text-white">
-                                    <div class="badge badge-danger">
-                                        TIDAK AKTIF
-                                    </div>
-                                </td>    
-                                @else 
-                                <td class="text-center text-white">
-                                    <div class="badge badge-success">
-                                        AKTIF
-                                    </div>
-                                </td>
-                                @endif
                             </tr>
-                            @endforeach
+                                @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -159,6 +221,48 @@ Halaman ini untuk menampilkan semua data bon muat.
     </div>
 </div>  
 @endsection
+
+{{-- Notification --}}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0" id="modalContent"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- Scanner Video --}}
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Scan Resi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body d-flex justify-content-center">
+                <video id="preview" style="width: 200px; height: 200px; border: 1px solid black;"></video>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeScanner()" id="close">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 @section('scripts')
 <script>
@@ -170,8 +274,15 @@ Halaman ini untuk menampilkan semua data bon muat.
         $("#header-bonmuat").attr("class", "mm-active");
 
         $("#tab-content-1").removeClass("show active");
-    })
 
+        
+        scanner.addListener('scan', function(content) {
+            var id = content;
+            $("#close").click();
+            window.location.href='/admin/bonmuat/editSuratJalan/' + id;
+        });
+    })
+    
     var table = $('#tableBonMuatYangAkanDatang').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,
@@ -185,6 +296,42 @@ Halaman ini untuk menampilkan semua data bon muat.
         'lengthMenu': [10,25, 50, 100],
         "scrollX": true
     });
+
+    let scanner = new Instascan.Scanner(
+    {
+        video: document.getElementById('preview')
+    });
+
+    function triggerScanner(){
+        Instascan.Camera.getCameras().then(cameras => 
+        {
+            if(cameras.length > 0){
+                scanner.start(cameras[0]);
+            } else {
+                console.error("Please enable Camera!");
+            }
+        });
+    }
+    
+    function closeScanner(){
+        Instascan.Camera.getCameras().then(cameras => 
+        {
+            if(cameras.length > 0){
+                scanner.stop(cameras[0]);
+            } else {
+                console.error("Error Stop Camera");
+            }
+        });
+    }
+
+    function editSuratJalan(id){
+        window.location.href='/admin/bonmuat/editSuratJalan/' + id;
+    }
+
+    function triggerNotification(text){
+        $("#modalContent").html(text);
+        $("#triggerModal").click();
+    }
 
     function editDetailBonMuat(id){
         window.location.href='/admin/bonmuat/edit/' + id;
