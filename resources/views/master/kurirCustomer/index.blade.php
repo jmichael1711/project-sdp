@@ -49,6 +49,7 @@ Halaman ini untuk menampilkan semua data kurir customer.
                                 <td>{{$kc['id']}}</td>
                                 <td>{{$kc->kantor->alamat}}, {{$kc->kantor->getKota->nama}}</td>
                                 <td>{{$kc['nama']}}</td>
+                                <td>
                                 @if ($kc->jenis_kelamin == 'P')
                                     <div class="badge badge-primary">
                                         PRIA
@@ -58,6 +59,7 @@ Halaman ini untuk menampilkan semua data kurir customer.
                                     WANITA
                                 </div>
                                 @endif
+                                </td>
                                 <td>{{$kc['no_telp']}}</td>
                                 <td>{{$kc['nopol']}}</td>
                                 @if ($kc['status'] == 1)
