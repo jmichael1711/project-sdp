@@ -79,14 +79,25 @@ Halaman ini untuk menambah data pengiriman customer.
                                 <br>
                                 <div class="form-check-inline">
                                     <label class="form-check-label">
-                                      <input type="radio" class="form-check-input" name="menuju_penerima" value="1" checked> Penerima
+                                      <input type="radio" id="rbPenerima" class="form-check-input" onclick="showPesanan('penerima')" name="menuju_penerima" value="1" checked> Penerima
                                     </label>
                                   </div>
                                   <div class="form-check-inline">
                                     <label class="form-check-label">
-                                      <input type="radio" class="form-check-input" name="menuju_penerima" value="0"> Pengirim
+                                      <input type="radio" id="rbPengirim" class="form-check-input" onclick="showPesanan('pengirim')" name="menuju_penerima" value="0"> Pengirim
                                     </label>
                                   </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row" id="formPesanan">
+                        <div class="col-md-5">
+                            <div class="position-relative form-group">
+                                <label class="">Alamat Pesanan Customer</label>
+                                <select name="resi_id" id="pesanan" class="form-control" required></select>
+                                <div class="invalid-feedback">
+                                    Mohon pilih pesanan customer yang valid.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -115,12 +126,41 @@ Halaman ini untuk menambah data pengiriman customer.
 
         var idKota = $('#kota').val();
         refreshCombobox(idKota, "null");
+        showPesanan("penerima");
     })
+
+    function showPesanan(tipe){
+        if(tipe == "pengirim"){
+            var idKota = $('#kota').val();
+            $("#formPesanan").addClass("d-block");
+            $.ajax({
+                method : "POST",
+                url : '/admin/pengirimanCustomer/lihatPesanan',
+                datatype : "json",
+                data : { kota : idKota, _token : "{{ csrf_token() }}" },
+                success: function(result){
+                    $('#pesanan').html(result);
+                },
+                error: function(){
+                    console.log('error');
+                }
+            });
+        }
+        else{
+            $("#formPesanan").addClass("d-none");
+        }
+    }
 
     //UNTUK KANTOR
     function isiKantorAsal(){
         var idKota = $('#kota').val();
         refreshCombobox(idKota, "null");
+        if($('#rbPengirim').is(':checked')){
+            showPesanan("pengirim");
+        }
+        else{
+            showPesanan("penerima");
+        }
     }
 
     //UNTUK KURIR CUSTOMER

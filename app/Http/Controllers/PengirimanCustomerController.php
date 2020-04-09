@@ -9,6 +9,7 @@ use App\Pengiriman_customer;
 use App\Kurir_customer;
 use App\Bon_Muat;
 use App\Kota;
+use App\Pesanan;
 use App\Resi;
 use App\Kantor;
 
@@ -17,7 +18,38 @@ class PengirimanCustomerController extends Controller
     public function create() {
         $nextId = Pengiriman_customer::getNextId();
         $allKota = Kota::getAll()->get();
-        return view('master.pengirimanCustomer.create',compact('nextId','allKota'));
+        $allPesanan = Pesanan::getAll()->get();
+        return view('master.pengirimanCustomer.create',compact('nextId','allKota', 'allPesanan'));
+    }
+
+    public function lihatPesanan(Request $request){
+        $str = '';
+        $allPesanan = Pesanan::getAll()->where("kota_asal",$request->kota)->where("resi_id","")->get();
+        
+        if(count($allPesanan) > 0) {
+            foreach ($allPesanan as $pesanan) {
+                $ada = "0";
+                $allPengirimanCust = Pengiriman_customer::join('d_pengiriman_customers', 'd_pengiriman_customers.pengiriman_customer_id', '=', 'pengiriman_customers.id')->get();
+                foreach ($allPengirimanCust as $pengirimanCust) {
+                    if($pengirimanCust->resi_id == $pesanan->id) $ada = "1";
+                }
+                if($ada == "0"){
+                    $str .= '<option selected class="form-control" value="'.$pesanan->id.'">'.$pesanan->alamat_asal.'</option>';
+                }
+                else{
+                    $str = '<option class="form-control" value="">-- TIDAK ADA PESANAN --</option>';
+                }
+            }
+        }
+        else{
+            $str = '<option class="form-control" value="">-- TIDAK ADA PESANAN --</option>';
+        }
+        return $str;
+    }
+
+    public function cheeckPesanan($id){
+        
+        return $ada;
     }
 
     public function index(){
@@ -30,6 +62,10 @@ class PengirimanCustomerController extends Controller
     public function store(Request $request){
         date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
+
+        $idResi = $request["resi_id"];
+        unset($request["resi_id"]);
+
         $user = Session::get('id');
         $request['user_created'] = $user;
         $request['user_updated'] = $user;
@@ -38,9 +74,10 @@ class PengirimanCustomerController extends Controller
         $kurir->status = "0";
         $kurir->save();
 
-        Pengiriman_customer::create($request);
-        $success = "Data pengiriman customer berhasil didaftarkan.";
+        $pengirimanCust = Pengiriman_customer::create($request); 
+        $pengirimanCust->resis()->attach($idResi, ['user_created' => $user, 'user_updated' => $user]);
 
+        $success = "Data pengiriman customer berhasil didaftarkan.";
         return redirect('/admin/pengirimanCustomer')->with(['success' => $success]);
     }
 
