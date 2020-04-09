@@ -161,7 +161,7 @@ Halaman ini untuk mengubah data bon muat.
                     </form>
                 </div>
                 <hr>
-                <button type="button" class="btn ml-2 mr-2 btn-primary pull-right">Mulai Bon Muat</button>
+                <button type="button" class="btn ml-2 mr-2 btn-primary pull-right" onclick="mulai('{{$bonmuat->id}}')">Mulai Bon Muat</button>
                 <button type="button" data-toggle="collapse" href="#collapseEdit" class="btn btn-secondary">Ubah Bon Muat</button>
             </div>
         </div>
@@ -532,6 +532,10 @@ Halaman ini untuk mengubah data bon muat.
     function triggerNotification(text){
         $("#modalContent").html(text);
         $("#triggerModal").click();
+    }
+
+    function mulai(id){
+        window.location.href='/admin/bonmuat/mulaiBonMuat/' + id;
     }
 </script>
 @endsection  
