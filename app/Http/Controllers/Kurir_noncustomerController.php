@@ -30,7 +30,6 @@ class Kurir_noncustomerController extends Controller
         $user = Session::get('id');
         $request['user_created'] = $user;
         $request['user_updated'] = $user;
-        $request['password'] = md5($request['password']);
 
         $request['status'] = 1;
 
