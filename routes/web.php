@@ -161,10 +161,12 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::post('/admin/bonmuat/deleteAll/{id}', 'Bon_MuatController@deleteAll');
     Route::get('/admin/bonmuat/editSuratJalan/{id}', 'Bon_MuatController@editSuratJalan');
     Route::post('/admin/bonmuat/updateSuratJalan/{id}', 'Bon_MuatController@updateSuratJalan');
+    Route::post('/admin/bonmuat/mulaiBonMuat/{id}', 'Bon_MuatController@mulaiBonMuat');
 
     //ADMIN - PENGIRIMAN CUSTOMER
     Route::get('/admin/pengirimanCustomer', 'PengirimanCustomerController@index');
     Route::get('/admin/pengirimanCustomer/create', 'PengirimanCustomerController@create');
+    Route::post('/admin/pengirimanCustomer/lihatPesanan', 'PengirimanCustomerController@lihatPesanan');
     Route::post('/admin/pengirimanCustomer/store', 'PengirimanCustomerController@store');
     Route::get('/admin/pengirimanCustomer/edit/{id}', 'PengirimanCustomerController@edit');
     Route::post('/admin/pengirimanCustomer/update/{id}', 'PengirimanCustomerController@update');

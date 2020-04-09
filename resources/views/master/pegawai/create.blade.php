@@ -57,7 +57,7 @@ Halaman ini untuk menambah data pegawai.
                                 <div class="form-check-inline col-md-8">
                                 <input id="password-field" oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="password" id="pass1" 
-                                    placeholder="Password" type="password" class="form-control" required>
+                                    placeholder="Password" type="password" class="form-control" required value="PASSWORD">
                                 </div>
                                 <div class="form-check-inline">
                                     <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>

@@ -52,16 +52,16 @@ Halaman ini untuk menampilkan semua data kendaraan.
                             <td>{{$i->kantor_1->alamat}}, {{$i->kantor_1->getKota->nama}} </td>
                             <td>{{$i->kantor_2->alamat}}, {{$i->kantor_2->getKota->nama}}</td>
                             <td>{{$i->nopol}}</td>
-                            @if ($i->status == 0)
+                            @if ($i->status == 1)
                             <td class="text-center text-white">
-                                <div class="badge badge-danger">
-                                    SIBUK
+                                <div class="badge badge-success">
+                                    TERSEDIA
                                 </div>
                             </td>    
                             @else 
                             <td class="text-center text-white">
-                                <div class="badge badge-success">
-                                    TERSEDIA
+                                <div class="badge badge-danger">
+                                    SIBUK
                                 </div>
                             </td>
                             @endif

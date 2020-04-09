@@ -30,6 +30,7 @@ class Kurir_noncustomerController extends Controller
         $user = Session::get('id');
         $request['user_created'] = $user;
         $request['user_updated'] = $user;
+
         $request['status'] = 1;
 
         if($request['kantor_1_id'] != $request['kantor_2_id']){

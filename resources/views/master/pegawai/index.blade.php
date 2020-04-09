@@ -55,9 +55,13 @@ Halaman ini untuk menampilkan semua data pegawai.
                                 <td>{{$i->jabatan}}</td>
                                 <td>
                                     @if ($i->jenis_kelamin == 'P')
-                                        PRIA
+                                        <div class="badge badge-primary">
+                                            PRIA
+                                        </div>
                                     @else
+                                    <div class="badge badge-danger">
                                         WANITA
+                                    </div>
                                     @endif
                                 </td>
                                 <td>{{$i->alamat}}</td>

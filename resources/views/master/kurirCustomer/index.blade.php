@@ -49,10 +49,14 @@ Halaman ini untuk menampilkan semua data kurir customer.
                                 <td>{{$kc['id']}}</td>
                                 <td>{{$kc->kantor->alamat}}, {{$kc->kantor->getKota->nama}}</td>
                                 <td>{{$kc['nama']}}</td>
-                                @if($kc['jenis_kelamin']== 'P')
-                                    <td>PRIA</td>
+                                @if ($kc->jenis_kelamin == 'P')
+                                    <div class="badge badge-primary">
+                                        PRIA
+                                    </div>
                                 @else
-                                    <td>WANITA</td>
+                                <div class="badge badge-danger">
+                                    WANITA
+                                </div>
                                 @endif
                                 <td>{{$kc['no_telp']}}</td>
                                 <td>{{$kc['nopol']}}</td>

@@ -44,6 +44,7 @@ class PegawaiController extends Controller
         date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $user = Session::get('id');
+        $request['password'] = md5($request['password']);
         $request['user_created'] = $user;
         $request['user_updated'] = $user;
 
