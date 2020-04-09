@@ -55,13 +55,13 @@ Halaman ini untuk menampilkan semua data kendaraan.
                             @if ($i->status)
                             <td class="text-center text-white">
                                 <div class="badge badge-danger">
-                                    SIBUK
+                                    TERSEDIA
                                 </div>
                             </td>    
                             @else 
                             <td class="text-center text-white">
                                 <div class="badge badge-success">
-                                    TERSEDIA
+                                    SIBUK
                                 </div>
                             </td>
                             @endif

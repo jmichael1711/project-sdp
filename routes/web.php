@@ -41,41 +41,6 @@ Route::post('/ghajd', function (Request $request) {
     Kantor::create($request);
 });
 
-Route::get('/try', function () {
-    // echo Pengiriman_customer::getNextId();
-
-    // Pesanan::select('id', 'created_at')->get();
-    // $bonmuats = Bon_muat::all();
-
-    // foreach ($bonmuats as $b) {
-    //     echo $b->id;
-    // }
-
-    // $a = "false";
-
-    // $bonmuat = Bon_muat::where('is_deleted', 0)
-    // ->select('id as kampret', DB::raw('count(*) as jum'))
-    // // ->when($a == "true", function($query) {
-    // //     $query->where('id', 'a');
-    // // })
-    // ->orwhere(function($query) {
-    //     $query->where('')
-    //     ->orwhere('')
-    // })
-    // ->groupBy('id')
-    // ->get()
-    // ;
-    //where a AND (b or c)
-
-    //dd($bonmuat);
-    //dd(Bon_muat::findorfail('B00000001030220')->kendaraan);
-
-    // $bonmuat = Bon_muat::first();
-    // foreach ($bonmuat->resis as $r) {
-    //     dd($r->surat_jalan);
-    //
-});
-
 Route::get('/form', function () {
     return view('form');
 });
@@ -144,6 +109,7 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     //ADMIN - PENGIRIMAN CUSTOMER
     Route::get('/admin/pengirimanCustomer', 'PengirimanCustomerController@index');
     Route::get('/admin/pengirimanCustomer/create', 'PengirimanCustomerController@create');
+    Route::post('/admin/pengirimanCustomer/lihatPesanan', 'PengirimanCustomerController@lihatPesanan');
     Route::post('/admin/pengirimanCustomer/store', 'PengirimanCustomerController@store');
     Route::get('/admin/pengirimanCustomer/edit/{id}', 'PengirimanCustomerController@edit');
     Route::post('/admin/pengirimanCustomer/update/{id}', 'PengirimanCustomerController@update');
