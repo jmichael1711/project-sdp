@@ -20,7 +20,7 @@
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="depot/css/style.css">
-
+    @yield('styles')
   </head>
 
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -167,7 +167,7 @@
 
   <script src="depot/js/main.js"></script>
 
-
+  @yield('scripts')
   </body>
 
 </html>

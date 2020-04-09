@@ -27,7 +27,7 @@ class Pengiriman_customer extends Model
     public function resis() {
         return $this->belongsToMany('App\Resi', 'd_pengiriman_customers')
         ->as('d_pengiriman_customer')
-        ->withPivot('telah_sampai', 'is_deleted', 'user_created', 'user_updated')
+        ->withPivot('telah_sampai', 'is_deleted', 'user_created', 'user_updated', 'waktu_sampai_cust', 'password')
         ->withTimestamps()
         ;
     }

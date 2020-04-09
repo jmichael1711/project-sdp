@@ -74,6 +74,21 @@ Route::get('/try', function () {
     // foreach ($bonmuat->resis as $r) {
     //     dd($r->surat_jalan);
     //
+
+    // $pengiriman_id = 'P00000001030420';
+    // $id = 'R0000001';
+    // $pass = '123';
+
+    // $pengiriman = Pengiriman_customer::getAll()->where('id', $pengiriman_id)->first();
+
+    // foreach ($pengiriman->resis as $i) {
+    //     if ($i->d_pengiriman_customer->password == $pass && $i->id == $id) {
+    //         echo 'yes';
+    //     }
+    // }
+
+    // echo 'no';
+    //dd($pengiriman->resis);
 });
 
 Route::get('/form', function () {
@@ -104,6 +119,7 @@ Route::group(['middleware' => ['checkstatus:guest']], function () {
 
 Route::group(['middleware' => ['checkstatus:kurir_customer']], function () {
     Route::get('/kurir-customer', 'KurirController@indexKurirCustomer');
+    Route::post('/kurir/input', 'KurirController@cariResi');
 });
 
 //INSIDE ADMIN GROUP
