@@ -149,7 +149,7 @@ Halaman ini untuk menambah data kendaraan.
                     s = '';
                     @foreach ($kantor1 as $kantor)
                         if ((idKota == 'kota2' && kantorId1 != '{{$kantor->id}}') || idKota == 'kota1') {
-                            s = s + `<option value='{{$kantor->id}}'>{{$kantor->alamat}}</option>`;
+                            s = s + `<option value='{{$kantor->id}}'>{{$kantor->alamat}} @if($kantor->is_warehouse == "1") - WAREHOUSE @endif </option>`;
                         }
                     @endforeach
                     $('#' + idKantor).html(s);

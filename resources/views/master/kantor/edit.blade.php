@@ -70,9 +70,11 @@ Halaman ini untuk mengubah data kantor.
                                 <label class="">Jenis Kantor</label>
                                 <select name="is_warehouse" class="form-control" {{$kantor->is_deleted ? 'disabled' : ''}}>
                                     @if ($kantor->is_warehouse)
-                                        <option value="1" class="form-control">WAREHOUSE</option>
-                                    @else
+                                        <option selected value="1" class="form-control">WAREHOUSE</option>
                                         <option value="0" class="form-control">KANTOR CABANG</option>
+                                    @else
+                                        <option value="1" class="form-control">WAREHOUSE</option>
+                                        <option selected value="0" class="form-control">KANTOR CABANG</option>
                                     @endif
                                 </select>
                             </div>
