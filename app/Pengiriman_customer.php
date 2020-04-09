@@ -31,6 +31,28 @@ class Pengiriman_customer extends Model
         ->withTimestamps()
         ;
     }
+
+    public function resisOrderedBySampai() {
+        return $this->belongsToMany('App\Resi', 'd_pengiriman_customers')
+        ->as('d_pengiriman_customer')
+        ->withPivot('telah_sampai', 'is_canceled', 'is_deleted', 'user_created', 'user_updated', 'waktu_sampai_cust', 'password')
+        ->withTimestamps()
+        ->orderBy('is_canceled', 'asc')
+        ->orderBy('telah_sampai', 'asc')
+        ;
+    }
+
+    public function telahSampaiSemua() {
+        $count = $this->belongsToMany('App\Resi', 'd_pengiriman_customers')
+        ->as('d_pengiriman_customer')
+        ->withPivot('telah_sampai', 'is_deleted', 'user_created', 'user_updated', 'waktu_sampai_cust', 'password')
+        ->withTimestamps()
+        ->where('telah_sampai', 0)
+        ->count()
+        ;
+
+        return $count == 0;
+    }
     
 
     //static functions for query

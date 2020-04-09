@@ -76,8 +76,8 @@
             <nav class="site-navigation text-right ml-auto " role="navigation">
               <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
                 @yield('links')
-                <li><a href="/kurir-customer" class="nav-link">Home</a></li>
-                <li><a href="/kurir-customer/history" class="nav-link">History</a></li>
+                <li><a href="/kurir" class="nav-link">Home</a></li>
+                <li><a href="/kurir/history" class="nav-link">History</a></li>
                 <li><a href="/logout" class="nav-link">Logout</a></li>
                
               </ul>

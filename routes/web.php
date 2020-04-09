@@ -117,9 +117,13 @@ Route::group(['middleware' => ['checkstatus:guest']], function () {
     Route::post('/attemptlogin', 'LoginController@attemptLogin');
 });
 
-Route::group(['middleware' => ['checkstatus:kurir_customer']], function () {
-    Route::get('/kurir-customer', 'KurirController@indexKurirCustomer');
+Route::group(['middleware' => ['checkstatus:kurir']], function () {
+    Route::get('/kurir', 'KurirController@indexKurir');
     Route::post('/kurir/input', 'KurirController@cariResi');
+    Route::post('/kurir/setwaktuberangkat', 'KurirController@setWaktuBerangkat');
+    Route::post('/kurir/selesai', 'KurirController@pesananSelesaiDiantar');
+    Route::post('/kurir/updatepesanan', 'KurirController@updatePesanan');
+    Route::post('/kurir/cancelpengiriman', 'KurirController@cancelPengiriman');
 });
 
 //INSIDE ADMIN GROUP

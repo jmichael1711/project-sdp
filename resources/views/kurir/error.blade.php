@@ -1,5 +1,5 @@
-<div class="col-12 text-center mb-5" data-aos="fade-up" data-aos-delay="">
+<div class="row justify-content-center text-center mb-5 mt-5">
     <ul class="list-group mb-2">
-        <li class="list-group-item-danger list-group-item">{{$error}}</li>
+        <li class="list-group-item-danger list-group-item">{{$msg}}</li>
     </ul>
 </div>

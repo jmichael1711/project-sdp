@@ -31,7 +31,6 @@ class LoginController extends Controller
             //loginstatus is for the person's role
             //0 = admin
             //1 = kurir customer
-            //2 = kurir non customer
             //3 = kasir
             //4 = pegawai
 
@@ -85,24 +84,9 @@ class LoginController extends Controller
                 Session::put('loginstatus', 2);
                 Session::put('id', $username);
                 Session::put('name',$kurir->nama);
-                return redirect("/kurir-customer");
+                return redirect("/kurir");
 
-            } else if (substr($username, 0, 2) == "KN") {
-                $kurir = Kurir_non_customer::getAll()
-                ->where('id', $username)
-                ->where('password', $password)
-                ->first();
-
-                if (!$kurir) {
-                    Session::put('status', 'Username / Password salah.');
-                    return redirect("/login");
-                }
-
-                Session::put('loginstatus', 1);
-                Session::put('id', $username);
-                Session::put('name',$kurir->nama);
-                return redirect("/kurir-non-customer");
-            }
+            } 
         } 
         Session::put('status', 'Username / Password salah.');
         return redirect("/login");
