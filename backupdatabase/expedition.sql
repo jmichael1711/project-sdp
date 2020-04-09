@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2020 at 01:02 PM
+-- Generation Time: Apr 09, 2020 at 01:28 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -263,15 +263,13 @@ CREATE TABLE `pengiriman_customers` (
 --
 -- Table structure for table `resis`
 --
-DROP TABLE IF EXISTS `pesanans`;
+
 DROP TABLE IF EXISTS `resis`;
 CREATE TABLE `resis` (
   `id` varchar(15) NOT NULL,
-  `pegawai_id` varchar(8) NOT NULL,
-  `kurir_customer_id` varchar(8) DEFAULT NULL,
   `harga` decimal(8,0) NOT NULL,
   `verifikasi` tinyint(1) DEFAULT NULL,
-  `status_perjalanan` varchar(20) DEFAULT NULL,
+  `status_perjalanan` varchar(20) DEFAULT 'Perjalanan',
   `berat_barang` decimal(5,3) NOT NULL,
   `alamat_asal` varchar(255) NOT NULL,
   `alamat_tujuan` varchar(255) NOT NULL,
@@ -288,7 +286,6 @@ CREATE TABLE `resis` (
   `is_fragile` tinyint(1) NOT NULL,
   `email_pengirim` varchar(255) NOT NULL,
   `email_penerima` varchar(255) NOT NULL,
-  `waktu_berangkat_kurir` datetime DEFAULT NULL,
   `longitude_pengirim` decimal(8,5) DEFAULT NULL,
   `latitude_pengirim` decimal(8,5) DEFAULT NULL,
   `kode_pos_pengirim` int(5) DEFAULT NULL,

@@ -121,7 +121,7 @@ class Bon_MuatController extends Controller
                 }
             }
             foreach($bonmuat->resis as $i){if($i->id == $request["resi_id"]) $found = true;}
-            if($bonmuat->total_muatan+$resi->pesanan->berat_barang > 1000) $overweight = true;
+            if($bonmuat->total_muatan+$resi->berat_barang > 1000) $overweight = true;
             if($found){
                 $fail = "Resi telah terdaftar di Bon muat ini.";
                 Session::put('success-failsuratjalan', $fail);
@@ -134,7 +134,7 @@ class Bon_MuatController extends Controller
                 $user = Session::get('id');
                 $bonmuat->resis()->attach($request["resi_id"],['user_created' => $user]);
                 $bonmuat->resis()->updateExistingPivot($request["resi_id"],['user_updated' => $user]);
-                $bonmuat->update(['total_muatan' => ($bonmuat->total_muatan+$resi->pesanan->berat_barang)]);
+                $bonmuat->update(['total_muatan' => ($bonmuat->total_muatan+$resi->berat_barang)]);
                 $bonmuat->update(['user_updated' => $user]);
                 $success = 'Surat Jalan berhasil didaftarkan.';
                 Session::put('success-suratjalan', $success);
@@ -147,7 +147,7 @@ class Bon_MuatController extends Controller
         $bonmuat = Bon_Muat::findorFail($request->bonmuat);
         $resi = Resi::findorFail($request->id);
         $bonmuat->resis()->detach($request->id);
-        $bonmuat->update(['total_muatan' => ($bonmuat->total_muatan-$resi->pesanan->berat_barang)]);
+        $bonmuat->update(['total_muatan' => ($bonmuat->total_muatan-$resi->berat_barang)]);
         return redirect('/admin/bonmuat/edit/'.$bonmuat->id);
     }
 
