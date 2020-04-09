@@ -52,25 +52,6 @@ Halaman ini untuk mengubah data kurir non customer.
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-7">
-                            <div class="position-relative form-group">
-                                <label class="">Password</label>
-                                <br>
-                                <div class="form-check-inline col-md-8">
-                                    <input id="password-field" oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="password" id="pass1" 
-                                    placeholder="Password" type="password" value="{{$kurcust->password}}" class="form-control" required {{$kurcust->is_deleted ? 'disabled' : ''}}>
-                                </div>
-                                <div class="form-check-inline">
-                                    <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                                </div>
-                                <div class="invalid-feedback">
-                                    Mohon input password yang valid.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
                         <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Jenis Kelamin</label>
@@ -261,15 +242,5 @@ Halaman ini untuk mengubah data kurir non customer.
             }
         });
     }
-
-    $(".toggle-password").click(function() {
-        $(this).toggleClass("fa-eye fa-eye-slash");
-        var input = $($(this).attr("toggle"));
-        if (input.attr("type") == "password") {
-            input.attr("type", "text");
-        } else {
-            input.attr("type", "password");
-        }
-    });
 </script>
 @endsection

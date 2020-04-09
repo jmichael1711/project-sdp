@@ -51,10 +51,14 @@ Halaman ini untuk menampilkan semua data kurir non customer.
                                 <td>{{$kc->kantor_1->alamat}}, {{$kc->kantor_1->getKota->nama}}</td>
                                 <td>{{$kc->kantor_2->alamat}}, {{$kc->kantor_2->getKota->nama}}</td>
                                 <td>{{$kc['nama']}}</td>
-                                @if($kc['jenis_kelamin']== 'P')
-                                    <td>PRIA</td>
+                                @if ($kc->jenis_kelamin == 'P')
+                                    <div class="badge badge-primary">
+                                        PRIA
+                                    </div>
                                 @else
-                                    <td>WANITA</td>
+                                <div class="badge badge-danger">
+                                    WANITA
+                                </div>
                                 @endif
                                 <td>{{$kc['no_telp']}}</td>
                                 @if ($kc['posisi_di_kantor_1'] == 1)
