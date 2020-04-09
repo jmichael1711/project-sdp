@@ -30,6 +30,7 @@ class Kurir_customerController extends Controller
         $user = Session::get('id');
         $request['user_created'] = $user;
         $request['user_updated'] = $user;
+        $request['password'] = md5($request['password']);
         Kurir_customer::create($request);
         $success = "Data kurir customer berhasil didaftarkan.";
         Session::put('success-kurir_customer', $success);
