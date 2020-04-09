@@ -154,13 +154,13 @@ Halaman ini untuk mengubah data surat jalan.
                             @foreach ($bonmuat->resis as $i)
                             <tr>
                                 <td>{{$i->id}}</td>
-                                <td>{{$i->pesanan->nama_pengirim}}</td>
-                                <td>{{$i->pesanan->alamat_asal}}</td>
-                                <td>{{$i->pesanan->nama_penerima}}</td>
-                                <td>{{$i->pesanan->alamat_tujuan}}</td>
-                                <td>{{$i->pesanan->berat_barang}} Kg</td>
-                                <td>{{$i->pesanan->panjang}} x {{$i->pesanan->lebar}} x {{$i->pesanan->tinggi}}</td>
-                                @if ($i->pesanan->is_fragile)
+                                <td>{{$i->nama_pengirim}}</td>
+                                <td>{{$i->alamat_asal}}</td>
+                                <td>{{$i->nama_penerima}}</td>
+                                <td>{{$i->alamat_tujuan}}</td>
+                                <td>{{$i->berat_barang}} Kg</td>
+                                <td>{{$i->panjang}} x {{$i->lebar}} x {{$i->tinggi}}</td>
+                                @if ($i->is_fragile)
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">
                                         FRAGILE

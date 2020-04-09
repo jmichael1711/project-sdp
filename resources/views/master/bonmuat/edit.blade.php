@@ -161,7 +161,7 @@ Halaman ini untuk mengubah data bon muat.
                     </form>
                 </div>
                 <hr>
-                <button type="button" class="btn ml-2 mr-2 btn-primary pull-right" onclick="mulai('{{$bonmuat->id}}')">Mulai Bon Muat</button>
+                <button type="button" class="btn ml-2 mr-2 btn-primary pull-right" onclick="mulaiBonMuat('{{$bonmuat->id}}')">Mulai Bon Muat</button>
                 <button type="button" data-toggle="collapse" href="#collapseEdit" class="btn btn-secondary">Ubah Bon Muat</button>
             </div>
         </div>
@@ -227,13 +227,13 @@ Halaman ini untuk mengubah data bon muat.
                             @foreach ($bonmuat->resis as $i)
                             <tr>
                                 <td>{{$i->id}}</td>
-                                <td>{{$i->pesanan->nama_pengirim}}</td>
-                                <td>{{$i->pesanan->alamat_asal}}</td>
-                                <td>{{$i->pesanan->nama_penerima}}</td>
-                                <td>{{$i->pesanan->alamat_tujuan}}</td>
-                                <td>{{$i->pesanan->berat_barang}} Kg</td>
-                                <td>{{$i->pesanan->panjang}} x {{$i->pesanan->lebar}} x {{$i->pesanan->tinggi}}</td>
-                                @if ($i->pesanan->is_fragile)
+                                <td>{{$i->nama_pengirim}}</td>
+                                <td>{{$i->alamat_asal}}</td>
+                                <td>{{$i->nama_penerima}}</td>
+                                <td>{{$i->alamat_tujuan}}</td>
+                                <td>{{$i->berat_barang}} Kg</td>
+                                <td>{{$i->panjang}} x {{$i->lebar}} x {{$i->tinggi}}</td>
+                                @if ($i->is_fragile)
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">
                                         FRAGILE
@@ -534,7 +534,7 @@ Halaman ini untuk mengubah data bon muat.
         $("#triggerModal").click();
     }
 
-    function mulai(id){
+    function mulaiBonMuat(id){
         window.location.href='/admin/bonmuat/mulaiBonMuat/' + id;
     }
 </script>
