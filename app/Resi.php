@@ -16,10 +16,6 @@ class Resi extends Model
     //R0000001131320
     public $incrementing = false;
 
-    public function pesanan() {
-        return $this->hasOne('App\Pesanan');
-    }
-
     public function pengiriman_customers() {
         return $this->belongsToMany('App\Pengiriman_Customer', 'd_pengiriman_customers')
         ->as('d_pengiriman_customer')
@@ -61,5 +57,12 @@ class Resi extends Model
         } else {
             return 'R00000000' . date('dmy');
         }
+    }
+
+    public function sejarahs() {
+        return $this
+        ->hasMany('App\Sejarah')
+        ->orderBy('created_at', 'asc')
+        ;
     }
 }

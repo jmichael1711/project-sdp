@@ -4,6 +4,12 @@
     <link href="{{asset('DataTables/datatables.min.css')}}" rel="stylesheet">
 @endsection
 
+@section('links')
+<li><a href="/kurir" class="nav-link active">Home</a></li>
+<li><a href="/kurir/history" class="nav-link">History</a></li>
+<li><a href="/logout" class="nav-link">Logout</a></li>
+@endsection
+
 @section('content')
 <div class="site-section bg-light">
     <div class="container">
@@ -66,6 +72,7 @@
                             <th>No. Telp</th>
                             <th>Kode Pos</th>
                             <th>Berat (kg)</th>
+                            <th>Harga</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </thead>
@@ -85,6 +92,7 @@
                             <td>{{$i->kode_pos_pengirim}}</td>
                             @endif
                         <td>{{$i->berat_barang}}</td>
+                        <td>Rp. {{$i->harga}}</td>
                         <td>
                             @if ($i->d_pengiriman_customer->telah_sampai)
                                 @if ($i->d_pengiriman_customer->is_canceled)
@@ -99,7 +107,7 @@
                         </td>
                         <td>
                             <button
-                                @if ($i->d_pengiriman_customer->telah_sampai)
+                                @if ($i->d_pengiriman_customer->telah_sampai || !$pengiriman->waktu_berangkat)
                                     {{'disabled'}}
                                 @endif
                             class="btn btn-danger" onclick="cancel('{{$i->id}}', '{{$pengiriman->id}}')">
@@ -129,12 +137,21 @@
                     <label for="">OTP</label>
                     <input type="text" class="form-control" id="input_otp">
                 </div>
-                <div class="form-group row mb-2 mt-2">
-                    <button type="submit" onclick="cariResi()" class="col-md-12 btn btn-primary">Submit</button>
+                <div class="form-group row mb-5 mt-2">
+                    <div class="col-md-6 pl-0">
+                        <button type="submit" onclick="cariResi()" class="col-md-12 btn btn-primary">Submit</button>
+                    </div>
+                    <div class="col-md-6 pr-0">
+                        <button onclick="cariResiPakaiBarcode()"  class="col-md-12 btn btn-primary">Scan Barcode</button>
+                    </div>
+                    
                 </div>
+                
+
                 <div class="mt-2" id="formResi">
             
                 </div>
+                
                 @else
                 <div class="form-group row mb-2 mt-2">
                     <form action="/kurir/setwaktuberangkat" method="post" id="formWaktuBerangkat">

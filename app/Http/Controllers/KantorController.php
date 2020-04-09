@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Session;
 
 class KantorController extends Controller
 {
-    
-
     public function index() {
         $kantors = Kantor::all();
         return view('master.kantor.index', compact('kantors'));

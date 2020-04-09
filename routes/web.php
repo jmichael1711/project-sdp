@@ -89,6 +89,7 @@ Route::get('/try', function () {
 
     // echo 'no';
     //dd($pengiriman->resis);
+    echo md5('123');
 });
 
 Route::get('/form', function () {
@@ -124,6 +125,7 @@ Route::group(['middleware' => ['checkstatus:kurir']], function () {
     Route::post('/kurir/selesai', 'KurirController@pesananSelesaiDiantar');
     Route::post('/kurir/updatepesanan', 'KurirController@updatePesanan');
     Route::post('/kurir/cancelpengiriman', 'KurirController@cancelPengiriman');
+    Route::get('/kurir/history', 'KurirController@history');
 });
 
 //INSIDE ADMIN GROUP

@@ -9,17 +9,17 @@
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="depot/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="/depot/fonts/icomoon/style.css">
 
-    <link rel="stylesheet" href="depot/css/bootstrap.min.css">
-    <link rel="stylesheet" href="depot/css/jquery.fancybox.min.css">
-    <link rel="stylesheet" href="depot/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="depot/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="depot/fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" href="depot/css/aos.css">
+    <link rel="stylesheet" href="/depot/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/depot/css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="/depot/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/depot/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/depot/fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="/depot/css/aos.css">
 
     <!-- MAIN CSS -->
-    <link rel="stylesheet" href="depot/css/style.css">
+    <link rel="stylesheet" href="/depot/css/style.css">
     @yield('styles')
   </head>
 
@@ -76,17 +76,11 @@
             <nav class="site-navigation text-right ml-auto " role="navigation">
               <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
                 @yield('links')
-                <li><a href="/kurir" class="nav-link">Home</a></li>
-                <li><a href="/kurir/history" class="nav-link">History</a></li>
-                <li><a href="/logout" class="nav-link">Logout</a></li>
-               
+                
               </ul>
             </nav>
-
           </div>
-
           <div class="toggle-button d-inline-block d-lg-none"><a href="#" class="site-menu-toggle py-5 js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
-
         </div>
       </div>
 
@@ -128,7 +122,6 @@
                 </div>
             </div>
 
-
             <h2 class="footer-heading mb-4">Follow Us</h2>
             <a href="#about-section" class="smoothscroll pl-0 pr-3"><span class="icon-facebook"></span></a>
             <a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
@@ -154,18 +147,18 @@
 
   </div>
 
-  <script src="depot/js/jquery-3.3.1.min.js"></script>
-  <script src="depot/js/popper.min.js"></script>
-  <script src="depot/js/bootstrap.min.js"></script>
-  <script src="depot/js/owl.carousel.min.js"></script>
-  <script src="depot/js/jquery.sticky.js"></script>
-  <script src="depot/js/jquery.waypoints.min.js"></script>
-  <script src="depot/js/jquery.animateNumber.min.js"></script>
-  <script src="depot/js/jquery.fancybox.min.js"></script>
-  <script src="depot/js/jquery.easing.1.3.js"></script>
-  <script src="depot/js/aos.js"></script>
+  <script src="/depot/js/jquery-3.3.1.min.js"></script>
+  <script src="/depot/js/popper.min.js"></script>
+  <script src="/depot/js/bootstrap.min.js"></script>
+  <script src="/depot/js/owl.carousel.min.js"></script>
+  <script src="/depot/js/jquery.sticky.js"></script>
+  <script src="/depot/js/jquery.waypoints.min.js"></script>
+  <script src="/depot/js/jquery.animateNumber.min.js"></script>
+  <script src="/depot/js/jquery.fancybox.min.js"></script>
+  <script src="/depot/js/jquery.easing.1.3.js"></script>
+  <script src="/depot/js/aos.js"></script>
 
-  <script src="depot/js/main.js"></script>
+  <script src="/depot/js/main.js"></script>
 
   @yield('scripts')
   </body>

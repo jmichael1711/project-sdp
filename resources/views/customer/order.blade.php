@@ -34,7 +34,7 @@
             <div class="form-group row">
                 <div class="col-md-12">
                     <label for="">Kode Pos Pengirim</label>
-                    <input type="text" class="form-control" name="kode_pos_pengirim" required>
+                    <input type="number" class="form-control" name="kode_pos_pengirim" required>
                 </div>
             </div>
             <div class="form-group row">
@@ -81,7 +81,7 @@
             <div class="form-group row">
                 <div class="col-md-12">
                     <label for="">Kode Pos Penerima</label>
-                    <input type="text" class="form-control" name="kode_pos_penerima" required>
+                    <input type="number" class="form-control" name="kode_pos_penerima" required>
                 </div>
             </div>
             <div class="form-group row">
@@ -137,6 +137,17 @@
                         <option value="1">MUDAH PECAH</option>
                         <option value="0">BIASA</option>
                     </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="">Keterangan</label>
+                    <textarea class="form-control" name="keterangan" maxlength="255" cols="30" rows="10"></textarea>
+                </div>
+            </div>
+            <div class="form-group row my-3" style="font-size: 20px;">
+                <div class="col-md-12">
+                    <p>Harga: Rp. <b id="harga">15000</b></p>
                 </div>
             </div>
             

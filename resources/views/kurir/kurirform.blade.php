@@ -63,6 +63,12 @@
     </div>
     <input type="hidden" name="resi_id" value="{{$pesanan->id}}">
     <input type="hidden" name="pengiriman_id" value="{{$pengiriman_id}}">
+    <div class="row my-4" style="font-size: 24px;">
+    Perlu dibayar : <b>  Rp. {{$pesanan->harga}}</b>
+    </div>
+    <div class="row my-2">
+        <b>Pastikan Customer untuk membayar dahulu sebelum mengambil barang.</b>
+    </div>
     <div class="form-group row mb-2 mt-2">
         <button type="submit" class="col-md-12 btn btn-primary">Update dan Ambil Barang</button>
     </div>

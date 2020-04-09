@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Kota;
 use App\Pesanan;
+use App\Resi;
 
 class CustomerController extends Controller
 {
@@ -22,9 +23,16 @@ class CustomerController extends Controller
 
     public function inputPesanan(Request $request) {
         $request = $request->all();
-        $request['id'] = Pesanan::getNextId();
+        $request['id'] = Resi::getNextId();
+        $request['verifikasi'] = 0;
+        $request['status_perjalanan'] = 'perjalanan';
+
+        //ganti
+        $request['harga'] = 15000;
+        //
+
         date_default_timezone_set("Asia/Jakarta");
-        Pesanan::create($request);  
+        Resi::create($request);  
 
         return redirect('/pesanselesai');
     }
