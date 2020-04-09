@@ -52,7 +52,15 @@ Halaman ini untuk menampilkan semua data pegawai.
                                 <td>{{$i->id}}</td>
                                 <td>{{$i->kantor->alamat}}, {{$i->kantor->getKota->nama}}</td>
                                 <td>{{$i->nama}}</td>
-                                <td>{{$i->jabatan}}</td>
+                                <td>
+                                    @if($i->jabatan == "admin")
+                                        <div class="badge badge-dark text-uppercase">{{$i->jabatan}}</div>
+                                    @elseif($i->jabatan == "kasir")
+                                        <div class="badge badge-secondary text-uppercase">{{$i->jabatan}}</div>
+                                    @else 
+                                        <div class="badge badge-info text-uppercase">{{$i->jabatan}}</div>
+                                    @endif
+                                </td>
                                 <td>
                                     @if ($i->jenis_kelamin == 'P')
                                         <div class="badge badge-primary">
