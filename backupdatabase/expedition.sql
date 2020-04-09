@@ -264,7 +264,7 @@ CREATE TABLE `pengiriman_customers` (
 --
 -- Table structure for table `resis`
 --
-
+DROP TABLE IF EXISTS `pesanans`;
 DROP TABLE IF EXISTS `resis`;
 CREATE TABLE `resis` (
   `id` varchar(15) NOT NULL,
