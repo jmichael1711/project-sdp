@@ -43,10 +43,12 @@ class Kendaraan extends Model
         ->where('kantor_1_id', '=', $kantorAsalId)
         ->where('kantor_2_id', '=', $kantorTujuanId)
         ->where('is_deleted',0)
+        ->where('status',1)
         ->orWhere('posisi_di_kantor_1', '=', 0)
         ->where('kantor_1_id', '=', $kantorTujuanId)
         ->where('kantor_2_id', '=', $kantorAsalId)
         ->where('is_deleted',0)
+        ->where('status',1)
         ->get();
     }  
 

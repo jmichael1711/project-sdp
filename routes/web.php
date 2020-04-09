@@ -153,7 +153,6 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::post('/admin/bonmuat/addSuratJalan/{id}', 'Bon_MuatController@addSuratJalan');
     Route::post('/admin/bonmuat/deleteSuratJalan', 'Bon_MuatController@deleteSuratJalan');
     Route::post('/admin/bonmuat/deleteAll/{id}', 'Bon_MuatController@deleteAll');
-    Route::get('/admin/bonmuat/incomingbonmuat', 'Bon_MuatController@incomingbonmuat');
     Route::get('/admin/bonmuat/editSuratJalan/{id}', 'Bon_MuatController@editSuratJalan');
     Route::post('/admin/bonmuat/updateSuratJalan/{id}', 'Bon_MuatController@updateSuratJalan');
 

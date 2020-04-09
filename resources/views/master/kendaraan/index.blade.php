@@ -52,7 +52,7 @@ Halaman ini untuk menampilkan semua data kendaraan.
                             <td>{{$i->kantor_1->alamat}}, {{$i->kantor_1->getKota->nama}} </td>
                             <td>{{$i->kantor_2->alamat}}, {{$i->kantor_2->getKota->nama}}</td>
                             <td>{{$i->nopol}}</td>
-                            @if ($i->status)
+                            @if ($i->status == 0)
                             <td class="text-center text-white">
                                 <div class="badge badge-danger">
                                     SIBUK

@@ -61,8 +61,14 @@ class Bon_MuatController extends Controller
 
 
     public function index() {
-        $allBonMuat = Bon_muat::get();
-        return view('master.bonmuat.index',compact('allBonMuat'));
+        
+        // jika pegawai atau kasir maka harus ambil bon muat yang akan datang ke kantor itu saja
+        // jika admin super maka ambil semua bon muat yang ada
+        $allIncomingBonMuat = Bon_Muat::getAll()->get(); //untuk admin super
+        
+        //jika pegawai atau kasir maka bon muat dengan asal untuk kantor itu saja
+        $allBonMuat = Bon_muat::get(); //jika admin super bisa melihat semua bon muat meskipun is_deleted = true
+        return view('master.bonmuat.index',compact('allBonMuat','allIncomingBonMuat'));
     }
 
     public function edit($id) {
@@ -152,13 +158,13 @@ class Bon_MuatController extends Controller
         return redirect('/admin/bonmuat/edit/'.$id);
     }
 
-    public function incomingbonmuat(){
-        // jika admin kota maka harus ambil bon muat yang akan datang ke kota itu saja
-        // jika pegawai atau kasir maka harus ambil bon muat yang akan datang ke kantor itu saja
-        // jika admin super maka ambil semua bon muat yang ada
-        $allBonMuat = Bon_Muat::getAll()->get(); //untuk admin super
-        return view('master.bonmuat.incomingbonmuat',compact('allBonMuat'));
-    }
+    // public function incomingbonmuat(){
+    //     // jika admin kota maka harus ambil bon muat yang akan datang ke kota itu saja
+    //     // jika pegawai atau kasir maka harus ambil bon muat yang akan datang ke kantor itu saja
+    //     // jika admin super maka ambil semua bon muat yang ada
+    //     $allBonMuat = Bon_Muat::getAll()->get(); //untuk admin super
+    //     return view('master.bonmuat.incomingbonmuat',compact('allBonMuat'));
+    // }
 
     public function editSuratJalan($id) {
         $bonmuat = Bon_Muat::findOrFail($id);

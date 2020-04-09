@@ -286,13 +286,6 @@
                                                 Tambah Bon Muat
                                             </a>
                                         </li>
-                                        <li>
-                                            <a id="header-incoming-bonmuat" href="{{ url('/admin/bonmuat/incomingbonmuat') }}">
-                                                <i class="metismenu-icon">
-                                                </i>
-                                                Bon Muat yang akan datang
-                                            </a>
-                                        </li>
                                     </ul>
                                 </li>
 
