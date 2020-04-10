@@ -138,7 +138,7 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                                 <td>{{$i->pesanan->nama_penerima}}</td>
                                 <td>{{$i->pesanan->alamat_tujuan}}</td>
                                 <td>{{$i->pesanan->berat_barang}} Kg</td>
-                                <td>{{$i->pesanan->panjang}} x {{$i->pesanan->lebar}} x {{$i->pesanan->tinggi}}</td>
+                                <td>{{$i->pesanan->panjang}} cm x {{$i->pesanan->lebar}} cm x {{$i->pesanan->tinggi}} cm</td>
                                 @if ($i->pesanan->is_fragile)
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">

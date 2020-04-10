@@ -5,293 +5,272 @@
 @endsection
 
 @section('title')
-UBAH DATA KOTA
+UBAH DATA RESI
 @endsection
 
 @section('subtitle')
-Halaman ini untuk mengubah data kota
+Halaman ini untuk mengubah data resi
 @endsection
 
 @section('content')
-<div class="tab-content">
-    @if (Session::has('success'))
+    <div class="tab-content">
+    @if (Session::has('success-resi'))
         <ul class="list-group mb-2">
-            <li class="list-group-item-success list-group-item">{{Session::get('success')}}</li>
+            <li class="list-group-item-success list-group-item">{{Session::get('success-resi')}}</li>
         </ul>
         @php
-            Session::forget('success');
+            Session::forget('success-resi');
         @endphp
     @endif
+    @if (Session::has('failed-resi'))
+        <ul class="list-group mb-2">
+            <li class="list-group-item-danger list-group-item">{{Session::get('failed-resi')}}</li>
+        </ul>
+        @php
+            Session::forget('failed-resi');
+        @endphp
+    @endif
+    <form novalidate class="needs-validation" method="post" action="/admin/resi/update/{{$resi->id}}" enctype="multipart/form-data">
+        {{csrf_field()}}
+        <div class="form-row">
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">ID</label>
+                    <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" id=""
+                    placeholder="ID" type="text" class="form-control" value="{{$resi->id}}" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Keterangan</label>
+                    <textarea style="resize: none;" rows="5" oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="keterangan"
+                    placeholder="KETERANGAN" type="text" class="form-control" required>{{$resi->keterangan}}</textarea>
+                    <div class="invalid-feedback">
+                        Mohon input keterangan yang valid.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-7">
+                <div class="position-relative form-group">
+                    <label class="">Dimensi Barang (CentiMeter)</label>
+                    <div class="form-inline">
+                        <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                        this.setSelectionRange(p, p);" style="text-transform:uppercase" name="panjang" 
+                        placeholder="PANJANG (CM)" step="1" type="number" max="999.999999" min="0.000000" class="form-control mr-2" value="{{$resi->panjang}}">X
+                        <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                        this.setSelectionRange(p, p);" style="text-transform:uppercase" name="lebar" 
+                        placeholder="LEBAR (CM)" step="1" type="number" max="999.999999" min="0.000000" class="form-control ml-2 mr-2" value="{{$resi->lebar}}">X
+                        <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                        this.setSelectionRange(p, p);" style="text-transform:uppercase" name="tinggi" 
+                        placeholder="TINGGI (CM)" step="1" type="number" max="999.999999" min="0.000000" class="form-control ml-2" value="{{$resi->tinggi}}">
+                        <div class="invalid-feedback">
+                            Mohon input dimensi barang yang valid.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Berat Barang (KiloGram)</label>
+                    <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="berat_barang" 
+                    placeholder="BERAT (KG)" step="1" type="number" min="0.000000" class="form-control" value="{{$resi->berat_barang}}">
+                    <div class="invalid-feedback">
+                        Mohon input dimensi barang yang valid.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Fragility Barang</label>
+                    <select id="is_fragile" name="is_fragile" class="form-control" required>
+                        @if($resi->is_fragile)
+                            <option selected class="form-control" value="1">FRAGILE</option>
+                            <option class="form-control" value="0">FINE</option>
+                        @else
+                            <option selected class="form-control" value="0">FINE</option>
+                            <option class="form-control" value="1">FRAGILE</option>
+                        @endif
+                    </select>
+                    <div class="invalid-feedback">
+                        Mohon pilih fragility barang yang valid.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="form-row">
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Nama Pengirim</label>
+                    <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nama_pengirim"
+                    placeholder="NAMA PENGIRIM" type="text" class="form-control" required value="{{$resi->nama_pengirim}}">
+                    <div class="invalid-feedback">Mohon input nama pengirim yang valid.</div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Nama Penerima</label>
+                    <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nama_penerima"
+                    placeholder="NAMA PENERIMA" type="text" class="form-control" required value="{{$resi->nama_penerima}}">
+                    <div class="invalid-feedback">Mohon input nama penerima yang valid.</div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Nomor Telepon Pengirim</label>
+                    <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="no_telp_pengirim" 
+                    placeholder="NOMOR TELEPON PENGIRIM" type="text" class="form-control" required value="{{$resi->no_telp_pengirim}}">
+                    <div class="invalid-feedback">
+                        Mohon input nomor telepon pengirim yang valid.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Nomor Telepon Penerima</label>
+                    <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="no_telp_penerima" 
+                    placeholder="NOMOR TELEPON PENERIMA" type="text" class="form-control" required value="{{$resi->no_telp_penerima}}">
+                    <div class="invalid-feedback">
+                        Mohon input nomor telepon penerima yang valid.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Email Pengirim</label>
+                    <input oninput="let p = this.selectionStart; 
+                    this.setSelectionRange(p, p);" name="email_pengirim" 
+                    placeholder="EMAIL PENGIRIM" type="email" class="form-control" required value="{{$resi->email_pengirim}}">
+                    <div class="invalid-feedback">
+                        Mohon input email pengirim yang valid.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Email Penerima</label>
+                    <input oninput="let p = this.selectionStart;
+                    this.setSelectionRange(p, p);"  name="email_penerima" 
+                    placeholder="EMAIL PENERIMA" type="email" class="form-control" required value="{{$resi->email_penerima}}">
+                    <div class="invalid-feedback">
+                        Mohon input email pengirim yang valid.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Kota Pengirim</label>
+                    <select id="kota_asal" name="kota_asal" class="form-control" required>
+                        @foreach ($allKota as $kota)
+                            @if($resi->kota_asal == $kota->nama)
+                            <option selected class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
+                            @else
+                            <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <div class="invalid-feedback">
+                        Mohon pilih kota pengirim yang valid.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Kota Penerima</label>
+                    <select id="kota_tujuan" name="kota_tujuan" class="form-control" required>
+                        @foreach ($allKota as $kota)
+                            @if($resi->kota_tujuan == $kota->nama)
+                            <option selected class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
+                            @else
+                            <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <div class="invalid-feedback">
+                        Mohon pilih kota Penerima yang valid.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Alamat Pengirim</label>
+                    <textarea style="resize: none;" rows="5" oninput="let p = this.selectionStart; 
+                    this.setSelectionRange(p, p);" name="alamat_asal"
+                    placeholder="ALAMAT PENGIRIM" type="text" class="form-control" required>{{$resi->alamat_asal}}</textarea>
+                    <div class="invalid-feedback">
+                        Mohon input alamat pengirim yang valid.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Alamat Penerima</label>
+                    <textarea style="resize: none;" rows="5" oninput="let p = this.selectionStart;
+                    this.setSelectionRange(p, p);" name="alamat_tujuan"
+                    placeholder="ALAMAT PENERIMA" type="text" class="form-control" required>{{$resi->alamat_tujuan}}</textarea>
+                    <div class="invalid-feedback">
+                        Mohon input alamat penerima yang valid.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Kodepos Pengirim</label>
+                    <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="kode_pos_pengirim" 
+                    placeholder="KODEPOS PENGIRIM" type="number" class="form-control" required value="{{$resi->kode_pos_pengirim}}">
+                    <div class="invalid-feedback">
+                        Mohon input kodepos pengirim yang valid.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Kodepos Penerima</label>
+                    <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="kode_pos_penerima" 
+                    placeholder="KODEPOS PENERIMA" type="number" class="form-control" required value="{{$resi->kode_pos_penerima}}">
+                    <div class="invalid-feedback">
+                        Mohon input kodepos penerima yang valid.
+                    </div>
+                </div>
+            </div>
 
-    <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
-        <div class="main-card mb-3 card">
-            <div class="card-body">
-                <form novalidate class="needs-validation" method="post" action="/admin/kota/update/{{$pesanan->id}}" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <div class="position-relative form-group">
-                                <label class="">ID resi</label>
-                                <select name="resi_id" class="form-control">
-                                    @foreach ($listResiID as $i)
-                                        @if ($i->id == $pesanan->id)
-                                            <option selected class="form-control" value="{{$i->id}}">{{$i->id}}</option>
-                                        @else
-                                            <option class="form-control" value="{{$i->id}}">{{$i->id}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <div class="position-relative form-group">
-                                <label class="">ID kurir</label>
-                                <select name="kurir_customer_id" class="form-control">
-                                    @foreach ($listKurID as $i)
-                                        @if ($i->id == $pesanan->kurir_customer_id)
-                                            <option selected class="form-control" value="{{$i->id}}">{{$i->id}} - {{$i->nama}}</option>
-                                        @else
-                                            <option class="form-control" value="{{$i->id}}">{{$i->id}} - {{$i->nama}}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-3">
-                            <div class="position-relative form-group">
-                                <label class="">Berat Barang</label>
-                                <input style="text-transform:uppercase" name="berat_barang" id=""
-                                placeholder="BERAT BARANG" type="text" class="form-control" value={{$pesanan->berat_barang}} required>
-                                <div class="invalid-feedback">
-                                    Mohon inputkan Berat Barang yang valid.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-3">
-                            <div class="position-relative form-group">
-                                <label class="">Alamat Asal</label>
-                                <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="alamat_asal" id=""
-                                placeholder="ALAMAT ASAL" type="text" class="form-control" value={{$pesanan->alamat_asal}} required>
-                                <div class="invalid-feedback">
-                                    Mohon inputkan Alamat Asal yang valid.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-3">
-                            <div class="position-relative form-group">
-                                <label class="">Alamat Tujuan</label>
-                                <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="alamat_tujuan" id=""
-                                placeholder="ALAMAT TUJUAN" type="text" class="form-control" value={{$pesanan->alamat_tujuan}} required>
-                                <div class="invalid-feedback">
-                                    Mohon inputkan Alamat Tujuan yang valid.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <div class="position-relative form-group">
-                                <label class="">Kota Asal</label>
-                                <select name="kota_asal" class="form-control">
-                                    @foreach ($listKota as $i)
-                                        <option class="form-control" value="{{$i->nama}}">{{$i->nama}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <div class="position-relative form-group">
-                                <label class="">Kota Tujuan</label>
-                                <select name="kota_tujuan" class="form-control">
-                                    @foreach ($listKota as $i)
-                                        <option class="form-control" value="{{$i->nama}}">{{$i->nama}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-3">
-                            <div class="position-relative form-group">
-                                <label class="">Nama Pengirim</label>
-                                <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nama_pengirim" id=""
-                                placeholder="NAMA PENGIRIM" type="text" class="form-control" value={{$pesanan->nama_pengirim}} required>
-                                <div class="invalid-feedback">
-                                    Mohon inputkan nama pengirim yang valid.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-3">
-                            <div class="position-relative form-group">
-                                <label class="">Nama Penerima</label>
-                                <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nama_penerima" id=""
-                                placeholder="NAMA PENERIMA" type="text" class="form-control" value={{$pesanan->nama_penerima}} required>
-                                <div class="invalid-feedback">
-                                    Mohon inputkan nama penerima yang valid.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-3">
-                            <div class="position-relative form-group">
-                                <label class="">Lebar</label>
-                                <input style="text-transform:uppercase" name="lebar" id=""
-                                placeholder="LEBAR BARANG" type="text" class="form-control" value={{$pesanan->lebar}} required>
-                                <div class="invalid-feedback">
-                                    Mohon inputkan lebar barang yang valid.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-3">
-                            <div class="position-relative form-group">
-                                <label class="">Panjang</label>
-                                <input style="text-transform:uppercase" name="panjang" id=""
-                                placeholder="PANJANG BARANG" type="text" class="form-control" value={{$pesanan->panjang}} required>
-                                <div class="invalid-feedback">
-                                    Mohon inputkan panjang barang yang valid.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-3">
-                            <div class="position-relative form-group">
-                                <label class="">Tinggi</label>
-                                <input style="text-transform:uppercase" name="tinggi" id=""
-                                placeholder="TINGGI BARANG" type="text" class="form-control" value={{$pesanan->tinggi}} required>
-                                <div class="invalid-feedback">
-                                    Mohon inputkan tinggi barang yang valid.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-3">
-                            <div class="position-relative form-group">
-                                <label class="">No Telpon Pengirim</label>
-                                <input style="text-transform:uppercase" name="no_telp_pengirim" id=""
-                                placeholder="NO TELPON PENGIRIM" type="text" class="form-control" value={{$pesanan->no_telp_pengirim}} required>
-                                <div class="invalid-feedback">
-                                    Mohon inputkan nomor telpon pengirim yang valid.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-3">
-                            <div class="position-relative form-group">
-                                <label class="">No Telpon Penerima</label>
-                                <input style="text-transform:uppercase" name="no_telp_penerima" id=""
-                                placeholder="NO TELPON PENERIMA" type="text" class="form-control" value={{$pesanan->no_telp_penerima}} required>
-                                <div class="invalid-feedback">
-                                    Mohon inputkan nomor telpon penerima yang valid.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        </div>
 
-                    <div class="form-row">
-                        <div class="col-md-3">
-                            <div class="position-relative form-group">
-                                <label class="">Keterangan</label>
-                                <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="keterangan" id=""
-                                placeholder="KETERANGAN" type="text" value={{$pesanan->keterangan}} class="form-control" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-3">
-                            <div class="position-relative form-group">
-                                <label class="">Fragile</label>
-                                @if ($pesanan->is_fragile)
-                                    <option selected class="form-control" value="1">FRAGILE</option>
-                                    <option class="form-control" value="0">NOT FRAGILE</option>
-                                @else
-                                    <option class="form-control" value="1">FRAGILE</option>
-                                    <option selected class="form-control" value="0">NOT FRAGILE</option>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-3">
-                            <div class="position-relative form-group">
-                                <label class="">Email Pengirim</label>
-                                <input style="text-transform:uppercase" name="email_pengirim" id=""
-                                placeholder="EMAIL PENGIRIM" type="text" class="form-control" value={{$pesanan->email_pengirim}} required>
-                                <div class="invalid-feedback">
-                                    Mohon inputkan email pengirim yang valid.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-3">
-                            <div class="position-relative form-group">
-                                <label class="">Email Penerima</label>
-                                <input style="text-transform:uppercase" name="email_penerima" id=""
-                                placeholder="EMAIL PENERIMA" type="text" class="form-control" value={{$pesanan->email_penerima}} required>
-                                <div class="invalid-feedback">
-                                    Mohon inputkan email penerima yang valid.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-3">
-                            <div class="position-relative form-group">
-                                <label class="">Active</label>
-                                @if ($pesanan->is_deleted)
-                                    <option selected class="form-control" value="1">ACTIVE</option>
-                                    <option class="form-control" value="0">NOT ACTIVE</option>
-                                @else
-                                    <option class="form-control" value="1">ACTIVE</option>
-                                    <option selected class="form-control" value="0">NOT ACTIVE</option>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-2">
-                            <div class="position-relative form-group">
-                                <button class="mt-2 btn btn-primary">Edit</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+        <div class="form-row">
+            <div class="col-md-2">
+                <div class="position-relative form-group">
+                    <button class="mt-2 btn btn-primary">Ubah</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    </form>
 @endsection
 
 @section('scripts')
 <script>
      $(document).ready(function () {
-        $("#upperlist-pesanan").addClass("mm-active");
-        $("#btn-pesanan").attr("aria-expanded", "true");
-        $("#list-pesanan").attr("class", "mm-collapse mm-show");
-        $("#header-pesanan").attr("class", "mm-active");
+        $("#upperlist-resi").addClass("mm-active");
+        $("#btn-resi").attr("aria-expanded", "true");
+        $("#list-resi").attr("class", "mm-collapse mm-show");
+        $("#header-resi").attr("class", "mm-active");
     })
 </script>
 @endsection
