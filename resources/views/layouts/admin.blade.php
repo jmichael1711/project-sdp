@@ -241,25 +241,25 @@
                                 </li>
                                 <li class="app-sidebar__heading">CUSTOMER</li>
 
-                                {{-- SIDEBAR - Pesanan --}}
-                                <li id="upperlist-pesanan">
-                                    <a id="btn-pesanan" href="">
+                                {{-- SIDEBAR - Resi --}}
+                                <li id="upperlist-resi">
+                                    <a id="btn-resi" href="">
                                         <i class="metismenu-icon pe-7s-note2"></i>
-                                            Pesanan
+                                            Resi
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
-                                    <ul id="list-pesanan">
+                                    <ul id="list-resi">
                                         <li>
-                                            <a id="header-pesanan" href="{{ url('/admin/pesanan') }}">
+                                            <a id="header-resi" href="{{ url('/admin/resi') }}">
                                                 <i class="metismenu-icon"></i>
-                                                Semua Pesanan
+                                                Semua Resi
                                             </a>
                                         </li>
                                         <li>
-                                            <a id="header-tambah-pesanan" href="{{ url('/admin/pesanan/create') }}">
+                                            <a id="header-tambah-resi" href="{{ url('/admin/resi/create') }}">
                                                 <i class="metismenu-icon">
                                                 </i>
-                                                Tambah Pesanan
+                                                Tambah Resi
                                             </a>
                                         </li>
                                     </ul>
