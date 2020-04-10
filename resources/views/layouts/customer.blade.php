@@ -69,7 +69,7 @@
 
 
           <div class="site-logo">
-            <a href="/" class="text-black"><span class="text-primary">Depot</a>
+            <a href="/" class="text-black"><span class="text-primary">TeamAte Expedition</a>
           </div>
 
           <div class="col-12">

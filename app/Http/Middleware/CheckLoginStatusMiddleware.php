@@ -30,11 +30,22 @@ class CheckLoginStatusMiddleware
             //         return redirect("/admin");
             //     }
             // }
+
+            //loginstatus is for the person's role
+            //0 = admin
+            //1 = kurir customer
+            //3 = kasir
+            //4 = pegawai
             if ($status == 0) {
                 //admin
-                //admin can access anything except login
-                if ($pageType == 'guest') {
+                //admin can access anything except login and kurir
+                if ($pageType == 'guest' || $pageType == 'kurir') {
                     return redirect('/admin');
+                }
+            } else if ($status == 1) {
+                //kurir can only access kurir page
+                if ($pageType != 'kurir') {
+                    return redirect('/kurir');
                 }
             }
         } else {

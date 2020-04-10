@@ -9,14 +9,13 @@
           <div class="col-lg-6">
             <h1>Item Expedition</h1>
             <p class="mb-5">Our transportation system spans across East Java. Why don't you take a look at the progress of your item?</p>
-            <form action="#" method="get">
+            <form action="/track" method="get">
               <div class="form-group d-flex">
                 @csrf
                 <input type="text" class="form-control" placeholder="ID RESI" name="resi_id">
                 <input type="submit" class="btn btn-primary text-white px-4" value="Track Now">
               </div>
               <div class="form-group d-flex justify-content-center">
-                @csrf
                 <input type="submit" class="btn btn-primary text-white px-4" value="Scan Barcode">
               </div>
             </form>
@@ -65,31 +64,6 @@
           </div>
         </div>
       </div>
-      {{-- <div class="owl-carousel owl-all">
-        <div class="block__35630 text-center">
-          <div class="icon mb-0">
-            <span class="flaticon-ferry"></span>
-          </div>
-          <h3 class="mb-3">Sea Freight</h3>
-          <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. </p>
-        </div>
-
-        <div class="block__35630 text-center">
-          <div class="icon mb-0">
-            <span class="flaticon-airplane"></span>
-          </div>
-          <h3 class="mb-3">Air Freight</h3>
-          <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. </p>
-        </div>
-
-        <div class="block__35630 text-center">
-          <div class="icon mb-0">
-            <span class="flaticon-box"></span>
-          </div>
-          <h3 class="mb-3">Package Forwarding</h3>
-          <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. </p>
-        </div> --}}
-
         <div class="block__35630 text-center">
           <div class="icon mb-0">
             <span class="flaticon-lorry"></span>
@@ -110,8 +84,15 @@
           <div class="icon mb-0">
             <span class="flaticon-add"></span>
           </div>
-          <h3 class="mb-3">Delivery</h3>
+          <h3 class="mb-3">Delivery On-Time</h3>
           <p>Pengiriman akan sampai tepat pada waktunya, tidak molor.</p>
+        </div>
+        <div class="block__35630 text-center">
+          <div class="icon mb-0">
+            <span class="flaticon-add"></span>
+          </div>
+          <h3 class="mb-3">Easy Tracking</h3>
+          <p>Barang dapat dilacak dengan mudah dengan menggunakan website ini.</p>
         </div>
 
       </div>
@@ -127,16 +108,26 @@
       <div class="row mb-5 justify-content-center">
         <div class="col-md-7 text-center">
           <div class="block-heading-1" data-aos="fade-up" data-aos-delay="">
-            <h2>About Us</h2>
+            <h2 class="mb-5">About Us</h2>
             <p>TeamAte merupakan perusahaan ekspedisi yang berdiri pada tahun 2019. Pendirinya ada 4 orang yang bernama Enricho Glenn,
               Heinrich Wisesa, Johannes Michael dan William. Mereka adalah pelajar di Institut Sains Terapan dan Teknologi Surabaya
-              yang berlokasi di Jl. Ngagel Jaya Tengah No.73-77, Baratajaya, Kec. Gubeng, Kota SBY, Jawa Timur 60284.
+              yang berlokasi di Jl. Ngagel Jaya Tengah No.73-77, Baratajaya, Kec. Gubeng, Kota SBY, Jawa Timur 60284. Karena gagal
+              dalam mengerjakan skripsi, akhirnya 4 orang sahabat ini membuat sebuah perusahaan ekspedisi menggunakan modal dan
+              kemampuan programming yang mereka punya.
             </p>
           </div>
         </div>
       </div>
     </div>
-
+    <div class="container">
+      <div class="row mb-5 justify-content-center">
+        <div class="col-md-7 text-center">
+          <div class="block-heading-1 text-secondary" data-aos="fade-up" data-aos-delay="">
+            <h3>Video perusahaan TeamAte:</h3>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 

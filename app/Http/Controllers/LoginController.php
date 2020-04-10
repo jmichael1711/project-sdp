@@ -81,7 +81,7 @@ class LoginController extends Controller
                     return redirect("/login");
                 }
 
-                Session::put('loginstatus', 2);
+                Session::put('loginstatus', 1);
                 Session::put('id', $username);
                 Session::put('name',$kurir->nama);
                 return redirect("/kurir");
