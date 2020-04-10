@@ -47,18 +47,6 @@ Halaman ini untuk menampilkan semua data pesanan.
         <div class="form-row">
             <div class="col-md-3">
                 <div class="position-relative form-group">
-                    <label class="">Berat Barang</label>
-                    <input style="text-transform:uppercase" name="berat_barang" id=""
-                    placeholder="BERAT BARANG" type="text" class="form-control" required>
-                    <div class="invalid-feedback">
-                        Mohon inputkan Berat Barang yang valid.
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-3">
-                <div class="position-relative form-group">
                     <label class="">Alamat Asal</label>
                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="alamat_asal" id=""
@@ -128,6 +116,18 @@ Halaman ini untuk menampilkan semua data pesanan.
                     placeholder="NAMA PENERIMA" type="text" class="form-control" required>
                     <div class="invalid-feedback">
                         Mohon inputkan nama penerima yang valid.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-3">
+                <div class="position-relative form-group">
+                    <label class="">Berat Barang</label>
+                    <input style="text-transform:uppercase" name="berat_barang" id=""
+                    placeholder="BERAT BARANG" type="text" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Mohon inputkan Berat Barang yang valid.
                     </div>
                 </div>
             </div>

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Pesanan;
 use App\kota;
 use App\Kurir_customer;
 use App\Resi;
@@ -15,7 +14,7 @@ class PesananController extends Controller
 {
 
     public function index(){
-        $orders = Pesanan::all();
+        $orders = Resi::all();
         return view('master.pesanan.index',['orders' => $orders]);
     }
 
