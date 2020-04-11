@@ -8,6 +8,7 @@ use App\Kota;
 use App\Pesanan;
 use App\Resi;
 use App\Sejarah;
+use Illuminate\Support\Facades\Session;
 
 class CustomerController extends Controller
 {
@@ -24,31 +25,67 @@ class CustomerController extends Controller
 
     public function inputPesanan(Request $request) {
         $request = $request->all();
+
         $request['id'] = Resi::getNextId();
         $request['verifikasi'] = 0;
         $request['status_perjalanan'] = 'perjalanan';
+        $request['kode_verifikasi_email'] = rand(1000, 9999) * 10000 + rand(1000, 9999);
+        $request['status_verifikasi_email'] = 0;
 
         //ganti jadi pakai raja ongkir
         $request['harga'] = 15000;
         //
 
-        date_default_timezone_set("Asia/Jakarta");
-        $resi = Resi::create($request);  
+        //
+        //NAMA WEBSITE
+        $webDomain = "https://sdp.test";
+        //
 
-        $keterangan = "Pesanan telah dibuat.";
+        $verificationLink = $webDomain . "/verify?" ."id=" . $request['id'] . "&otp=" . $request['kode_verifikasi_email'];
 
-        $sejarah = [
-            'resi_id' => $resi->id,
-            'keterangan' => $keterangan,
-            'waktu' => $resi->created_at
-        ];
+        //EMAIL
+        require_once(app_path() . '\Classes\mailer2\class.phpmailer.php');
 
-        Sejarah::create($sejarah);
+        $mail             = new \PHPMailer(true);
+        $address 		  = $request['email_pengirim'];
+        $mail->Subject    = "TeamAte Expedition - Verifikasi Email - " . $request['id'];
+        //$body			  = view('customer.emailverifikasi', compact('request', 'verificationLink'));
+        $body = view('customer.emailverifikasi', compact('request', 'verificationLink'));
+        $mail->IsSMTP(); // telling the class to use SMTP
+        $mail->Host       = "mail.google.com"; // SMTP server
+        $mail->SMTPDebug  = 0;                     // enables SMTP debug information (for testing)
+        $mail->SMTPAuth   = true;                  // enable SMTP authentication
+        $mail->SMTPSecure = "tls";                 // sets the prefix to the servier
+        $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+        $mail->Port       = 587;                   // set the SMTP port for the GMAIL server
+        $mail->Username   = "4team.ate@gmail.com";  // GMAIL username
+        $mail->Password   = "fourteamate4";     // GMAIL password
+        $mail->MsgHTML($body);
+        $mail->AddAddress($address, $request['nama_pengirim']);
 
-        return redirect('/pesanselesai');
+        if($mail->Send()) {  
+            date_default_timezone_set("Asia/Jakarta");
+            $resi = Resi::create($request);  
+
+            $keterangan = "Email verifikasi telah dikirimkan ke " . $request['email_pengirim'].".";
+
+            $sejarah = [
+                'resi_id' => $resi->id,
+                'keterangan' => $keterangan,
+                'waktu' => $resi->created_at
+            ];
+
+            Sejarah::create($sejarah);
+            $page = "none";
+            return redirect('/pesanselesai');
+        } else {
+            Session::put('error', 'Email tidak kekirim.');
+            return redirect('/pesan');
+        }
+        
     }
 
-    public function pesanSelesai(Request $request) {
+    public function pesanSelesai() {
         $page = 'none';
         return view('customer.pesanselesai', compact('page'));
     }
@@ -65,5 +102,43 @@ class CustomerController extends Controller
         $resi = Resi::findOrFail($request['resi_id']);
 
         return view('customer.track', compact('sejarah', 'page', 'resi'));
+    }
+
+    public function emailVerification(Request $request) {
+        $request = $request->all();
+        
+        
+        $pass = $request['otp'];
+        $resi_id = $request['id'];
+
+        $resi = Resi::where('id', $resi_id)
+        ->where('kode_verifikasi_email', $pass)
+        ->where('status_verifikasi_email', 0)
+        ->first();
+
+        $page = 'none';
+        if ($resi) {
+            $resi->status_verifikasi_email = true;
+            $resi->save();
+
+            $keterangan = "Email telah di-verifikasi, dan pesanan diproses oleh kantor.";
+
+            $sejarah = [
+                'resi_id' => $resi->id,
+                'keterangan' => $keterangan,
+                'waktu' => $resi->created_at
+            ];
+
+            Sejarah::create($sejarah);
+            //KIRIM KE KANTOR YANG BERSANGKUTAN DISINI
+                        
+
+
+            return view('customer.verifikasiselesai', compact('page'));
+        } else {
+            //TIDAK BERHASIL
+            Session::put('error', 'Halaman yang diakses tidak valid.');
+            return view('customer.error', compact('page'));
+        }
     }
 }
