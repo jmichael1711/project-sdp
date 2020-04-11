@@ -129,9 +129,6 @@
       </div>
     </div>
   </div>
-
-
-
   <div class="site-section bg-light" id="about-section">
     <div class="container">
       <div class="row justify-content-center mb-4 block-img-video-1-wrap">

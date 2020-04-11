@@ -4,6 +4,16 @@
 <div class="site-section bg-light">
     <div class="container">
         <div class="row">
+            @if (Session::has('error'))
+                <ul class="list-group mb-2">
+                    <li class="list-group-item-success list-group-item">{{Session::get('error')}}</li>
+                </ul>
+                @php
+                    Session::forget('error');
+                @endphp
+            @endif
+        </div>
+        <div class="row">
         <div class="col-12 text-center mb-5" data-aos="fade-up" data-aos-delay="">
             <div class="block-heading-1">
             <h2>Pesan</h2>

@@ -89,7 +89,51 @@ Route::get('/try', function () {
 
     // echo 'no';
     //dd($pengiriman->resis);
-    echo md5('123');
+    return view('customer.test');
+});
+
+Route::get('/tryemail', function () {
+    //EMAIL
+    require_once(app_path() . '\Classes\mailer2\class.phpmailer.php');
+		
+    //-----------------EMAIL-----------------
+    
+    $mail             = new PHPMailer(true);
+    $address 		  = 'johannesmichael8@gmail.com';
+    $mail->Subject    = "TEAMATE EXPEDITION - Pengiriman Barang";
+    $body			  = "Ini adalah test email.";
+
+    $mail->IsSMTP(); // telling the class to use SMTP
+
+    //==========================================================================================
+    //ini settingan untuk gmail
+    $mail->Host       = "mail.google.com"; // SMTP server
+    $mail->SMTPDebug  = 0;                     // enables SMTP debug information (for testing)
+                                               // 1 = errors and messages
+                                               // 2 = messages only
+    $mail->SMTPAuth   = true;                  // enable SMTP authentication
+    $mail->SMTPSecure = "tls";                 // sets the prefix to the servier
+    $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+    $mail->Port       = 587;                   // set the SMTP port for the GMAIL server
+    //ini settingan untuk gmail
+    //==========================================================================================
+    
+    $mail->Username   = "4team.ate@gmail.com";  // GMAIL username
+    $mail->Password   = "fourteamate4";     // GMAIL password
+
+    //$mail->AltBody    = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
+
+    $mail->MsgHTML($body);
+    $mail->AddAddress($address, 'Johannes Michael');
+
+    //$mail->AddAttachment("result/".$file);      // attachment
+    
+    if($mail->Send()) {  
+        echo "[SEND TO:] " . $address . "<br>";
+    } else {
+        echo "gak kekirim";
+    }
+    //END EMAIL
 });
 
 Route::get('/form', function () {
@@ -111,6 +155,7 @@ Route::get('/pesan', 'CustomerController@order');
 Route::post('/inputpesanan', 'CustomerController@inputPesanan');
 Route::get('/pesanselesai', 'CustomerController@pesanSelesai');
 Route::get('/track', 'CustomerController@track');
+Route::get('/verify', 'CustomerController@emailVerification');
 
 //INSIDE GUEST GROUP
 Route::group(['middleware' => ['checkstatus:guest']], function () {
