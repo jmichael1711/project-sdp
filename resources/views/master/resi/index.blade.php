@@ -70,29 +70,34 @@ Halaman ini untuk menampilkan semua data resi.
                                         VERIFIKASI
                                     </div>
                                 </td>
+                                    @if($i->status_perjalanan == "PERJALANAN")
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-warning">
+                                            PERJALANAN
+                                        </div>
+                                    </td>
+                                    @elseif($i->status_perjalanan == "BATAL")
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-danger">
+                                            BATAL
+                                        </div>
+                                    </td>
+                                    @elseif($i->status_perjalanan == "SELESAI")
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-success">
+                                            SELESAI
+                                        </div>
+                                    </td>
+                                    @endif
                                 @else
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">
                                         BELUM VERIFKASI
                                     </div>
-                                </td> 
-                                @endif
-                                @if($i->status_perjalanan == "PERJALANAN")
-                                <td class="text-center text-white">
-                                    <div class="badge badge-warning">
-                                        PERJALANAN
-                                    </div>
                                 </td>
-                                @elseif($i->status_perjalanan == "BATAL")
                                 <td class="text-center text-white">
-                                    <div class="badge badge-danger">
-                                        BATAL
-                                    </div>
-                                </td>
-                                @elseif($i->status_perjalanan == "SELESAI")
-                                <td class="text-center text-white">
-                                    <div class="badge badge-success">
-                                        SELESAI
+                                    <div class="badge badge-info">
+                                        BELUM TERVERIFIKASI
                                     </div>
                                 </td>
                                 @endif
@@ -128,7 +133,8 @@ Halaman ini untuk menampilkan semua data resi.
     var table = $('#tableResi').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,
-        'lengthMenu': [10,25, 50]
+        'lengthMenu': [10,25, 50, 100],
+        "scrollX": true
     });
 </script>
 @endsection

@@ -30,6 +30,9 @@ Halaman ini untuk menambah data resi.
             Session::forget('failed-resi');
         @endphp
     @endif
+    <button id="triggerModal" type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal" style="display: none">
+        Trigger Modal
+    </button>
     <form novalidate class="needs-validation" method="post" action="/admin/resi/store" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="form-row">
@@ -42,68 +45,7 @@ Halaman ini untuk menambah data resi.
                 </div>
             </div>
         </div>
-        <div class="form-row">
-            <div class="col-md-5">
-                <div class="position-relative form-group">
-                    <label class="">Keterangan</label>
-                    <textarea style="resize: none;" rows="5" oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="keterangan"
-                    placeholder="KETERANGAN" type="text" class="form-control" required></textarea>
-                    <div class="invalid-feedback">
-                        Mohon input keterangan yang valid.
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-7">
-                <div class="position-relative form-group">
-                    <label class="">Dimensi Barang (CentiMeter)</label>
-                    <div class="form-inline">
-                        <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                        this.setSelectionRange(p, p);" style="text-transform:uppercase" name="panjang" 
-                        placeholder="PANJANG (CM)" step="1" type="number" max="999.999999" min="0.000000" class="form-control mr-2">X
-                        <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                        this.setSelectionRange(p, p);" style="text-transform:uppercase" name="lebar" 
-                        placeholder="LEBAR (CM)" step="1" type="number" max="999.999999" min="0.000000" class="form-control ml-2 mr-2">X
-                        <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                        this.setSelectionRange(p, p);" style="text-transform:uppercase" name="tinggi" 
-                        placeholder="TINGGI (CM)" step="1" type="number" max="999.999999" min="0.000000" class="form-control ml-2">
-                        <div class="invalid-feedback">
-                            Mohon input dimensi barang yang valid.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-5">
-                <div class="position-relative form-group">
-                    <label class="">Berat Barang (KiloGram)</label>
-                    <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="berat_barang" 
-                    placeholder="BERAT (KG)" step="1" type="number" min="0.000000" class="form-control">
-                    <div class="invalid-feedback">
-                        Mohon input dimensi barang yang valid.
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-5">
-                <div class="position-relative form-group">
-                    <label class="">Fragility Barang</label>
-                    <select id="is_fragile" name="is_fragile" class="form-control" required>
-                        <option class="form-control" value="1">FRAGILE</option>
-                        <option class="form-control" value="0">FINE</option>
-                    </select>
-                    <div class="invalid-feedback">
-                        Mohon pilih fragility barang yang valid.
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr>
+
         <div class="form-row">
             <div class="col-md-5">
                 <div class="position-relative form-group">
@@ -170,7 +112,7 @@ Halaman ini untuk menambah data resi.
             <div class="col-md-5">
                 <div class="position-relative form-group">
                     <label class="">Kota Pengirim</label>
-                    <select id="kota_asal" name="kota_asal" class="form-control" required>
+                    <select id="kota_asal" name="kota_asal" class="form-control" required onchange="hitungHarga()">
                         @foreach ($allKota as $kota)
                             <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
                         @endforeach
@@ -183,7 +125,7 @@ Halaman ini untuk menambah data resi.
             <div class="col-md-5">
                 <div class="position-relative form-group">
                     <label class="">Kota Penerima</label>
-                    <select id="kota_tujuan" name="kota_tujuan" class="form-control" required>
+                    <select id="kota_tujuan" name="kota_tujuan" class="form-control" required onchange="hitungHarga()">
                         @foreach ($allKota as $kota)
                             <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
                         @endforeach
@@ -237,7 +179,78 @@ Halaman ini untuk menambah data resi.
                     </div>
                 </div>
             </div>
-
+        </div>
+        <hr>
+        <div class="form-row">
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Keterangan</label>
+                    <textarea style="resize: none;" rows="5" oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="keterangan"
+                    placeholder="KETERANGAN" type="text" class="form-control" required></textarea>
+                    <div class="invalid-feedback">
+                        Mohon input keterangan yang valid.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-7">
+                <div class="position-relative form-group">
+                    <label class="">Dimensi Barang (CentiMeter)</label>
+                    <div class="form-inline">
+                        <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                        this.setSelectionRange(p, p);" style="text-transform:uppercase" name="panjang" 
+                        placeholder="PANJANG (CM)" step="1" type="number" max="999.999999" min="0.000000" class="form-control mr-2">X
+                        <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                        this.setSelectionRange(p, p);" style="text-transform:uppercase" name="lebar" 
+                        placeholder="LEBAR (CM)" step="1" type="number" max="999.999999" min="0.000000" class="form-control ml-2 mr-2">X
+                        <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                        this.setSelectionRange(p, p);" style="text-transform:uppercase" name="tinggi" 
+                        placeholder="TINGGI (CM)" step="1" type="number" max="999.999999" min="0.000000" class="form-control ml-2">
+                        <div class="invalid-feedback">
+                            Mohon input dimensi barang yang valid.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Berat Barang (KiloGram)</label>
+                    <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="berat_barang" id="berat_barang"
+                    placeholder="BERAT (KG)" step="0.001" type="number" max="20" min="0.001" class="form-control" onchange="hitungHarga()">
+                    <div class="invalid-feedback">
+                        Mohon input dimensi barang yang valid.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Fragility Barang</label>
+                    <select id="is_fragile" name="is_fragile" class="form-control" required>
+                        <option class="form-control" value="1">FRAGILE</option>
+                        <option class="form-control" value="0">FINE</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Mohon pilih fragility barang yang valid.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Harga</label>
+                    <input oninput="let p = this.selectionStart;
+                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" id="harga" name="harga"
+                    placeholder="Rp 0.00" type="text" class="form-control" readonly>
+                </div>
+            </div>
         </div>
 
         <div class="form-row">
@@ -251,6 +264,26 @@ Halaman ini untuk menambah data resi.
     </form>
 @endsection
 
+{{-- Notification --}}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0" id="modalContent"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section('scripts')
 <script>
     $(document).ready(function () {
@@ -259,5 +292,32 @@ Halaman ini untuk menambah data resi.
         $("#list-resi").attr("class", "mm-collapse mm-show");
         $("#header-tambah-resi").attr("class", "mm-active");
     })
+
+
+    function hitungHarga(){
+        var kotaAsal = $("#kota_asal").val();
+        var kotaTujuan = $("#kota_tujuan").val();
+        var berat = $("#berat_barang").val();
+        if(kotaAsal != "" && kotaTujuan != "" && (berat > 0 && berat <= 20)){
+            $.ajax({
+                method : "POST",
+                url : "/admin/resi/countCost",
+                datatype : "json",
+                data : { kotaAsal : kotaAsal,kotaTujuan : kotaTujuan,berat : berat, _token : "{{ csrf_token() }}" },
+                success: function(result){
+                    $("#harga").val(result);
+                },
+                error: function(){
+                    console.log('error');
+                }
+            });
+        }else if(berat > 20){
+            $("#modalContent").html("Berat barang melebihi batas maksimal 20Kg");
+            $("#triggerModal").click();
+        }else if(berat <= 0){
+            $("#modalContent").html("Berat barang minimal adalah 1 gram");
+            $("#triggerModal").click();
+        }
+    }
 </script>
 @endsection
