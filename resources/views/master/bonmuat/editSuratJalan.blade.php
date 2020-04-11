@@ -159,7 +159,7 @@ Halaman ini untuk mengubah data surat jalan.
                                 <td>{{$i->nama_penerima}}</td>
                                 <td>{{$i->alamat_tujuan}}</td>
                                 <td>{{$i->berat_barang}} Kg</td>
-                                <td>{{$i->panjang}} x {{$i->lebar}} x {{$i->tinggi}}</td>
+                                <td>{{$i->panjang}} cm x {{$i->lebar}} cm x {{$i->tinggi}} cm</td>
                                 @if ($i->is_fragile)
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">

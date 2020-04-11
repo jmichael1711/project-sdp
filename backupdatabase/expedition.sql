@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2020 at 04:41 PM
+-- Generation Time: Apr 10, 2020 at 05:02 PM
 -- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.1
+-- PHP Version: 7.4.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,7 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `expedition`
 --
-DROP TABLE IF EXISTS `pesanans`;
 CREATE DATABASE IF NOT EXISTS `expedition` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `expedition`;
 
@@ -506,6 +505,7 @@ CREATE TABLE `pengiriman_customers` (
 DROP TABLE IF EXISTS `resis`;
 CREATE TABLE `resis` (
   `id` varchar(15) NOT NULL,
+  `kantor_asal_id` varchar(8) NOT NULL,
   `harga` decimal(8,0) NOT NULL,
   `verifikasi` tinyint(1) DEFAULT NULL,
   `status_perjalanan` varchar(20) DEFAULT 'PERJALANAN',
@@ -534,7 +534,9 @@ CREATE TABLE `resis` (
   `updated_at` datetime NOT NULL,
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   `user_created` varchar(8) NOT NULL,
-  `user_updated` varchar(8) NOT NULL
+  `user_updated` varchar(8) NOT NULL,
+  `kode_verifikasi_email` int(4) DEFAULT NULL,
+  `status_verifikasi_email` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
