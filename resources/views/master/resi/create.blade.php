@@ -246,8 +246,8 @@ Halaman ini untuk menambah data resi.
             <div class="col-md-5">
                 <div class="position-relative form-group">
                     <label class="">Harga</label>
-                    <input oninput="let p = this.selectionStart;
-                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" id="harga" name="harga"
+                    <input oninput="let p = this.selectionStart; 
+                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="harga" id="harga_barang"
                     placeholder="Rp 0.00" type="text" class="form-control" readonly>
                 </div>
             </div>
@@ -293,7 +293,6 @@ Halaman ini untuk menambah data resi.
         $("#header-tambah-resi").attr("class", "mm-active");
     })
 
-
     function hitungHarga(){
         var kotaAsal = $("#kota_asal").val();
         var kotaTujuan = $("#kota_tujuan").val();
@@ -305,7 +304,7 @@ Halaman ini untuk menambah data resi.
                 datatype : "json",
                 data : { kotaAsal : kotaAsal,kotaTujuan : kotaTujuan,berat : berat, _token : "{{ csrf_token() }}" },
                 success: function(result){
-                    $("#harga").val(result);
+                    $("#harga_barang").val(result);
                 },
                 error: function(){
                     console.log('error');

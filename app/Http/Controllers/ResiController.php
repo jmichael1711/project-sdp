@@ -22,12 +22,16 @@ class ResiController extends Controller
         $user = Pegawai::findOrFail(Session::get('id'));
         $request['user_created'] = $user->id;
         $request['user_updated'] = $user->id;
-        $request['verifikasi'] = 1;
-        $request['kantor_asal_id'] = $user->kantor->id;
-        $request['harga'] = 0;
+
+        if(substr($user->id, 0, 2) == "PE"){
+            $request['verifikasi'] = 1;
+            $request['kantor_asal_id'] = $user->kantor->id;
+        }else $request['verifikasi'] = 0;
+
+        $request['harga'] = preg_replace("/[^0-9]/", "", $request['harga'])/100;
         Resi::create($request);
         $success = "Data resi berhasil didaftarkan.";
-        Session::put('success-pesanan', $success);
+        Session::put('success-resi', $success);
         return redirect('/admin/resi');
     }
 
@@ -44,6 +48,7 @@ class ResiController extends Controller
 
     public function edit($id){
         $resi = Resi::findOrFail($id);
+        $resi->harga = "Rp " . number_format($resi->harga, 2, ".", ",");
         $status = "";
         if($resi->status_perjalanan == "CANCEL" || $resi->status_perjalanan == "SELESAI"){$status = "disabled";}
         $allKota = Kota::getAll()->get();
@@ -55,6 +60,7 @@ class ResiController extends Controller
         $request = $request->all();
         $resi = Resi::findOrFail($id);
         $request['user_updated'] = Session::get('id');
+        $request['harga'] = preg_replace("/[^0-9]/", "", $request['harga'])/100;
         $resi->update($request);
         $success = 'Resi ' . '"' . $id .  '"' . 'berhasil diubah.';
         Session::put('success-resi', $success);
