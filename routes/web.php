@@ -11,6 +11,7 @@
 |
 */
 
+use App\Kota;
 use App\Kantor;
 use App\Kendaraan;
 use App\Pengiriman_customer;
@@ -42,7 +43,7 @@ Route::post('/ghajd', function (Request $request) {
 });
 
 Route::get('/try', function () {
- 
+    
 });
 
 Route::get('/tryemail', function () {
@@ -165,6 +166,7 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     //ADMIN - PENGIRIMAN CUSTOMER
     Route::get('/admin/pengirimanCustomer', 'PengirimanCustomerController@index');
     Route::get('/admin/pengirimanCustomer/create', 'PengirimanCustomerController@create');
+    Route::post('/admin/pengirimanCustomer/isiCombobox', 'PengirimanCustomerController@isiCombobox');
     Route::post('/admin/pengirimanCustomer/lihatPesanan', 'PengirimanCustomerController@lihatPesanan');
     Route::post('/admin/pengirimanCustomer/store', 'PengirimanCustomerController@store');
     Route::get('/admin/pengirimanCustomer/edit/{id}', 'PengirimanCustomerController@edit');

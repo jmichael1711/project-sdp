@@ -16,17 +16,17 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
 <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
     <li class="nav-item">
         <a role="tab" class="nav-link active" id="tab-1" data-toggle="tab" href="#tab-content-1">
-            <span>Semua</span>
+            <span>SEMUA</span>
         </a>
     </li>
     <li class="nav-item">
         <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2">
-            <span>Pengirim</span>
+            <span>PENGIRIM</span>
         </a>
     </li>
     <li class="nav-item">
         <a role="tab" class="nav-link" id="tab-3" data-toggle="tab" href="#tab-content-3">
-            <span>Penerima</span>
+            <span>PENERIMA</span>
         </a>
     </li>
 </ul>
@@ -153,19 +153,6 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
         $("#tab-content-3").removeClass("show active");
     })
 
-    function statusPengiriman(id, tipe){
-        $.ajax({
-            method : "POST",
-            url : '/admin/pengirimanCustomer/statusPengiriman',
-            datatype : "json",
-            data : { tipe : tipe, id : id,  _token : "{{ csrf_token() }}" },
-            success: function(result){},
-            error: function(){
-                console.log('error');
-            }
-        });
-    }
-
     var table = $('#tablePengirimanCust1').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,
@@ -188,7 +175,7 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
     });
 
     function editKantor(id, tipe){
-        if(tipe == "1"){
+        if(tipe == "0"){
             window.location.href='/admin/pengirimanCustomer/edit/' + id;
         }
         else{

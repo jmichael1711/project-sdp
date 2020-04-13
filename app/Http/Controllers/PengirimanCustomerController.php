@@ -9,7 +9,6 @@ use App\Pengiriman_customer;
 use App\Kurir_customer;
 use App\Bon_Muat;
 use App\Kota;
-use App\Pesanan;
 use App\Resi;
 use App\Kantor;
 
@@ -18,23 +17,22 @@ class PengirimanCustomerController extends Controller
     public function create() {
         $nextId = Pengiriman_customer::getNextId();
         $allKota = Kota::getAll()->get();
-        $allPesanan = Pesanan::getAll()->get();
-        return view('master.pengirimanCustomer.create',compact('nextId','allKota', 'allPesanan'));
+        $allResi = Resi::getAll()->get();
+        return view('master.pengirimanCustomer.create',compact('nextId','allKota', 'allResi'));
     }
 
     public function lihatPesanan(Request $request){
         $str = '';
-        $allPesanan = Pesanan::getAll()->where("kota_asal",$request->kota)->where("resi_id","")->get();
-        
-        if(count($allPesanan) > 0) {
-            foreach ($allPesanan as $pesanan) {
+        $allResi = Resi::getAll()->where("kota_asal",$request->kota)->where("verifikasi","0")->get();
+        if(count($allResi) > 0) {
+            foreach ($allResi as $resi) {
                 $ada = "0";
                 $allPengirimanCust = Pengiriman_customer::join('d_pengiriman_customers', 'd_pengiriman_customers.pengiriman_customer_id', '=', 'pengiriman_customers.id')->get();
                 foreach ($allPengirimanCust as $pengirimanCust) {
-                    if($pengirimanCust->resi_id == $pesanan->id) $ada = "1";
+                    if($pengirimanCust->resi_id == $resi->id) $ada = "1";
                 }
                 if($ada == "0"){
-                    $str .= '<option selected class="form-control" value="'.$pesanan->id.'">'.$pesanan->alamat_asal.'</option>';
+                    $str .= '<option selected class="form-control" value="'.$resi->id.'">'.$resi->alamat_asal.'</option>';
                 }
                 else{
                     $str = '<option class="form-control" value="">-- TIDAK ADA PESANAN --</option>';
@@ -47,9 +45,81 @@ class PengirimanCustomerController extends Controller
         return $str;
     }
 
-    public function cheeckPesanan($id){
-        
-        return $ada;
+    public function isiCombobox(Request $request){
+        $str = '';
+        $kotaId = $request["kota"];
+        $kantorId = $request["kantor"];
+        $kantorCurrID = $request["kantorCurr"];
+        $kurirCurrID = $request["kurirCurr"];
+        $kota = Kota::findOrFail($kotaId);
+        if($kantorId == 'null'){
+            $allKantor = $kota->kantor->where("is_warehouse","0");
+            if(count($allKantor) > 0){
+                $now = 0;
+                $currentKantor = null;
+                foreach ($allKantor as $kantor) {
+                    if($kantorCurrID != "null"){
+                        if($kantor->id == $kantorCurrID){
+                            $currentKantor = $kantor;
+                            $str .= '<option selected class="form-control" value="'.$kantor->id.'">'.$kantor->alamat.'</option>';
+                        }
+                        else{
+                            $str .= '<option class="form-control" value="'.$kantor->id.'">'.$kantor->alamat.'</option>';
+                        }
+                    }
+                    else{
+                        if($now == 0){
+                            $currentKantor = $kantor;
+                            $str .= '<option selected class="form-control" value="'.$kantor->id.'">'.$kantor->alamat.'</option>';
+                        }
+                        else{
+                            $str .= '<option class="form-control" value="'.$kantor->id.'">'.$kantor->alamat.'</option>';
+                        }
+                    }
+                    $now = $now + 1;
+                } 
+                $str .= '|';
+                
+                if($kurirCurrID != "null"){
+                    foreach ($currentKantor->kurir_customer as $kurir) {
+                        if($kurir->id == $kurirCurrID){
+                            $str .= '<option selected class="form-control" value="'.$kurir->id.'">'.$kurir->nama .' ('. $kurir->nopol .')</option>';
+                        }
+                        else if($kurir->status == "1"){
+                            $str .= '<option class="form-control" value="'.$kurir->id.'">'.$kurir->nama .' ('. $kurir->nopol .')</option>';
+                        }
+                    }
+                }
+                else if(count($currentKantor->kurir_customer->where("status","1")) > 0){
+                    foreach ($currentKantor->kurir_customer->where("status","1") as $kurir) {
+                        if($kurir->id == $kurirCurrID){
+                            $str .= '<option selected class="form-control" value="'.$kurir->id.'">'.$kurir->nama .' ('. $kurir->nopol .')</option>';
+                        }
+                        else{
+                            $str .= '<option class="form-control" value="'.$kurir->id.'">'.$kurir->nama .' ('. $kurir->nopol .')</option>';
+                        }
+                    }
+                }
+                else{
+                    $str .= '<option value="">-- TIDAK ADA KURIR --</option>';
+                }
+            }
+            else{
+                $str = '<option value="">-- TIDAK ADA KANTOR --</option>|<option value="">-- TIDAK ADA KURIR --</option>';
+            }
+        }
+        else{
+            $allKurir = Kantor::findOrFail($kantorId)->kurir_customer->where("status","1");
+            if(count($allKurir) > 0){
+                foreach ($allKurir as $kurir) {
+                    $str .= '<option class="form-control" value="'.$kurir->id.'">'.$kurir->nama  .'('. $kurir->nopol .')</option>';
+                }
+            }
+            else{
+                $str = '<option value="">-- TIDAK ADA KURIR --</option>';
+            }
+        }
+        return $str;
     }
 
     public function index(){
@@ -62,9 +132,11 @@ class PengirimanCustomerController extends Controller
     public function store(Request $request){
         date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
-
-        $idResi = $request["resi_id"];
-        unset($request["resi_id"]);
+        $panjang = count($request);
+        if($panjang > 5){
+            $idResi = $request["resi_id"];
+            unset($request["resi_id"]);
+        }
 
         $user = Session::get('id');
         $request['user_created'] = $user;
@@ -74,8 +146,11 @@ class PengirimanCustomerController extends Controller
         $kurir->status = "0";
         $kurir->save();
 
-        $pengirimanCust = Pengiriman_customer::create($request); 
-        $pengirimanCust->resis()->attach($idResi, ['user_created' => $user, 'user_updated' => $user]);
+        $pengirimanCust = Pengiriman_customer::create($request);
+
+        if($panjang > 5){
+            $pengirimanCust->resis()->attach($idResi, ['user_created' => $user, 'user_updated' => $user]);
+        }
 
         $success = "Data pengiriman customer berhasil didaftarkan.";
         return redirect('/admin/pengirimanCustomer')->with(['success' => $success]);
