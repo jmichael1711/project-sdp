@@ -27,6 +27,8 @@ class Bon_MuatController extends Controller
         $user = Session::get('id');
         $request['user_created'] = $user;
         $request['user_updated'] = $user;
+        $kurir = Kurir_non_customer::findOrFail($request['kurir_non_customer_id']);
+        $kurir->update(['status' => 0]);
         $success = "Bon muat berhasil didaftarkan.";
         Bon_muat::create($request);
         return redirect('/admin/bonmuat')->with(['success-bonmuat' => $success]);
@@ -74,13 +76,26 @@ class Bon_MuatController extends Controller
     public function edit($id) {
         $allKota = Kota::getAll()->get();
         $bonmuat = Bon_Muat::findOrFail($id);
-        return view('master.bonmuat.edit', compact('allKota', 'bonmuat'));
+        $status ="";
+        if($bonmuat->waktu_berangkat != null) {$status = "disabled";}
+        return view('master.bonmuat.edit', compact('allKota', 'bonmuat','status'));
     }
 
     public function update($id, Request $request) {
         date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $bonmuat = Bon_Muat::findOrFail($id);
+
+        $kurirBefore = Kurir_non_customer::findOrFail($bonmuat->kurir_non_customer_id);
+        $kurirBefore->update(['status' => 1]);
+        $kurirAfter = Kurir_non_customer::findOrFail($request['kurir_non_customer_id']);
+        $kurirAfter->update(['status' => 0]);
+
+        $kendaraanBefore = Kendaraan::findOrFail($bonmuat->kendaraan_id);
+        $kendaraanBefore->update(['status' => 1]);
+        $kendaraanAfter = Kendaraan::findOrFail($request['kendaraan_id']);
+        $kendaraanAfter->update(['status' => 0]);
+
         $request['user_updated'] = Session::get('id');
         $bonmuat->update($request);
         $success = 'Bon Muat ' . '"' . $id .  '"' . 'berhasil diubah.';
@@ -181,6 +196,10 @@ class Bon_MuatController extends Controller
         date_default_timezone_set("Asia/Jakarta");
         $user = Session::get('id');
         $bonmuat = Bon_Muat::findOrFail($id);
+        if($bonmuat->waktu_sampai == null){
+            $bonmuat->update(['waktu_sampai' => now()]);
+            $bonmuat->update(['user_updated' => $user]);  
+        }
         $sampai =  $bonmuat->resis()->where("resi_id",$request["resi_id"])->first()->surat_jalan->telah_sampai;
         if($sampai == 0){
             $bonmuat->update(['user_updated' => $user]); 
@@ -194,15 +213,22 @@ class Bon_MuatController extends Controller
             Session::put('success-failsuratjalan', $fail);
             return redirect('/admin/bonmuat/editSuratJalan/'.$id);
         }
-        
     }
 
     public function mulaiBonMuat($id){
-        date_default_timezone_set("Asia/Jakarta");
         $bonmuat = Bon_Muat::findOrFail($id);
-        // $bonmuat->waktu_berangkat = 
-        $success = 'Bon Muat ' . '"' . $id .  '"' . ' telah dimulai.';
-        Session::put('success-bonmuat', $success);
-        return redirect('/admin/bonmuat');
+        if($bonmuat->total_muatan > 0){
+            date_default_timezone_set("Asia/Jakarta");
+            $user = Session::get('id');
+            $bonmuat->update(['user_updated' => $user]);  
+            $bonmuat->update(['waktu_berangkat' => now()]); 
+            $success = 'Bon Muat ' . '"' . $id .  '"' . ' telah dimulai.';
+            Session::put('success-bonmuat', $success);
+            return redirect('/admin/bonmuat');
+        }else{
+            $fail = "Bon Muat tidak terdapat surat jalan";
+            Session::put('success-failsuratjalan', $fail);
+            return redirect('/admin/bonmuat/edit/'.$id);
+        }
     }
 }

@@ -50,7 +50,7 @@ Halaman ini untuk mengubah data bon muat.
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kota Asal</label>
-                                    <select class="form-control" id="kotaAsal" onchange='isiKantor("Asal")' {{$bonmuat->is_deleted ? 'disabled' : ''}}>
+                                    <select class="form-control" id="kotaAsal" onchange='isiKantor("Asal")' {{$bonmuat->is_deleted ? 'disabled' : ''}} {{$status}}>
                                         @foreach ($allKota as $kota)
                                             @if($bonmuat->kantor_asal->kota == $kota->nama)
                                             <option selected class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
@@ -67,7 +67,7 @@ Halaman ini untuk mengubah data bon muat.
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kantor Asal</label>
-                                    <select name="kantor_asal_id" class="form-control" id="kantorAsal" onchange="refreshComboBox()" required {{$bonmuat->is_deleted ? 'disabled' : ''}}>
+                                    <select name="kantor_asal_id" class="form-control" id="kantorAsal" onchange="refreshComboBox()" required {{$bonmuat->is_deleted ? 'disabled' : ''}} {{$status}}>
                                         <option selected class="form-control" value="{{$bonmuat->kantor_asal->id}}">{{$bonmuat->kantor_asal->alamat}}</option>
                                         @foreach($bonmuat->kantor_asal->getKota->kantor as $kantor)
                                             @if($bonmuat->kantor_asal->id != $kantor->id)
@@ -83,7 +83,7 @@ Halaman ini untuk mengubah data bon muat.
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kota Tujuan</label>
-                                    <select class="form-control" id="kotaTujuan" onchange='isiKantor("Tujuan")' {{$bonmuat->is_deleted ? 'disabled' : ''}}>
+                                    <select class="form-control" id="kotaTujuan" onchange='isiKantor("Tujuan")' {{$bonmuat->is_deleted ? 'disabled' : ''}} {{$status}}>
                                         @foreach ($allKota as $kota)
                                             @if($bonmuat->kantor_tujuan->kota == $kota->nama)
                                             <option selected class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
@@ -100,7 +100,7 @@ Halaman ini untuk mengubah data bon muat.
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kantor Tujuan</label>
-                                    <select name="kantor_tujuan_id" class="form-control" id="kantorTujuan" onchange="refreshComboBox()" required {{$bonmuat->is_deleted ? 'disabled' : ''}}>
+                                    <select name="kantor_tujuan_id" class="form-control" id="kantorTujuan" onchange="refreshComboBox()" required {{$bonmuat->is_deleted ? 'disabled' : ''}} {{$status}}>
                                         <option selected class="form-control" value="{{$bonmuat->kantor_tujuan->id}}">{{$bonmuat->kantor_tujuan->alamat}}</option>
                                         @foreach($bonmuat->kantor_tujuan->getKota->kantor as $kantor)
                                             @if($bonmuat->kantor_tujuan->id != $kantor->id)
@@ -116,7 +116,7 @@ Halaman ini untuk mengubah data bon muat.
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kurir</label>
-                                    <select name="kurir_non_customer_id" class="form-control" id="kurir" required {{$bonmuat->is_deleted ? 'disabled' : ''}}>
+                                    <select name="kurir_non_customer_id" class="form-control" id="kurir" required {{$bonmuat->is_deleted ? 'disabled' : ''}} {{$status}}>
                                         <option selected class="form-control" value="{{$bonmuat->kurir_non_customer->id}}">{{$bonmuat->kurir_non_customer->nama}}</option>
                                     </select>
                                 </div>
@@ -127,7 +127,7 @@ Halaman ini untuk mengubah data bon muat.
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kendaraan</label>
-                                    <select name="kendaraan_id" class="form-control" id="kendaraan" required {{$bonmuat->is_deleted ? 'disabled' : ''}}>
+                                    <select name="kendaraan_id" class="form-control" id="kendaraan" required {{$bonmuat->is_deleted ? 'disabled' : ''}} {{$status}}>
                                         <option selected class="form-control" value="{{$bonmuat->kendaraan->id}}">{{$bonmuat->kendaraan->nopol}}</option>
                                     </select>
                                 </div>
@@ -161,7 +161,10 @@ Halaman ini untuk mengubah data bon muat.
                     </form>
                 </div>
                 <hr>
-                <button type="button" class="btn ml-2 mr-2 btn-primary pull-right" onclick="mulaiBonMuat('{{$bonmuat->id}}')">Mulai Bon Muat</button>
+                <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/mulaiBonMuat/{{$bonmuat->id}}" enctype="multipart/form-data">
+                    @csrf
+                    <button class="btn ml-2 mr-2 btn-primary pull-right" style="display: {{$bonmuat->is_deleted || $status == "disabled" ? 'none' : ''}}">Mulai Bon Muat</button>
+                </form>
                 <button type="button" data-toggle="collapse" href="#collapseEdit" class="btn btn-secondary">Ubah Bon Muat</button>
             </div>
         </div>
@@ -179,7 +182,7 @@ Halaman ini untuk mengubah data bon muat.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
-                    <button type="button" class="btn mr-2 mb-2 btn-primary pull-right" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()" {{$bonmuat->is_deleted ? 'disabled' : ''}}>
+                    <button type="button" class="btn mr-2 mb-2 btn-primary pull-right" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()" {{$bonmuat->is_deleted ? 'disabled' : ''}} {{$status}}>
                         &nbsp Scan &nbsp
                     </button>
                     <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/addSuratJalan/{{$bonmuat->id}}" enctype="multipart/form-data">
@@ -189,7 +192,7 @@ Halaman ini untuk mengubah data bon muat.
                                 <div class="position-relative form-group">
                                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="resi_id" id="resi_id" 
-                                    placeholder="Id Resi" type="text" class="form-control" required {{$bonmuat->is_deleted ? 'disabled' : ''}}>
+                                    placeholder="Id Resi" type="text" class="form-control" required {{$bonmuat->is_deleted ? 'disabled' : ''}} {{$status}}>
                                     <div class="invalid-feedback">
                                         Id Resi tidak valid.
                                     </div>
@@ -197,7 +200,7 @@ Halaman ini untuk mengubah data bon muat.
                             </div>
                             <div class="col-md-2">
                                 <div class="position-relative form-group" style="bottom: 10%">
-                                    <button class="mt-2 btn btn-primary" id="tambahSuratJalan" {{$bonmuat->is_deleted ? 'disabled' : ''}}>Tambah</button>
+                                    <button class="mt-2 btn btn-primary" id="tambahSuratJalan" {{$bonmuat->is_deleted ? 'disabled' : ''}} {{$status}}>Tambah</button>
                                 </div>
                             </div>
                         </div>
@@ -263,13 +266,13 @@ Halaman ini untuk mengubah data bon muat.
                                     </div>
                                 </td>
                                 @endif
-                                <td><button class="mb-2 mr-2 btn btn-danger" data-toggle="modal" onclick="passValue('{{$i->id}}')" data-target="#deleteDetail" value="{{$i->id}}">Delete</button></td>
+                                <td><button class="mb-2 mr-2 btn btn-danger" data-toggle="modal" onclick="passValue('{{$i->id}}')" data-target="#deleteDetail" value="{{$i->id}}" {{$bonmuat->is_deleted || $status == "disabled" ? 'disabled' : ''}}>Delete</button></td>
                             </tr>
                             @endforeach
                             @endif
                         </tbody>
                     </table>
-                    <button class="mb-2 mr-2 mt-5 btn btn-danger pull-right" data-toggle="modal" data-target="#deleteAllDetail">DELETE ALL</button>
+                    <button class="mb-2 mr-2 mt-5 btn btn-danger pull-right" data-toggle="modal" data-target="#deleteAllDetail" {{$status}} >DELETE ALL</button>
                 </div>
             </div>
         </div>
@@ -534,9 +537,6 @@ Halaman ini untuk mengubah data bon muat.
         $("#triggerModal").click();
     }
 
-    function mulaiBonMuat(id){
-        window.location.href='/admin/bonmuat/mulaiBonMuat/' + id;
-    }
 </script>
 @endsection  
 

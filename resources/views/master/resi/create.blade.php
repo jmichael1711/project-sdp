@@ -310,10 +310,10 @@ Halaman ini untuk menambah data resi.
                     console.log('error');
                 }
             });
-        }else if(berat > 20){
+        }else if(berat != "" && berat > 20){
             $("#modalContent").html("Berat barang melebihi batas maksimal 20Kg");
             $("#triggerModal").click();
-        }else if(berat <= 0){
+        }else if(berat != "" && berat <= 0){
             $("#modalContent").html("Berat barang minimal adalah 1 gram");
             $("#triggerModal").click();
         }
