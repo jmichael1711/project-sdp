@@ -11,6 +11,7 @@
 |
 */
 
+use App\Kota;
 use App\Kantor;
 use App\Kendaraan;
 use App\Pengiriman_customer;
@@ -42,54 +43,69 @@ Route::post('/ghajd', function (Request $request) {
 });
 
 Route::get('/try', function () {
-    // echo Pengiriman_customer::getNextId();
-
-    // Pesanan::select('id', 'created_at')->get();
-    // $bonmuats = Bon_muat::all();
-
-    // foreach ($bonmuats as $b) {
-    //     echo $b->id;
-    // }
-
-    // $a = "false";
-
-    // $bonmuat = Bon_muat::where('is_deleted', 0)
-    // ->select('id as kampret', DB::raw('count(*) as jum'))
-    // // ->when($a == "true", function($query) {
-    // //     $query->where('id', 'a');
-    // // })
-    // ->orwhere(function($query) {
-    //     $query->where('')
-    //     ->orwhere('')
-    // })
-    // ->groupBy('id')
-    // ->get()
-    // ;
-    //where a AND (b or c)
-
-    //dd($bonmuat);
-    //dd(Bon_muat::findorfail('B00000001030220')->kendaraan);
-
-    // $bonmuat = Bon_muat::first();
-    // foreach ($bonmuat->resis as $r) {
-    //     dd($r->surat_jalan);
-    //
-
-    // $pengiriman_id = 'P00000001030420';
-    // $id = 'R0000001';
-    // $pass = '123';
-
-    // $pengiriman = Pengiriman_customer::getAll()->where('id', $pengiriman_id)->first();
-
-    // foreach ($pengiriman->resis as $i) {
-    //     if ($i->d_pengiriman_customer->password == $pass && $i->id == $id) {
-    //         echo 'yes';
-    //     }
-    // }
-
-    // echo 'no';
-    //dd($pengiriman->resis);
-    return view('customer.test');
+    $str = '';
+    $kotaId = 'SURABAYA';
+    $kantorId = 'null';
+    $kantorCurrID = 'KA000001';
+    $kurirCurrID = 'KC000000';
+    $kota = Kota::findOrFail($kotaId);
+    if($kantorId == 'null'){
+        $allKantor = $kota->kantor->where("is_warehouse","0");
+        if(count($allKantor) > 0){
+            $now = 0;
+            $currentKantor = null;
+            foreach ($allKantor as $kantor) {
+                if($kantorCurrID != "null"){
+                    if($kantor->id == $kantorCurrID){
+                        $currentKantor = $kantor;
+                        $str .= '<option selected class="form-control" value="'.$kantor->id.'">'.$kantor->alamat.'</option>';
+                    }
+                    else{
+                        $str .= '<option class="form-control" value="'.$kantor->id.'">'.$kantor->alamat.'</option>';
+                    }
+                }
+                else{
+                    if($now == 0){
+                        $currentKantor = $kantor;
+                        $str .= '<option selected class="form-control" value="'.$kantor->id.'">'.$kantor->alamat.'</option>';
+                    }
+                    else{
+                        $str .= '<option class="form-control" value="'.$kantor->id.'">'.$kantor->alamat.'</option>';
+                    }
+                }
+                $now = $now + 1;
+            } 
+            $str .= '|';
+            if(count($currentKantor->kurir_customer->where("status","1")) > 0){
+                foreach ($currentKantor->kurir_customer->where("status","1") as $kurir) {
+                    if($kurir->id == $kurirCurrID){
+                        $str .= '<option selected class="form-control" value="'.$kurir->id.'">'.$kurir->nama .' ('. $kurir->nopol .')</option>';
+                    }
+                    else{
+                        $str .= '<option class="form-control" value="'.$kurir->id.'">'.$kurir->nama .' ('. $kurir->nopol .')</option>';
+                    }
+                }
+            }
+            else{
+                $str .= '<option value="">-- TIDAK ADA KURIR --</option>';
+            }
+        }
+        else{
+            $str = '<option value="">-- TIDAK ADA KANTOR --</option>|<option value="">-- TIDAK ADA KURIR --</option>';
+        }
+    }
+    else{
+        $allKurir = Kantor::findOrFail($kantorId)->kurir_customer->where("status","1");
+        if(count($allKurir) > 0){
+            foreach ($allKurir as $kurir) {
+                $str .= '<option class="form-control" value="'.$kurir->id.'">'.$kurir->nama  .'('. $kurir->nopol .')</option>';
+            }
+        }
+        else{
+            $str = '<option value="">-- TIDAK ADA KURIR --</option>';
+        }
+    }
+    echo $str;
 });
 
 Route::get('/tryemail', function () {
@@ -212,6 +228,7 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     //ADMIN - PENGIRIMAN CUSTOMER
     Route::get('/admin/pengirimanCustomer', 'PengirimanCustomerController@index');
     Route::get('/admin/pengirimanCustomer/create', 'PengirimanCustomerController@create');
+    Route::post('/admin/pengirimanCustomer/isiCombobox', 'PengirimanCustomerController@isiCombobox');
     Route::post('/admin/pengirimanCustomer/lihatPesanan', 'PengirimanCustomerController@lihatPesanan');
     Route::post('/admin/pengirimanCustomer/store', 'PengirimanCustomerController@store');
     Route::get('/admin/pengirimanCustomer/edit/{id}', 'PengirimanCustomerController@edit');

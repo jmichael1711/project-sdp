@@ -200,7 +200,7 @@ class Bon_MuatController extends Controller
     public function mulaiBonMuat($id){
         date_default_timezone_set("Asia/Jakarta");
         $bonmuat = Bon_Muat::findOrFail($id);
-        // $bonmuat->waktu_berangkat = 
+        $bonmuat->waktu_berangkat = now();
         $success = 'Bon Muat ' . '"' . $id .  '"' . ' telah dimulai.';
         Session::put('success-bonmuat', $success);
         return redirect('/admin/bonmuat');

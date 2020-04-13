@@ -94,10 +94,7 @@ Halaman ini untuk menambah data pengiriman customer.
                         <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Alamat Pesanan Customer</label>
-                                <select name="resi_id" id="pesanan" class="form-control" required></select>
-                                <div class="invalid-feedback">
-                                    Mohon pilih pesanan customer yang valid.
-                                </div>
+                                <select name="resi_id" id="pesanan" class="form-control"></select>
                             </div>
                         </div>
                     </div>
@@ -132,6 +129,7 @@ Halaman ini untuk menambah data pengiriman customer.
     function showPesanan(tipe){
         if(tipe == "pengirim"){
             var idKota = $('#kota').val();
+            $("#formPesanan").removeClass("d-none");
             $("#formPesanan").addClass("d-block");
             $.ajax({
                 method : "POST",
@@ -147,6 +145,7 @@ Halaman ini untuk menambah data pengiriman customer.
             });
         }
         else{
+            $("#formPesanan").removeClass("d-block");
             $("#formPesanan").addClass("d-none");
         }
     }
@@ -171,48 +170,25 @@ Halaman ini untuk menambah data pengiriman customer.
     }
 
     function refreshCombobox(idKota, idKantor){
-        @for ($i = 0; $i < $allKota->count(); $i++)             
-            if(idKota == '{{$allKota[$i]->nama}}'){
-                @php
-                    $allKantor = $allKota[$i]->kantor;
-                @endphp
-
+        $.ajax({
+            method : "POST",
+            url : '/admin/pengirimanCustomer/isiCombobox',
+            datatype : "json",
+            data : { kota : idKota, kantor : idKantor, kantorCurr : "null", kurirCurr : "null", _token : "{{ csrf_token() }}" },
+            success: function(result){
                 if(idKantor == "null"){
-                    @if(count($allKantor) > 0)
-                        $('#kantor').html('@foreach ($allKantor as $kantor)<option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>@endforeach');
-                        @php $ada = 0; @endphp
-                        @if(count($allKantor[0]->kurir_customer) > 0)
-                            $('#kurir').html('@foreach ($allKantor[0]->kurir_customer as $kurir) @if($kurir->status == "1") <option class="form-control" value="{{$kurir->id}}">{{$kurir->nama . " (" . $kurir->nopol . ")"}}</option> @endif @endforeach');
-                        @else
-                            $('#kurir').html('<option value="">-- TIDAK ADA KURIR --</option>');
-                        @endif
-                    @else
-                        $('#kantor').html('<option value="">-- TIDAK ADA KANTOR --</option>');
-                        $('#kurir').html('<option value="">-- TIDAK ADA KURIR --</option>');
-                    @endif
+                    var hasil = result.split("|");
+                    $('#kantor').html(hasil[0]);
+                    $('#kurir').html(hasil[1]);
                 }
                 else{
-                    @for ($j = 0; $j < $allKantor->count(); $j++)
-                    if(idKantor == '{{$allKantor[$j]->id}}'){
-                        @if(count($allKantor[$j]->kurir_customer) > 0)
-                            $('#kurir').html('@foreach ($allKantor[$j]->kurir_customer as $kurir) @if($kurir->status == "1") <option class="form-control" value="{{$kurir->id}}">{{$kurir->nama . " (" . $kurir->nopol . ")"}}</option> @endif @endforeach');
-                        @else
-                            $('#kurir').html('<option value="">-- TIDAK ADA KURIR --</option>');
-                        @endif
-                    }
-                    @endfor
+                    $('#kurir').html(result);
                 }
+            },
+            error: function(){
+                console.log('error');
             }
-            if($("#kurir").html() == "  "){
-                $("#kurir").html('<option value="">-- TIDAK ADA KURIR --</option>');
-            }
-            if($("#kantor").html() == "  "){
-                $("#kantor").html('<option value="">-- TIDAK ADA KANTOR --</option>');
-            }
-        @endfor
-    }
-
-    function refreshOld(){
+        });
     }
 </script>
 @endsection 
