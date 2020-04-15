@@ -32,6 +32,12 @@ class CustomerController extends Controller
         $request['kode_verifikasi_email'] = rand(1000, 9999) * 10000 + rand(1000, 9999);
         $request['status_verifikasi_email'] = 0;
 
+        //perlu diganti
+        $request['kantor_asal_id'] = 'KA000000';
+        $request['user_created'] = "";
+        $request['user_updated'] = "";
+        //
+
         //ganti jadi pakai raja ongkir
         $request['harga'] = 15000;
         //

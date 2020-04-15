@@ -191,9 +191,9 @@
 
         <div class="block-team-member-1 text-center rounded h-100">
           <figure>
-            <img src="depot/images/person_1.jpg" alt="Image" class="img-fluid rounded-circle">
+            <img src="images/EN.PNG" alt="Image" class="img-fluid rounded-circle">
           </figure>
-          <h3 class="font-size-20 text-black">Max Carlson</h3>
+          <h3 class="font-size-20 text-black">Enricho Glenn</h3>
           <span class="d-block font-gray-5 letter-spacing-1 text-uppercase font-size-12 mb-3">Co-Founder</span>
           <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
           <div class="block-social-1">
@@ -206,9 +206,9 @@
 
         <div class="block-team-member-1 text-center rounded h-100">
           <figure>
-            <img src="depot/images/person_2.jpg" alt="Image" class="img-fluid rounded-circle">
+            <img src="images/JM.PNG" alt="Image" class="img-fluid rounded-circle">
           </figure>
-          <h3 class="font-size-20 text-black">Charlotte Pilat</h3>
+          <h3 class="font-size-20 text-black">Johannes Michael</h3>
           <span class="d-block font-gray-5 letter-spacing-1 text-uppercase font-size-12 mb-3">Co-Founder</span>
           <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
           <div class="block-social-1">
@@ -221,9 +221,9 @@
 
         <div class="block-team-member-1 text-center rounded h-100">
           <figure>
-            <img src="depot/images/person_3.jpg" alt="Image" class="img-fluid rounded-circle">
+            <img src="images/WG.PNG" alt="Image" class="img-fluid rounded-circle">
           </figure>
-          <h3 class="font-size-20 text-black">Nicole Lewis</h3>
+          <h3 class="font-size-20 text-black">William</h3>
           <span class="d-block font-gray-5 letter-spacing-1 text-uppercase font-size-12 mb-3">Co-Founder</span>
           <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
           <div class="block-social-1">
@@ -235,9 +235,9 @@
 
         <div class="block-team-member-1 text-center rounded h-100">
           <figure>
-            <img src="depot/images/person_3.jpg" alt="Image" class="img-fluid rounded-circle">
+            <img src="images/HW.PNG" alt="Image" class="img-fluid rounded-circle">
           </figure>
-          <h3 class="font-size-20 text-black">Nicole Lewis</h3>
+          <h3 class="font-size-20 text-black">Heinrich Wisesa</h3>
           <span class="d-block font-gray-5 letter-spacing-1 text-uppercase font-size-12 mb-3">Co-Founder</span>
           <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
           <div class="block-social-1">
