@@ -12,11 +12,13 @@
             <form action="/track" method="get">
               <div class="form-group d-flex">
                 @csrf
-                <input type="text" class="form-control" placeholder="ID RESI" name="resi_id">
-                <input type="submit" class="btn btn-primary text-white px-4" value="Track Now">
+                <input type="text" class="form-control" placeholder="ID RESI" name="resi_id" id="resi_id">
+                <input type="submit" class="btn btn-primary text-white px-4" value="Track Now" id="track">
               </div>
               <div class="form-group d-flex justify-content-center">
-                <input type="submit" class="btn btn-primary text-white px-4" value="Scan Barcode">
+                <button type="button" class="btn mr-2 mb-2 btn-primary pull-right" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()">
+                    Scan Barcode
+                </button>
               </div>
             </form>
           </div>
@@ -409,8 +411,66 @@
       </div>
     </div>
   </div>
-
-
-  
 </div>
+@endsection
+
+{{-- Scanner Video --}}
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Scan Resi</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body d-flex justify-content-center">
+              <video id="preview" style="width: 200px; height: 200px; border: 1px solid black;"></video>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeScanner()" id="close">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+@section('scripts')
+<script>
+  $(document).ready(function () {        
+        scanner.addListener('scan', function(content) {
+            var id = content;
+            $("#resi_id").val(content);
+            $("#track").click();
+        });
+    })
+
+
+    let scanner = new Instascan.Scanner(
+    {
+        video: document.getElementById('preview')
+    });
+
+    function triggerScanner(){
+        Instascan.Camera.getCameras().then(cameras => 
+        {
+            if(cameras.length > 0){
+                scanner.start(cameras[0]);
+            } else {
+                console.error("Please enable Camera!");
+            }
+        });
+    }
+    
+    function closeScanner(){
+        Instascan.Camera.getCameras().then(cameras => 
+        {
+            if(cameras.length > 0){
+                scanner.stop(cameras[0]);
+            } else {
+                console.error("Error Stop Camera");
+            }
+        });
+    }
+</script>
+
 @endsection

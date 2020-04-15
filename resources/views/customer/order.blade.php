@@ -1,6 +1,9 @@
 @extends('layouts.customer')
 
 @section('content')
+<button id="triggerModal" type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal" style="display: none">
+    Trigger Modal
+</button>
 <div class="site-section bg-light">
     <div class="container">
         <div class="row">
@@ -50,7 +53,7 @@
             <div class="form-group row">
                 <div class="col-md-12">
                     <label for="">Kota Asal</label>
-                    <select name="kota_asal" class="form-control" required>
+                    <select name="kota_asal" class="form-control" required id="kotaAsal" onchange="hitungHarga()">
                         @foreach ($listKota as $i)
                             <option value="{{$i->nama}}">{{$i->nama}}</option>
                         @endforeach
@@ -97,7 +100,7 @@
             <div class="form-group row">
                 <div class="col-md-12">
                     <label for="">Kota Tujuan</label>
-                    <select name="kota_tujuan" class="form-control" required>
+                    <select name="kota_tujuan" class="form-control" required id="kotaTujuan" onchange="hitungHarga()">
                         @foreach ($listKota as $i)
                             <option value="{{$i->nama}}">{{$i->nama}}</option>
                         @endforeach
@@ -139,7 +142,7 @@
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="">Berat Barang (kg)</label>
-                    <input type="number" step=0.01 value=0 min=0.00 max=99.00 class="form-control" name="berat_barang" placeholder="Berat Barang" required>
+                    <input type="number" step=0.01 value=0 min=0.00 max=99.00 class="form-control" name="berat_barang" placeholder="Berat Barang" required id="berat_barang" onchange="hitungHarga()">
                 </div>
                 <div class="col-md-6">
                     <label for="">Kondisi Barang</label>
@@ -157,7 +160,7 @@
             </div>
             <div class="form-group row my-3" style="font-size: 20px;">
                 <div class="col-md-12">
-                    <p>Harga: Rp. <b id="harga">15000</b></p>
+                    <p>Harga: Rp <b id="harga">0.00</b></p>
                 </div>
             </div>
             
@@ -172,4 +175,55 @@
         </div>
     </div>
 </div>
+@endsection
+
+{{-- Notification --}}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0" id="modalContent"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section('scripts')
+<script>
+    function hitungHarga(){
+        var kotaAsal = $("#kotaAsal").val();
+        var kotaTujuan = $("#kotaTujuan").val();
+        var berat = $("#berat_barang").val();
+        if(kotaAsal != "" && kotaTujuan != "" && (berat > 0 && berat <= 20)){
+            $.ajax({
+                method : "POST",
+                url : "/countCost",
+                datatype : "json",
+                data : { kotaAsal : kotaAsal,kotaTujuan : kotaTujuan,berat : berat, _token : "{{ csrf_token() }}" },
+                success: function(result){
+                    $("#harga").html(result);
+                },
+                error: function(){
+                    console.log('error');
+                }
+            });
+        }else if(berat != "" && berat > 20){
+            $("#modalContent").html("Berat barang melebihi batas maksimal 20Kg");
+            $("#triggerModal").click();
+        }else if(berat != "" && berat <= 0){
+            $("#modalContent").html("Berat barang minimal adalah 1 gram");
+            $("#triggerModal").click();
+        }
+    }
+</script>
 @endsection

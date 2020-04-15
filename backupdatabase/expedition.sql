@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2020 at 12:40 PM
+-- Generation Time: Apr 15, 2020 at 04:25 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -47,6 +47,13 @@ CREATE TABLE `bon_muats` (
   `waktu_sampai` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `bon_muats`
+--
+
+INSERT INTO `bon_muats` (`id`, `kendaraan_id`, `kurir_non_customer_id`, `total_muatan`, `kantor_asal_id`, `kantor_tujuan_id`, `user_created`, `user_updated`, `created_at`, `updated_at`, `is_deleted`, `waktu_berangkat`, `waktu_sampai`) VALUES
+('B00000000150420', 'KE000006', 'KN000005', '1.0', 'KA000000', 'KA000006', 'PEADMIN', 'PEADMIN', '2020-04-15 20:03:18', '2020-04-15 20:09:15', 0, '2020-04-15 20:08:46', '2020-04-15 20:09:15');
+
 -- --------------------------------------------------------
 
 --
@@ -63,7 +70,7 @@ CREATE TABLE `d_pengiriman_customers` (
   `is_deleted` tinyint(1) NOT NULL DEFAULT 0,
   `user_created` varchar(8) NOT NULL,
   `user_updated` varchar(8) NOT NULL DEFAULT 'Default',
-  `password` varchar(4) DEFAULT NULL,
+  `password` varchar(8) DEFAULT NULL,
   `waktu_sampai_cust` datetime DEFAULT NULL,
   `is_canceled` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -146,7 +153,7 @@ INSERT INTO `kendaraans` (`id`, `kantor_1_id`, `kantor_2_id`, `nopol`, `status`,
 ('KE000002', 'KA000000', 'KA000003', 'D 2182 SA', 1, '2018', '2020-04-09 18:52:58', '2020-04-09 18:54:40', 0, 0, 'PEADMIN', 'PEADMIN'),
 ('KE000003', 'KA000000', 'KA000004', 'L 2812 HF', 1, '2018', '2020-04-09 18:53:22', '2020-04-09 18:54:48', 0, 0, 'PEADMIN', 'PEADMIN'),
 ('KE000004', 'KA000000', 'KA000005', 'L 1923 AS', 1, '2018', '2020-04-09 18:54:23', '2020-04-09 18:54:23', 0, 0, 'PEADMIN', 'PEADMIN'),
-('KE000005', 'KA000000', 'KA000006', 'L 1294 XS', 1, '2020', '2020-04-09 18:55:24', '2020-04-09 19:12:36', 0, 1, 'PEADMIN', 'PEADMIN'),
+('KE000005', 'KA000000', 'KA000006', 'L 1294 XS', 0, '2020', '2020-04-09 18:55:24', '2020-04-13 21:47:13', 0, 1, 'PEADMIN', 'PEADMIN'),
 ('KE000006', 'KA000000', 'KA000006', 'L 1298 XS', 1, '2020', '2020-04-09 19:02:15', '2020-04-09 19:02:15', 0, 1, 'PEADMIN', 'PEADMIN'),
 ('KE000007', 'KA000000', 'KA000012', 'L 2123 XL', 1, '2020', '2020-04-09 19:10:23', '2020-04-09 19:10:23', 0, 1, 'PEADMIN', 'PEADMIN'),
 ('KE000008', 'KA000000', 'KA000012', 'L 2127 PO', 1, '2020', '2020-04-09 19:10:44', '2020-04-09 19:10:44', 0, 1, 'PEADMIN', 'PEADMIN'),
@@ -252,9 +259,9 @@ CREATE TABLE `kurir_customers` (
 --
 
 INSERT INTO `kurir_customers` (`id`, `kantor_id`, `nama`, `jenis_kelamin`, `no_telp`, `alamat`, `status`, `nopol`, `password`, `created_at`, `updated_at`, `is_deleted`, `user_created`, `user_updated`) VALUES
-('KC000000', 'KA000001', 'MUMPUNI MANGUNSONG', 'P', '022510856799', 'DS. BABAKAN NO. 42, BANJARBARU', '1', 'L 3455 AB', '319f4d26e3c536b5dd871bb2c52e3178', '2020-04-09 19:52:17', '2020-04-09 19:54:24', 0, 'PEADMIN', 'PEADMIN'),
-('KC000001', 'KA000001', 'KARMA MAHENDRA', 'P', '095855235581', 'KPG. PASTEUR NO. 936, PANGKAL PINANG', '1', 'L 2981 ET', '319f4d26e3c536b5dd871bb2c52e3178', '2020-04-09 19:53:15', '2020-04-09 19:53:15', 0, 'PEADMIN', 'PEADMIN'),
-('KC000002', 'KA000001', 'CARAKA WAHYUDIN', 'P', '03130176446', 'KI. HONGGOWONGSO NO. 180, PRABUMULIH', '1', 'L 5662 EF', '319f4d26e3c536b5dd871bb2c52e3178', '2020-04-09 19:54:08', '2020-04-09 19:54:08', 0, 'PEADMIN', 'PEADMIN'),
+('KC000000', 'KA000001', 'MUMPUNI MANGUNSONG', 'P', '022510856799', 'DS. BABAKAN NO. 42, BANJARBARU', '1', 'L 3455 AB', '319f4d26e3c536b5dd871bb2c52e3178', '2020-04-09 19:52:17', '2020-04-13 21:52:09', 0, 'PEADMIN', 'PEADMIN'),
+('KC000001', 'KA000001', 'KARMA MAHENDRA', 'P', '095855235581', 'KPG. PASTEUR NO. 936, PANGKAL PINANG', '1', 'L 2981 ET', '319f4d26e3c536b5dd871bb2c52e3178', '2020-04-09 19:53:15', '2020-04-13 21:52:18', 0, 'PEADMIN', 'PEADMIN'),
+('KC000002', 'KA000001', 'CARAKA WAHYUDIN', 'P', '03130176446', 'KI. HONGGOWONGSO NO. 180, PRABUMULIH', '1', 'L 5662 EF', '319f4d26e3c536b5dd871bb2c52e3178', '2020-04-09 19:54:08', '2020-04-13 21:54:48', 0, 'PEADMIN', 'PEADMIN'),
 ('KC000003', 'KA000002', 'PUTU WIBISONO', 'P', '074056236422', 'GG. DIPONEGORO NO. 753, METRO', '1', 'L 8161 QW', '319f4d26e3c536b5dd871bb2c52e3178', '2020-04-09 19:55:47', '2020-04-09 19:55:47', 0, 'PEADMIN', 'PEADMIN'),
 ('KC000004', 'KA000002', 'WAKIMAN ADRIANSYAH', 'P', '022158371390', 'PSR. SAM RATULANGI NO. 410, TANGERANG', '1', 'L 6498 UY', '319f4d26e3c536b5dd871bb2c52e3178', '2020-04-09 19:56:35', '2020-04-09 19:56:35', 0, 'PEADMIN', 'PEADMIN'),
 ('KC000005', 'KA000002', 'ADITYA SIMBOLON', 'P', '083047999001', 'JLN. BASKET NO. 33, DENPASAR', '1', 'L 4940 QP', '319f4d26e3c536b5dd871bb2c52e3178', '2020-04-09 19:57:24', '2020-04-09 19:57:24', 0, 'PEADMIN', 'PEADMIN'),
@@ -332,8 +339,8 @@ INSERT INTO `kurir_non_customers` (`id`, `kantor_1_id`, `kantor_2_id`, `nama`, `
 ('KN000002', 'KA000000', 'KA000003', 'LUWAR LUWES RAJATA', 'P', '04841649770', 'PSR. BACANG NO. 545, BAU-BAU', '1', 0, '2020-04-09 21:12:37', '2020-04-09 21:12:37', 0, 'PEADMIN', 'PEADMIN'),
 ('KN000003', 'KA000000', 'KA000004', 'DANUJA BUDIYANTO', 'P', '04068811934', 'JLN. BAHAGIA NO. 749, KUPANG', '1', 0, '2020-04-09 21:13:16', '2020-04-09 21:13:16', 0, 'PEADMIN', 'PEADMIN'),
 ('KN000004', 'KA000000', 'KA000005', 'KENARI JINDRA PRAYOGA', 'P', '06298274212', 'KI. BAIK NO. 478, SORONG', '1', 0, '2020-04-09 21:13:55', '2020-04-09 21:13:55', 0, 'PEADMIN', 'PEADMIN'),
-('KN000005', 'KA000000', 'KA000006', 'VIRMAN HABIBI', 'P', '063407870342', 'JR. ACHMAD NO. 175, TUAL', '1', 1, '2020-04-09 21:14:49', '2020-04-09 21:14:49', 0, 'PEADMIN', 'PEADMIN'),
-('KN000006', 'KA000000', 'KA000006', 'AJIONO PRASETYA', 'P', '07643318449', 'GG. BAYA KALI BUNGUR NO. 897, PAREPARE', '1', 1, '2020-04-09 21:15:22', '2020-04-09 21:15:22', 0, 'PEADMIN', 'PEADMIN'),
+('KN000005', 'KA000000', 'KA000006', 'VIRMAN HABIBI', 'P', '063407870342', 'JR. ACHMAD NO. 175, TUAL', '0', 1, '2020-04-09 21:14:49', '2020-04-15 20:03:18', 0, 'PEADMIN', 'PEADMIN'),
+('KN000006', 'KA000000', 'KA000006', 'AJIONO PRASETYA', 'P', '07643318449', 'GG. BAYA KALI BUNGUR NO. 897, PAREPARE', '0', 1, '2020-04-09 21:15:22', '2020-04-13 21:47:13', 0, 'PEADMIN', 'PEADMIN'),
 ('KN000007', 'KA000000', 'KA000012', 'CAHYANTO MANSUR', 'P', '02304621758', 'DK. BAUNG NO. 156, SOLOK', '1', 1, '2020-04-09 21:16:26', '2020-04-09 21:16:26', 0, 'PEADMIN', 'PEADMIN'),
 ('KN000008', 'KA000000', 'KA000012', 'KURNIA PRASASTA', 'P', '082332708103', 'GG. KALIMANTAN NO. 126, PAREPARE', '1', 1, '2020-04-09 21:16:52', '2020-04-09 21:16:52', 0, 'PEADMIN', 'PEADMIN'),
 ('KN000009', 'KA000006', 'KA000007', 'JONO LUHUNG TARIHORAN', 'P', '0271721031', 'JR. FLORA NO. 707, BANDUNG', '1', 0, '2020-04-09 21:19:29', '2020-04-09 21:19:29', 0, 'PEADMIN', 'PEADMIN'),
@@ -540,6 +547,13 @@ CREATE TABLE `resis` (
   `status_verifikasi_email` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `resis`
+--
+
+INSERT INTO `resis` (`id`, `kantor_asal_id`, `harga`, `verifikasi`, `status_perjalanan`, `berat_barang`, `alamat_asal`, `alamat_tujuan`, `kota_asal`, `kota_tujuan`, `nama_pengirim`, `nama_penerima`, `lebar`, `panjang`, `tinggi`, `no_telp_pengirim`, `no_telp_penerima`, `keterangan`, `is_fragile`, `email_pengirim`, `email_penerima`, `waktu_berangkat_kurir`, `longitude_pengirim`, `latitude_pengirim`, `kode_pos_pengirim`, `kode_pos_penerima`, `created_at`, `updated_at`, `is_deleted`, `user_created`, `user_updated`, `kode_verifikasi_email`, `status_verifikasi_email`) VALUES
+('R00000000130420', 'KA000000', '7000', 1, 'PERJALANAN', '1.000', 'Jln Kedungdoro', 'Jln sanggar', 'SURABAYA', 'PASURUAN', 'AKU', 'KAMU', '100', '100', '100', '087812365478', '087812365478', 'INI ADALAH KETERANGAN', 1, 'aku@gmail.com', 'kamu@gmail.com', NULL, NULL, NULL, 116421, 651681, '2020-04-13 13:36:00', '2020-04-13 13:36:00', 0, 'PEADMIN', 'PEADMIN', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -572,6 +586,13 @@ CREATE TABLE `surat_jalans` (
   `user_updated` varchar(8) NOT NULL DEFAULT 'Default',
   `waktu_sampai` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `surat_jalans`
+--
+
+INSERT INTO `surat_jalans` (`bon_muat_id`, `resi_id`, `telah_sampai`, `created_at`, `updated_at`, `is_deleted`, `user_created`, `user_updated`, `waktu_sampai`) VALUES
+('B00000000150420', 'R00000000130420', 1, '2020-04-15 20:04:41', '2020-04-15 20:09:15', 0, 'PEADMIN', 'PEADMIN', '2020-04-15 20:09:15');
 
 --
 -- Indexes for dumped tables

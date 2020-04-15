@@ -204,6 +204,7 @@ class Bon_MuatController extends Controller
         if($sampai == 0){
             $bonmuat->update(['user_updated' => $user]); 
             $bonmuat->resis()->updateExistingPivot($request["resi_id"],['telah_sampai' => 1]);
+            $bonmuat->resis()->updateExistingPivot($request["resi_id"],['waktu_sampai' => now()]);
             $bonmuat->resis()->updateExistingPivot($request["resi_id"],['user_updated' => $user]);
             $success = 'Surat Jalan '. $request["resi_id"]. ' telah selesai.';
             Session::put('success-suratjalan', $success);
@@ -217,7 +218,7 @@ class Bon_MuatController extends Controller
 
     public function mulaiBonMuat($id){
         $bonmuat = Bon_Muat::findOrFail($id);
-        if($bonmuat->total_muatan > 0){
+        if($bonmuat->resis()->count() > 0){
             date_default_timezone_set("Asia/Jakarta");
             $user = Session::get('id');
             $bonmuat->update(['user_updated' => $user]);  

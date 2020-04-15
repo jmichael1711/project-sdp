@@ -110,6 +110,7 @@ Route::post('/inputpesanan', 'CustomerController@inputPesanan');
 Route::get('/pesanselesai', 'CustomerController@pesanSelesai');
 Route::get('/track', 'CustomerController@track');
 Route::get('/verify', 'CustomerController@emailVerification');
+Route::post('/countCost', 'CustomerController@countCost');
 
 //INSIDE GUEST GROUP
 Route::group(['middleware' => ['checkstatus:guest']], function () {
