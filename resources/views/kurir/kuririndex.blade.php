@@ -11,6 +11,9 @@
 @endsection
 
 @section('content')
+<button id="triggerModal" type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal" style="display: none">
+    Trigger Modal
+</button>
 <div class="site-section bg-light">
     <div class="container">
         <div class="row">
@@ -127,10 +130,10 @@
                 </div>
                 @if ($pengiriman->waktu_berangkat)
                 <div class="row mt-5 mb-5 text-primary">
-                    <h4>Input ID Pesanan / Scan Barcode</h4>
+                    <h4>Input ID Resi / Scan Barcode</h4>
                 </div>
                 <div class="form-group row mb-2">
-                    <label for="">ID Pesanan</label>
+                    <label for="">ID Resi</label>
                     <input type="text" class="form-control" id="input_id_resi">
                 </div>
                 <div class="form-group row mb-3">
@@ -142,7 +145,7 @@
                         <button type="submit" onclick="cariResi()" class="col-md-12 btn btn-primary">Submit</button>
                     </div>
                     <div class="col-md-6 pr-0">
-                        <button onclick="cariResiPakaiBarcode()"  class="col-md-12 btn btn-primary">Scan Barcode</button>
+                        <button type="button" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="cariResiPakaiBarcode()"  class="col-md-12 btn btn-primary">Scan Barcode</button>
                     </div>
                     
                 </div>
@@ -199,17 +202,65 @@
                 <input type="hidden" id="cancelResiId" name="resi_id" value="">
                 <input type="hidden" id="cancelPengirimanId" name="pengiriman_id" value="">
                 <input type="submit" class="btn btn-danger " value="Cancel">
+                <button type="button" class="btn btn-success text-white" data-dismiss="modal">Batal Cancel</button>
             </form>
-            <button type="button" class="btn btn-success text-white" data-dismiss="modal">Batal Cancel</button>
+           
         </div>
         </div>
     </div>
 </div>
 @endsection
 
-@section('scripts')
+{{-- Scanner Video --}}
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Scan Resi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body d-flex justify-content-center">
+                <video id="preview" style="width: 200px; height: 200px; border: 1px solid black;"></video>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeScanner()" id="close">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+{{-- Notification --}}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0" id="modalContent"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section('scripts')
+<script src="{{asset('js/instascan.min.js')}}"></script>
 <script>
+    $(document).ready(function(){
+        scanner.addListener('scan', function(content) {
+            $("#input_id_resi").val(content);
+            $("#close").click();
+            cariResi();
+        });
+    });
     var cariResi = function () {
 
         var pengiriman = "{{$pengiriman->id ?? ''}}";
@@ -241,6 +292,33 @@
         });
     }
 
+    let scanner = new Instascan.Scanner(
+    {
+        video: document.getElementById('preview')
+    });
+
+    function cariResiPakaiBarcode(){
+        Instascan.Camera.getCameras().then(cameras => 
+        {
+            if(cameras.length > 0){
+                scanner.start(cameras[0]);
+            } else {
+                console.error("Please enable Camera!");
+            }
+        });
+    }
+    
+    function closeScanner(){
+        Instascan.Camera.getCameras().then(cameras => 
+        {
+            if(cameras.length > 0){
+                scanner.stop(cameras[0]);
+            } else {
+                console.error("Error Stop Camera");
+            }
+        });
+    } 
+
     var submitFormBerangkat = function () {
         $('#formWaktuBerangkat').submit();
     }
@@ -250,5 +328,31 @@
         $('#cancelPengirimanId').attr('value', pengiriman_id);
         $('#cancelModal').modal('show');
     }
+
+    function hitungHarga(){
+        var berat = $("#berat_barang").val();
+        var id = $("#resi_id").val();
+        if(berat > 0 && berat <= 20){
+            $.ajax({
+                method : "POST",
+                url : "/kurir/countCost",
+                datatype : "json",
+                data : { id: id,berat : berat, _token : "{{ csrf_token() }}" },
+                success: function(result){
+                    $("#harga_barang").html(result);
+                },
+                error: function(){
+                    console.log('error');
+                }
+            });
+        }else if(berat != "" && berat > 20){
+            $("#modalContent").html("Berat barang melebihi batas maksimal 20Kg");
+            $("#triggerModal").click();
+        }else if(berat != "" && berat <= 0){
+            $("#modalContent").html("Berat barang minimal adalah 1 gram");
+            $("#triggerModal").click();
+        }
+    }
+
 </script>
 @endsection

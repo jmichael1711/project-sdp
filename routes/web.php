@@ -127,6 +127,7 @@ Route::group(['middleware' => ['checkstatus:kurir']], function () {
     Route::post('/kurir/updatepesanan', 'KurirController@updatePesanan');
     Route::post('/kurir/cancelpengiriman', 'KurirController@cancelPengiriman');
     Route::get('/kurir/history', 'KurirController@history');
+    Route::post('/kurir/countCost', 'KurirController@countCost');
 });
 
 //INSIDE ADMIN GROUP
