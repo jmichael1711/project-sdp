@@ -30,6 +30,9 @@ Halaman ini untuk mengubah data resi
             Session::forget('failed-resi');
         @endphp
     @endif
+    <button id="triggerModal" type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal" style="display: none">
+        Trigger Modal
+    </button>
     <form novalidate class="needs-validation" method="post" action="/admin/resi/update/{{$resi->id}}" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="form-row">
@@ -273,6 +276,26 @@ Halaman ini untuk mengubah data resi
     </form>
 @endsection
 
+{{-- Notification --}}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0" id="modalContent"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section('scripts')
 <script>
      $(document).ready(function () {
@@ -287,7 +310,6 @@ Halaman ini untuk mengubah data resi
         var kotaAsal = $("#kota_asal").val();
         var kotaTujuan = $("#kota_tujuan").val();
         var berat = $("#berat_barang").val();
-        alert(kotaAsal + " - " + kotaTujuan + " - " + berat);
         if(kotaAsal != "" && kotaTujuan != "" && (berat > 0 && berat <= 20)){
             $.ajax({
                 method : "POST",
@@ -301,10 +323,10 @@ Halaman ini untuk mengubah data resi
                     console.log('error');
                 }
             });
-        }else if(berat > 20){
+        }else if(berat != "" && berat > 20){
             $("#modalContent").html("Berat barang melebihi batas maksimal 20Kg");
             $("#triggerModal").click();
-        }else if(berat <= 0){
+        }else if(berat != "" && berat <= 0){
             $("#modalContent").html("Berat barang minimal adalah 1 gram");
             $("#triggerModal").click();
         }

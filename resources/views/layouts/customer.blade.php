@@ -169,7 +169,7 @@
   <script src="depot/js/jquery.fancybox.min.js"></script>
   <script src="depot/js/jquery.easing.1.3.js"></script>
   <script src="depot/js/aos.js"></script>
-
+  <script src="{{asset('js/instascan.min.js')}}"></script>
   <script src="depot/js/main.js"></script>
   @yield('scripts')
 

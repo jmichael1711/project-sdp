@@ -146,6 +146,7 @@ Halaman ini untuk mengubah data surat jalan.
                                 <th>Updated At</th>
                                 <th>User Created</th>
                                 <th>User Updated</th>
+                                <th>Waktu Sampai</th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -177,6 +178,11 @@ Halaman ini untuk mengubah data surat jalan.
                                 <td>{{$i->surat_jalan->updated_at}}</td>
                                 <td>{{$i->surat_jalan->user_created}}</td>
                                 <td>{{$i->surat_jalan->user_updated}}</td>
+                                @if($i->surat_jalan->waktu_sampai == null)
+                                <td>KOSONG</td>
+                                @else
+                                <td>{{$i->surat_jalan->waktu_sampai}}</td>
+                                @endif
                                 @if ($i->surat_jalan->telah_sampai)
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">

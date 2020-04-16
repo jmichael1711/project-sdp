@@ -128,6 +128,7 @@ Halaman ini untuk menambah data pengiriman customer.
 
     function showPesanan(tipe, idPesanan){
         if(tipe == "pengirim"){
+            $("#pesanan").prop('required',true);
             var idKota = $('#kota').val();
             $("#formPesanan").removeClass("d-none");
             $("#formPesanan").addClass("d-block");
@@ -145,6 +146,7 @@ Halaman ini untuk menambah data pengiriman customer.
             });
         }
         else{
+            $("#pesanan").prop('required',false);
             $("#formPesanan").removeClass("d-block");
             $("#formPesanan").addClass("d-none");
         }
