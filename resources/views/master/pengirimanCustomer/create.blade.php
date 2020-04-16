@@ -79,12 +79,12 @@ Halaman ini untuk menambah data pengiriman customer.
                                 <br>
                                 <div class="form-check-inline">
                                     <label class="form-check-label">
-                                      <input type="radio" id="rbPenerima" class="form-check-input" onclick="showPesanan('penerima')" name="menuju_penerima" value="1" checked> Penerima
+                                      <input type="radio" id="rbPenerima" class="form-check-input" onclick="showPesanan('penerima','null')" name="menuju_penerima" value="1" checked> Penerima
                                     </label>
                                   </div>
                                   <div class="form-check-inline">
                                     <label class="form-check-label">
-                                      <input type="radio" id="rbPengirim" class="form-check-input" onclick="showPesanan('pengirim')" name="menuju_penerima" value="0"> Pengirim
+                                      <input type="radio" id="rbPengirim" class="form-check-input" onclick="showPesanan('pengirim','null')" name="menuju_penerima" value="0"> Pengirim
                                     </label>
                                   </div>
                             </div>
@@ -123,10 +123,10 @@ Halaman ini untuk menambah data pengiriman customer.
 
         var idKota = $('#kota').val();
         refreshCombobox(idKota, "null");
-        showPesanan("penerima");
+        showPesanan("penerima","null");
     })
 
-    function showPesanan(tipe){
+    function showPesanan(tipe, idPesanan){
         if(tipe == "pengirim"){
             $("#pesanan").prop('required',true);
             var idKota = $('#kota').val();
@@ -136,7 +136,7 @@ Halaman ini untuk menambah data pengiriman customer.
                 method : "POST",
                 url : '/admin/pengirimanCustomer/lihatPesanan',
                 datatype : "json",
-                data : { kota : idKota, _token : "{{ csrf_token() }}" },
+                data : { kota : idKota, pesanan : idPesanan, _token : "{{ csrf_token() }}" },
                 success: function(result){
                     $('#pesanan').html(result);
                 },
@@ -157,10 +157,10 @@ Halaman ini untuk menambah data pengiriman customer.
         var idKota = $('#kota').val();
         refreshCombobox(idKota, "null");
         if($('#rbPengirim').is(':checked')){
-            showPesanan("pengirim");
+            showPesanan("pengirim",'null');
         }
         else{
-            showPesanan("penerima");
+            showPesanan("penerima",'null');
         }
     }
 
@@ -174,7 +174,7 @@ Halaman ini untuk menambah data pengiriman customer.
     function refreshCombobox(idKota, idKantor){
         $.ajax({
             method : "POST",
-            url : '/admin/pengirimanCustomer/isiCombobox',
+            url : '/admin/pengirimanCustomer/isiCombobox/null',
             datatype : "json",
             data : { kota : idKota, kantor : idKantor, kantorCurr : "null", kurirCurr : "null", _token : "{{ csrf_token() }}" },
             success: function(result){

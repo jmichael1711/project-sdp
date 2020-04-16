@@ -65,7 +65,7 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
                         </thead>
                         <tbody>
                             @foreach ($allPengirimanCust as $i)
-                                <tr onclick='editKantor("{{$i->id}}", "{{$i->menuju_penerima}}")'>
+                                <tr onclick='editKantor("{{$i->id}}", "{{$i->menuju_penerima}}", "{{$i->waktu_berangkat}}")'>
                                     <td>{{$i->id}}</td>
                                     <td>{{$i->kantor->alamat}}, {{$i->kantor->getKota->nama}}</td>
                                     <td>{{$i->kurir_customer->nama}} <br> ({{$i->kurir_customer->nopol}})</td>
@@ -137,7 +137,202 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
             </div>
         </div>
     </div>
-
+    <div class="tab-pane tabs-animation fade show active" id="tab-content-2" role="tabpanel"> 
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+                <div class="container">
+                    <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/pengirimanCustomer/create')}}';">Tambah Data</button>
+                    <br><hr>
+                    <table class="table table-hover table-striped dataTable dtr-inline" id="tablePengirimanCust2">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Alamat Kantor</th>
+                                <th>Kurir</th>
+                                <th>Tujuan</th>
+                                <th>Total Muatan</th>
+                                <th>Waktu Berangkat</th>
+                                <th>Waktu Sampai</th>
+                                <th>Status Perjalanan</th>
+                                <th>Diubah Tanggal</th>
+                                <th>Diubah Oleh</th>
+                                <th>Dibuat Tanggal</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Status Aktif</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($pengirimanCustPengirim as $i)
+                                <tr onclick='editKantor("{{$i->id}}", "{{$i->menuju_penerima}}", "{{$i->waktu_berangkat}}")'>
+                                    <td>{{$i->id}}</td>
+                                    <td>{{$i->kantor->alamat}}, {{$i->kantor->getKota->nama}}</td>
+                                    <td>{{$i->kurir_customer->nama}} <br> ({{$i->kurir_customer->nopol}})</td>
+                                    @if($i->menuju_penerima == 0)
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-primary">
+                                            PENGIRIM
+                                        </div>
+                                    </td> 
+                                    @else
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-success">
+                                            PENERIMA
+                                        </div>
+                                    </td>    
+                                    @endif
+                                    <td>{{$i->total_muatan}}</td>
+                                    @if($i->waktu_berangkat == null)
+                                        <td>KOSONG</td>    
+                                    @else
+                                        <td class="text-center">{{$i->waktu_berangkat}}</td>    
+                                    @endif
+                                    @if($i->waktu_sampai_kantor == null)
+                                        <td>KOSONG</td>    
+                                    @else
+                                        <td class="text-center">{{$i->waktu_sampai_kantor}}</td>    
+                                    @endif
+                                    @if($i->waktu_berangkat == null)
+                                        <td class="text-center text-white">
+                                            <div class="badge badge-warning">
+                                                BELUM BERANGKAT
+                                            </div>
+                                        </td> 
+                                    @elseif($i->waktu_sampai_kantor == null)
+                                        <td class="text-center text-white">
+                                            <div class="badge badge-danger">
+                                                PERJALANAN
+                                            </div>
+                                        </td> 
+                                    @else
+                                        <td class="text-center text-white">
+                                            <div class="badge badge-success">
+                                                SELESAI
+                                            </div>
+                                        </td>  
+                                    @endif
+                                    <td>{{$i->updated_at}}</td>
+                                    <td>{{$i->user_updated}}</td>
+                                    <td>{{$i->created_at}}</td>
+                                    <td>{{$i->user_created}}</td>
+                                    @if ($i->is_deleted)
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-danger">
+                                            TIDAK AKTIF
+                                        </div>
+                                    </td>    
+                                    @else 
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-success">
+                                            AKTIF
+                                        </div>
+                                    </td>
+                                    @endif
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane tabs-animation fade show active" id="tab-content-3" role="tabpanel"> 
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+                <div class="container">
+                    <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/pengirimanCustomer/create')}}';">Tambah Data</button>
+                    <br><hr>
+                    <table class="table table-hover table-striped dataTable dtr-inline" id="tablePengirimanCust3">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Alamat Kantor</th>
+                                <th>Kurir</th>
+                                <th>Tujuan</th>
+                                <th>Total Muatan</th>
+                                <th>Waktu Berangkat</th>
+                                <th>Waktu Sampai</th>
+                                <th>Status Perjalanan</th>
+                                <th>Diubah Tanggal</th>
+                                <th>Diubah Oleh</th>
+                                <th>Dibuat Tanggal</th>
+                                <th>Dibuat Oleh</th>
+                                <th>Status Aktif</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($pengirimanCustPenerima as $i)
+                                <tr onclick='editKantor("{{$i->id}}", "{{$i->menuju_penerima}}", "{{$i->waktu_berangkat}}")'>
+                                    <td>{{$i->id}}</td>
+                                    <td>{{$i->kantor->alamat}}, {{$i->kantor->getKota->nama}}</td>
+                                    <td>{{$i->kurir_customer->nama}} <br> ({{$i->kurir_customer->nopol}})</td>
+                                    @if($i->menuju_penerima == 0)
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-primary">
+                                            PENGIRIM
+                                        </div>
+                                    </td> 
+                                    @else
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-success">
+                                            PENERIMA
+                                        </div>
+                                    </td>    
+                                    @endif
+                                    <td>{{$i->total_muatan}}</td>
+                                    @if($i->waktu_berangkat == null)
+                                        <td>KOSONG</td>    
+                                    @else
+                                        <td class="text-center">{{$i->waktu_berangkat}}</td>    
+                                    @endif
+                                    @if($i->waktu_sampai_kantor == null)
+                                        <td>KOSONG</td>    
+                                    @else
+                                        <td class="text-center">{{$i->waktu_sampai_kantor}}</td>    
+                                    @endif
+                                    @if($i->waktu_berangkat == null)
+                                        <td class="text-center text-white">
+                                            <div class="badge badge-warning">
+                                                BELUM BERANGKAT
+                                            </div>
+                                        </td> 
+                                    @elseif($i->waktu_sampai_kantor == null)
+                                        <td class="text-center text-white">
+                                            <div class="badge badge-danger">
+                                                PERJALANAN
+                                            </div>
+                                        </td> 
+                                    @else
+                                        <td class="text-center text-white">
+                                            <div class="badge badge-success">
+                                                SELESAI
+                                            </div>
+                                        </td>  
+                                    @endif
+                                    <td>{{$i->updated_at}}</td>
+                                    <td>{{$i->user_updated}}</td>
+                                    <td>{{$i->created_at}}</td>
+                                    <td>{{$i->user_created}}</td>
+                                    @if ($i->is_deleted)
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-danger">
+                                            TIDAK AKTIF
+                                        </div>
+                                    </td>    
+                                    @else 
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-success">
+                                            AKTIF
+                                        </div>
+                                    </td>
+                                    @endif
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>  
 @endsection
 
@@ -174,14 +369,13 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
         "scrollX": true
     });
 
-    function editKantor(id, tipe){
+    function editKantor(id, tipe, waktu){
         if(tipe == "0"){
             window.location.href='/admin/pengirimanCustomer/edit/' + id;
         }
         else{
-            window.location.href='/admin/pengirimanCustomer/editPenerima/' + id;
+            window.location.href='/admin/pengirimanCustomer/editPenerima/' + id;   
         }
-        
     }
 
 </script>
