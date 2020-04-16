@@ -166,17 +166,17 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     //ADMIN - PENGIRIMAN CUSTOMER
     Route::get('/admin/pengirimanCustomer', 'PengirimanCustomerController@index');
     Route::get('/admin/pengirimanCustomer/create', 'PengirimanCustomerController@create');
-    Route::post('/admin/pengirimanCustomer/isiCombobox', 'PengirimanCustomerController@isiCombobox');
+    Route::post('/admin/pengirimanCustomer/isiCombobox/{id}', 'PengirimanCustomerController@isiCombobox');
     Route::post('/admin/pengirimanCustomer/lihatPesanan', 'PengirimanCustomerController@lihatPesanan');
     Route::post('/admin/pengirimanCustomer/store', 'PengirimanCustomerController@store');
     Route::get('/admin/pengirimanCustomer/edit/{id}', 'PengirimanCustomerController@edit');
     Route::post('/admin/pengirimanCustomer/update/{id}', 'PengirimanCustomerController@update');
+    Route::post('/admin/pengirimanCustomer/startPengiriman/{id}', 'PengirimanCustomerController@startPengiriman');
+    Route::post('/admin/pengirimanCustomer/finishPengiriman/{id}', 'PengirimanCustomerController@finishPengiriman');
+    Route::get('/admin/pengirimanCustomer/editPenerima/{id}', 'PengirimanCustomerController@editPenerima');
     Route::post('/admin/pengirimanCustomer/addDetail/{id}', 'PengirimanCustomerController@addDetail');
     Route::post('/admin/pengirimanCustomer/deleteDetail/{id}', 'PengirimanCustomerController@deleteDetail');
     Route::post('/admin/pengirimanCustomer/deleteAll/{id}', 'PengirimanCustomerController@deleteAll');
-    Route::get('/admin/pengirimanCustomer/pengirim', 'PengirimanCustomerController@pengirim');
-    Route::get('/admin/pengirimanCustomer/penerima', 'PengirimanCustomerController@penerima');
-    Route::get('/admin/pengirimanCustomer/editPenerima/{id}', 'PengirimanCustomerController@editPenerima');
     Route::post('/admin/pengirimanCustomer/updateDetailPenerima/{id}', 'PengirimanCustomerController@updateDetailPenerima');
 
     //ADMIN - PEGAWAI

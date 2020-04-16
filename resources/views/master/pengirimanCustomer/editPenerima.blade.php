@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    UBAH DATA DETAIL PENGIRIMAN CUSTOMER PENERIMA
+    UBAH DATA DETAIL PENGIRIMAN CUSTOMER
 @endsection
 
 @section('subtitle')
@@ -32,24 +32,43 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                 <div class="mb-3 progress">
                     <div class="progress-bar progress-bar-animated progress-bar-striped" role="progressbar" style="width: {{$pengirimanCust->total_muatan*5}}%;"></div>
                 </div>
-                <div class="form-row">
-                    <div class="col-md-5">
-                        <div class="position-relative form-group">
-                            <label class="">ID Pengiriman Customer</label>
-                            <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                            this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" 
-                            type="text" class="form-control" value="{{$pengirimanCust->id}}" readonly>
+                <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/update/{{$pengirimanCust->id}}" enctype="multipart/form-data">
+                @csrf
+                    <div class="form-row">
+                        <div class="col-md-5">
+                            <div class="position-relative form-group">
+                                <label class="">ID Pengiriman Customer</label>
+                                <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" 
+                                type="text" class="form-control" value="{{$pengirimanCust->id}}" readonly>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="collapse" id="collapseEdit">
+                    
+                    <div class="collapse" id="collapseEdit">
                         <div class="form-row">
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
-                                    <label class="">Kantor</label>
-                                    <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                    this.setSelectionRange(p, p);" style="text-transform:uppercase" disabled 
-                                    placeholder="ID" type="text" class="form-control" value="{{$pengirimanCust->kantor->alamat}}" readonly>
+                                    <label class="">Kota</label>
+                                    <select id="kota" class="form-control" onchange='isiKantorAsal()' required>
+                                        <option class="form-control" value="{{$kotaNow}}">{{$kotaNow}}</option>
+                                        @foreach ($allKota as $kota)
+                                            @if($kota->nama != $kotaNow)
+                                                <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-5">
+                                <div class="position-relative form-group">
+                                    <label class="">Kantor Asal</label>
+                                    <select name="kantor_id" id="kantor" class="form-control" onchange='isiKurirCustomer()' required></select>
+                                    <div class="invalid-feedback">
+                                        Mohon pilih kantor asal yang valid.
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -57,17 +76,86 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kurir Customer</label>
-                                    <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                    this.setSelectionRange(p, p);" style="text-transform:uppercase" disabled 
-                                    placeholder="ID" type="text" class="form-control" value="{{$pengirimanCust->kurir_customer->nama}} - {{$pengirimanCust->kurir_customer->nopol}}" readonly>
+                                    <select name="kurir_customer_id" id="kurir" class="form-control" required></select>
+                                    <div class="invalid-feedback">
+                                        Mohon pilih kurir customer yang valid.
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                <hr>
-                </div>
-                <div class="card-footer">
-                    <button type="button" data-toggle="collapse" href="#collapseEdit" class="btn btn-primary">Detail Pengiriman Customer</button>
-                </div>
+                        <div class="form-row">
+                            <div class="col-md-5">
+                                <div class="position-relative form-group">
+                                    <label class="">Tujuan</label>
+                                    <br>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="menuju_penerima" value="1"
+                                        @if($pengirimanCust->menuju_penerima == '1')
+                                            checked
+                                        @endif
+                                        > Penerima
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="menuju_penerima" value="0"
+                                        @if($pengirimanCust->menuju_penerima == '0')
+                                            checked
+                                        @endif
+                                        > Pengirim
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-row">
+                            <div class="col-md-5">
+                                <div class="position-relative form-group">
+                                    <label class="">Status Aktif</label>
+                                    <select class="form-control" name="is_deleted" id="status" onchange="changeStatus()">
+                                        @if ($pengirimanCust->is_deleted)
+                                            <option selected class="form-control" value="1">TIDAK AKTIF</option>
+                                            <option class="form-control" value="0">AKTIF</option>
+                                        @else
+                                            <option class="form-control" value="1">TIDAK AKTIF</option>
+                                            <option selected class="form-control" value="0">AKTIF</option>
+                                        @endif
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="position-relative form-group">
+                                    <button class="mt-2 btn btn-primary"
+                                    @if ($pengirimanCust->waktu_sampai_kantor != null)
+                                        disabled
+                                    @endif
+                                    >Ubah</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/finishPengiriman/{{$pengirimanCust->id}}" enctype="multipart/form-data">
+                    @csrf
+                    <button class="btn ml-2 mr-2 btn-danger pull-right"
+                    @if($pengirimanCust->waktu_berangkat == null || $pengirimanCust->waktu_sampai_kantor != null || $status == "")
+                        disabled
+                    @endif
+                    >SELESAI PENGIRIMAN CUSTOMER</button>
+                </form>
+                <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/startPengiriman/{{$pengirimanCust->id}}" enctype="multipart/form-data">
+                    @csrf
+                    <button class="btn ml-2 mr-2 btn-success pull-right"
+                    @if($pengirimanCust->waktu_berangkat != null || $pengirimanCust->waktu_sampai_kantor != null)
+                        disabled
+                    @endif
+                    >MULAI PENGIRIMAN CUSTOMER</button>
+                </form>
+                <button type="button" data-toggle="collapse" href="#collapseEdit" class="btn btn-secondary">Detail Pengiriman Customer</button>
             </div>
         </div>
     </div>
@@ -85,17 +173,21 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
-                    <button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()" {{$status}}>
-                        &nbsp Scan &nbsp
+                    <button type="button" class="btn mr-2 mb-2 btn-primary pull-right" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()" {{$status}}>
+                        &nbsp SCAN RESI &nbsp
                     </button>
+                    @if ($tipe == "finish")
                     <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/updateDetailPenerima/{{$pengirimanCust->id}}" enctype="multipart/form-data">
+                    @else
+                    <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/addDetail/{{$pengirimanCust->id}}" enctype="multipart/form-data">
+                    @endif
                         @csrf
                         <div class="form-row">
                             <div class="col-md-3">
                                 <div class="position-relative form-group">
                                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="resi_id" id="resi_id" 
-                                    placeholder="Id Resi" type="text" class="form-control" required {{$status}}>
+                                    placeholder="Id Resi" type="text" class="form-control" required>
                                     <div class="invalid-feedback">
                                         Id Resi tidak valid.
                                     </div>
@@ -103,7 +195,11 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                             </div>
                             <div class="col-md-2">
                                 <div class="position-relative form-group" style="bottom: 10%">
-                                    <button class="mt-2 btn btn-primary" id="updateStatus" {{$status}}>Selesai</button>
+                                    @if ($tipe == "finish")
+                                    <button class="mt-2 btn btn-primary" id="updateStatus" {{$status}}>Selesai</button>    
+                                    @else
+                                    <button class="mt-2 btn btn-primary" id="updateStatus" {{$status}}>Tambah</button>                                        
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -112,20 +208,22 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                     <table class="table table-hover table-striped dataTable dtr-inline" id="tableDetail">
                         <thead>
                             <tr>
-                                <th>Resi ID</th>
+                                <th>ID</th>
                                 <th>Pengirim</th>
-                                <th>Alamat Asal</th>
+                                <th>Alamat Pengirim</th>
                                 <th>Penerima</th>
-                                <th>Alamat Tujuan</th>
+                                <th>Alamat Penerima</th>
                                 <th>Berat</th>
                                 <th>Dimensi</th>
                                 <th>Fragile</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
-                                <th>User Created</th>
-                                <th>User Updated</th>
-                                <th>Status</th>
-                                <th>Delete</th>
+                                <th>Status Pesanan</th>
+                                <th>Diubah Tanggal</th>
+                                <th>Diubah Oleh</th>
+                                <th>Dibuat Tanggal</th>
+                                <th>Dibuat Oleh</th>
+                                @if($tipe == "add")
+                                <th>Perintah</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -133,13 +231,13 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                             @foreach ($pengirimanCust->resis as $i)
                             <tr>
                                 <td>{{$i->id}}</td>
-                                <td>{{$i->pesanan->nama_pengirim}}</td>
-                                <td>{{$i->pesanan->alamat_asal}}</td>
-                                <td>{{$i->pesanan->nama_penerima}}</td>
-                                <td>{{$i->pesanan->alamat_tujuan}}</td>
-                                <td>{{$i->pesanan->berat_barang}} Kg</td>
-                                <td>{{$i->pesanan->panjang}} cm x {{$i->pesanan->lebar}} cm x {{$i->pesanan->tinggi}} cm</td>
-                                @if ($i->pesanan->is_fragile)
+                                <td>{{$i->nama_pengirim}}</td>
+                                <td>{{$i->alamat_asal}}</td>
+                                <td>{{$i->nama_penerima}}</td>
+                                <td>{{$i->alamat_tujuan}}</td>
+                                <td>{{$i->berat_barang}} Kg</td>
+                                <td>{{$i->panjang}} cm x {{$i->lebar}} cm x {{$i->tinggi}} cm</td>
+                                @if ($i->is_fragile)
                                 <td class="text-center text-white">
                                     <div class="badge badge-danger">
                                         FRAGILE
@@ -152,14 +250,10 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                                     </div>
                                 </td>
                                 @endif
-                                <td>{{$i->d_pengiriman_customer->created_at}}</td>
-                                <td>{{$i->d_pengiriman_customer->updated_at}}</td>
-                                <td>{{$i->d_pengiriman_customer->user_created}}</td>
-                                <td>{{$i->d_pengiriman_customer->user_updated}}</td>
                                 @if ($i->d_pengiriman_customer->telah_sampai)
                                 <td class="text-center text-white">
                                     <div class="badge badge-success">
-                                        SELESAI 
+                                        SELESAI
                                     </div>
                                 </td>    
                                 @else 
@@ -169,18 +263,69 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                                     </div>
                                 </td>
                                 @endif
+                                <td>{{$i->d_pengiriman_customer->updated_at}}</td>
+                                <td>{{$i->d_pengiriman_customer->user_updated}}</td>
+                                <td>{{$i->d_pengiriman_customer->created_at}}</td>
+                                <td>{{$i->d_pengiriman_customer->user_created}}</td>
+                                @if($tipe == "add")
                                 <td><button class="mb-2 mr-2 btn btn-danger" data-toggle="modal" onclick="passValue('{{$i->id}}')" data-target="#deleteDetail" value="{{$i->id}}">Delete</button></td>
+                                @endif
                             </tr>
                             @endforeach
                             @endif
                         </tbody>
                     </table>
+                    @if($tipe == "add")
+                    <button class="mb-2 mr-2 mt-5 btn btn-danger pull-right" data-toggle="modal" data-target="#deleteAllDetail">DELETE ALL</button>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
 </div>  
 @endsection
+
+{{-- Delete all detail --}}
+<div class="modal fade" id="deleteAllDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">APAKAH ANDA YAKIN?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            SEMUA DATA AKAN TERHAPUS JIKA MENEKAN TOMBOL DELETE ALL.
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger"onclick="deleteAllDetail()" data-dismiss="modal">DELETE ALL</button>
+        </div>
+        </div>
+    </div>
+</div>
+
+{{-- Delete per detail --}}
+<div class="modal fade" id="deleteDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">APAKAH ANDA YAKIN?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            DATA INI AKAN TERHAPUS JIKA MENEKAN TOMBOL DELETE.
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" id="deleteDetail" onclick="deleteDetail()" data-dismiss="modal">Delete</button>
+        </div>
+        </div>
+    </div>
+</div>
 
 {{-- Notification --}}
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -222,14 +367,13 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
     </div>
 </div>
 
-
 @section('scripts')
 <script>
     $(document).ready(function () {
-        $("#upperlist-penerima-pengirimanCustomer").addClass("mm-active");
-        $("#btn-penerima-pengirimanCustomer").attr("aria-expanded", "true");
-        $("#list-penerima-pengirimanCustomer").attr("class", "mm-collapse mm-show");
-        $("#header-penerima-pengirimanCustomer").attr("class", "mm-active");
+        $("#upperlist-pengirimanCustomer").addClass("mm-active");
+        $("#btn-pengirimanCustomer").attr("aria-expanded", "true");
+        $("#list-pengirimanCustomer").attr("class", "mm-collapse mm-show");
+        $("#header-pengirimanCustomer").attr("class", "mm-active");
     
         if ('{{Session::has("fail-detail")}}'){
             triggerNotification('{{Session::get("fail-detail")}}');
@@ -241,9 +385,11 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
         scanner.addListener('scan', function(content) {
             $("#resi_id").val(content);
             $("#close").click();
-            $("#updateStatus").click();
+            $("#updateStatus").click();    
         });
-        
+
+        var idKota = $('#kota').val();
+        refreshCombobox(idKota, "null", "{{$pengirimanCust->kantor->id}}", "{{$pengirimanCust->kurir_customer->id}}");
     })
 
     var table = $('#tableDetail').DataTable({
@@ -283,6 +429,76 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
     function triggerNotification(text){
         $("#modalContent").html(text);
         $("#triggerModal").click();
+    }
+
+    function refreshCombobox(idKota, idKantor, currKantor, currKurir){
+        $.ajax({
+            method : "POST",
+            url : '/admin/pengirimanCustomer/isiCombobox/{{$pengirimanCust->id}}',
+            datatype : "json",
+            data : { kota : idKota, kantor : idKantor, kantorCurr : currKantor, kurirCurr : currKurir, _token : "{{ csrf_token() }}" },
+            success: function(result){
+                if(idKantor == "null"){
+                    var hasil = result.split("|");
+                    $('#kantor').html(hasil[0]);
+                    $('#kurir').html(hasil[1]);
+                }
+                else{
+                    $('#kurir').html(result);
+                }
+            },
+            error: function(){
+                console.log('error');
+            }
+        });
+    }
+
+    //UNTUK KANTOR
+    function isiKantorAsal(){
+        var idKota = $('#kota').val();
+        refreshCombobox(idKota, "null", "null", "null");
+    }
+
+    //UNTUK KURIR CUSTOMER
+    function isiKurirCustomer(){
+        var idKota = $('#kota').val();
+        var idKantor = $('#kantor').val();
+        refreshCombobox(idKota, idKantor,"null","null");
+    }
+
+    function passValue(id){
+        $("#deleteDetail").val(id);
+    }
+
+    function deleteDetail(){
+        var id = $('#deleteDetail').val();
+        $.ajax({
+            method : "POST",
+            url : "/admin/pengirimanCustomer/deleteDetail/{{$pengirimanCust->id}}",
+            datatype : "json",
+            data : { id : id, _token : "{{ csrf_token() }}" },
+            success: function(result){
+                window.location.reload();
+            },
+            error: function(){
+                console.log('error');
+            }
+        });
+    }
+
+    function deleteAllDetail(){
+        $.ajax({
+            method : "POST",
+            url : "/admin/pengirimanCustomer/deleteAll/{{$pengirimanCust->id}}",
+            datatype : "json",
+            data : { _token : "{{ csrf_token() }}" },
+            success: function(result){
+                window.location.reload();
+            },
+            error: function(){
+                console.log('error');
+            }
+        });
     }
 
 </script>

@@ -84,7 +84,7 @@ Halaman ini untuk mengubah data pengiriman customer.
                                 <br>
                                 <div class="form-check-inline">
                                     <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="menuju_penerima" value="1"
+                                    <input type="radio" class="form-check-input"  onclick="showPesanan('penerima','{{$pengirimanCust->resis[0]->id}}')"  name="menuju_penerima" value="1"
                                     @if($pengirimanCust->menuju_penerima == '1')
                                         checked
                                     @endif
@@ -93,13 +93,21 @@ Halaman ini untuk mengubah data pengiriman customer.
                                 </div>
                                 <div class="form-check-inline">
                                     <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="menuju_penerima" value="0"
+                                    <input type="radio" class="form-check-input"  onclick="showPesanan('pengirim','{{$pengirimanCust->resis[0]->id}}')" name="menuju_penerima" value="0"
                                     @if($pengirimanCust->menuju_penerima == '0')
                                         checked
                                     @endif
                                     > Pengirim
                                     </label>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row" id="formPesanan">
+                        <div class="col-md-5">
+                            <div class="position-relative form-group">
+                                <label class="">Alamat Pesanan Customer</label>
+                                <select name="resi_id" id="pesanan" class="form-control"></select>
                             </div>
                         </div>
                     </div>
@@ -121,19 +129,38 @@ Halaman ini untuk mengubah data pengiriman customer.
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-2">
+                        <div class="col-md-12">
                             <div class="position-relative form-group">
-                                <button class="mt-2 btn btn-primary">Ubah</button>
+                                <button class="mt-2 btn btn-primary"
+                                @if ($pengirimanCust->waktu_sampai_kantor != null)
+                                    disabled
+                                @endif
+                                >Ubah</button>
                             </div>
                         </div>
                     </div>
+                </form>
+                <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/finishPengiriman/{{$pengirimanCust->id}}" enctype="multipart/form-data">
+                    @csrf
+                    <button class="btn ml-2 mr-2 btn-danger pull-right"
+                    @if($pengirimanCust->waktu_berangkat == null || $pengirimanCust->waktu_sampai_kantor != null)
+                        disabled
+                    @endif
+                    >SELESAI PENGIRIMAN CUSTOMER</button>
+                </form>
+                <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/startPengiriman/{{$pengirimanCust->id}}" enctype="multipart/form-data">
+                    @csrf
+                    <button class="btn ml-2 mr-2 btn-success pull-right"
+                    @if($pengirimanCust->waktu_berangkat != null || $pengirimanCust->waktu_sampai_kantor != null)
+                        disabled
+                    @endif
+                    >MULAI PENGIRIMAN CUSTOMER</button>
                 </form>
             </div>
         </div>
     </div>
 </div>  
 @endsection
-
 
 @section('scripts')
 <script>
@@ -152,9 +179,10 @@ Halaman ini untuk mengubah data pengiriman customer.
 
         var idKota = $('#kota').val();
         refreshCombobox(idKota, "null", "{{$pengirimanCust->kantor->id}}", "{{$pengirimanCust->kurir_customer->id}}");
+        showPesanan("pengirim",'{{$pengirimanCust->resis[0]->id}}');
     })
 
-    function showPesanan(tipe){
+    function showPesanan(tipe, idPesanan){
         if(tipe == "pengirim"){
             var idKota = $('#kota').val();
             $("#formPesanan").removeClass("d-none");
@@ -163,7 +191,7 @@ Halaman ini untuk mengubah data pengiriman customer.
                 method : "POST",
                 url : '/admin/pengirimanCustomer/lihatPesanan',
                 datatype : "json",
-                data : { kota : idKota, _token : "{{ csrf_token() }}" },
+                data : { kota : idKota, pesanan : idPesanan, _token : "{{ csrf_token() }}" },
                 success: function(result){
                     $('#pesanan').html(result);
                 },
@@ -182,11 +210,11 @@ Halaman ini untuk mengubah data pengiriman customer.
     function isiKantorAsal(){
         var idKota = $('#kota').val();
         refreshCombobox(idKota, "null", "null", "null");
-        if($('#rbPengirim').is(':checked')){
-            showPesanan("pengirim");
+        if($('#rbPenerima').is(':checked')){
+            showPesanan("penerima",'{{$pengirimanCust->resis[0]->id}}');
         }
         else{
-            showPesanan("penerima");
+            showPesanan("pengirim",'{{$pengirimanCust->resis[0]->id}}');
         }
     }
 
@@ -200,7 +228,7 @@ Halaman ini untuk mengubah data pengiriman customer.
     function refreshCombobox(idKota, idKantor, currKantor, currKurir){
         $.ajax({
             method : "POST",
-            url : '/admin/pengirimanCustomer/isiCombobox',
+            url : '/admin/pengirimanCustomer/isiCombobox/{{$pengirimanCust->id}}',
             datatype : "json",
             data : { kota : idKota, kantor : idKantor, kantorCurr : currKantor, kurirCurr : currKurir, _token : "{{ csrf_token() }}" },
             success: function(result){
@@ -218,6 +246,5 @@ Halaman ini untuk mengubah data pengiriman customer.
             }
         });
     }
-
 </script>
 @endsection 

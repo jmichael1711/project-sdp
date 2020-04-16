@@ -310,20 +310,6 @@
                                                 Tambah Pengiriman Cust
                                             </a>
                                         </li>
-                                        <li>
-                                            <a id="header-pengirim-pengirimanCustomer" href="{{ url('/admin/pengirimanCustomer/pengirim') }}">
-                                                <i class="metismenu-icon">
-                                                </i>
-                                                Semua Menuju Pengirim
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a id="header-penerima-pengirimanCustomer" href="{{ url('/admin/pengirimanCustomer/penerima') }}">
-                                                <i class="metismenu-icon">
-                                                </i>
-                                                Semua Menuju Penerima
-                                            </a>
-                                        </li>
                                     </ul>
                                 </li>
 
