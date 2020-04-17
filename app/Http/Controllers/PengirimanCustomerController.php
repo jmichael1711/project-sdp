@@ -15,10 +15,9 @@ use App\Kantor;
 class PengirimanCustomerController extends Controller
 {
     public function create() {
-        $nextId = Pengiriman_customer::getNextId();
         $allKota = Kota::getAll()->get();
         $allResi = Resi::getAll()->get();
-        return view('master.pengirimanCustomer.create',compact('nextId','allKota', 'allResi'));
+        return view('master.pengirimanCustomer.create',compact('allKota', 'allResi'));
     }
 
     public function lihatPesanan(Request $request){
@@ -89,6 +88,7 @@ class PengirimanCustomerController extends Controller
                 $str .= '|';
                 
                 if(count($currentKantor->kurir_customer) > 0){
+                    $count = 0;
                     foreach ($currentKantor->kurir_customer as $kurir) {
                         $boleh = true;
                         foreach ($allPengirimanCust as $i) {
@@ -106,7 +106,11 @@ class PengirimanCustomerController extends Controller
                             else{
                                 $str .= '<option class="form-control" value="'.$kurir->id.'">'.$kurir->nama .' ('. $kurir->nopol .')</option>';
                             }
+                            $count++;
                         }
+                    }
+                    if($count == 0){
+                        $str .= '<option value="">-- TIDAK ADA KURIR --</option>';    
                     }
                 }
                 else{
@@ -163,9 +167,10 @@ class PengirimanCustomerController extends Controller
         date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $panjang = count($request);
+
+        unset($request["resi_id"]);
         if($request['menuju_penerima'] == "0"){
             $idResi = $request["resi_id"];
-            unset($request["resi_id"]);
         }
 
         if(Session::has('loginstatus')){
@@ -175,6 +180,7 @@ class PengirimanCustomerController extends Controller
         }
 
         $user = Session::get('id');
+        $request['id'] = Pengiriman_customer::getNextId();
         $request['user_created'] = $user;
         $request['user_updated'] = $user;
 
