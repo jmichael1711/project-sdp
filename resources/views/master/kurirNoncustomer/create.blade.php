@@ -33,7 +33,7 @@ Halaman ini untuk menambah data kurir non customer
 
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
-            <div class="card-body"><h5 class="card-title">Kurir Non Customer</h5>
+            <div class="card-body">
                 <form novalidate class="needs-validation" method="post" action="/admin/kurir_noncustomer/store" enctype="multipart/form-data">
                 @csrf
                     <div class="form-row">

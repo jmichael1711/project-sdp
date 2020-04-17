@@ -38,17 +38,6 @@ Halaman ini untuk menambah data resi.
         <div class="form-row">
             <div class="col-md-5">
                 <div class="position-relative form-group">
-                    <label class="">ID</label>
-                    <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" id=""
-                    placeholder="ID" type="text" class="form-control" value="{{$nextId}}" readonly>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="col-md-5">
-                <div class="position-relative form-group">
                     <label class="">Nama Pengirim</label>
                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nama_pengirim"
@@ -219,9 +208,8 @@ Halaman ini untuk menambah data resi.
             <div class="col-md-5">
                 <div class="position-relative form-group">
                     <label class="">Berat Barang (KiloGram)</label>
-                    <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                    this.setSelectionRange(p, p);" style="text-transform:uppercase" name="berat_barang" id="berat_barang"
-                    placeholder="BERAT (KG)" step="0.001" type="number" max="20" min="0.001" class="form-control" oninput="hitungHarga()">
+                    <input required oninput="hitungHarga();" 
+                    name="berat_barang" id="berat_barang" placeholder="BERAT (KG)" step="0.001" type="number" max="20" min="0.001" class="form-control" >
                     <div class="invalid-feedback">
                         Mohon input dimensi barang yang valid.
                     </div>

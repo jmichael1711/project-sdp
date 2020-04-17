@@ -28,16 +28,7 @@ Halaman ini untuk menambah data pengiriman customer.
             <div class="card-body">
                 <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/store" enctype="multipart/form-data">
                 @csrf
-                    <div class="form-row">
-                        <div class="col-md-5">
-                            <div class="position-relative form-group">
-                                <label class="">ID Pengiriman Customer</label>
-                                <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" 
-                                type="text" class="form-control" value="{{$nextId}}" readonly>
-                            </div>
-                        </div>
-                    </div>
+                  
 
                     @if (Session::has('loginstatus'))
                         @if (Session::get('loginstatus') != 3)

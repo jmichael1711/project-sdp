@@ -21,6 +21,7 @@ class ResiController extends Controller
     public function store(Request $request){
         $request = $request->all();
         $user = Pegawai::findOrFail(Session::get('id'));
+        $request['id'] = Resi::getNextId();
         $request['user_created'] = $user->id;
         $request['user_updated'] = $user->id;
 
