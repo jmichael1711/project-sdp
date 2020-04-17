@@ -203,6 +203,7 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::get('/admin/resi/edit/{id}', 'ResiController@edit');
     Route::post('/admin/resi/update/{id}', 'ResiController@update');
     Route::post('/admin/resi/countCost', 'ResiController@countCost');
+    Route::post('/admin/resi/countResi', 'ResiController@countResi');
 
      //ADMIN - Kurir Customer
      Route::get('/admin/kurir_customer', 'kurir_customerController@index');

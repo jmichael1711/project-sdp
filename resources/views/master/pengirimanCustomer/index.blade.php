@@ -346,6 +346,8 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
 
         $("#tab-content-2").removeClass("show active");
         $("#tab-content-3").removeClass("show active");
+
+        count();
     })
 
     var table = $('#tablePengirimanCust1').DataTable({
