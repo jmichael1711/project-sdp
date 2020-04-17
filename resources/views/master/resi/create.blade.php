@@ -221,7 +221,7 @@ Halaman ini untuk menambah data resi.
                     <label class="">Berat Barang (KiloGram)</label>
                     <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="berat_barang" id="berat_barang"
-                    placeholder="BERAT (KG)" step="0.001" type="number" max="20" min="0.001" class="form-control" onchange="hitungHarga()">
+                    placeholder="BERAT (KG)" step="0.001" type="number" max="20" min="0.001" class="form-control" oninput="hitungHarga()">
                     <div class="invalid-feedback">
                         Mohon input dimensi barang yang valid.
                     </div>

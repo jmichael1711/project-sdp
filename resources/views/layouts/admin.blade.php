@@ -48,7 +48,7 @@
                     </button>
                 </div>
             </div>
-            <div class="app-header__menu">
+            {{-- <div class="app-header__menu">
                 <span>
                     <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
                         <span class="btn-icon-wrapper">
@@ -56,7 +56,7 @@
                         </span>
                     </button>
                 </span>
-            </div>
+            </div> --}}
 
             <div class="app-header__content">
                 <div class="app-header-left">
@@ -535,7 +535,7 @@
                 <script src="{{asset('js/formvalidationadmin.js')}}"></script>
                 <script src="{{asset('DataTables/datatables.min.js')}}" ></script>
                 <script src="{{asset('js/instascan.min.js')}}"></script>
-                @yield('scripts');
+                @yield('scripts')
         </div>
     </div>
 </body>
