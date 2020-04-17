@@ -27,8 +27,7 @@ class Bon_MuatController extends Controller
         $user = Session::get('id');
         $request['user_created'] = $user;
         $request['user_updated'] = $user;
-        $kurir = Kurir_non_customer::findOrFail($request['kurir_non_customer_id']);
-        $kurir->update(['status' => 0]);
+       
         $success = "Bon muat berhasil didaftarkan.";
         Bon_muat::create($request);
         return redirect('/admin/bonmuat')->with(['success-bonmuat' => $success]);
@@ -37,26 +36,49 @@ class Bon_MuatController extends Controller
     public function find(Request $request){
         $allKurir = Kurir_non_customer::sortKurir($request->kantorAsal,$request->kantorTujuan);
         $allKendaraan = Kendaraan::sortKendaraan($request->kantorAsal,$request->kantorTujuan);
+        $allBonMuat = Bon_Muat::getAll()->where("kantor_asal_id","=",$request->kantorAsal)->where("waktu_sampai","<>",null)->get();
         $str = '';
         if($allKurir->count() > 0){
+            $ctr = 0;
             foreach($allKurir as $kurir){
-                if($kurir->id == $request->kurir){
-                    $str .= '<option selected class="form-control" value="'.$kurir->id.'">'.$kurir->nama.'</option>';
-                }else{
-                    $str .= '<option class="form-control" value="'.$kurir->id.'">'.$kurir->nama.'</option>';
+                $found = false;
+                foreach($allBonMuat as $bonmuat){
+                    if($bonmuat->kurir_non_customer_id == $kurir->id){
+                        $found = true;
+                    }   
+                }
+                if($found == false){
+                    $ctr++;
+                    if($kurir->id == $request->kurir){
+                        $str .= '<option selected class="form-control" value="'.$kurir->id.'">'.$kurir->nama.'</option>';
+                    }else{
+                        $str .= '<option class="form-control" value="'.$kurir->id.'">'.$kurir->nama.'</option>';
+                    }
                 }
             }
+            if($ctr == 0){$str .= '<option class="form-control" value="">-- TIDAK ADA KURIR --</option>';}
         }else $str .= '<option class="form-control" value="">-- TIDAK ADA KURIR --</option>';
         
         $str .= '|';
-        if($allKendaraan->count() > 0){    
+        if($allKendaraan->count() > 0){  
+            $ctr = 0;  
             foreach($allKendaraan as $kendaraan){
-                if($kendaraan->id == $request->kendaraan){
-                    $str .='<option selected class="form-control" value="'.$kendaraan->id.'">'.$kendaraan->nopol.'</option>';
-                }else{
-                    $str .='<option class="form-control" value="'.$kendaraan->id.'">'.$kendaraan->nopol.'</option>';
+                $found = false;
+                foreach($allBonMuat as $bonmuat){
+                    if($bonmuat->kendaraan_id == $kendaraan->id){
+                        $found = true;
+                    }   
+                }
+                if($found == false){
+                    $ctr++;
+                    if($kendaraan->id == $request->kendaraan){
+                        $str .='<option selected class="form-control" value="'.$kendaraan->id.'">'.$kendaraan->nopol.'</option>';
+                    }else{
+                        $str .='<option class="form-control" value="'.$kendaraan->id.'">'.$kendaraan->nopol.'</option>';
+                    }
                 }
             }
+            if($ctr == 0){$str .= '<option class="form-control" value="">-- TIDAK ADA KURIR --</option>';}  
         }else $str .= '<option class="form-control" value="">-- TIDAK ADA KENDARAAN --</option>';
         return $str;
     }
@@ -85,16 +107,6 @@ class Bon_MuatController extends Controller
         date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $bonmuat = Bon_Muat::findOrFail($id);
-
-        $kurirBefore = Kurir_non_customer::findOrFail($bonmuat->kurir_non_customer_id);
-        $kurirBefore->update(['status' => 1]);
-        $kurirAfter = Kurir_non_customer::findOrFail($request['kurir_non_customer_id']);
-        $kurirAfter->update(['status' => 0]);
-
-        $kendaraanBefore = Kendaraan::findOrFail($bonmuat->kendaraan_id);
-        $kendaraanBefore->update(['status' => 1]);
-        $kendaraanAfter = Kendaraan::findOrFail($request['kendaraan_id']);
-        $kendaraanAfter->update(['status' => 0]);
 
         $request['user_updated'] = Session::get('id');
         $bonmuat->update($request);
@@ -206,6 +218,21 @@ class Bon_MuatController extends Controller
             $bonmuat->resis()->updateExistingPivot($request["resi_id"],['telah_sampai' => 1]);
             $bonmuat->resis()->updateExistingPivot($request["resi_id"],['waktu_sampai' => now()]);
             $bonmuat->resis()->updateExistingPivot($request["resi_id"],['user_updated' => $user]);
+
+            $count = 0;
+            foreach($bonmuat->resis as $i){
+                if($i->surat_jalan->telah_sampai == 0 && $i->surat_jalan->waktu_sampai != null){
+                    $count++;
+                }
+            }
+
+            if($count == 0){
+                $kurir = Kurir_non_customer::findOrFail($bonmuat->kurir_non_customer_id);
+                $kurir->update(['status' => 1]);  
+                $kendaraan = Kendaraan::findOrFail($bonmuat->kendaraan_id);
+                $kendaraan->update(['status' => 1]);  
+            }
+
             $success = 'Surat Jalan '. $request["resi_id"]. ' telah selesai.';
             Session::put('success-suratjalan', $success);
             return redirect('/admin/bonmuat/editSuratJalan/'.$id);
@@ -223,6 +250,12 @@ class Bon_MuatController extends Controller
             $user = Session::get('id');
             $bonmuat->update(['user_updated' => $user]);  
             $bonmuat->update(['waktu_berangkat' => now()]); 
+
+            $kurir = Kurir_non_customer::findOrFail($bonmuat->kurir_non_customer_id);
+            $kurir->update(['status' => 0]);  
+            $kendaraan = Kendaraan::findOrFail($bonmuat->kendaraan_id);
+            $kendaraan->update(['status' => 0]);  
+
             $success = 'Bon Muat ' . '"' . $id .  '"' . ' telah dimulai.';
             Session::put('success-bonmuat', $success);
             return redirect('/admin/bonmuat');

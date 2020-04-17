@@ -88,7 +88,11 @@ Halaman ini untuk menambah data pengiriman customer.
                                   </div>
                                   <div class="form-check-inline">
                                     <label class="form-check-label">
-                                      <input type="radio" id="rbPengirim" class="form-check-input" onclick="showPesanan('pengirim','null')" name="menuju_penerima" value="0"> Pengirim
+                                      <input type="radio" id="rbPengirim" class="form-check-input" onclick="showPesanan('pengirim','null')" name="menuju_penerima" value="0" 
+                                        @if ($resi != "null")
+                                            checked
+                                        @endif
+                                      > Pengirim
                                     </label>
                                   </div>
                             </div>
@@ -134,7 +138,11 @@ Halaman ini untuk menambah data pengiriman customer.
                 refreshCombobox(idKota, "null");
             @endif
         @endif
-        showPesanan("penerima","null");
+        @if($resi == "null")
+            showPesanan("penerima","null");
+        @else 
+            showPesanan("pengirim","{{$resi->id}}");
+        @endif
     })
 
     function showPesanan(tipe, idPesanan){
