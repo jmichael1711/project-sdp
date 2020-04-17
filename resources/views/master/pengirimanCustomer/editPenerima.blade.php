@@ -46,7 +46,13 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                     </div>
                     
                     <div class="collapse" id="collapseEdit">
-                        <div class="form-row">
+                        <div class="form-row"
+                        @if (Session::has('loginstatus'))
+                            @if (Session::get('loginstatus') == 3)
+                                hidden
+                            @endif
+                        @endif
+                        >
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kota</label>
@@ -61,7 +67,13 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                                 </div>
                             </div>
                         </div>
-                        <div class="form-row">
+                        <div class="form-row"
+                        @if (Session::has('loginstatus'))
+                            @if (Session::get('loginstatus') == 3)
+                                hidden
+                            @endif
+                        @endif
+                        >
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kantor Asal</label>

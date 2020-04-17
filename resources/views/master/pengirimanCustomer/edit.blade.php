@@ -40,7 +40,14 @@ Halaman ini untuk mengubah data pengiriman customer.
                             </div>
                         </div>
                     </div>
-                    <div class="form-row">
+
+                    <div class="form-row"
+                    @if (Session::has('loginstatus'))
+                        @if (Session::get('loginstatus') == 3)
+                            hidden
+                        @endif
+                    @endif
+                    >
                         <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Kota</label>
@@ -55,7 +62,13 @@ Halaman ini untuk mengubah data pengiriman customer.
                             </div>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row"
+                    @if (Session::has('loginstatus'))
+                        @if (Session::get('loginstatus') == 3)
+                            hidden
+                        @endif
+                    @endif
+                    >
                         <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Kantor Asal</label>
@@ -66,6 +79,7 @@ Halaman ini untuk mengubah data pengiriman customer.
                             </div>
                         </div>
                     </div>
+
                     <div class="form-row">
                         <div class="col-md-5">
                             <div class="position-relative form-group">
@@ -184,7 +198,7 @@ Halaman ini untuk mengubah data pengiriman customer.
 
     function showPesanan(tipe, idPesanan){
         if(tipe == "pengirim"){
-            var idKota = $('#kota').val();
+            var idKota = $('#kantor').val();
             $("#formPesanan").removeClass("d-none");
             $("#formPesanan").addClass("d-block");
             $.ajax({

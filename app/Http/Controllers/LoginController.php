@@ -52,20 +52,20 @@ class LoginController extends Controller
                     Session::put('loginstatus', 0);
                     Session::put('id', $username);
                     Session::put('name',$pegawai->nama);
-                    return redirect("/admin/kantor");
+                    return redirect("/admin");
 
                 } else if ($jabatan == "pegawai") {
                     Session::put('loginstatus', 4);
                     Session::put('id', $username);
                     Session::put('name',$pegawai->nama);
-                    return redirect("/admin/kantor");
+                    return redirect("/admin");
 
                 } else if ($jabatan == "kasir") {
                     Session::put('loginstatus', 3);
                     Session::put('id', $username);
                     Session::put('name',$pegawai->nama);
-                    return redirect("/admin/kantor");
-
+                    Session::put('pegawai',$pegawai);
+                    return redirect("/admin");
                 } else {
                     Session::put('status', 'Ada masalah pada jabatan anda.');
                     return redirect("/login");

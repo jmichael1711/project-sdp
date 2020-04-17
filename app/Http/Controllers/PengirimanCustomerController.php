@@ -24,7 +24,7 @@ class PengirimanCustomerController extends Controller
     public function lihatPesanan(Request $request){
         $str = '';
         $idPesanan = $request['pesanan'];
-        $allResi = Resi::getAll()->where("kota_asal",$request->kota)->where("verifikasi","0")->get();
+        $allResi = Resi::getAll()->where("kantor_asal_id",$request->kota)->where("verifikasi","0")->get();
         if(count($allResi) > 0) {
             $hitung = 0;
             foreach ($allResi as $resi) {
@@ -85,7 +85,7 @@ class PengirimanCustomerController extends Controller
                         $str .= '<option class="form-control" value="'.$kantor->id.'">'.$kantor->alamat.'</option>';
                     }
                     $now = $now + 1;
-                } 
+                }
                 $str .= '|';
                 
                 if(count($currentKantor->kurir_customer) > 0){
@@ -119,6 +119,7 @@ class PengirimanCustomerController extends Controller
         }
         else{
             $allKurir = Kantor::findOrFail($kantorId)->kurir_customer->where("status","1");
+            $count = 0;
             if(count($allKurir) > 0){
                 foreach ($allKurir as $kurir) {
                     $boleh = true;
@@ -126,8 +127,12 @@ class PengirimanCustomerController extends Controller
                         if($i->kurir_customer_id == $kurir->id) $boleh = false;
                     }
                     if($boleh == true){
+                        $count++;
                         $str .= '<option class="form-control" value="'.$kurir->id.'">'.$kurir->nama  .'('. $kurir->nopol .')</option>';
                     }
+                }
+                if($count == 0){
+                    $str = '<option value="">-- TIDAK ADA KURIR --</option>';    
                 }
             }
             else{
@@ -138,9 +143,19 @@ class PengirimanCustomerController extends Controller
     }
 
     public function index(){
-        $allPengirimanCust = Pengiriman_customer::get();
-        $pengirimanCustPengirim = Pengiriman_customer::getAll()->where("menuju_penerima","0")->get();
-        $pengirimanCustPenerima = Pengiriman_customer::getAll()->where("menuju_penerima","1")->get();
+        if(Session::has('loginstatus')){
+            if(Session::get('loginstatus') == 3){
+                $kantor = Session::get('pegawai')->kantor->id;
+                $allPengirimanCust = Pengiriman_customer::where('kantor_id',$kantor)->get();
+                $pengirimanCustPengirim = Pengiriman_customer::getAll()->where("menuju_penerima","0")->where('kantor_id',$kantor)->get();
+                $pengirimanCustPenerima = Pengiriman_customer::getAll()->where("menuju_penerima","1")->where('kantor_id',$kantor)->get();
+            }
+            else{
+                $allPengirimanCust = Pengiriman_customer::get();
+                $pengirimanCustPengirim = Pengiriman_customer::getAll()->where("menuju_penerima","0")->get();
+                $pengirimanCustPenerima = Pengiriman_customer::getAll()->where("menuju_penerima","1")->get();
+            }
+        }
         return view('master.pengirimanCustomer.index',compact('allPengirimanCust','pengirimanCustPengirim','pengirimanCustPenerima'));
     }
 
@@ -151,6 +166,12 @@ class PengirimanCustomerController extends Controller
         if($request['menuju_penerima'] == "0"){
             $idResi = $request["resi_id"];
             unset($request["resi_id"]);
+        }
+
+        if(Session::has('loginstatus')){
+            if(Session::get('loginstatus') == 3){
+                $request['kantor_id'] = Session::get('pegawai')->kantor->id;
+            }
         }
 
         $user = Session::get('id');

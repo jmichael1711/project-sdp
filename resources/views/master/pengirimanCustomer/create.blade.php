@@ -38,12 +38,24 @@ Halaman ini untuk menambah data pengiriman customer.
                             </div>
                         </div>
                     </div>
+
+                    @if (Session::has('loginstatus'))
+                        @if (Session::get('loginstatus') != 3)
                     <div class="form-row">
                         <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Kota</label>
                                 <select id="kota" class="form-control" onchange='isiKantorAsal()' required>
                                     @foreach ($allKota as $kota)
+                                        @if (Session::has('loginstatus'))
+                                            @if (Session::get('loginstatus') == 3)
+                                                @if (Session::get('pegawai')->kantor->getKota->nama == $kota->nama)
+                                                    <option selected class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
+                                                @else 
+                                                    <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
+                                                @endif
+                                            @endif
+                                        @endif
                                         <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
                                     @endforeach
                                 </select>
@@ -61,6 +73,9 @@ Halaman ini untuk menambah data pengiriman customer.
                             </div>
                         </div>
                     </div>
+                        @endif
+                    @endif
+
                     <div class="form-row">
                         <div class="col-md-5">
                             <div class="position-relative form-group">
@@ -121,15 +136,29 @@ Halaman ini untuk menambah data pengiriman customer.
         $("#list-pengirimanCustomer").attr("class", "mm-collapse mm-show");
         $("#header-tambah-pengirimanCustomer").attr("class", "mm-active");
 
-        var idKota = $('#kota').val();
-        refreshCombobox(idKota, "null");
+        @if (Session::has('loginstatus'))
+            @if (Session::get('loginstatus') == "3")
+                var idKota = "{{Session::get('pegawai')->kantor->getKota->nama}}";
+                refreshCombobox(idKota, "{{Session::get('pegawai')->kantor->id}}");
+            @else
+                var idKota = $('#kota').val();
+                refreshCombobox(idKota, "null");
+            @endif
+        @endif
         showPesanan("penerima","null");
     })
 
     function showPesanan(tipe, idPesanan){
         if(tipe == "pengirim"){
             $("#pesanan").prop('required',true);
-            var idKota = $('#kota').val();
+            @if(Session::has('loginstatus'))
+                @if(Session::get('loginstatus') == 3)
+                    var idKota = "{{Session::get('pegawai')->kantor->id}}";
+                @else
+                    var idKota = $('#kantor').val();
+                @endif
+            @endif
+            
             $("#formPesanan").removeClass("d-none");
             $("#formPesanan").addClass("d-block");
             $.ajax({

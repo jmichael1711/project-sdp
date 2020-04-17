@@ -47,6 +47,11 @@ class CheckLoginStatusMiddleware
                 if ($pageType != 'kurir') {
                     return redirect('/kurir');
                 }
+            } else if ($status == 3){
+                //kasir can only access
+                if ($pageType != "kasir") {
+                    return redirect('/admin/resi');
+                }
             }
         } else {
             if ($pageType != "guest") {

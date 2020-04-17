@@ -41,7 +41,7 @@ class ResiController extends Controller
         if($user->jabatan == "admin"){
             $allResi = Resi::getAll()->get();
         }else if($user->jabatan == "kasir"){
-            $allResi = Resi::where("kantor_asal_id","=",$user->kantor_id);
+            $allResi = Resi::where("kantor_asal_id","=",$user->kantor_id)->get();
         }
         return view('master.resi.index',compact('allResi'));
     }
