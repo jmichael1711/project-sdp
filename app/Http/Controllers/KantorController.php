@@ -15,9 +15,8 @@ class KantorController extends Controller
     }
 
     public function create() {
-        $nextId = Kantor::getNextId();
         $listKota = Kota::getAll()->get();
-        return view('master.kantor.create', compact('listKota', 'nextId'));
+        return view('master.kantor.create', compact('listKota'));
     }
 
     public function store(Request $request) {
@@ -25,7 +24,7 @@ class KantorController extends Controller
         $request = $request->all();
         $request['id'] = Kantor::getNextId();
         $user = Session::get('id');
-        
+
         $request['user_created'] = $user;
         $request['user_updated'] = $user;
         Kantor::create($request);   

@@ -28,8 +28,6 @@ Halaman ini untuk menambah data pengiriman customer.
             <div class="card-body">
                 <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/store" enctype="multipart/form-data">
                 @csrf
-                  
-
                     @if (Session::has('loginstatus'))
                         @if (Session::get('loginstatus') != 3)
                     <div class="form-row">

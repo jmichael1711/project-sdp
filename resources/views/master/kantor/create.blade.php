@@ -30,16 +30,6 @@ Halaman ini untuk menambah data kantor.
                     <div class="form-row">
                         <div class="col-md-5">
                             <div class="position-relative form-group">
-                                <label class="">ID</label>
-                                <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" disabled id=""
-                                placeholder="ID" type="text" class="form-control" value="{{$nextId}}" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="col-md-5">
-                            <div class="position-relative form-group">
                                 <label class="">Alamat</label>
                                 <textarea style="resize: none;" rows="5" oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="alamat"
