@@ -232,6 +232,8 @@
                     <div class="scrollbar-sidebar">
                         <div class="app-sidebar__inner">
                             <ul class="vertical-nav-menu">
+                                @if (Session::has('loginstatus'))
+                                    @if (Session::get('loginstatus') != 3)
                                 <li class="app-sidebar__heading">Dashboards</li>
                                 <li>
                                     <a id="header-dashboard" href="{{ url('/admin') }}">
@@ -239,6 +241,8 @@
                                         Dashboard Page
                                     </a>
                                 </li>
+                                    @endif
+                                @endif
                                 <li class="app-sidebar__heading">CUSTOMER</li>
 
                                 {{-- SIDEBAR - Resi --}}
@@ -290,7 +294,7 @@
                                         </li>
                                     </ul>
                                 </li>
-
+                                
                                 {{-- SIDEBAR - PENGIRIMAN CUSTOMER --}}
                                 <li id="upperlist-pengirimanCustomer">
                                     <a id="btn-pengirimanCustomer" href="">
@@ -315,6 +319,8 @@
                                     </ul>
                                 </li>
 
+                                @if (Session::has('loginstatus'))
+                                    @if (Session::get('loginstatus') != 3)
                                 <li class="app-sidebar__heading">PEGAWAI</li>
 
                                 {{-- SIDEBAR - PEGAWAI --}}
@@ -461,7 +467,8 @@
                                         </li>
                                     </ul>
                                 </li>
-
+                                    @endif
+                                @endif
                             </ul>
                         </div>
                     </div>

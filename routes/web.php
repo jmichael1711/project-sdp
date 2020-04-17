@@ -151,6 +151,47 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::get('/admin/kendaraan/edit/{id}', 'KendaraanController@edit');
     Route::post('/admin/kendaraan/update/{id}', 'KendaraanController@update');
 
+    //ADMIN - PEGAWAI
+    Route::get('/admin/pegawai', 'PegawaiController@index');
+    Route::get('/admin/pegawai/create', 'PegawaiController@create');
+    Route::post('/admin/pegawai/isiKantor', 'PegawaiController@isiKantor');
+    Route::post('/admin/pegawai/store', 'PegawaiController@store');
+    Route::get('/admin/pegawai/edit/{id}', 'PegawaiController@edit');
+    Route::post('/admin/pegawai/update/{id}', 'PegawaiController@update');
+
+    //ADMIN - KOTA
+    Route::get('/admin/kota', 'KotaController@index');
+    Route::get('/admin/kota/create', 'KotaController@create');
+    Route::post('/admin/kota/store', 'KotaController@store');
+    Route::get('/admin/kota/edit/{id}', 'KotaController@edit');
+    Route::post('/admin/kota/update/{id}', 'KotaController@update');
+
+     //ADMIN - Kurir Customer
+     Route::get('/admin/kurir_customer', 'kurir_customerController@index');
+     Route::get('/admin/kurir_customer/create', 'kurir_customerController@create');
+     Route::post('/admin/kurir_customer/store', 'kurir_customerController@store');
+     Route::get('/admin/kurir_customer/edit/{id}', 'kurir_customerController@edit');
+     Route::post('/admin/kurir_customer/update/{id}', 'kurir_customerController@update');
+
+      //ADMIN - Kurir non customer
+    Route::get('/admin/kurir_noncustomer', 'kurir_noncustomerController@index');
+    Route::get('/admin/kurir_noncustomer/create', 'kurir_noncustomerController@create');
+    Route::post('/admin/kurir_noncustomer/store', 'kurir_noncustomerController@store');
+    Route::get('/admin/kurir_noncustomer/edit/{id}', 'kurir_noncustomerController@edit');
+    Route::post('/admin/kurir_noncustomer/update/{id}', 'kurir_noncustomerController@update');
+});
+
+//INSIDE KASIR GROUP
+Route::group(['middleware' => ['checkstatus:kasir']], function () {
+    //ADMIN - Resi
+    Route::get('/admin/resi', 'ResiController@index');
+    Route::get('/admin/resi/create', 'ResiController@create');
+    Route::post('/admin/resi/store', 'ResiController@store');
+    Route::get('/admin/resi/edit/{id}', 'ResiController@edit');
+    Route::post('/admin/resi/update/{id}', 'ResiController@update');
+    Route::post('/admin/resi/countCost', 'ResiController@countCost');
+    Route::post('/admin/resi/countResi', 'ResiController@countResi');
+
     //ADMING - BON MUAT
     Route::get('/admin/bonmuat','Bon_MuatController@index');
     Route::get('/admin/bonmuat/create', 'Bon_MuatController@create');
@@ -180,46 +221,4 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::post('/admin/pengirimanCustomer/deleteDetail/{id}', 'PengirimanCustomerController@deleteDetail');
     Route::post('/admin/pengirimanCustomer/deleteAll/{id}', 'PengirimanCustomerController@deleteAll');
     Route::post('/admin/pengirimanCustomer/updateDetailPenerima/{id}', 'PengirimanCustomerController@updateDetailPenerima');
-
-    //ADMIN - PEGAWAI
-    Route::get('/admin/pegawai', 'PegawaiController@index');
-    Route::get('/admin/pegawai/create', 'PegawaiController@create');
-    Route::post('/admin/pegawai/isiKantor', 'PegawaiController@isiKantor');
-    Route::post('/admin/pegawai/store', 'PegawaiController@store');
-    Route::get('/admin/pegawai/edit/{id}', 'PegawaiController@edit');
-    Route::post('/admin/pegawai/update/{id}', 'PegawaiController@update');
-
-    //ADMIN - KOTA
-    Route::get('/admin/kota', 'KotaController@index');
-    Route::get('/admin/kota/create', 'KotaController@create');
-    Route::post('/admin/kota/store', 'KotaController@store');
-    Route::get('/admin/kota/edit/{id}', 'KotaController@edit');
-    Route::post('/admin/kota/update/{id}', 'KotaController@update');
-
-    //ADMIN - Resi
-    Route::get('/admin/resi', 'ResiController@index');
-    Route::get('/admin/resi/create', 'ResiController@create');
-    Route::post('/admin/resi/store', 'ResiController@store');
-    Route::get('/admin/resi/edit/{id}', 'ResiController@edit');
-    Route::post('/admin/resi/update/{id}', 'ResiController@update');
-    Route::post('/admin/resi/countCost', 'ResiController@countCost');
-    Route::post('/admin/resi/countResi', 'ResiController@countResi');
-
-     //ADMIN - Kurir Customer
-     Route::get('/admin/kurir_customer', 'kurir_customerController@index');
-     Route::get('/admin/kurir_customer/create', 'kurir_customerController@create');
-     Route::post('/admin/kurir_customer/store', 'kurir_customerController@store');
-     Route::get('/admin/kurir_customer/edit/{id}', 'kurir_customerController@edit');
-     Route::post('/admin/kurir_customer/update/{id}', 'kurir_customerController@update');
-
-      //ADMIN - Kurir non customer
-    Route::get('/admin/kurir_noncustomer', 'kurir_noncustomerController@index');
-    Route::get('/admin/kurir_noncustomer/create', 'kurir_noncustomerController@create');
-    Route::post('/admin/kurir_noncustomer/store', 'kurir_noncustomerController@store');
-    Route::get('/admin/kurir_noncustomer/edit/{id}', 'kurir_noncustomerController@edit');
-    Route::post('/admin/kurir_noncustomer/update/{id}', 'kurir_noncustomerController@update');
 });
-
-
-
-
