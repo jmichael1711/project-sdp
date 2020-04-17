@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use App\Resi;
 use App\Kota;
 use App\Pegawai;
+use App\Pengiriman_customer;
 
 class ResiController extends Controller
 {
@@ -94,6 +95,32 @@ class ResiController extends Controller
         $harga = $data["rajaongkir"]["results"][0]["costs"][0]["cost"][0]["value"];
         $hasil =  "Rp " . number_format($harga, 2, ".", ",");
         return $hasil;
+    }
+
+    public function countResi(){
+        $user = Pegawai::findOrFail(Session::get('id'));
+        if($user->jabatan == "kasir"){
+            $allResi = Resi::getAll()->where("kantor_asal_id","=",$user->kantor_id)->where("verifikasi",0)->get();
+            $allPengirimanCustomer = Pengiriman_customer::getAll()->where("kantor_id","=",$user->kantor_id)->where("menuju_penerima",0)->get();
+        }else{
+            $allResi = Resi::getAll()->where("verifikasi",0)->get();
+            $allPengirimanCustomer = Pengiriman_customer::getAll()->where("menuju_penerima",0)->get();
+        }
+        $count = 0;
+        foreach($allResi as $i){
+            $found = false;
+            foreach($allPengirimanCustomer as  $j){
+                foreach($j->resis as $k){
+                    if($i->id == $k->id){
+                        $found = true;
+                    }
+                }
+            }
+            if($found == false){
+                $count += 1;
+            }
+        }
+        return $count;
     }
     
 }

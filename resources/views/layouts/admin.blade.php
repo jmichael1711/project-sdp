@@ -250,6 +250,7 @@
                                     <a id="btn-resi" href="">
                                         <i class="metismenu-icon pe-7s-note2"></i>
                                             Resi
+                                            <span class="badge badge-pill badge-danger pull-right mt-2 mr-2" id="countResi" ></span>     
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
                                     <ul id="list-resi">
@@ -257,6 +258,7 @@
                                             <a id="header-resi" href="{{ url('/admin/resi') }}">
                                                 <i class="metismenu-icon"></i>
                                                 Semua Resi
+                                                <span class="badge badge-pill badge-danger ml-5" id="countSemuaResi"></span>   
                                             </a>
                                         </li>
                                         <li>
@@ -534,10 +536,38 @@
                 <script src="{{asset('js/jquery.js')}}"></script>
                 <script src="{{asset('js/formvalidationadmin.js')}}"></script>
                 <script src="{{asset('DataTables/datatables.min.js')}}" ></script>
-                <script src="{{asset('js/instascan.min.js')}}"></script>
+                <script src="{{asset('js/instascan.min.js')}}"></script> 
+                <script>
+                    var timer = setInterval(count(),5000);
+                    function count(){
+                            $.ajax({
+                            method : "POST",
+                            url : '/admin/resi/countResi',
+                            datatype : "json",
+                            data : {  _token : "{{ csrf_token() }}" },
+                            success: function(result){
+                                if(result > 0){
+                                    $("#countResi").html("&nbsp");
+                                    $("#countSemuaResi").html(result);
+                                }else{
+                                    $("#countResi").html("");
+                                    $("#countSemuaResi").html("");
+                                }
+                            },
+                            error: function(){
+                                console.log('error');
+                            }
+                        });
+                    }
+                    
+                    
+                </script>
                 @yield('scripts')
         </div>
     </div>
 </body>
 </html>
+
+
+
 

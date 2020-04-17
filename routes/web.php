@@ -190,6 +190,7 @@ Route::group(['middleware' => ['checkstatus:kasir']], function () {
     Route::get('/admin/resi/edit/{id}', 'ResiController@edit');
     Route::post('/admin/resi/update/{id}', 'ResiController@update');
     Route::post('/admin/resi/countCost', 'ResiController@countCost');
+    Route::post('/admin/resi/countResi', 'ResiController@countResi');
 
     //ADMING - BON MUAT
     Route::get('/admin/bonmuat','Bon_MuatController@index');
