@@ -467,24 +467,26 @@ Halaman ini untuk mengubah data bon muat.
     }
 
     function refreshComboBox(){
-        var kantorAsal = $('#kantorAsal').val();
-        var kantorTujuan = $('#kantorTujuan').val();
-        var chosenKurir = $('#kurir').val();
-        var chosenKendaraan = $('#kendaraan').val();
-        $.ajax({
-            method : "POST",
-            url : '/admin/bonmuat/find',
-            datatype : "json",
-            data : { kantorAsal : kantorAsal,kantorTujuan : kantorTujuan,kurir: chosenKurir,kendaraan: chosenKendaraan, _token : "{{ csrf_token() }}" },
-            success: function(result){
-                var hasil = result.split('|');
-                $('#kurir').html(hasil[0]);
-                $('#kendaraan').html(hasil[1]);
-            },
-            error: function(){
-                console.log('error');
-            }
-        });
+        @if($status == "")
+            var kantorAsal = $('#kantorAsal').val();
+            var kantorTujuan = $('#kantorTujuan').val();
+            var chosenKurir = $('#kurir').val();
+            var chosenKendaraan = $('#kendaraan').val();
+            $.ajax({
+                method : "POST",
+                url : '/admin/bonmuat/find',
+                datatype : "json",
+                data : { kantorAsal : kantorAsal,kantorTujuan : kantorTujuan,kurir: chosenKurir,kendaraan: chosenKendaraan, _token : "{{ csrf_token() }}" },
+                success: function(result){
+                    var hasil = result.split('|');
+                    $('#kurir').html(hasil[0]);
+                    $('#kendaraan').html(hasil[1]);
+                },
+                error: function(){
+                    console.log('error');
+                }
+            });
+        @endif
     }
 
     function passValue(id){

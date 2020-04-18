@@ -17,7 +17,15 @@ class PengirimanCustomerController extends Controller
     public function create() {
         $allKota = Kota::getAll()->get();
         $allResi = Resi::getAll()->get();
-        return view('master.pengirimanCustomer.create',compact('allKota', 'allResi'));
+        $resi = "null";
+        return view('master.pengirimanCustomer.create',compact('allKota', 'allResi','resi'));
+    }
+
+    public function createBaru($id) {
+        $allKota = Kota::getAll()->get();
+        $allResi = Resi::getAll()->get();
+        $resi = Resi::getAll()->where("id",$id)->select("id")->first();
+        return view('master.pengirimanCustomer.create',compact('allKota', 'allResi','resi'));
     }
 
     public function lihatPesanan(Request $request){
@@ -168,10 +176,10 @@ class PengirimanCustomerController extends Controller
         $request = $request->all();
         $panjang = count($request);
 
-        unset($request["resi_id"]);
         if($request['menuju_penerima'] == "0"){
             $idResi = $request["resi_id"];
         }
+        unset($request["resi_id"]);
 
         if(Session::has('loginstatus')){
             if(Session::get('loginstatus') == 3){

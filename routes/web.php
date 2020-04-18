@@ -209,6 +209,7 @@ Route::group(['middleware' => ['checkstatus:kasir']], function () {
     //ADMIN - PENGIRIMAN CUSTOMER
     Route::get('/admin/pengirimanCustomer', 'PengirimanCustomerController@index');
     Route::get('/admin/pengirimanCustomer/create', 'PengirimanCustomerController@create');
+    Route::get('/admin/pengirimanCustomer/createBaru/{id}', 'PengirimanCustomerController@createBaru');
     Route::post('/admin/pengirimanCustomer/isiCombobox/{id}', 'PengirimanCustomerController@isiCombobox');
     Route::post('/admin/pengirimanCustomer/lihatPesanan', 'PengirimanCustomerController@lihatPesanan');
     Route::post('/admin/pengirimanCustomer/store', 'PengirimanCustomerController@store');
