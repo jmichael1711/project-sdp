@@ -43,7 +43,7 @@ Route::post('/ghajd', function (Request $request) {
 });
 
 Route::get('/try', function () {
-    
+
 });
 
 Route::get('/tryemail', function () {
