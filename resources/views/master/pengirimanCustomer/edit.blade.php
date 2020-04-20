@@ -98,7 +98,7 @@ Halaman ini untuk mengubah data pengiriman customer.
                                 <br>
                                 <div class="form-check-inline">
                                     <label class="form-check-label">
-                                    <input type="radio" class="form-check-input"  onclick="showPesanan('penerima','{{$pengirimanCust->resis[0]->id}}')"  name="menuju_penerima" value="1"
+                                    <input type="radio" class="form-check-input" onclick="showPesanan('penerima','{{$pengirimanCust->resis[0]->id}}')"  name="menuju_penerima" value="1"
                                     @if($pengirimanCust->menuju_penerima == '1')
                                         checked
                                     @endif
@@ -107,7 +107,7 @@ Halaman ini untuk mengubah data pengiriman customer.
                                 </div>
                                 <div class="form-check-inline">
                                     <label class="form-check-label">
-                                    <input type="radio" class="form-check-input"  onclick="showPesanan('pengirim','{{$pengirimanCust->resis[0]->id}}')" name="menuju_penerima" value="0"
+                                    <input type="radio" class="form-check-input" onclick="showPesanan('pengirim','{{$pengirimanCust->resis[0]->id}}')" name="menuju_penerima" value="0"
                                     @if($pengirimanCust->menuju_penerima == '0')
                                         checked
                                     @endif
@@ -254,6 +254,7 @@ Halaman ini untuk mengubah data pengiriman customer.
                 else{
                     $('#kurir').html(result);
                 }
+                showPesanan("pengirim",'{{$pengirimanCust->resis[0]->id}}');
             },
             error: function(){
                 console.log('error');

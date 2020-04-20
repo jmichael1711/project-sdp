@@ -39,6 +39,7 @@ Halaman ini untuk menampilkan semua data bon muat.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
+                    <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/bonmuat/create')}}';">Tambah Data</button>
                     <button type="button" class="btn mr-2 mb-2 btn-primary pull-right" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()">
                         &nbsp Scan &nbsp
                     </button>
@@ -134,6 +135,9 @@ Halaman ini untuk menampilkan semua data bon muat.
             <div class="card-body">
                 <div class="container">
                     <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/bonmuat/create')}}';">Tambah Data</button>
+                    <button type="button" class="btn mr-2 mb-2 btn-primary pull-right" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()">
+                        &nbsp Scan &nbsp
+                    </button>
                     <br><hr>
                     <table class="table table-hover table-striped dataTable dtr-inline" id="tableBonMuatKantorIni">
                         <thead>
@@ -279,7 +283,11 @@ Halaman ini untuk menampilkan semua data bon muat.
         scanner.addListener('scan', function(content) {
             var id = content;
             $("#close").click();
-            window.location.href='/admin/bonmuat/editSuratJalan/' + id;
+            if($("#tab-0").hasClass("active") == true){
+                window.location.href='/admin/bonmuat/editSuratJalan/' + id;
+            }else{
+                window.location.href='/admin/bonmuat/edit/' + id;
+            }
         });
     })
     

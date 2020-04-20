@@ -57,9 +57,9 @@ class LoginController extends Controller
                 } else if ($jabatan == "pegawai") {
                     Session::put('loginstatus', 4);
                     Session::put('id', $username);
+                    Session::put('pegawai',$pegawai);
                     Session::put('name',$pegawai->nama);
                     return redirect("/admin");
-
                 } else if ($jabatan == "kasir") {
                     Session::put('loginstatus', 3);
                     Session::put('id', $username);

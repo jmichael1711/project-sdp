@@ -30,7 +30,7 @@ class PengirimanCustomerController extends Controller
         }else{
             $allKota = Kota::getAll()->get();
             $allResi = Resi::getAll()->get();
-            $resi = Resi::getAll()->where("id",$id)->select("id")->first();
+            $resi = Resi::getAll()->where("id",$id)->first();
             return view('master.pengirimanCustomer.create',compact('allKota', 'allResi','resi'));
         }
     }
@@ -46,8 +46,8 @@ class PengirimanCustomerController extends Controller
                 $allPengirimanCust = Pengiriman_customer::join('d_pengiriman_customers', 'd_pengiriman_customers.pengiriman_customer_id', '=', 'pengiriman_customers.id')->get();
                 foreach ($allPengirimanCust as $pengirimanCust) {
                     if($pengirimanCust->resi_id == $resi->id) $ada = "1";
-                    if($idPesanan == $resi->id) $ada = "2";
                 }
+                if($idPesanan == $resi->id) $ada = "2";
                 if($ada == "0" || $ada == "2"){
                     if($ada == "2"){
                         $str .= '<option selected class="form-control" value="'.$resi->id.'">'.$resi->alamat_asal.'</option>';    

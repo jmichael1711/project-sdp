@@ -37,11 +37,13 @@ Halaman ini untuk menambah data pengiriman customer.
                                 <select id="kota" class="form-control" onchange='isiKantorAsal()' required>
                                     @foreach ($allKota as $kota)
                                         @if (Session::has('loginstatus'))
-                                            @if (Session::get('loginstatus') == 3)
-                                                @if (Session::get('pegawai')->kantor->getKota->nama == $kota->nama)
-                                                    <option selected class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
-                                                @else 
-                                                    <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
+                                            @if (Session::get('loginstatus') == 0)
+                                                @if ($resi != "null")
+                                                    @if ($resi->kota_asal == $kota->nama)
+                                                        <option selected class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
+                                                    @else 
+                                                        <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
+                                                    @endif
                                                 @endif
                                             @endif
                                         @endif
@@ -132,10 +134,14 @@ Halaman ini untuk menambah data pengiriman customer.
         @if (Session::has('loginstatus'))
             @if (Session::get('loginstatus') == "3")
                 var idKota = "{{Session::get('pegawai')->kantor->getKota->nama}}";
-                refreshCombobox(idKota, "{{Session::get('pegawai')->kantor->id}}");
+                refreshCombobox(idKota, "{{Session::get('pegawai')->kantor->id}}", "null");
             @else
                 var idKota = $('#kota').val();
-                refreshCombobox(idKota, "null");
+                @if($resi == "null")
+                    refreshCombobox(idKota, "null","null");
+                @else 
+                    refreshCombobox(idKota, "null", "{{$resi->kantor_asal_id}}");
+                @endif
             @endif
         @endif
         @if($resi == "null")
@@ -181,7 +187,7 @@ Halaman ini untuk menambah data pengiriman customer.
     //UNTUK KANTOR
     function isiKantorAsal(){
         var idKota = $('#kota').val();
-        refreshCombobox(idKota, "null");
+        refreshCombobox(idKota, "null", "null");
         if($('#rbPengirim').is(':checked')){    
             @if($resi == "null")
                 showPesanan("pengirim",'null');
@@ -201,12 +207,12 @@ Halaman ini untuk menambah data pengiriman customer.
         refreshCombobox(idKota, idKantor);
     }
 
-    function refreshCombobox(idKota, idKantor){
+    function refreshCombobox(idKota, idKantor, kantorCurr){
         $.ajax({
             method : "POST",
             url : '/admin/pengirimanCustomer/isiCombobox/null',
             datatype : "json",
-            data : { kota : idKota, kantor : idKantor, kantorCurr : "null", kurirCurr : "null", _token : "{{ csrf_token() }}" },
+            data : { kota : idKota, kantor : idKantor, kantorCurr : kantorCurr, kurirCurr : "null", _token : "{{ csrf_token() }}" },
             success: function(result){
                 if(idKantor == "null"){
                     var hasil = result.split("|");
@@ -215,6 +221,16 @@ Halaman ini untuk menambah data pengiriman customer.
                 }
                 else{
                     $('#kurir').html(result);
+                }
+                if($('#rbPengirim').is(':checked')){    
+                    @if($resi == "null")
+                        showPesanan("pengirim",'null');
+                    @else 
+                        showPesanan("pengirim","{{$resi->id}}");
+                    @endif
+                }
+                else{
+                    showPesanan("penerima",'null');
                 }
             },
             error: function(){
