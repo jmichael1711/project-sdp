@@ -44,6 +44,9 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
             <div class="card-body">
                 <div class="container">
                     <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/pengirimanCustomer/create')}}';">Tambah Data</button>
+                    <button type="button" class="btn mr-2 mb-2 btn-primary pull-right" data-toggle="modal" data-target="#exampleModalLong" id="scanSemua" onclick="triggerScanner()">
+                        &nbsp Scan &nbsp
+                    </button>
                     <br><hr>
                     <table class="table table-hover table-striped dataTable dtr-inline" id="tablePengirimanCust1">
                         <thead>
@@ -142,6 +145,9 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
             <div class="card-body">
                 <div class="container">
                     <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/pengirimanCustomer/create')}}';">Tambah Data</button>
+                    <button type="button" class="btn mr-2 mb-2 btn-primary pull-right" data-toggle="modal" data-target="#exampleModalLong" id="scanPengirim" onclick="triggerScanner()">
+                        &nbsp Scan &nbsp
+                    </button>
                     <br><hr>
                     <table class="table table-hover table-striped dataTable dtr-inline" id="tablePengirimanCust2">
                         <thead>
@@ -240,6 +246,9 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
             <div class="card-body">
                 <div class="container">
                     <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/pengirimanCustomer/create')}}';">Tambah Data</button>
+                    <button type="button" class="btn mr-2 mb-2 btn-primary pull-right" data-toggle="modal" data-target="#exampleModalLong" id="scanPenerima" onclick="triggerScanner()">
+                        &nbsp Scan &nbsp
+                    </button>
                     <br><hr>
                     <table class="table table-hover table-striped dataTable dtr-inline" id="tablePengirimanCust3">
                         <thead>
