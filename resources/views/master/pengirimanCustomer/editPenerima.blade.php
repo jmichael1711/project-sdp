@@ -216,9 +216,6 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                             </div>
                         </div>
                     </form>
-
-
-                    
                     <hr>
                     <table class="table table-hover table-striped dataTable dtr-inline" id="tableDetail">
                         <thead>

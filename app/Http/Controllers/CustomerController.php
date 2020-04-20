@@ -103,9 +103,14 @@ class CustomerController extends Controller
 
         $page = 'track';
 
-        $resi = Resi::findOrFail($request['resi_id']);
-
-        return view('customer.track', compact('sejarah', 'page', 'resi'));
+        $resi = Resi::find($request['resi_id']);
+        if($resi == null){
+            $fail = "Resi ". $request["resi_id"] ." tidak terdaftar.";
+            Session::put('fail-resi', $fail);
+            return redirect('/');
+        }else{
+            return view('customer.track', compact('sejarah', 'page', 'resi'));
+        }
     }
 
     public function emailVerification(Request $request) {

@@ -210,11 +210,16 @@ class PengirimanCustomerController extends Controller
     }
 
     public function edit($id){
-        $pengirimanCust = Pengiriman_customer::findOrFail($id);
-        $kotaNow = $pengirimanCust->kantor->kota;
-        $allKota = Kota::getAll()->get();
-        
-        return view('master.pengirimanCustomer.edit', compact('pengirimanCust','allKota', 'kotaNow'));
+        $pengirimanCust = Pengiriman_customer::find($id);
+        if($pengirimanCust == null){
+            $fail = "Pengiriman Customer tidak terdaftar";
+            Session::put('success-failpengirimancustomer', $fail);
+            return redirect('/admin/pengirimanCustomer');
+        }else{
+            $kotaNow = $pengirimanCust->kantor->kota;
+            $allKota = Kota::getAll()->get();
+            return view('master.pengirimanCustomer.edit', compact('pengirimanCust','allKota', 'kotaNow'));
+        }
     }
 
     public function update($id, Request $request) {
@@ -246,7 +251,7 @@ class PengirimanCustomerController extends Controller
 
     public function startPengiriman($id){
         $pengirimanCust = Pengiriman_customer::findOrFail($id);
-
+        
         if($pengirimanCust->resis()->count() > 0){
             date_default_timezone_set("Asia/Jakarta");
             $user = Session::get('id');
@@ -265,9 +270,12 @@ class PengirimanCustomerController extends Controller
 
             $success = 'Pengiriman Customer ' . '"' . $id .  '"' . ' telah berangkat.';
             Session::put('success', $success);
+            return redirect('/admin/pengirimanCustomer');
+        }else{
+            $fail = "Pengiriman Customer tidak terdapat resi";
+            Session::put('fail-detail', $fail);
+            return redirect('/admin/pengirimanCustomer/editPenerima/'.$id);
         }
-
-        return redirect('/admin/pengirimanCustomer');
     }
 
     public function finishPengiriman($id){
@@ -291,20 +299,26 @@ class PengirimanCustomerController extends Controller
     }
 
     public function editPenerima($id){
-        $pengirimanCust = Pengiriman_customer::findOrFail($id);
-        $status = "disabled";
-        foreach($pengirimanCust->resis as $i){
-            if($i->d_pengiriman_customer->telah_sampai == 0){
-                $status = "";
+        $pengirimanCust = Pengiriman_customer::find($id);
+        if($pengirimanCust == null){
+            $fail = "Pengiriman Customer tidak terdaftar";
+            Session::put('success-failpengirimancustomer', $fail);
+            return redirect('/admin/pengirimanCustomer');
+        }else{
+            $status = "disabled";
+            foreach($pengirimanCust->resis as $i){
+                if($i->d_pengiriman_customer->telah_sampai == 0){
+                    $status = "";
+                }
             }
-        }
-        if($pengirimanCust->resis->count() == 0) $status = "";
-        $tipe = "finish";
-        if($pengirimanCust->waktu_berangkat == "") $tipe = "add";
-        $kotaNow = $pengirimanCust->kantor->kota;
-        $allKota = Kota::getAll()->get();
+            if($pengirimanCust->resis->count() == 0) $status = "";
+            $tipe = "finish";
+            if($pengirimanCust->waktu_berangkat == "") $tipe = "add";
+            $kotaNow = $pengirimanCust->kantor->kota;
+            $allKota = Kota::getAll()->get();
 
-        return view('master.pengirimanCustomer.editPenerima', compact('pengirimanCust','status','tipe','allKota','kotaNow'));
+            return view('master.pengirimanCustomer.editPenerima', compact('pengirimanCust','status','tipe','allKota','kotaNow'));
+        }
     }
 
     public function deleteDetail($id, Request $request){

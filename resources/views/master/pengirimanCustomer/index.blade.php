@@ -13,6 +13,9 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
 @endsection
 
 @section('content')
+<button id="triggerModal" type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal" style="display: none">
+    Trigger Modal
+</button>
 <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
     <li class="nav-item">
         <a role="tab" class="nav-link active" id="tab-1" data-toggle="tab" href="#tab-content-1">
@@ -395,6 +398,13 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
 
         $("#tab-content-2").removeClass("show active");
         $("#tab-content-3").removeClass("show active");
+
+        if ('{{Session::has("success-failpengirimancustomer")}}'){
+            triggerNotification('{{Session::get("success-failpengirimancustomer")}}');
+            @php
+                Session::forget('success-failpengirimancustomer');
+            @endphp
+        } 
 
         scanner.addListener('scan', function(content) {
             var id = content;
