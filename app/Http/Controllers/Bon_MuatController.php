@@ -13,17 +13,22 @@ use App\Pengiriman_customer;
 use Illuminate\Support\Facades\Session;
 class Bon_MuatController extends Controller
 {
-
     public function create() {
-        $nextId = Bon_Muat::getNextId();
         $allKota = Kota::getAll()->get();
-        return view('master.bonmuat.create',compact('nextId','allKota'));
+        return view('master.bonmuat.create',compact('allKota'));
     }
 
     public function store(Request $request) {
         date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $request['id'] = Bon_muat::getNextId();
+
+        if(Session::has('loginstatus')){
+            if(Session::get('loginstatus') == 3){
+                $request['kantor_asal_id'] = Session::get('pegawai')->kantor->id;
+            }
+        }
+
         $user = Session::get('id');
         $request['user_created'] = $user;
         $request['user_updated'] = $user;
@@ -85,13 +90,19 @@ class Bon_MuatController extends Controller
 
 
     public function index() {
-        
-        // jika pegawai atau kasir maka harus ambil bon muat yang akan datang ke kantor itu saja
-        // jika admin super maka ambil semua bon muat yang ada
-        $allIncomingBonMuat = Bon_Muat::getAll()->get(); //untuk admin super
-        
-        //jika pegawai atau kasir maka bon muat dengan asal untuk kantor itu saja
-        $allBonMuat = Bon_muat::get(); //jika admin super bisa melihat semua bon muat meskipun is_deleted = true
+        if(Session::has('loginstatus')){
+            //untuk kasir
+            if(Session::get('loginstatus') == 3){
+                $kantor = Session::get('pegawai')->kantor->id;
+                $allIncomingBonMuat = Bon_Muat::getAll()->where('kantor_asal_id',$kantor)->get();
+                $allBonMuat = Bon_muat::where('kantor_asal_id',$kantor)->get();
+            }
+            //untuk admin dll
+            else{
+                $allIncomingBonMuat = Bon_Muat::getAll()->get();
+                $allBonMuat = Bon_muat::get();
+            }
+        }
         return view('master.bonmuat.index',compact('allBonMuat','allIncomingBonMuat'));
     }
 

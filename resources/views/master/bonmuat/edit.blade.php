@@ -46,7 +46,13 @@ Halaman ini untuk mengubah data bon muat.
                 <div class="collapse" id="collapseEdit">
                     <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/update/{{$bonmuat->id}}" enctype="multipart/form-data">
                     @csrf
-                        <div class="form-row">
+                        <div class="form-row"
+                        @if (Session::has('loginstatus'))
+                            @if (Session::get('loginstatus') == 3)
+                                hidden
+                            @endif
+                        @endif
+                        >
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kota Asal</label>
@@ -63,7 +69,13 @@ Halaman ini untuk mengubah data bon muat.
                             </div>
                         </div>
                     
-                        <div class="form-row">
+                        <div class="form-row"
+                        @if (Session::has('loginstatus'))
+                            @if (Session::get('loginstatus') == 3)
+                                hidden
+                            @endif
+                        @endif
+                        >
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kantor Asal</label>
