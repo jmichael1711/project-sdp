@@ -182,8 +182,12 @@ Halaman ini untuk menambah data pengiriman customer.
     function isiKantorAsal(){
         var idKota = $('#kota').val();
         refreshCombobox(idKota, "null");
-        if($('#rbPengirim').is(':checked')){
-            showPesanan("pengirim",'null');
+        if($('#rbPengirim').is(':checked')){    
+            @if($resi == "null")
+                showPesanan("pengirim",'null');
+            @else 
+                showPesanan("pengirim","{{$resi->id}}");
+            @endif
         }
         else{
             showPesanan("penerima",'null');

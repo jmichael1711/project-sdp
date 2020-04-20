@@ -22,10 +22,17 @@ class PengirimanCustomerController extends Controller
     }
 
     public function createBaru($id) {
-        $allKota = Kota::getAll()->get();
-        $allResi = Resi::getAll()->get();
-        $resi = Resi::getAll()->where("id",$id)->select("id")->first();
-        return view('master.pengirimanCustomer.create',compact('allKota', 'allResi','resi'));
+        $resi = Resi::find($id);
+        if($resi == null){
+            $fail = "Resi tidak terdaftar.";
+            Session::put('success-failresi', $fail);
+            return redirect('/admin/resi');
+        }else{
+            $allKota = Kota::getAll()->get();
+            $allResi = Resi::getAll()->get();
+            $resi = Resi::getAll()->where("id",$id)->select("id")->first();
+            return view('master.pengirimanCustomer.create',compact('allKota', 'allResi','resi'));
+        }
     }
 
     public function lihatPesanan(Request $request){
