@@ -66,12 +66,19 @@ class ResiController extends Controller
     }
 
     public function edit($id){
-        $resi = Resi::findOrFail($id);
-        $resi->harga = "Rp " . number_format($resi->harga, 2, ".", ",");
-        $status = "";
-        if($resi->status_perjalanan == "CANCEL" || $resi->status_perjalanan == "SELESAI"){$status = "disabled";}
-        $allKota = Kota::getAll()->get();
-        return view('master.resi.edit',compact('resi','status','allKota'));
+        $resi = Resi::find($id);
+        if($resi == null){
+            $fail = "Resi tidak terdaftar.";
+            Session::put('success-failresi', $fail);
+            return redirect('/admin/resi');
+        }else{
+            $resi = Resi::findOrFail($id);
+            $resi->harga = "Rp " . number_format($resi->harga, 2, ".", ",");
+            $status = "";
+            if($resi->status_perjalanan == "CANCEL" || $resi->status_perjalanan == "SELESAI"){$status = "disabled";}
+            $allKota = Kota::getAll()->get();
+            return view('master.resi.edit',compact('resi','status','allKota'));
+        }
     }
 
     public function update($id, Request $request){
