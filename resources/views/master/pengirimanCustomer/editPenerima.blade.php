@@ -432,7 +432,7 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
             @php
                 Session::forget('fail-detail');
             @endphp
-        } 
+        }
         
         scanner.addListener('scan', function(content) {
             $("#resi_id").val(content);

@@ -39,7 +39,7 @@ class CheckLoginStatusMiddleware
             if ($status == 0) {
                 //admin
                 //admin can access anything except login and kurir
-                if ($pageType == 'guest' || $pageType == 'kurir' || $pageType == 'pegawai') {
+                if ($pageType == 'guest' || $pageType == 'kurir') {
                     return redirect('/admin');
                 }
             } else if ($status == 1) {
