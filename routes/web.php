@@ -191,32 +191,40 @@ Route::group(['middleware' => ['checkstatus:kasir']], function () {
     Route::post('/admin/resi/update/{id}', 'ResiController@update');
     Route::post('/admin/resi/countCost', 'ResiController@countCost');
     Route::post('/admin/resi/countResi', 'ResiController@countResi');
-
+    
     //ADMING - BON MUAT
-    Route::get('/admin/bonmuat','Bon_MuatController@index');
     Route::get('/admin/bonmuat/create', 'Bon_MuatController@create');
     Route::post('/admin/bonmuat/store', 'Bon_MuatController@store');
-    Route::get('/admin/bonmuat/edit/{id}', 'Bon_MuatController@edit');
     Route::post('/admin/bonmuat/update/{id}', 'Bon_MuatController@update');
+    Route::post('/admin/bonmuat/mulaiBonMuat/{id}', 'Bon_MuatController@mulaiBonMuat');
+
+    //ADMIN - PENGIRIMAN CUSTOMER
+    Route::get('/admin/pengirimanCustomer/create', 'PengirimanCustomerController@create');
+    Route::get('/admin/pengirimanCustomer/createBaru/{id}', 'PengirimanCustomerController@createBaru');
+    Route::post('/admin/pengirimanCustomer/store', 'PengirimanCustomerController@store');
+    Route::post('/admin/pengirimanCustomer/update/{id}', 'PengirimanCustomerController@update');
+    Route::post('/admin/pengirimanCustomer/startPengiriman/{id}', 'PengirimanCustomerController@startPengiriman');
+    Route::post('/admin/pengirimanCustomer/finishPengiriman/{id}', 'PengirimanCustomerController@finishPengiriman');
+});
+
+
+//INSIDE KASIR GROUP
+Route::group(['middleware' => ['checkstatus:pegawai']], function () {
+    //ADMING - BON MUAT
+    Route::get('/admin/bonmuat','Bon_MuatController@index');
+    Route::get('/admin/bonmuat/edit/{id}', 'Bon_MuatController@edit');
     Route::post('/admin/bonmuat/find', 'Bon_MuatController@find');
     Route::post('/admin/bonmuat/addSuratJalan/{id}', 'Bon_MuatController@addSuratJalan');
     Route::post('/admin/bonmuat/deleteSuratJalan', 'Bon_MuatController@deleteSuratJalan');
     Route::post('/admin/bonmuat/deleteAll/{id}', 'Bon_MuatController@deleteAll');
     Route::get('/admin/bonmuat/editSuratJalan/{id}', 'Bon_MuatController@editSuratJalan');
     Route::post('/admin/bonmuat/updateSuratJalan/{id}', 'Bon_MuatController@updateSuratJalan');
-    Route::post('/admin/bonmuat/mulaiBonMuat/{id}', 'Bon_MuatController@mulaiBonMuat');
 
     //ADMIN - PENGIRIMAN CUSTOMER
     Route::get('/admin/pengirimanCustomer', 'PengirimanCustomerController@index');
-    Route::get('/admin/pengirimanCustomer/create', 'PengirimanCustomerController@create');
-    Route::get('/admin/pengirimanCustomer/createBaru/{id}', 'PengirimanCustomerController@createBaru');
     Route::post('/admin/pengirimanCustomer/isiCombobox/{id}', 'PengirimanCustomerController@isiCombobox');
     Route::post('/admin/pengirimanCustomer/lihatPesanan', 'PengirimanCustomerController@lihatPesanan');
-    Route::post('/admin/pengirimanCustomer/store', 'PengirimanCustomerController@store');
     Route::get('/admin/pengirimanCustomer/edit/{id}', 'PengirimanCustomerController@edit');
-    Route::post('/admin/pengirimanCustomer/update/{id}', 'PengirimanCustomerController@update');
-    Route::post('/admin/pengirimanCustomer/startPengiriman/{id}', 'PengirimanCustomerController@startPengiriman');
-    Route::post('/admin/pengirimanCustomer/finishPengiriman/{id}', 'PengirimanCustomerController@finishPengiriman');
     Route::get('/admin/pengirimanCustomer/editPenerima/{id}', 'PengirimanCustomerController@editPenerima');
     Route::post('/admin/pengirimanCustomer/addDetail/{id}', 'PengirimanCustomerController@addDetail');
     Route::post('/admin/pengirimanCustomer/deleteDetail/{id}', 'PengirimanCustomerController@deleteDetail');

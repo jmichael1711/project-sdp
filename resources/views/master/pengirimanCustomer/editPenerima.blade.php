@@ -48,7 +48,7 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                     <div class="collapse" id="collapseEdit">
                         <div class="form-row"
                         @if (Session::has('loginstatus'))
-                            @if (Session::get('loginstatus') == 3)
+                            @if (Session::get('loginstatus') == 3 || Session::get('loginstatus') == 4)
                                 hidden
                             @endif
                         @endif
@@ -69,7 +69,7 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                         </div>
                         <div class="form-row"
                         @if (Session::has('loginstatus'))
-                            @if (Session::get('loginstatus') == 3)
+                            @if (Session::get('loginstatus') == 3 || Session::get('loginstatus') == 4)
                                 hidden
                             @endif
                         @endif
@@ -88,7 +88,13 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kurir Customer</label>
-                                    <select name="kurir_customer_id" id="kurir" class="form-control" required></select>
+                                    <select name="kurir_customer_id" id="kurir" class="form-control" required
+                                    @if (Session::has('loginstatus'))
+                                        @if (Session::get('loginstatus') == 4)
+                                            disabled
+                                        @endif
+                                    @endif
+                                    ></select>
                                     <div class="invalid-feedback">
                                         Mohon pilih kurir customer yang valid.
                                     </div>
@@ -103,6 +109,11 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                                     <div class="form-check-inline">
                                         <label class="form-check-label">
                                         <input type="radio" class="form-check-input" name="menuju_penerima" value="1"
+                                        @if (Session::has('loginstatus'))
+                                            @if (Session::get('loginstatus') == 4)
+                                                disabled
+                                            @endif
+                                        @endif
                                         @if($pengirimanCust->menuju_penerima == '1')
                                             checked
                                         @endif
@@ -112,6 +123,11 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                                     <div class="form-check-inline">
                                         <label class="form-check-label">
                                         <input type="radio" class="form-check-input" name="menuju_penerima" value="0"
+                                        @if (Session::has('loginstatus'))
+                                            @if (Session::get('loginstatus') == 4)
+                                                disabled
+                                            @endif
+                                        @endif
                                         @if($pengirimanCust->menuju_penerima == '0')
                                             checked
                                         @endif
@@ -126,7 +142,13 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Status Aktif</label>
-                                    <select class="form-control" name="is_deleted" id="status" onchange="changeStatus()">
+                                    <select class="form-control" name="is_deleted" id="status" onchange="changeStatus()"
+                                    @if (Session::has('loginstatus'))
+                                        @if (Session::get('loginstatus') == 4)
+                                            disabled
+                                        @endif
+                                    @endif
+                                    >
                                         @if ($pengirimanCust->is_deleted)
                                             <option selected class="form-control" value="1">TIDAK AKTIF</option>
                                             <option class="form-control" value="0">AKTIF</option>
@@ -142,6 +164,11 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                             <div class="col-md-12">
                                 <div class="position-relative form-group">
                                     <button class="mt-2 btn btn-primary"
+                                    @if (Session::has('loginstatus'))
+                                        @if (Session::get('loginstatus') == 4)
+                                            disabled
+                                        @endif
+                                    @endif
                                     @if ($pengirimanCust->waktu_sampai_kantor != null)
                                         disabled
                                     @endif
@@ -154,6 +181,11 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                 <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/finishPengiriman/{{$pengirimanCust->id}}" enctype="multipart/form-data">
                     @csrf
                     <button class="btn ml-2 mr-2 btn-danger pull-right"
+                    @if (Session::has('loginstatus'))
+                        @if (Session::get('loginstatus') == 4)
+                            disabled
+                        @endif
+                    @endif
                     @if($pengirimanCust->waktu_berangkat == null || $pengirimanCust->waktu_sampai_kantor != null || $status == "")
                         disabled
                     @endif
@@ -162,6 +194,11 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                 <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/startPengiriman/{{$pengirimanCust->id}}" enctype="multipart/form-data">
                     @csrf
                     <button class="btn ml-2 mr-2 btn-success pull-right"
+                    @if (Session::has('loginstatus'))
+                        @if (Session::get('loginstatus') == 4)
+                            disabled
+                        @endif
+                    @endif
                     @if($pengirimanCust->waktu_berangkat != null || $pengirimanCust->waktu_sampai_kantor != null)
                         disabled
                     @endif

@@ -43,7 +43,11 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
+                    @if (Session::has('loginstatus'))
+                        @if (Session::get('loginstatus') != 4)
                     <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/pengirimanCustomer/create')}}';">Tambah Data</button>
+                        @endif
+                    @endif
                     <button type="button" class="btn mr-2 mb-2 btn-primary pull-right" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()">
                         &nbsp Scan &nbsp
                     </button>
@@ -144,7 +148,11 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
+                    @if (Session::has('loginstatus'))
+                        @if (Session::get('loginstatus') != 4)
                     <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/pengirimanCustomer/create')}}';">Tambah Data</button>
+                        @endif
+                    @endif
                     <button type="button" class="btn mr-2 mb-2 btn-primary pull-right" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()">
                         &nbsp Scan &nbsp
                     </button>
@@ -245,7 +253,11 @@ Halaman ini untuk menampilkan semua data pengiriman customer.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
+                    @if (Session::has('loginstatus'))
+                        @if (Session::get('loginstatus') != 4)
                     <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/pengirimanCustomer/create')}}';">Tambah Data</button>
+                        @endif
+                    @endif
                     <button type="button" class="btn mr-2 mb-2 btn-primary pull-right" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()">
                         &nbsp Scan &nbsp
                     </button>

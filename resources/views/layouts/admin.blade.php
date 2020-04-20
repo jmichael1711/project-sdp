@@ -233,7 +233,7 @@
                         <div class="app-sidebar__inner">
                             <ul class="vertical-nav-menu">
                                 @if (Session::has('loginstatus'))
-                                    @if (Session::get('loginstatus') != 3)
+                                    @if (Session::get('loginstatus') != 3 && Session::get('loginstatus') != 4)
                                 <li class="app-sidebar__heading">Dashboards</li>
                                 <li>
                                     <a id="header-dashboard" href="{{ url('/admin') }}">
@@ -245,6 +245,8 @@
                                 @endif
                                 <li class="app-sidebar__heading">CUSTOMER</li>
 
+                                @if (Session::has('loginstatus'))
+                                    @if (Session::get('loginstatus') != 4)
                                 {{-- SIDEBAR - Resi --}}
                                 <li id="upperlist-resi">
                                     <a id="btn-resi" href="">
@@ -270,6 +272,8 @@
                                         </li>
                                     </ul>
                                 </li>
+                                    @endif
+                                @endif
                                 
                                 {{-- SIDEBAR - BON MUAT --}}
                                 <li id="upperlist-bonmuat">
@@ -285,6 +289,8 @@
                                                 Semua Bon Muat
                                             </a>
                                         </li>
+                                        @if (Session::has('loginstatus'))
+                                            @if (Session::get('loginstatus') != 4)
                                         <li>
                                             <a id="header-tambah-bonmuat" href="{{ url('/admin/bonmuat/create') }}">
                                                 <i class="metismenu-icon">
@@ -292,6 +298,8 @@
                                                 Tambah Bon Muat
                                             </a>
                                         </li>
+                                            @endif
+                                        @endif
                                     </ul>
                                 </li>
                                 
@@ -309,6 +317,8 @@
                                                 Semua Pengiriman Cust
                                             </a>
                                         </li>
+                                        @if (Session::has('loginstatus'))
+                                            @if (Session::get('loginstatus') != 4)
                                         <li>
                                             <a id="header-tambah-pengirimanCustomer" href="{{ url('/admin/pengirimanCustomer/create') }}">
                                                 <i class="metismenu-icon">
@@ -316,11 +326,13 @@
                                                 Tambah Pengiriman Cust
                                             </a>
                                         </li>
+                                            @endif
+                                        @endif
                                     </ul>
                                 </li>
 
                                 @if (Session::has('loginstatus'))
-                                    @if (Session::get('loginstatus') != 3)
+                                    @if (Session::get('loginstatus') != 3 && Session::get('loginstatus') != 4)
                                 <li class="app-sidebar__heading">PEGAWAI</li>
 
                                 {{-- SIDEBAR - PEGAWAI --}}

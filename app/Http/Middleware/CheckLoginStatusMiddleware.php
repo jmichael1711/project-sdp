@@ -39,7 +39,7 @@ class CheckLoginStatusMiddleware
             if ($status == 0) {
                 //admin
                 //admin can access anything except login and kurir
-                if ($pageType == 'guest' || $pageType == 'kurir') {
+                if ($pageType == 'guest' || $pageType == 'kurir' || $pageType == 'pegawai') {
                     return redirect('/admin');
                 }
             } else if ($status == 1) {
@@ -49,8 +49,13 @@ class CheckLoginStatusMiddleware
                 }
             } else if ($status == 3){
                 //kasir can only access
-                if ($pageType != "kasir") {
+                if ($pageType != "kasir" && $pageType != "pegawai") {
                     return redirect('/admin/resi');
+                }
+            } else if ($status == 4){
+                //kasir can only access
+                if ($pageType != "pegawai") {
+                    return redirect('/admin/bonmuat');
                 }
             }
         } else {
