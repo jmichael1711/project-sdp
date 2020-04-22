@@ -63,7 +63,7 @@ class Resi extends Model
     public function sejarahs() {
         return $this
         ->hasMany('App\Sejarah')
-        ->orderBy('created_at', 'asc')
+        ->orderBy('waktu', 'desc')
         ;
     }
 

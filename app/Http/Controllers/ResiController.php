@@ -147,5 +147,34 @@ class ResiController extends Controller
         }
         return $count;
     }
+
+    public function trackResi(){
+        return view('master.resi.trackResi');
+    }
+
+    public function isiSejarah(Request $request){
+        $resiId = $request['id'];
+        $resi = Resi::find($resiId);
+        $result = '';
+        if($resi == null){
+            return "null";
+        }else{
+            $sejarahs = $resi->sejarahs;
+            if($sejarahs->count() > 0){
+                foreach ($sejarahs as $i) {
+                    $result .= '<tr>';
+                    $result .= '<td>';
+                    $result .= $i->keterangan;
+                    $result .= '</td>';
+                    $result .= '<td>';
+                    $result .= $i->waktu;
+                    $result .= '</td>';
+                    $result .= '</tr>';
+                }
+            }
+        }
+
+        return $result;
+    }
     
 }

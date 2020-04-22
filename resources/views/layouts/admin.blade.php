@@ -270,6 +270,13 @@
                                                 Tambah Resi
                                             </a>
                                         </li>
+                                        <li>
+                                            <a id="header-track-resi" href="{{ url('/admin/resi/trackResi') }}">
+                                                <i class="metismenu-icon">
+                                                </i>
+                                                Tracking Resi
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
                                     @endif
