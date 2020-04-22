@@ -1,21 +1,8 @@
 @extends('layouts.customer')
 
 @section('content')
-<button id="triggerModal" type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal" style="display: none">
-    Trigger Modal
-</button>
 <div class="site-section bg-light">
     <div class="container">
-        <div class="row">
-            @if (Session::has('error'))
-                <ul class="list-group mb-2">
-                    <li class="list-group-item-success list-group-item">{{Session::get('error')}}</li>
-                </ul>
-                @php
-                    Session::forget('error');
-                @endphp
-            @endif
-        </div>
         <div class="row">
         <div class="col-12 text-center mb-5" data-aos="fade-up" data-aos-delay="">
             <div class="block-heading-1">
@@ -142,7 +129,7 @@
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="">Berat Barang (kg)</label>
-                    <input type="number" step=0.01 value=0 min=0.00 max=99.00 class="form-control" name="berat_barang" placeholder="Berat Barang" required id="berat_barang" onchange="hitungHarga()">
+                    <input type="number" step=0.001 value=0.001 min=0.001 max=99.00 class="form-control" name="berat_barang" placeholder="Berat Barang" required id="berat_barang" oninput="hitungHarga()">
                 </div>
                 <div class="col-md-6">
                     <label for="">Kondisi Barang</label>
@@ -177,29 +164,18 @@
 </div>
 @endsection
 
-{{-- Notification --}}
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Error</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p class="mb-0" id="modalContent"></p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 @section('scripts')
 <script>
+    $(document).ready(function(){
+        hitungHarga();
+    })
+    @if (Session::has('error'))
+        alertError('{{Session::get("error")}}');
+        @php
+            Session::forget('error');
+        @endphp
+    @endif
+    
     function hitungHarga(){
         var kotaAsal = $("#kotaAsal").val();
         var kotaTujuan = $("#kotaTujuan").val();
@@ -218,11 +194,13 @@
                 }
             });
         }else if(berat != "" && berat > 20){
-            $("#modalContent").html("Berat barang melebihi batas maksimal 20Kg");
-            $("#triggerModal").click();
+            $("#berat_barang").val(20);
+            alertError("Berat barang melebihi batas maksimal 20Kg");
+            hitungHarga();
         }else if(berat != "" && berat <= 0){
-            $("#modalContent").html("Berat barang minimal adalah 1 gram");
-            $("#triggerModal").click();
+            $("#berat_barang").val(0.001);
+            alertError("Berat barang minimal adalah 1 gram");
+            hitungHarga();
         }
     }
 </script>

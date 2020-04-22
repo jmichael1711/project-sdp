@@ -43,6 +43,7 @@ class KurirController extends Controller
                         return view('kurir.error', compact('msg'));
                     } else {
                         $pesanan = $i;
+                        $pesanan["harga"] = number_format($pesanan["harga"], 2, ".", ",");
                         return view('kurir.kurirform', compact('pesanan', 'menuju_penerima', 'pengiriman_id'));
                     }
                 }

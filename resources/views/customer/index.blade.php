@@ -435,17 +435,10 @@
 </div>
 
 @section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="sweetalert2.all.min.js"></script>
-<link rel="stylesheet" href="sweetalert2.min.css">
 <script>
   $(document).ready(function () {        
         if ('{{Session::has("fail-resi")}}'){
-            Swal.fire({
-              icon: 'error',
-              title: 'Error!',
-              text: '{{Session::get("fail-resi")}}',
-            })
+          alertError('{{Session::get("fail-resi")}}');
             @php
                 Session::forget('fail-resi');
             @endphp

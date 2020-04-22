@@ -217,7 +217,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle">Scan Resi</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeScanner()">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -346,11 +346,13 @@
                 }
             });
         }else if(berat != "" && berat > 20){
-            $("#modalContent").html("Berat barang melebihi batas maksimal 20Kg");
-            $("#triggerModal").click();
+            $("#berat_barang").val(20);
+            alertError("Berat barang melebihi batas maksimal 20Kg");
+            hitungHarga();
         }else if(berat != "" && berat <= 0){
-            $("#modalContent").html("Berat barang minimal adalah 1 gram");
-            $("#triggerModal").click();
+            $("#berat_barang").val(0.001);
+            alertError("Berat barang minimal adalah 1 gram");
+            hitungHarga();
         }
     }
 

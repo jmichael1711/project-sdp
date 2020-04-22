@@ -46,7 +46,7 @@
     <div class="form-group row mb-3">
         <div class="col-md-6 p-0">
             <label for="">Berat Barang (kg)</label>
-            <input type="number" step=0.01 value='{{$pesanan->berat_barang}}'min=0.00 max=99.00 class="form-control" name="berat_barang" placeholder="Berat Barang" required oninput="hitungHarga()" id="berat_barang">
+            <input type="number" step=0.001 value='{{$pesanan->berat_barang}}'min=0.001 max=20.00 class="form-control" name="berat_barang" placeholder="Berat Barang" required oninput="hitungHarga()" id="berat_barang">
         </div>
         <div class="col-md-6 pl-1">
             <label for="">Kondisi Barang</label>

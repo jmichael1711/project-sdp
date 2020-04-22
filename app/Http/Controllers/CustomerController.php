@@ -83,7 +83,7 @@ class CustomerController extends Controller
             $page = "none";
             return redirect('/pesanselesai');
         } else {
-            Session::put('error', 'Email tidak kekirim.');
+            Session::put('error', 'Email tidak terkirim.');
             return redirect('/pesan');
         }
         
