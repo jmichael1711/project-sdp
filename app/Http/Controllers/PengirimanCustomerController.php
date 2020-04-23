@@ -10,6 +10,7 @@ use App\Kurir_customer;
 use App\Bon_Muat;
 use App\Kota;
 use App\Resi;
+use App\Sejarah;
 use App\Kantor;
 
 class PengirimanCustomerController extends Controller
@@ -70,7 +71,7 @@ class PengirimanCustomerController extends Controller
 
     public function isiCombobox($id, Request $request){
         $str = '';
-        $allPengirimanCust = Pengiriman_customer::getAll()->get();
+        $allPengirimanCust = Pengiriman_customer::getAll()->where("waktu_sampai_kantor","=",null)->get();
         $kotaId = $request["kota"];
         $kantorId = $request["kantor"];
         $kantorCurrID = $request["kantorCurr"];
@@ -268,6 +269,21 @@ class PengirimanCustomerController extends Controller
             $kurir->status = "0";
             $kurir->save();
 
+            foreach ($pengirimanCust->resis as $i) {
+                $keterangan = "Kurir ". strtoupper($kurir->nama) ." telah berangkat dari kantor " . strtoupper($kurir->kantor->alamat) . ", " . strtoupper($kurir->kantor->kota);
+                if ($pengirimanCust->menuju_penerima) {
+                    $keterangan = $keterangan . " untuk mengantar barang ke penerima di " . strtoupper($i->alamat_tujuan) . ", " . strtoupper($i->kota_tujuan);
+                } else {
+                    $keterangan = $keterangan . " untuk mengambil barang dari pengirim di " . strtoupper($i->alamat_asal) . ", " . strtoupper($i->kota_asal);
+                }
+                $sejarah = [
+                    'resi_id'=>$i->id,
+                    'keterangan'=>$keterangan,
+                    'waktu'=>now()
+                ];
+                Sejarah::create($sejarah);
+            }
+
             $success = 'Pengiriman Customer ' . '"' . $id .  '"' . ' telah berangkat.';
             Session::put('success', $success);
             return redirect('/admin/pengirimanCustomer');
@@ -290,6 +306,16 @@ class PengirimanCustomerController extends Controller
             $kurir = $pengirimanCust->kurir_customer;
             $kurir->status = "1";
             $kurir->save();
+
+            if($pengirimanCust->menuju_penerima == '0'){
+                $keterangan = 'Barang telah sampai di kantor ' . $kurir->kantor->alamat . ', ' . $kurir->kantor->getKota->nama . '.';
+                $sejarah = [
+                    'resi_id'=>$pengirimanCust->resis()->first()->id,
+                    'keterangan'=>$keterangan,
+                    'waktu'=>now()
+                ];
+                Sejarah::create($sejarah);
+            }
 
             $success = 'Pengiriman Customer ' . '"' . $id .  '"' . ' telah selesai.';
             Session::put('success', $success);

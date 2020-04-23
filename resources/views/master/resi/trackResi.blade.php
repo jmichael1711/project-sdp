@@ -31,11 +31,11 @@ Halaman ini untuk melacak resi.
             <div class="card-body">
                 <div class="container">
                     <div class="form-row">
-                        <div class="col-md-7">
+                        <div class="col-md-12">
                             <div class="position-relative form-group">
                                 <label class="">ID Resi</label>
                                 <br>
-                                <div class="form-check-inline col-md-8">
+                                <div class="form-check-inline col-md-5">
                                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="resi_id"
                                     placeholder="ID Resi" type="text" class="form-control" required" id="resi_id">
@@ -46,26 +46,18 @@ Halaman ini untuk melacak resi.
                                     </button>
                                 </div>
                                 <div class="form-check-inline">
-                                    <button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModalLong" id="scanResi" onclick="triggerScanner()">
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" id="scanResi" onclick="triggerScanner()">
                                         &nbsp Scan &nbsp
                                     </button>
                                 </div>
                             </div>
                         </div>
-                    </div><hr><br>
-                    <table class="table table-hover table-striped dataTable dtr-inline" id="tableTrackResi" style="min-width: 100%">
-                        <thead>
-                            <th>Keterangan</th>
-                            <th>Waktu</th>
-                        </thead>
-                        <tbody id="tableContent">
-
-                        </tbody>
-                    </table>
+                    </div>
                 </div>
             </div>
         </div>  
     </div>
+    <div id="trackingField"></div>
 </div>
 @endsection
 
@@ -176,7 +168,7 @@ Halaman ini untuk melacak resi.
                 }else if(result == "null"){
                     triggerNotification("Resi tidak terdaftar");
                 }else{
-                    $("#tableContent").html(result);
+                    $("#trackingField").html(result);
                 }
             },
             error: function(){

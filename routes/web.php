@@ -43,7 +43,6 @@ Route::post('/ghajd', function (Request $request) {
 });
 
 Route::get('/try', function () {
-  
 });
 
 Route::get('/tryemail', function () {
@@ -193,6 +192,7 @@ Route::group(['middleware' => ['checkstatus:kasir']], function () {
     Route::post('/admin/resi/countResi', 'ResiController@countResi');
     Route::get('/admin/resi/trackResi', 'ResiController@trackResi');
     Route::post('/admin/resi/isiSejarah', 'ResiController@isiSejarah');
+    Route::get('/admin/resi/trackingField/{id}', 'ResiController@trackingField');
     
     //ADMING - BON MUAT
     Route::get('/admin/bonmuat/create', 'Bon_MuatController@create');

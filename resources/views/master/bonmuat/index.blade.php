@@ -44,7 +44,7 @@ Halaman ini untuk menampilkan semua data bon muat.
                 <div class="container">
                     @if (Session::has('loginstatus'))
                         @if (Session::get('loginstatus') != 4)
-                    <button class="btn btn-primary mr-2 mb-2 pull-right" onclick="window.location.href='{{url('/admin/bonmuat/create')}}';">Tambah Data</button>
+                    <button class="btn btn-primary mb-2 pull-right" onclick="window.location.href='{{url('/admin/bonmuat/create')}}';">Tambah Data</button>
                         @endif
                     @endif
                     <button type="button" class="btn mr-2 mb-2 btn-primary pull-right" data-toggle="modal" data-target="#exampleModalLong" id="scanEditSuratJalan" onclick="triggerScanner()">

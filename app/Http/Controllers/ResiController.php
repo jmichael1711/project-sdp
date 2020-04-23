@@ -153,28 +153,20 @@ class ResiController extends Controller
     }
 
     public function isiSejarah(Request $request){
-        $resiId = $request['id'];
-        $resi = Resi::find($resiId);
-        $result = '';
+        $id = $request['id'];
+        $resi = Resi::find($id);
         if($resi == null){
             return "null";
-        }else{
-            $sejarahs = $resi->sejarahs;
-            if($sejarahs->count() > 0){
-                foreach ($sejarahs as $i) {
-                    $result .= '<tr>';
-                    $result .= '<td>';
-                    $result .= $i->keterangan;
-                    $result .= '</td>';
-                    $result .= '<td>';
-                    $result .= $i->waktu;
-                    $result .= '</td>';
-                    $result .= '</tr>';
-                }
-            }
         }
+        else{
+            return redirect('/admin/resi/trackingField/'.$id);
+        }
+    }
 
-        return $result;
+    public function trackingField($id){
+        $resi = Resi::find($id);
+        $allSejarah = $resi->sejarahs;
+        return view('master.resi.trackingField', compact('resi', 'allSejarah'));
     }
     
 }
