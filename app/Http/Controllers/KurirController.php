@@ -227,6 +227,7 @@ class KurirController extends Controller
     public function history() {
         $pengirimans = Pengiriman_customer::getAll()
         ->where('kurir_customer_id', Session::get('id'))
+        ->whereDate('created_at', '>', now()->subMonths(1))
         ->orderBy('id', 'desc')
         ->get()
         ;

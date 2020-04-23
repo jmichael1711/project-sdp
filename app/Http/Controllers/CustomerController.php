@@ -39,7 +39,8 @@ class CustomerController extends Controller
         //
 
         //ganti jadi pakai raja ongkir
-        $request['harga'] = 15000;
+        $request['harga'] = $this->countCostNoRequest($request['kota_asal'], $request['kota_tujuan'], $request['berat_barang']);
+        $request['harga'] = preg_replace("/[^0-9]/", "", $request['harga'])/100;
         //
 
         //
@@ -64,8 +65,8 @@ class CustomerController extends Controller
         $mail->SMTPSecure = "tls";                 // sets the prefix to the servier
         $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
         $mail->Port       = 587;                   // set the SMTP port for the GMAIL server
-        $mail->Username   = "4team.ate@gmail.com";  // GMAIL username
-        $mail->Password   = "fourteamate4";     // GMAIL password
+        $mail->Username   = "";  // GMAIL username
+        $mail->Password   = "";     // GMAIL password
         $mail->MsgHTML($body);
         $mail->AddAddress($address, $request['nama_pengirim']);
 
@@ -112,7 +113,8 @@ class CustomerController extends Controller
 
     public function emailVerification(Request $request) {
         $request = $request->all();
-        
+        date_default_timezone_set("Asia/Jakarta");
+        //dd(now()->subMinutes(30));
         
         $pass = $request['otp'];
         $resi_id = $request['id'];
@@ -120,6 +122,7 @@ class CustomerController extends Controller
         $resi = Resi::where('id', $resi_id)
         ->where('kode_verifikasi_email', $pass)
         ->where('status_verifikasi_email', 0)
+        ->where('created_at', '>', now()->subMinutes(30))
         ->first();
 
         $page = 'none';
@@ -152,6 +155,35 @@ class CustomerController extends Controller
         $kotaAsal = Kota::findOrFail($request->kotaAsal);
         $kotaTujuan = Kota::findOrFail($request->kotaTujuan);
         $berat = $request->berat*1000;
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "origin=$kotaAsal->id&destination=$kotaTujuan->id&weight=$berat&courier=jne",
+            CURLOPT_HTTPHEADER => array(
+              "content-type: application/x-www-form-urlencoded",
+              "key: 49768eb68a44d897fd2e9c80a576d8b9"
+            ),
+          ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        $data = json_decode($response, true); 
+        $harga = $data["rajaongkir"]["results"][0]["costs"][0]["cost"][0]["value"];
+        $hasil =  number_format($harga, 2, ".", ",");
+        return $hasil;
+    }
+
+    public function countCostNoRequest($kotaAsal, $kotaTujuan, $berat) {
+        $kotaAsal = Kota::findOrFail($kotaAsal);
+        $kotaTujuan = Kota::findOrFail($kotaTujuan);
+        $berat = $berat*1000;
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
