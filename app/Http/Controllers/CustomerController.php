@@ -32,14 +32,10 @@ class CustomerController extends Controller
         $request['kode_verifikasi_email'] = rand(1000, 9999) * 10000 + rand(1000, 9999);
         $request['status_verifikasi_email'] = 0;
 
+        
         $request["kantor_asal_id"] = "null";
-        $request["user_created"] = "null";
-        $request["user_updated"] = "null";
-
-        //ganti jadi pakai raja ongkir
-        $request['harga'] = 15000;
-        //
-
+        $request["user_created"] = "CUSTOMER";
+        $request["user_updated"] = "CUSTOMER";
         //
         //NAMA WEBSITE
         $webDomain = "https://sdp.test";

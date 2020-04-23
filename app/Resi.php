@@ -30,7 +30,6 @@ class Resi extends Model
         ;
     }
 
-
     //static functions for query
     public static function getAll() {
         return Resi::where("is_deleted", 0);

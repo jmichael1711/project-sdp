@@ -12,7 +12,7 @@
         </div>
         <div class="row justify-content-center">
         <div class="col-lg-8 mb-5" data-aos="fade-up" data-aos-delay="100">
-            <form action="/inputpesanan" method="post">
+            <form action="/inputpesanan" method="post" id='formInput'>
                 @csrf
                 <div class="form-group row">
                 <div class="col-md-12">
@@ -150,13 +150,15 @@
                     <p>Harga: Rp <b id="harga">0.00</b></p>
                 </div>
             </div>
-            
+            <input type="text" name='latitude_pengirim' id="lat" required>
+            <input type="text" name='longitude_pengirim' id="long" required>
+            </form>
+
             <div class="form-group row">
                 <div class="col-md-12 mr-auto">
-                <input type="submit" class="btn btn-block btn-primary text-white py-3 px-5" value="Buat Pesanan">
+                <input type="button" onclick="getLocation()" class="btn btn-block btn-primary text-white py-3 px-5" value="Buat Pesanan">
                 </div>
             </div>
-            </form>
         </div>
         
         </div>
@@ -175,6 +177,20 @@
             Session::forget('error');
         @endphp
     @endif
+
+    function getLocation(){
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+
+    function showPosition(position) {
+        $('#lat').val(position.coords.latitude);
+        $('#long').val(position.coords.longitude);
+        $('#formInput').submit();
+    }
     
     function hitungHarga(){
         var kotaAsal = $("#kotaAsal").val();

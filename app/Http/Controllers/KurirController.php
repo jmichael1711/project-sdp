@@ -117,9 +117,7 @@ class KurirController extends Controller
             ];
             Sejarah::create($sejarah);
         }
-
         
-
         return redirect('/kurir');
     }
 
