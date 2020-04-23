@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Kota;
 use App\Pesanan;
 use App\Resi;
+use App\Kantor;
 use App\Sejarah;
 use Illuminate\Support\Facades\Session;
 
@@ -22,6 +23,28 @@ class CustomerController extends Controller
         $page = 'pesan';
         return view('customer.order', compact('listKota', 'page'));
     }
+    
+    function findDistance($lat1, $lon1, $lat2, $lon2, $unit) {
+        if (($lat1 == $lat2) && ($lon1 == $lon2)) {
+            return 0;
+        }
+        else {
+            $theta = $lon1 - $lon2;
+            $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+            $dist = acos($dist);
+            $dist = rad2deg($dist);
+            $miles = $dist * 60 * 1.1515;
+            $unit = strtoupper($unit);
+        
+            if ($unit == "K") {
+            return ($miles * 1.609344);
+            } else if ($unit == "N") {
+            return ($miles * 0.8684);
+            } else {
+            return $miles;
+            }
+        }
+    }
 
     public function inputPesanan(Request $request) {
         $request = $request->all();
@@ -32,8 +55,24 @@ class CustomerController extends Controller
         $request['kode_verifikasi_email'] = rand(1000, 9999) * 10000 + rand(1000, 9999);
         $request['status_verifikasi_email'] = 0;
 
+        $allKantor = Kantor::getAll()->where('kota',$request['kota_asal'])->get();
+        $lon1 = $request['longitude_pengirim'];
+        $lat1 = $request['latitude_pengirim'];
+        $lon2 = $allKantor[0]->longitude;
+        $lat2 = $allKantor[0]->latitude;
+        $idKantor = $allKantor[0]->id;
+        $minimal = $this->findDistance($lat1, $lon1, $lat2, $lon2, 'K');
+        foreach ($allKantor as $kantor) {   
+            $lon2 = $kantor->longitude;
+            $lat2 = $kantor->latitude;
+            $valueBaru = $this->findDistance($lat1, $lon1, $lat2, $lon2, 'K');
+            if($valueBaru < $minimal){
+                $minimal = $valueBaru;
+                $idKantor = $kantor->id;
+            }
+        }
 
-        $request["kantor_asal_id"] = "null";
+        $request["kantor_asal_id"] = $idKantor;
         $request["user_created"] = "CUSTOMER";
         $request["user_updated"] = "CUSTOMER";
 
@@ -64,8 +103,8 @@ class CustomerController extends Controller
         $mail->SMTPSecure = "tls";                 // sets the prefix to the servier
         $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
         $mail->Port       = 587;                   // set the SMTP port for the GMAIL server
-        $mail->Username   = "";  // GMAIL username
-        $mail->Password   = "";     // GMAIL password
+        $mail->Username   = "4team.ate@gmail.com";  // GMAIL username
+        $mail->Password   = "sttsteam4";     // GMAIL password
         $mail->MsgHTML($body);
         $mail->AddAddress($address, $request['nama_pengirim']);
 
