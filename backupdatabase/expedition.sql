@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 15, 2020 at 04:25 PM
+-- Generation Time: Apr 23, 2020 at 04:19 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -52,7 +52,7 @@ CREATE TABLE `bon_muats` (
 --
 
 INSERT INTO `bon_muats` (`id`, `kendaraan_id`, `kurir_non_customer_id`, `total_muatan`, `kantor_asal_id`, `kantor_tujuan_id`, `user_created`, `user_updated`, `created_at`, `updated_at`, `is_deleted`, `waktu_berangkat`, `waktu_sampai`) VALUES
-('B00000000150420', 'KE000006', 'KN000005', '1.0', 'KA000000', 'KA000006', 'PEADMIN', 'PEADMIN', '2020-04-15 20:03:18', '2020-04-15 20:09:15', 0, '2020-04-15 20:08:46', '2020-04-15 20:09:15');
+('B00000000200420', 'KE000005', 'KN000006', '0.0', 'KA000000', 'KA000006', 'PEADMIN', 'PEADMIN', '2020-04-20 14:59:59', '2020-04-20 13:06:01', 0, NULL, '2020-04-20 15:28:19');
 
 -- --------------------------------------------------------
 
@@ -102,24 +102,24 @@ CREATE TABLE `kantors` (
 --
 
 INSERT INTO `kantors` (`id`, `alamat`, `no_telp`, `kota`, `is_warehouse`, `created_at`, `updated_at`, `is_deleted`, `longitude`, `latitude`, `user_created`, `user_updated`) VALUES
-('KA000000', 'JL. NGAGEL JAYA TENGAH NO.73-77', '081000000000', 'SURABAYA', 1, '2020-04-04 04:04:04', '2020-04-09 18:41:55', 0, '1.00000', '1.00000', 'PEADMIN', 'PEADMIN'),
-('KA000001', 'JL. KEPANJEN NO.27', '087241286365', 'SURABAYA', 0, '2020-04-09 18:17:50', '2020-04-09 18:44:22', 0, '1.00000', '1.00000', 'PEADMIN', 'PEADMIN'),
-('KA000002', 'JL. BRATANG GEDE NO. 35', '087212030123', 'SURABAYA', 0, '2020-04-09 18:18:25', '2020-04-09 18:44:16', 0, '1.00000', '1.00000', 'PEADMIN', 'PEADMIN'),
-('KA000003', 'JL. SAN DIEGO NO. 75', '087812939812', 'SURABAYA', 0, '2020-04-09 18:19:00', '2020-04-09 18:44:09', 0, '1.00000', '1.00000', 'PEADMIN', 'PEADMIN'),
-('KA000004', 'JL. KENJERAN NO.65', '087924725612', 'SURABAYA', 0, '2020-04-09 18:29:31', '2020-04-09 18:37:19', 0, '1.00000', '1.00000', 'PEADMIN', 'PEADMIN'),
-('KA000005', 'JL. KAPAS KRAMPUNG NO. 73', '081725273921', 'SURABAYA', 0, '2020-04-09 18:30:14', '2020-04-09 18:37:24', 0, '1.00000', '1.00000', 'PEADMIN', 'PEADMIN'),
-('KA000006', 'JL. SUMENEP NO. 86', '082171283674', 'SIDOARJO', 1, '2020-04-09 18:36:54', '2020-04-09 18:37:29', 0, '1.00000', '1.00000', 'PEADMIN', 'PEADMIN'),
-('KA000007', 'JL. KERAMPUNG NO. 156', '082734638212', 'SIDOARJO', 0, '2020-04-09 18:38:07', '2020-04-09 18:38:07', 0, '1.00000', '1.00000', 'PEADMIN', 'PEADMIN'),
-('KA000008', 'JL. MANUKAN NO. 84', '085165287643', 'SIDOARJO', 0, '2020-04-09 18:38:28', '2020-04-09 18:38:28', 0, '1.00000', '1.00000', 'PEADMIN', 'PEADMIN'),
-('KA000009', 'JL. SIDOMULYO NO. 12', '089672627364', 'SIDOARJO', 0, '2020-04-09 18:38:58', '2020-04-09 18:38:58', 0, '1.00000', '1.00000', 'PEADMIN', 'PEADMIN'),
-('KA000010', 'JL. PUCANG INDAH NO. 921', '081672635098', 'SIDOARJO', 0, '2020-04-09 18:39:27', '2020-04-09 18:39:27', 0, '1.00000', '1.00000', 'PEADMIN', 'PEADMIN'),
-('KA000011', 'JL. MAJAPAHIT NO. 51', '087526453621', 'SIDOARJO', 0, '2020-04-09 18:40:12', '2020-04-09 18:40:12', 0, '1.00000', '1.00000', 'PEADMIN', 'PEADMIN'),
-('KA000012', 'JL. SIDOMUNGKIR NO. 1', '08127361524', 'MALANG', 1, '2020-04-09 18:41:47', '2020-04-09 18:41:47', 0, '1.00000', '1.00000', 'PEADMIN', 'PEADMIN'),
-('KA000013', 'JL. MALIBOKOR NO. 912', '08126423412', 'MALANG', 0, '2020-04-09 18:42:19', '2020-04-09 18:42:19', 0, '1.00000', '1.00000', 'PEADMIN', 'PEADMIN'),
-('KA000014', 'JL. KALIJUDAN NO. 123', '08128367523', 'MALANG', 0, '2020-04-09 18:43:03', '2020-04-09 18:43:55', 0, '1.00000', '1.00000', 'PEADMIN', 'PEADMIN'),
-('KA000015', 'JL. SANGGAR NO. 1', '08128542341', 'MALANG', 0, '2020-04-09 18:43:23', '2020-04-09 18:43:23', 0, '1.00000', '1.00000', 'PEADMIN', 'PEADMIN'),
-('KA000016', 'JL. GUBERNUR SURYO NO. 8', '08217853242', 'MALANG', 0, '2020-04-09 18:43:44', '2020-04-09 18:43:44', 0, '1.00000', '1.00000', 'PEADMIN', 'PEADMIN'),
-('KA000017', 'JL. JERUK NO.124', '08128542831', 'MALANG', 0, '2020-04-09 18:44:47', '2020-04-09 18:45:00', 0, '1.00000', '1.00000', 'PEADMIN', 'PEADMIN');
+('KA000000', 'JL. NGAGEL JAYA TENGAH NO.73-77', '081000000000', 'SURABAYA', 1, '2020-04-04 04:04:04', '2020-04-09 18:41:55', 0, '112.75886', '-7.29120', 'PEADMIN', 'PEADMIN'),
+('KA000001', 'JL. KEPANJEN NO.27', '087241286365', 'SURABAYA', 0, '2020-04-09 18:17:50', '2020-04-09 18:44:22', 0, '112.73605', '-7.23926', 'PEADMIN', 'PEADMIN'),
+('KA000002', 'JL. BRATANG GEDE NO. 35', '087212030123', 'SURABAYA', 0, '2020-04-09 18:18:25', '2020-04-09 18:44:16', 0, '112.75157', '-7.29762', 'PEADMIN', 'PEADMIN'),
+('KA000003', 'KERTAJAYA INDAH TIMUR XII BLOK O-65 NO.5', '087812939812', 'SURABAYA', 0, '2020-04-09 18:19:00', '2020-04-09 18:44:09', 0, '112.78268', '-7.27736', 'PEADMIN', 'PEADMIN'),
+('KA000004', 'JL. PATTIMURA NO.47', '087924725612', 'SURABAYA', 0, '2020-04-09 18:29:31', '2020-04-09 18:37:19', 0, '112.69765', '-7.27681', 'PEADMIN', 'PEADMIN'),
+('KA000005', 'JL. ARJUNO NO.151', '081725273921', 'SURABAYA', 0, '2020-04-09 18:30:14', '2020-04-09 18:37:24', 0, '112.72870', '-7.26627', 'PEADMIN', 'PEADMIN'),
+('KA000006', 'RUKO ORCHID REGENCY, JL. SIDODADI NO.17', '082171283674', 'SIDOARJO', 1, '2020-04-09 18:36:54', '2020-04-09 18:37:29', 0, '112.68024', '-7.45461', 'PEADMIN', 'PEADMIN'),
+('KA000007', 'PARK ROYAL REGENCY, JL. KESATRIAN NO.7', '082734638212', 'SIDOARJO', 0, '2020-04-09 18:38:07', '2020-04-09 18:38:07', 0, '112.70976', '-7.42533', 'PEADMIN', 'PEADMIN'),
+('KA000008', 'SINAR, BUDURAN 3 BLOK B1', '085165287643', 'SIDOARJO', 0, '2020-04-09 18:38:28', '2020-04-09 18:38:28', 0, '112.73946', '-7.43487', 'PEADMIN', 'PEADMIN'),
+('KA000009', 'JL. MOJOPAHIT NO.15-17', '089672627364', 'SIDOARJO', 0, '2020-04-09 18:38:58', '2020-04-09 18:38:58', 0, '112.71792', '-7.45870', 'PEADMIN', 'PEADMIN'),
+('KA000010', 'JL. SARIROGO NO.16A', '081672635098', 'SIDOARJO', 0, '2020-04-09 18:39:27', '2020-04-09 18:39:27', 0, '112.68195', '-7.43189', 'PEADMIN', 'PEADMIN'),
+('KA000011', 'RUKO PESONA PERMATA GADING 1, JALAN LINGKAR TIMUR NO.20', '087526453621', 'SIDOARJO', 0, '2020-04-09 18:40:12', '2020-04-09 18:40:12', 0, '112.73843', '-7.45002', 'PEADMIN', 'PEADMIN'),
+('KA000012', 'JL. IKAN PAUS VI NO.7', '08127361524', 'MALANG', 1, '2020-04-09 18:41:47', '2020-04-09 18:41:47', 0, '112.63726', '-7.93482', 'PEADMIN', 'PEADMIN'),
+('KA000013', 'JL. SUNAN KALIJAGA NO.7B', '08126423412', 'MALANG', 0, '2020-04-09 18:42:19', '2020-04-09 18:42:19', 0, '112.60548', '-7.95157', 'PEADMIN', 'PEADMIN'),
+('KA000014', 'JL. HAMID RUSDI NO.95', '08128367523', 'MALANG', 0, '2020-04-09 18:43:03', '2020-04-09 18:43:55', 0, '112.64496', '-7.96891', 'PEADMIN', 'PEADMIN'),
+('KA000015', 'JL. RAYA GADANG NO.315', '08128542341', 'MALANG', 0, '2020-04-09 18:43:23', '2020-04-09 18:43:23', 0, '112.63070', '-8.00804', 'PEADMIN', 'PEADMIN'),
+('KA000016', 'JL. MERBABU NO.35', '08217853242', 'MALANG', 0, '2020-04-09 18:43:44', '2020-04-09 18:43:44', 0, '112.62573', '-7.96466', 'PEADMIN', 'PEADMIN'),
+('KA000017', 'JL. KALPATARU NO.62', '08128542831', 'MALANG', 0, '2020-04-09 18:44:47', '2020-04-09 18:45:00', 0, '112.62934', '-7.94885', 'PEADMIN', 'PEADMIN');
 
 -- --------------------------------------------------------
 
@@ -153,8 +153,8 @@ INSERT INTO `kendaraans` (`id`, `kantor_1_id`, `kantor_2_id`, `nopol`, `status`,
 ('KE000002', 'KA000000', 'KA000003', 'D 2182 SA', 1, '2018', '2020-04-09 18:52:58', '2020-04-09 18:54:40', 0, 0, 'PEADMIN', 'PEADMIN'),
 ('KE000003', 'KA000000', 'KA000004', 'L 2812 HF', 1, '2018', '2020-04-09 18:53:22', '2020-04-09 18:54:48', 0, 0, 'PEADMIN', 'PEADMIN'),
 ('KE000004', 'KA000000', 'KA000005', 'L 1923 AS', 1, '2018', '2020-04-09 18:54:23', '2020-04-09 18:54:23', 0, 0, 'PEADMIN', 'PEADMIN'),
-('KE000005', 'KA000000', 'KA000006', 'L 1294 XS', 0, '2020', '2020-04-09 18:55:24', '2020-04-13 21:47:13', 0, 1, 'PEADMIN', 'PEADMIN'),
-('KE000006', 'KA000000', 'KA000006', 'L 1298 XS', 1, '2020', '2020-04-09 19:02:15', '2020-04-09 19:02:15', 0, 1, 'PEADMIN', 'PEADMIN'),
+('KE000005', 'KA000000', 'KA000006', 'L 1294 XS', 1, '2020', '2020-04-09 18:55:24', '2020-04-20 15:00:20', 0, 1, 'PEADMIN', 'PEADMIN'),
+('KE000006', 'KA000000', 'KA000006', 'L 1298 XS', 1, '2020', '2020-04-09 19:02:15', '2020-04-17 22:48:17', 0, 1, 'PEADMIN', 'PEADMIN'),
 ('KE000007', 'KA000000', 'KA000012', 'L 2123 XL', 1, '2020', '2020-04-09 19:10:23', '2020-04-09 19:10:23', 0, 1, 'PEADMIN', 'PEADMIN'),
 ('KE000008', 'KA000000', 'KA000012', 'L 2127 PO', 1, '2020', '2020-04-09 19:10:44', '2020-04-09 19:10:44', 0, 1, 'PEADMIN', 'PEADMIN'),
 ('KE000009', 'KA000006', 'KA000007', 'W 2182 SJ', 1, '2018', '2020-04-09 19:11:12', '2020-04-09 19:11:12', 0, 0, 'PEADMIN', 'PEADMIN'),
@@ -259,8 +259,8 @@ CREATE TABLE `kurir_customers` (
 --
 
 INSERT INTO `kurir_customers` (`id`, `kantor_id`, `nama`, `jenis_kelamin`, `no_telp`, `alamat`, `status`, `nopol`, `password`, `created_at`, `updated_at`, `is_deleted`, `user_created`, `user_updated`) VALUES
-('KC000000', 'KA000001', 'MUMPUNI MANGUNSONG', 'P', '022510856799', 'DS. BABAKAN NO. 42, BANJARBARU', '1', 'L 3455 AB', '319f4d26e3c536b5dd871bb2c52e3178', '2020-04-09 19:52:17', '2020-04-13 21:52:09', 0, 'PEADMIN', 'PEADMIN'),
-('KC000001', 'KA000001', 'KARMA MAHENDRA', 'P', '095855235581', 'KPG. PASTEUR NO. 936, PANGKAL PINANG', '1', 'L 2981 ET', '319f4d26e3c536b5dd871bb2c52e3178', '2020-04-09 19:53:15', '2020-04-13 21:52:18', 0, 'PEADMIN', 'PEADMIN'),
+('KC000000', 'KA000001', 'MUMPUNI MANGUNSONG', 'P', '022510856799', 'DS. BABAKAN NO. 42, BANJARBARU', '0', 'L 3455 AB', '319f4d26e3c536b5dd871bb2c52e3178', '2020-04-09 19:52:17', '2020-04-16 19:31:26', 0, 'PEADMIN', 'PEADMIN'),
+('KC000001', 'KA000001', 'KARMA MAHENDRA', 'P', '095855235581', 'KPG. PASTEUR NO. 936, PANGKAL PINANG', '0', 'L 2981 ET', '319f4d26e3c536b5dd871bb2c52e3178', '2020-04-09 19:53:15', '2020-04-16 20:16:13', 0, 'PEADMIN', 'PEADMIN'),
 ('KC000002', 'KA000001', 'CARAKA WAHYUDIN', 'P', '03130176446', 'KI. HONGGOWONGSO NO. 180, PRABUMULIH', '1', 'L 5662 EF', '319f4d26e3c536b5dd871bb2c52e3178', '2020-04-09 19:54:08', '2020-04-13 21:54:48', 0, 'PEADMIN', 'PEADMIN'),
 ('KC000003', 'KA000002', 'PUTU WIBISONO', 'P', '074056236422', 'GG. DIPONEGORO NO. 753, METRO', '1', 'L 8161 QW', '319f4d26e3c536b5dd871bb2c52e3178', '2020-04-09 19:55:47', '2020-04-09 19:55:47', 0, 'PEADMIN', 'PEADMIN'),
 ('KC000004', 'KA000002', 'WAKIMAN ADRIANSYAH', 'P', '022158371390', 'PSR. SAM RATULANGI NO. 410, TANGERANG', '1', 'L 6498 UY', '319f4d26e3c536b5dd871bb2c52e3178', '2020-04-09 19:56:35', '2020-04-09 19:56:35', 0, 'PEADMIN', 'PEADMIN'),
@@ -339,8 +339,8 @@ INSERT INTO `kurir_non_customers` (`id`, `kantor_1_id`, `kantor_2_id`, `nama`, `
 ('KN000002', 'KA000000', 'KA000003', 'LUWAR LUWES RAJATA', 'P', '04841649770', 'PSR. BACANG NO. 545, BAU-BAU', '1', 0, '2020-04-09 21:12:37', '2020-04-09 21:12:37', 0, 'PEADMIN', 'PEADMIN'),
 ('KN000003', 'KA000000', 'KA000004', 'DANUJA BUDIYANTO', 'P', '04068811934', 'JLN. BAHAGIA NO. 749, KUPANG', '1', 0, '2020-04-09 21:13:16', '2020-04-09 21:13:16', 0, 'PEADMIN', 'PEADMIN'),
 ('KN000004', 'KA000000', 'KA000005', 'KENARI JINDRA PRAYOGA', 'P', '06298274212', 'KI. BAIK NO. 478, SORONG', '1', 0, '2020-04-09 21:13:55', '2020-04-09 21:13:55', 0, 'PEADMIN', 'PEADMIN'),
-('KN000005', 'KA000000', 'KA000006', 'VIRMAN HABIBI', 'P', '063407870342', 'JR. ACHMAD NO. 175, TUAL', '0', 1, '2020-04-09 21:14:49', '2020-04-15 20:03:18', 0, 'PEADMIN', 'PEADMIN'),
-('KN000006', 'KA000000', 'KA000006', 'AJIONO PRASETYA', 'P', '07643318449', 'GG. BAYA KALI BUNGUR NO. 897, PAREPARE', '0', 1, '2020-04-09 21:15:22', '2020-04-13 21:47:13', 0, 'PEADMIN', 'PEADMIN'),
+('KN000005', 'KA000000', 'KA000006', 'VIRMAN HABIBI', 'P', '063407870342', 'JR. ACHMAD NO. 175, TUAL', '1', 1, '2020-04-09 21:14:49', '2020-04-17 22:48:17', 0, 'PEADMIN', 'PEADMIN'),
+('KN000006', 'KA000000', 'KA000006', 'AJIONO PRASETYA', 'P', '07643318449', 'GG. BAYA KALI BUNGUR NO. 897, PAREPARE', '1', 1, '2020-04-09 21:15:22', '2020-04-20 15:00:20', 0, 'PEADMIN', 'PEADMIN'),
 ('KN000007', 'KA000000', 'KA000012', 'CAHYANTO MANSUR', 'P', '02304621758', 'DK. BAUNG NO. 156, SOLOK', '1', 1, '2020-04-09 21:16:26', '2020-04-09 21:16:26', 0, 'PEADMIN', 'PEADMIN'),
 ('KN000008', 'KA000000', 'KA000012', 'KURNIA PRASASTA', 'P', '082332708103', 'GG. KALIMANTAN NO. 126, PAREPARE', '1', 1, '2020-04-09 21:16:52', '2020-04-09 21:16:52', 0, 'PEADMIN', 'PEADMIN'),
 ('KN000009', 'KA000006', 'KA000007', 'JONO LUHUNG TARIHORAN', 'P', '0271721031', 'JR. FLORA NO. 707, BANDUNG', '1', 0, '2020-04-09 21:19:29', '2020-04-09 21:19:29', 0, 'PEADMIN', 'PEADMIN'),
@@ -504,6 +504,14 @@ CREATE TABLE `pengiriman_customers` (
   `waktu_sampai_kantor` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `pengiriman_customers`
+--
+
+INSERT INTO `pengiriman_customers` (`id`, `kurir_customer_id`, `total_muatan`, `menuju_penerima`, `kantor_id`, `created_at`, `updated_at`, `is_deleted`, `user_created`, `user_updated`, `waktu_berangkat`, `waktu_sampai_kantor`) VALUES
+('P00000000200420', 'KC000000', '20.0', 0, 'KA000001', '2020-04-20 19:50:51', '2020-04-22 05:48:27', 0, 'PEADMIN', 'KC000000', '2020-04-20 20:06:20', NULL),
+('P00000001200420', 'KC000001', '0.0', 1, 'KA000001', '2020-04-20 19:52:39', '2020-04-20 19:52:39', 0, 'PEADMIN', 'PEADMIN', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -552,7 +560,7 @@ CREATE TABLE `resis` (
 --
 
 INSERT INTO `resis` (`id`, `kantor_asal_id`, `harga`, `verifikasi`, `status_perjalanan`, `berat_barang`, `alamat_asal`, `alamat_tujuan`, `kota_asal`, `kota_tujuan`, `nama_pengirim`, `nama_penerima`, `lebar`, `panjang`, `tinggi`, `no_telp_pengirim`, `no_telp_penerima`, `keterangan`, `is_fragile`, `email_pengirim`, `email_penerima`, `waktu_berangkat_kurir`, `longitude_pengirim`, `latitude_pengirim`, `kode_pos_pengirim`, `kode_pos_penerima`, `created_at`, `updated_at`, `is_deleted`, `user_created`, `user_updated`, `kode_verifikasi_email`, `status_verifikasi_email`) VALUES
-('R00000000130420', 'KA000000', '7000', 1, 'PERJALANAN', '1.000', 'Jln Kedungdoro', 'Jln sanggar', 'SURABAYA', 'PASURUAN', 'AKU', 'KAMU', '100', '100', '100', '087812365478', '087812365478', 'INI ADALAH KETERANGAN', 1, 'aku@gmail.com', 'kamu@gmail.com', NULL, NULL, NULL, 116421, 651681, '2020-04-13 13:36:00', '2020-04-13 13:36:00', 0, 'PEADMIN', 'PEADMIN', NULL, NULL);
+('R00000000220420', 'KA000000', '140000', 1, 'PERJALANAN', '20.000', 'Jln Aku', 'Jln Kamu', 'SURABAYA', 'BANGKALAN', 'AKU', 'KAMU', '100', '100', '100', '087812365478', '087812365478', 'INI ADALAH KETERANGAN', 1, 'aku@gmail.com', 'kamu@gmail.com', NULL, NULL, NULL, 12345, 12345, '2020-04-22 13:33:47', '2020-04-22 13:33:47', 0, 'PEADMIN', 'PEADMIN', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -567,6 +575,24 @@ CREATE TABLE `sejarahs` (
   `keterangan` varchar(500) DEFAULT NULL,
   `waktu` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `sejarahs`
+--
+
+INSERT INTO `sejarahs` (`id`, `resi_id`, `keterangan`, `waktu`) VALUES
+(1, 'R00000000220420', 'Email verifikasi telah dikirimkan ke 4team.ate@gmail.com.', '2020-04-15 22:07:07'),
+(2, 'R00000000220420', 'Email verifikasi telah dikirimkan ke hw218116755@gmail.com.', '2020-04-15 22:08:17'),
+(3, 'R00000000220420', 'Email verifikasi telah dikirimkan ke 4team.ate@gmail.com.', '2020-04-15 22:56:00'),
+(4, 'R00000000220420', 'Email verifikasi telah dikirimkan ke 4team.ate@gmail.com.', '2020-04-15 23:17:36'),
+(5, 'R00000000220420', 'Kurir MUMPUNI MANGUNSONG telah berangkat dari kantor JL. KEPANJEN NO.27, SURABAYA untuk mengambil barang dari pengirim di JLN KEDUNGDORO, SURABAYA', '2020-04-16 19:31:54'),
+(6, 'R00000000220420', 'Kurir MUMPUNI MANGUNSONG telah melakukan cancel pengiriman karena tidak ada orang yang bisa melayani pengiriman di alamat JLN KEDUNGDORO, SURABAYA', '2020-04-16 19:44:14'),
+(7, 'R00000000220420', 'Kurir MUMPUNI MANGUNSONG telah melakukan verifikasi resi, mengambil bayaran, serta barang dari pengirim di JLN KEDUNGDORO, SURABAYA', '2020-04-16 19:57:08'),
+(8, 'R00000000220420', 'Kurir MUMPUNI MANGUNSONG telah melakukan verifikasi resi, mengambil bayaran, serta barang dari pengirim di JLN KEDUNGDORO, SURABAYA', '2020-04-16 20:14:09'),
+(9, 'R00000000220420', 'Kurir KARMA MAHENDRA telah berangkat dari kantor JL. KEPANJEN NO.27, SURABAYA untuk mengantar barang ke penerima di JLN SANGGAR, PASURUAN', '2020-04-16 20:19:16'),
+(10, 'R00000000220420', 'Penerima telah menerima barang', '2020-04-16 20:21:50'),
+(11, 'R00000000220420', 'Penerima telah menerima barang', '2020-04-16 20:23:52'),
+(12, 'R00000000220420', 'Kurir MUMPUNI MANGUNSONG telah melakukan verifikasi resi, mengambil bayaran, serta barang dari pengirim di JLN AKU, SURABAYA', '2020-04-22 12:48:27');
 
 -- --------------------------------------------------------
 
@@ -586,13 +612,6 @@ CREATE TABLE `surat_jalans` (
   `user_updated` varchar(8) NOT NULL DEFAULT 'Default',
   `waktu_sampai` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `surat_jalans`
---
-
-INSERT INTO `surat_jalans` (`bon_muat_id`, `resi_id`, `telah_sampai`, `created_at`, `updated_at`, `is_deleted`, `user_created`, `user_updated`, `waktu_sampai`) VALUES
-('B00000000150420', 'R00000000130420', 1, '2020-04-15 20:04:41', '2020-04-15 20:09:15', 0, 'PEADMIN', 'PEADMIN', '2020-04-15 20:09:15');
 
 --
 -- Indexes for dumped tables
@@ -672,7 +691,7 @@ ALTER TABLE `surat_jalans`
 -- AUTO_INCREMENT for table `sejarahs`
 --
 ALTER TABLE `sejarahs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
