@@ -46,7 +46,13 @@ Halaman ini untuk mengubah data bon muat.
                 <div class="collapse" id="collapseEdit">
                     <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/update/{{$bonmuat->id}}" enctype="multipart/form-data">
                     @csrf
-                        <div class="form-row">
+                        <div class="form-row"
+                        @if (Session::has('loginstatus'))
+                            @if (Session::get('loginstatus') == 3 || Session::get('loginstatus') == 4)
+                                hidden
+                            @endif
+                        @endif
+                        >
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kota Asal</label>
@@ -63,7 +69,13 @@ Halaman ini untuk mengubah data bon muat.
                             </div>
                         </div>
                     
-                        <div class="form-row">
+                        <div class="form-row"
+                        @if (Session::has('loginstatus'))
+                            @if (Session::get('loginstatus') == 3 || Session::get('loginstatus') == 4)
+                                hidden
+                            @endif
+                        @endif
+                        >
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kantor Asal</label>
@@ -83,7 +95,13 @@ Halaman ini untuk mengubah data bon muat.
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kota Tujuan</label>
-                                    <select class="form-control" id="kotaTujuan" onchange='isiKantor("Tujuan")' {{$bonmuat->is_deleted ? 'disabled' : ''}} {{$status}}>
+                                    <select class="form-control" id="kotaTujuan" onchange='isiKantor("Tujuan")' {{$bonmuat->is_deleted ? 'disabled' : ''}} {{$status}}
+                                        @if (Session::has('loginstatus'))
+                                            @if (Session::get('loginstatus') == 4)
+                                                disabled
+                                            @endif
+                                        @endif
+                                        >
                                         @foreach ($allKota as $kota)
                                             @if($bonmuat->kantor_tujuan->kota == $kota->nama)
                                             <option selected class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
@@ -100,7 +118,13 @@ Halaman ini untuk mengubah data bon muat.
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kantor Tujuan</label>
-                                    <select name="kantor_tujuan_id" class="form-control" id="kantorTujuan" onchange="refreshComboBox()" required {{$bonmuat->is_deleted ? 'disabled' : ''}} {{$status}}>
+                                    <select name="kantor_tujuan_id" class="form-control" id="kantorTujuan" onchange="refreshComboBox()" required {{$bonmuat->is_deleted ? 'disabled' : ''}} {{$status}}
+                                        @if (Session::has('loginstatus'))
+                                            @if (Session::get('loginstatus') == 4)
+                                                disabled
+                                            @endif
+                                        @endif
+                                        >
                                         <option selected class="form-control" value="{{$bonmuat->kantor_tujuan->id}}">{{$bonmuat->kantor_tujuan->alamat}}</option>
                                         @foreach($bonmuat->kantor_tujuan->getKota->kantor as $kantor)
                                             @if($bonmuat->kantor_tujuan->id != $kantor->id)
@@ -116,7 +140,13 @@ Halaman ini untuk mengubah data bon muat.
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kurir</label>
-                                    <select name="kurir_non_customer_id" class="form-control" id="kurir" required {{$bonmuat->is_deleted ? 'disabled' : ''}} {{$status}}>
+                                    <select name="kurir_non_customer_id" class="form-control" id="kurir" required {{$bonmuat->is_deleted ? 'disabled' : ''}} {{$status}}
+                                        @if (Session::has('loginstatus'))
+                                            @if (Session::get('loginstatus') == 4)
+                                                disabled
+                                            @endif
+                                        @endif
+                                        >
                                         <option selected class="form-control" value="{{$bonmuat->kurir_non_customer->id}}">{{$bonmuat->kurir_non_customer->nama}}</option>
                                     </select>
                                 </div>
@@ -127,7 +157,13 @@ Halaman ini untuk mengubah data bon muat.
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Kendaraan</label>
-                                    <select name="kendaraan_id" class="form-control" id="kendaraan" required {{$bonmuat->is_deleted ? 'disabled' : ''}} {{$status}}>
+                                    <select name="kendaraan_id" class="form-control" id="kendaraan" required {{$bonmuat->is_deleted ? 'disabled' : ''}} {{$status}}
+                                        @if (Session::has('loginstatus'))
+                                            @if (Session::get('loginstatus') == 4)
+                                                disabled
+                                            @endif
+                                        @endif
+                                        >
                                         <option selected class="form-control" value="{{$bonmuat->kendaraan->id}}">{{$bonmuat->kendaraan->nopol}}</option>
                                     </select>
                                 </div>
@@ -138,7 +174,13 @@ Halaman ini untuk mengubah data bon muat.
                             <div class="col-md-5">
                                 <div class="position-relative form-group">
                                     <label class="">Status Aktif</label>
-                                    <select class="form-control" name="is_deleted" id="status" onchange="changeStatus()">
+                                    <select class="form-control" name="is_deleted" id="status" onchange="changeStatus()"
+                                    @if (Session::has('loginstatus'))
+                                        @if (Session::get('loginstatus') == 4)
+                                            disabled
+                                        @endif
+                                    @endif
+                                    >
                                         @if ($bonmuat->is_deleted)
                                             <option selected class="form-control" value="1">TIDAK AKTIF</option>
                                             <option class="form-control" value="0">AKTIF</option>
@@ -154,7 +196,13 @@ Halaman ini untuk mengubah data bon muat.
                         <div class="form-row">
                             <div class="col-md-2">
                                 <div class="position-relative form-group">
-                                    <button class="mt-2 btn btn-primary">Ubah</button>
+                                    <button class="mt-2 btn btn-primary"
+                                    @if (Session::has('loginstatus'))
+                                        @if (Session::get('loginstatus') == 4)
+                                            disabled
+                                        @endif
+                                    @endif
+                                    >Ubah</button>
                                 </div>
                             </div>
                         </div>
@@ -163,7 +211,13 @@ Halaman ini untuk mengubah data bon muat.
                 <hr>
                 <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/mulaiBonMuat/{{$bonmuat->id}}" enctype="multipart/form-data">
                     @csrf
-                    <button class="btn ml-2 mr-2 btn-primary pull-right" style="display: {{$bonmuat->is_deleted || $status == "disabled" ? 'none' : ''}}">Mulai Bon Muat</button>
+                    <button class="btn ml-2 mr-2 btn-primary pull-right" style="display: {{$bonmuat->is_deleted || $status == "disabled" ? 'none' : ''}}"
+                        @if (Session::has('loginstatus'))
+                            @if (Session::get('loginstatus') == 4)
+                                disabled
+                            @endif
+                        @endif
+                        >Mulai Bon Muat</button>
                 </form>
                 <button type="button" data-toggle="collapse" href="#collapseEdit" class="btn btn-secondary">Ubah Bon Muat</button>
             </div>
@@ -455,24 +509,26 @@ Halaman ini untuk mengubah data bon muat.
     }
 
     function refreshComboBox(){
-        var kantorAsal = $('#kantorAsal').val();
-        var kantorTujuan = $('#kantorTujuan').val();
-        var chosenKurir = $('#kurir').val();
-        var chosenKendaraan = $('#kendaraan').val();
-        $.ajax({
-            method : "POST",
-            url : '/admin/bonmuat/find',
-            datatype : "json",
-            data : { kantorAsal : kantorAsal,kantorTujuan : kantorTujuan,kurir: chosenKurir,kendaraan: chosenKendaraan, _token : "{{ csrf_token() }}" },
-            success: function(result){
-                var hasil = result.split('|');
-                $('#kurir').html(hasil[0]);
-                $('#kendaraan').html(hasil[1]);
-            },
-            error: function(){
-                console.log('error');
-            }
-        });
+        @if($status == "")
+            var kantorAsal = $('#kantorAsal').val();
+            var kantorTujuan = $('#kantorTujuan').val();
+            var chosenKurir = $('#kurir').val();
+            var chosenKendaraan = $('#kendaraan').val();
+            $.ajax({
+                method : "POST",
+                url : '/admin/bonmuat/find',
+                datatype : "json",
+                data : { kantorAsal : kantorAsal,kantorTujuan : kantorTujuan,kurir: chosenKurir,kendaraan: chosenKendaraan, _token : "{{ csrf_token() }}" },
+                success: function(result){
+                    var hasil = result.split('|');
+                    $('#kurir').html(hasil[0]);
+                    $('#kendaraan').html(hasil[1]);
+                },
+                error: function(){
+                    console.log('error');
+                }
+            });
+        @endif
     }
 
     function passValue(id){

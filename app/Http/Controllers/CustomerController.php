@@ -32,11 +32,9 @@ class CustomerController extends Controller
         $request['kode_verifikasi_email'] = rand(1000, 9999) * 10000 + rand(1000, 9999);
         $request['status_verifikasi_email'] = 0;
 
-        //perlu diganti
-        $request['kantor_asal_id'] = 'KA000000';
-        $request['user_created'] = "";
-        $request['user_updated'] = "";
-        //
+        $request["kantor_asal_id"] = "null";
+        $request["user_created"] = "null";
+        $request["user_updated"] = "null";
 
         //ganti jadi pakai raja ongkir
         $request['harga'] = $this->countCostNoRequest($request['kota_asal'], $request['kota_tujuan'], $request['berat_barang']);
@@ -86,7 +84,7 @@ class CustomerController extends Controller
             $page = "none";
             return redirect('/pesanselesai');
         } else {
-            Session::put('error', 'Email tidak kekirim.');
+            Session::put('error', 'Email tidak terkirim.');
             return redirect('/pesan');
         }
         
@@ -106,9 +104,14 @@ class CustomerController extends Controller
 
         $page = 'track';
 
-        $resi = Resi::findOrFail($request['resi_id']);
-
-        return view('customer.track', compact('sejarah', 'page', 'resi'));
+        $resi = Resi::find($request['resi_id']);
+        if($resi == null){
+            $fail = "Resi ". $request["resi_id"] ." tidak terdaftar.";
+            Session::put('fail-resi', $fail);
+            return redirect('/');
+        }else{
+            return view('customer.track', compact('sejarah', 'page', 'resi'));
+        }
     }
 
     public function emailVerification(Request $request) {

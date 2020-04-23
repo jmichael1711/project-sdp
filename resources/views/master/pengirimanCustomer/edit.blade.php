@@ -40,7 +40,14 @@ Halaman ini untuk mengubah data pengiriman customer.
                             </div>
                         </div>
                     </div>
-                    <div class="form-row">
+
+                    <div class="form-row"
+                    @if (Session::has('loginstatus'))
+                        @if (Session::get('loginstatus') == 3 || Session::get('loginstatus') == 4)
+                            hidden
+                        @endif
+                    @endif
+                    >
                         <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Kota</label>
@@ -55,7 +62,13 @@ Halaman ini untuk mengubah data pengiriman customer.
                             </div>
                         </div>
                     </div>
-                    <div class="form-row">
+                    <div class="form-row"
+                    @if (Session::has('loginstatus'))
+                        @if (Session::get('loginstatus') == 3 || Session::get('loginstatus') == 4)
+                            hidden
+                        @endif
+                    @endif
+                    >
                         <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Kantor Asal</label>
@@ -66,11 +79,18 @@ Halaman ini untuk mengubah data pengiriman customer.
                             </div>
                         </div>
                     </div>
+
                     <div class="form-row">
                         <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Kurir Customer</label>
-                                <select name="kurir_customer_id" id="kurir" class="form-control" required></select>
+                                <select name="kurir_customer_id" id="kurir" class="form-control" required
+                                @if (Session::has('loginstatus'))
+                                    @if (Session::get('loginstatus') == 4)
+                                        disabled
+                                    @endif
+                                @endif
+                                ></select>
                                 <div class="invalid-feedback">
                                     Mohon pilih kurir customer yang valid.
                                 </div>
@@ -84,7 +104,12 @@ Halaman ini untuk mengubah data pengiriman customer.
                                 <br>
                                 <div class="form-check-inline">
                                     <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="menuju_penerima" value="1"
+                                    <input type="radio" class="form-check-input" onclick="showPesanan('penerima','{{$pengirimanCust->resis[0]->id}}')"  name="menuju_penerima" value="1"
+                                    @if (Session::has('loginstatus'))
+                                        @if (Session::get('loginstatus') == 4)
+                                            disabled
+                                        @endif
+                                    @endif
                                     @if($pengirimanCust->menuju_penerima == '1')
                                         checked
                                     @endif
@@ -93,7 +118,12 @@ Halaman ini untuk mengubah data pengiriman customer.
                                 </div>
                                 <div class="form-check-inline">
                                     <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="menuju_penerima" value="0"
+                                    <input type="radio" class="form-check-input" onclick="showPesanan('pengirim','{{$pengirimanCust->resis[0]->id}}')" name="menuju_penerima" value="0"
+                                    @if (Session::has('loginstatus'))
+                                        @if (Session::get('loginstatus') == 4)
+                                            disabled
+                                        @endif
+                                    @endif
                                     @if($pengirimanCust->menuju_penerima == '0')
                                         checked
                                     @endif
@@ -103,12 +133,32 @@ Halaman ini untuk mengubah data pengiriman customer.
                             </div>
                         </div>
                     </div>
+                    <div class="form-row" id="formPesanan">
+                        <div class="col-md-5">
+                            <div class="position-relative form-group">
+                                <label class="">Alamat Pesanan Customer</label>
+                                <select name="resi_id" id="pesanan" class="form-control"
+                                @if (Session::has('loginstatus'))
+                                    @if (Session::get('loginstatus') == 4)
+                                        disabled
+                                    @endif
+                                @endif
+                                ></select>
+                            </div>
+                        </div>
+                    </div>
                     <hr>
                     <div class="form-row">
                         <div class="col-md-5">
                             <div class="position-relative form-group">
                                 <label class="">Status Aktif</label>
-                                <select class="form-control" name="is_deleted" id="status" onchange="changeStatus()">
+                                <select class="form-control" name="is_deleted" id="status" onchange="changeStatus()"
+                                @if (Session::has('loginstatus'))
+                                    @if (Session::get('loginstatus') == 4)
+                                        disabled
+                                    @endif
+                                @endif
+                                >
                                     @if ($pengirimanCust->is_deleted)
                                         <option selected class="form-control" value="1">TIDAK AKTIF</option>
                                         <option class="form-control" value="0">AKTIF</option>
@@ -121,19 +171,53 @@ Halaman ini untuk mengubah data pengiriman customer.
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-2">
+                        <div class="col-md-12">
                             <div class="position-relative form-group">
-                                <button class="mt-2 btn btn-primary">Ubah</button>
+                                <button class="mt-2 btn btn-primary"
+                                @if (Session::has('loginstatus'))
+                                    @if (Session::get('loginstatus') == 4)
+                                        disabled
+                                    @endif
+                                @endif
+                                @if ($pengirimanCust->waktu_sampai_kantor != null)
+                                    disabled
+                                @endif
+                                >Ubah</button>
                             </div>
                         </div>
                     </div>
+                </form>
+                <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/finishPengiriman/{{$pengirimanCust->id}}" enctype="multipart/form-data">
+                    @csrf
+                    <button class="btn ml-2 mr-2 btn-danger pull-right"
+                    @if (Session::has('loginstatus'))
+                        @if (Session::get('loginstatus') == 4)
+                            disabled
+                        @endif
+                    @endif
+                    @if($pengirimanCust->waktu_berangkat == null || $pengirimanCust->waktu_sampai_kantor != null)
+                        disabled
+                    @endif
+                    >SELESAI PENGIRIMAN CUSTOMER</button>
+                </form>
+                <form novalidate class="needs-validation" method="post" action="/admin/pengirimanCustomer/startPengiriman/{{$pengirimanCust->id}}" enctype="multipart/form-data">
+                    @csrf
+                    <button class="btn ml-2 mr-2 btn-success pull-right"
+                    @if (Session::has('loginstatus'))
+                        @if (Session::get('loginstatus') == 4)
+                            disabled
+                        @endif
+                    @endif
+                    @if($pengirimanCust->waktu_berangkat != null || $pengirimanCust->waktu_sampai_kantor != null)
+                        disabled
+                    @endif
+                    >MULAI PENGIRIMAN CUSTOMER</button>
                 </form>
             </div>
         </div>
     </div>
 </div>  
 @endsection
-
 
 @section('scripts')
 <script>
@@ -152,18 +236,19 @@ Halaman ini untuk mengubah data pengiriman customer.
 
         var idKota = $('#kota').val();
         refreshCombobox(idKota, "null", "{{$pengirimanCust->kantor->id}}", "{{$pengirimanCust->kurir_customer->id}}");
+        showPesanan("pengirim",'{{$pengirimanCust->resis[0]->id}}');
     })
 
-    function showPesanan(tipe){
+    function showPesanan(tipe, idPesanan){
         if(tipe == "pengirim"){
-            var idKota = $('#kota').val();
+            var idKota = $('#kantor').val();
             $("#formPesanan").removeClass("d-none");
             $("#formPesanan").addClass("d-block");
             $.ajax({
                 method : "POST",
                 url : '/admin/pengirimanCustomer/lihatPesanan',
                 datatype : "json",
-                data : { kota : idKota, _token : "{{ csrf_token() }}" },
+                data : { kota : idKota, pesanan : idPesanan, _token : "{{ csrf_token() }}" },
                 success: function(result){
                     $('#pesanan').html(result);
                 },
@@ -182,11 +267,11 @@ Halaman ini untuk mengubah data pengiriman customer.
     function isiKantorAsal(){
         var idKota = $('#kota').val();
         refreshCombobox(idKota, "null", "null", "null");
-        if($('#rbPengirim').is(':checked')){
-            showPesanan("pengirim");
+        if($('#rbPenerima').is(':checked')){
+            showPesanan("penerima",'{{$pengirimanCust->resis[0]->id}}');
         }
         else{
-            showPesanan("penerima");
+            showPesanan("pengirim",'{{$pengirimanCust->resis[0]->id}}');
         }
     }
 
@@ -200,7 +285,7 @@ Halaman ini untuk mengubah data pengiriman customer.
     function refreshCombobox(idKota, idKantor, currKantor, currKurir){
         $.ajax({
             method : "POST",
-            url : '/admin/pengirimanCustomer/isiCombobox',
+            url : '/admin/pengirimanCustomer/isiCombobox/{{$pengirimanCust->id}}',
             datatype : "json",
             data : { kota : idKota, kantor : idKantor, kantorCurr : currKantor, kurirCurr : currKurir, _token : "{{ csrf_token() }}" },
             success: function(result){
@@ -212,12 +297,12 @@ Halaman ini untuk mengubah data pengiriman customer.
                 else{
                     $('#kurir').html(result);
                 }
+                showPesanan("pengirim",'{{$pengirimanCust->resis[0]->id}}');
             },
             error: function(){
                 console.log('error');
             }
         });
     }
-
 </script>
 @endsection 

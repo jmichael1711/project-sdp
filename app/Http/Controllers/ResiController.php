@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 use App\Resi;
 use App\Kota;
 use App\Pegawai;
+use App\Pengiriman_customer;
 
 class ResiController extends Controller
 {
@@ -20,6 +22,7 @@ class ResiController extends Controller
     public function store(Request $request){
         $request = $request->all();
         $user = Pegawai::findOrFail(Session::get('id'));
+        $request['id'] = Resi::getNextId();
         $request['user_created'] = $user->id;
         $request['user_updated'] = $user->id;
 
@@ -38,21 +41,44 @@ class ResiController extends Controller
     public function index(){
         $user = Pegawai::findOrFail(Session::get('id'));
         $allResi = "";
+        
         if($user->jabatan == "admin"){
             $allResi = Resi::getAll()->get();
         }else if($user->jabatan == "kasir"){
-            $allResi = Resi::where("kantor_asal_id","=",$user->kantor_id);
+            $allResi = Resi::where("kantor_asal_id","=",$user->kantor_id)->get();
         }
-        return view('master.resi.index',compact('allResi'));
+        
+        if($user->jabatan == "kasir"){
+            $allPengirimanCustomer = DB::table('d_pengiriman_customers')->select('resi_id');
+            $allResiBaru = Resi::getAll()
+            ->where("kantor_asal_id","=",$user->kantor_id)
+            ->where("verifikasi",0)
+            ->whereNotIn('id', $allPengirimanCustomer)
+            ->get();
+        }else{
+            $allPengirimanCustomer = DB::table('d_pengiriman_customers')->select('resi_id');
+            $allResiBaru = Resi::getAll()
+            ->where("verifikasi",0)
+            ->whereNotIn('id', $allPengirimanCustomer)
+            ->get();
+        }
+        return view('master.resi.index',compact('allResi','allResiBaru'));
     }
 
     public function edit($id){
-        $resi = Resi::findOrFail($id);
-        $resi->harga = "Rp " . number_format($resi->harga, 2, ".", ",");
-        $status = "";
-        if($resi->status_perjalanan == "CANCEL" || $resi->status_perjalanan == "SELESAI"){$status = "disabled";}
-        $allKota = Kota::getAll()->get();
-        return view('master.resi.edit',compact('resi','status','allKota'));
+        $resi = Resi::find($id);
+        if($resi == null){
+            $fail = "Resi tidak terdaftar.";
+            Session::put('success-failresi', $fail);
+            return redirect('/admin/resi');
+        }else{
+            $resi = Resi::findOrFail($id);
+            $resi->harga = "Rp " . number_format($resi->harga, 2, ".", ",");
+            $status = "";
+            if($resi->status_perjalanan == "CANCEL" || $resi->status_perjalanan == "SELESAI"){$status = "disabled";}
+            $allKota = Kota::getAll()->get();
+            return view('master.resi.edit',compact('resi','status','allKota'));
+        }
     }
 
     public function update($id, Request $request){
@@ -94,6 +120,61 @@ class ResiController extends Controller
         $harga = $data["rajaongkir"]["results"][0]["costs"][0]["cost"][0]["value"];
         $hasil =  "Rp " . number_format($harga, 2, ".", ",");
         return $hasil;
+    }
+
+    public function countResi(){
+        $user = Pegawai::findOrFail(Session::get('id'));
+        if($user->jabatan == "kasir"){
+            $allResi = Resi::getAll()->where("kantor_asal_id","=",$user->kantor_id)->where("verifikasi",0)->get();
+            $allPengirimanCustomer = Pengiriman_customer::getAll()->where("kantor_id","=",$user->kantor_id)->where("menuju_penerima",0)->get();
+        }else{
+            $allResi = Resi::getAll()->where("verifikasi",0)->get();
+            $allPengirimanCustomer = Pengiriman_customer::getAll()->where("menuju_penerima",0)->get();
+        }
+        $count = 0;
+        foreach($allResi as $i){
+            $found = false;
+            foreach($allPengirimanCustomer as  $j){
+                foreach($j->resis as $k){
+                    if($i->id == $k->id){
+                        $found = true;
+                    }
+                }
+            }
+            if($found == false){
+                $count += 1;
+            }
+        }
+        return $count;
+    }
+
+    public function trackResi(){
+        return view('master.resi.trackResi');
+    }
+
+    public function isiSejarah(Request $request){
+        $resiId = $request['id'];
+        $resi = Resi::find($resiId);
+        $result = '';
+        if($resi == null){
+            return "null";
+        }else{
+            $sejarahs = $resi->sejarahs;
+            if($sejarahs->count() > 0){
+                foreach ($sejarahs as $i) {
+                    $result .= '<tr>';
+                    $result .= '<td>';
+                    $result .= $i->keterangan;
+                    $result .= '</td>';
+                    $result .= '<td>';
+                    $result .= $i->waktu;
+                    $result .= '</td>';
+                    $result .= '</tr>';
+                }
+            }
+        }
+
+        return $result;
     }
     
 }

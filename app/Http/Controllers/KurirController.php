@@ -43,6 +43,7 @@ class KurirController extends Controller
                         return view('kurir.error', compact('msg'));
                     } else {
                         $pesanan = $i;
+                        $pesanan["harga"] = number_format($pesanan["harga"], 2, ".", ",");
                         return view('kurir.kurirform', compact('pesanan', 'menuju_penerima', 'pengiriman_id'));
                     }
                 }
@@ -136,7 +137,7 @@ class KurirController extends Controller
         $resi->berat_barang = $request['berat_barang'];
         $resi->is_fragile = $request['is_fragile'];
         $resi->verifikasi = 1;
-
+        $resi->harga = $this->countCostFromController($resi->id,$resi->berat_barang);
         $resi->user_updated = Session::get('id');
         
         $resi->save();
@@ -234,4 +235,64 @@ class KurirController extends Controller
 
         return view('kurir.history',compact('pengirimans'));
     }
+
+    public function countCost(Request $request){
+        $resi = Resi::findOrFail($request->id);
+        $kotaAsal = $resi->getKotaAsal;
+        $kotaTujuan = $resi->getKotaTujuan;
+        $berat = $request->berat*1000;
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "origin=$kotaAsal->id&destination=$kotaTujuan->id&weight=$berat&courier=jne",
+            CURLOPT_HTTPHEADER => array(
+              "content-type: application/x-www-form-urlencoded",
+              "key: 49768eb68a44d897fd2e9c80a576d8b9"
+            ),
+          ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        $data = json_decode($response, true); 
+        $harga = $data["rajaongkir"]["results"][0]["costs"][0]["cost"][0]["value"];
+        $hasil = number_format($harga, 2, ".", ",");
+        return $hasil;
+    }
+
+    public function countCostFromController($id,$beratBarang){
+        $resi = Resi::findOrFail($id);
+        $kotaAsal = $resi->getKotaAsal;
+        $kotaTujuan = $resi->getKotaTujuan;
+        $berat = $beratBarang*1000;
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "origin=$kotaAsal->id&destination=$kotaTujuan->id&weight=$berat&courier=jne",
+            CURLOPT_HTTPHEADER => array(
+              "content-type: application/x-www-form-urlencoded",
+              "key: 49768eb68a44d897fd2e9c80a576d8b9"
+            ),
+          ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        $data = json_decode($response, true); 
+        $harga = $data["rajaongkir"]["results"][0]["costs"][0]["cost"][0]["value"];
+        return $harga;
+    }
+
 }

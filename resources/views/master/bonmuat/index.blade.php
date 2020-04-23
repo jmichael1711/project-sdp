@@ -34,12 +34,20 @@ Halaman ini untuk menampilkan semua data bon muat.
             Session::forget('success-bonmuat');
         @endphp
     @endif
+    <button id="triggerModal" type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal" style="display: none">
+        Trigger Modal
+    </button>
     {{-- bonmuat yang akan datang --}}
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel"> 
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
-                    <button type="button" class="btn mr-2 mb-2 btn-primary pull-right" data-toggle="modal" data-target="#exampleModalLong" id="scan" onclick="triggerScanner()">
+                    @if (Session::has('loginstatus'))
+                        @if (Session::get('loginstatus') != 4)
+                    <button class="btn btn-primary mr-2 mb-2 pull-right" onclick="window.location.href='{{url('/admin/bonmuat/create')}}';">Tambah Data</button>
+                        @endif
+                    @endif
+                    <button type="button" class="btn mr-2 mb-2 btn-primary pull-right" data-toggle="modal" data-target="#exampleModalLong" id="scanEditSuratJalan" onclick="triggerScanner()">
                         &nbsp Scan &nbsp
                     </button>
                     <br><hr>
@@ -133,7 +141,14 @@ Halaman ini untuk menampilkan semua data bon muat.
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
+                    @if (Session::has('loginstatus'))
+                        @if (Session::get('loginstatus') != 4)
                     <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/bonmuat/create')}}';">Tambah Data</button>
+                        @endif
+                    @endif
+                    <button type="button" class="btn mr-2 mb-2 btn-primary pull-right" data-toggle="modal" data-target="#exampleModalLong" id="scanEdit" onclick="triggerScanner()">
+                        &nbsp Scan &nbsp
+                    </button>
                     <br><hr>
                     <table class="table table-hover table-striped dataTable dtr-inline" id="tableBonMuatKantorIni">
                         <thead>
@@ -275,11 +290,21 @@ Halaman ini untuk menampilkan semua data bon muat.
 
         $("#tab-content-1").removeClass("show active");
 
+        if ('{{Session::has("success-failsuratjalan")}}'){
+            triggerNotification('{{Session::get("success-failsuratjalan")}}');
+            @php
+                Session::forget('success-failsuratjalan');
+            @endphp
+        } 
         
         scanner.addListener('scan', function(content) {
             var id = content;
             $("#close").click();
-            window.location.href='/admin/bonmuat/editSuratJalan/' + id;
+            if($("#tab-0").hasClass("active") == true){
+                window.location.href='/admin/bonmuat/editSuratJalan/' + id;
+            }else{
+                window.location.href='/admin/bonmuat/edit/' + id;
+            }
         });
     })
     

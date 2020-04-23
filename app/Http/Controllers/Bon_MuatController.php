@@ -13,22 +13,26 @@ use App\Pengiriman_customer;
 use Illuminate\Support\Facades\Session;
 class Bon_MuatController extends Controller
 {
-
     public function create() {
-        $nextId = Bon_Muat::getNextId();
         $allKota = Kota::getAll()->get();
-        return view('master.bonmuat.create',compact('nextId','allKota'));
+        return view('master.bonmuat.create',compact('allKota'));
     }
 
     public function store(Request $request) {
         date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $request['id'] = Bon_muat::getNextId();
+
+        if(Session::has('loginstatus')){
+            if(Session::get('loginstatus') == 3){
+                $request['kantor_asal_id'] = Session::get('pegawai')->kantor->id;
+            }
+        }
+
         $user = Session::get('id');
         $request['user_created'] = $user;
         $request['user_updated'] = $user;
-        $kurir = Kurir_non_customer::findOrFail($request['kurir_non_customer_id']);
-        $kurir->update(['status' => 0]);
+       
         $success = "Bon muat berhasil didaftarkan.";
         Bon_muat::create($request);
         return redirect('/admin/bonmuat')->with(['success-bonmuat' => $success]);
@@ -37,39 +41,68 @@ class Bon_MuatController extends Controller
     public function find(Request $request){
         $allKurir = Kurir_non_customer::sortKurir($request->kantorAsal,$request->kantorTujuan);
         $allKendaraan = Kendaraan::sortKendaraan($request->kantorAsal,$request->kantorTujuan);
+        $allBonMuat = Bon_Muat::getAll()->where("kantor_asal_id","=",$request->kantorAsal)->where("waktu_sampai","<>",null)->get();
         $str = '';
         if($allKurir->count() > 0){
+            $ctr = 0;
             foreach($allKurir as $kurir){
-                if($kurir->id == $request->kurir){
-                    $str .= '<option selected class="form-control" value="'.$kurir->id.'">'.$kurir->nama.'</option>';
-                }else{
-                    $str .= '<option class="form-control" value="'.$kurir->id.'">'.$kurir->nama.'</option>';
+                $found = false;
+                foreach($allBonMuat as $bonmuat){
+                    if($bonmuat->kurir_non_customer_id == $kurir->id){
+                        $found = true;
+                    }   
+                }
+                if($found == false){
+                    $ctr++;
+                    if($kurir->id == $request->kurir){
+                        $str .= '<option selected class="form-control" value="'.$kurir->id.'">'.$kurir->nama.'</option>';
+                    }else{
+                        $str .= '<option class="form-control" value="'.$kurir->id.'">'.$kurir->nama.'</option>';
+                    }
                 }
             }
+            if($ctr == 0){$str .= '<option class="form-control" value="">-- TIDAK ADA KURIR --</option>';}
         }else $str .= '<option class="form-control" value="">-- TIDAK ADA KURIR --</option>';
         
         $str .= '|';
-        if($allKendaraan->count() > 0){    
+        if($allKendaraan->count() > 0){  
+            $ctr = 0;  
             foreach($allKendaraan as $kendaraan){
-                if($kendaraan->id == $request->kendaraan){
-                    $str .='<option selected class="form-control" value="'.$kendaraan->id.'">'.$kendaraan->nopol.'</option>';
-                }else{
-                    $str .='<option class="form-control" value="'.$kendaraan->id.'">'.$kendaraan->nopol.'</option>';
+                $found = false;
+                foreach($allBonMuat as $bonmuat){
+                    if($bonmuat->kendaraan_id == $kendaraan->id){
+                        $found = true;
+                    }   
+                }
+                if($found == false){
+                    $ctr++;
+                    if($kendaraan->id == $request->kendaraan){
+                        $str .='<option selected class="form-control" value="'.$kendaraan->id.'">'.$kendaraan->nopol.'</option>';
+                    }else{
+                        $str .='<option class="form-control" value="'.$kendaraan->id.'">'.$kendaraan->nopol.'</option>';
+                    }
                 }
             }
+            if($ctr == 0){$str .= '<option class="form-control" value="">-- TIDAK ADA KURIR --</option>';}  
         }else $str .= '<option class="form-control" value="">-- TIDAK ADA KENDARAAN --</option>';
         return $str;
     }
 
 
     public function index() {
-        
-        // jika pegawai atau kasir maka harus ambil bon muat yang akan datang ke kantor itu saja
-        // jika admin super maka ambil semua bon muat yang ada
-        $allIncomingBonMuat = Bon_Muat::getAll()->get(); //untuk admin super
-        
-        //jika pegawai atau kasir maka bon muat dengan asal untuk kantor itu saja
-        $allBonMuat = Bon_muat::get(); //jika admin super bisa melihat semua bon muat meskipun is_deleted = true
+        if(Session::has('loginstatus')){
+            //untuk kasir
+            if(Session::get('loginstatus') == 3){
+                $kantor = Session::get('pegawai')->kantor->id;
+                $allIncomingBonMuat = Bon_Muat::getAll()->where('kantor_asal_id',$kantor)->get();
+                $allBonMuat = Bon_muat::where('kantor_asal_id',$kantor)->get();
+            }
+            //untuk admin dll
+            else{
+                $allIncomingBonMuat = Bon_Muat::getAll()->get();
+                $allBonMuat = Bon_muat::get();
+            }
+        }
         return view('master.bonmuat.index',compact('allBonMuat','allIncomingBonMuat'));
     }
 
@@ -85,16 +118,6 @@ class Bon_MuatController extends Controller
         date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $bonmuat = Bon_Muat::findOrFail($id);
-
-        $kurirBefore = Kurir_non_customer::findOrFail($bonmuat->kurir_non_customer_id);
-        $kurirBefore->update(['status' => 1]);
-        $kurirAfter = Kurir_non_customer::findOrFail($request['kurir_non_customer_id']);
-        $kurirAfter->update(['status' => 0]);
-
-        $kendaraanBefore = Kendaraan::findOrFail($bonmuat->kendaraan_id);
-        $kendaraanBefore->update(['status' => 1]);
-        $kendaraanAfter = Kendaraan::findOrFail($request['kendaraan_id']);
-        $kendaraanAfter->update(['status' => 0]);
 
         $request['user_updated'] = Session::get('id');
         $bonmuat->update($request);
@@ -182,37 +205,65 @@ class Bon_MuatController extends Controller
     // }
 
     public function editSuratJalan($id) {
-        $bonmuat = Bon_Muat::findOrFail($id);
-        $status = "disabled";
-        foreach($bonmuat->resis as $i){
-            if($i->surat_jalan->telah_sampai == 0){
-                $status = "";
-            }
-        } 
-        return view('master.bonmuat.editSuratJalan', compact('bonmuat','status'));
+        $bonmuat = Bon_Muat::find($id);
+        if($bonmuat == null){
+            $fail = "Bon Muat tidak terdaftar";
+            Session::put('success-failsuratjalan', $fail);
+            return redirect('/admin/bonmuat');
+        }else{    
+            $status = "disabled";
+            foreach($bonmuat->resis as $i){
+                if($i->surat_jalan->telah_sampai == 0){
+                    $status = "";
+                }
+            } 
+            return view('master.bonmuat.editSuratJalan', compact('bonmuat','status'));
+        }
     }
 
     public function updateSuratJalan($id,Request $request){
         date_default_timezone_set("Asia/Jakarta");
         $user = Session::get('id');
         $bonmuat = Bon_Muat::findOrFail($id);
-        if($bonmuat->waktu_sampai == null){
-            $bonmuat->update(['waktu_sampai' => now()]);
-            $bonmuat->update(['user_updated' => $user]);  
-        }
-        $sampai =  $bonmuat->resis()->where("resi_id",$request["resi_id"])->first()->surat_jalan->telah_sampai;
-        if($sampai == 0){
-            $bonmuat->update(['user_updated' => $user]); 
-            $bonmuat->resis()->updateExistingPivot($request["resi_id"],['telah_sampai' => 1]);
-            $bonmuat->resis()->updateExistingPivot($request["resi_id"],['waktu_sampai' => now()]);
-            $bonmuat->resis()->updateExistingPivot($request["resi_id"],['user_updated' => $user]);
-            $success = 'Surat Jalan '. $request["resi_id"]. ' telah selesai.';
-            Session::put('success-suratjalan', $success);
-            return redirect('/admin/bonmuat/editSuratJalan/'.$id);
-        }else if($sampai == 1){
-            $fail = "Resi ". $request["resi_id"] ." telah discan.";
+        $resi = Resi::find($request["resi_id"]);
+        if($resi == null){
+            $fail = "Resi tidak terdaftar";
             Session::put('success-failsuratjalan', $fail);
             return redirect('/admin/bonmuat/editSuratJalan/'.$id);
+        }else{
+            if($bonmuat->waktu_sampai == null){
+                $bonmuat->update(['waktu_sampai' => now()]);
+                $bonmuat->update(['user_updated' => $user]);  
+            }
+            $sampai =  $bonmuat->resis()->where("resi_id",$request["resi_id"])->first()->surat_jalan->telah_sampai;
+            if($sampai == 0){
+                $bonmuat->update(['user_updated' => $user]); 
+                $bonmuat->resis()->updateExistingPivot($request["resi_id"],['telah_sampai' => 1]);
+                $bonmuat->resis()->updateExistingPivot($request["resi_id"],['waktu_sampai' => now()]);
+                $bonmuat->resis()->updateExistingPivot($request["resi_id"],['user_updated' => $user]);
+    
+                $count = 0;
+                foreach($bonmuat->resis as $i){
+                    if($i->surat_jalan->telah_sampai == 0 && $i->surat_jalan->waktu_sampai != null){
+                        $count++;
+                    }
+                }
+    
+                if($count == 0){
+                    $kurir = Kurir_non_customer::findOrFail($bonmuat->kurir_non_customer_id);
+                    $kurir->update(['status' => 1]);  
+                    $kendaraan = Kendaraan::findOrFail($bonmuat->kendaraan_id);
+                    $kendaraan->update(['status' => 1]);  
+                }
+    
+                $success = 'Surat Jalan '. $request["resi_id"]. ' telah selesai.';
+                Session::put('success-suratjalan', $success);
+                return redirect('/admin/bonmuat/editSuratJalan/'.$id);
+            }else if($sampai == 1){
+                $fail = "Resi ". $request["resi_id"] ." telah discan.";
+                Session::put('success-failsuratjalan', $fail);
+                return redirect('/admin/bonmuat/editSuratJalan/'.$id);
+            }
         }
     }
 
@@ -223,6 +274,12 @@ class Bon_MuatController extends Controller
             $user = Session::get('id');
             $bonmuat->update(['user_updated' => $user]);  
             $bonmuat->update(['waktu_berangkat' => now()]); 
+
+            $kurir = Kurir_non_customer::findOrFail($bonmuat->kurir_non_customer_id);
+            $kurir->update(['status' => 0]);  
+            $kendaraan = Kendaraan::findOrFail($bonmuat->kendaraan_id);
+            $kendaraan->update(['status' => 0]);  
+
             $success = 'Bon Muat ' . '"' . $id .  '"' . ' telah dimulai.';
             Session::put('success-bonmuat', $success);
             return redirect('/admin/bonmuat');

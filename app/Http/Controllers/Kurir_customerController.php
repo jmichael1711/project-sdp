@@ -18,8 +18,7 @@ class Kurir_customerController extends Controller
 
     public function create(){
         $allKota = Kota::getAll()->get();
-        $nextId = Kurir_customer::getNextId();
-        return view('master.kurirCustomer.create',compact('nextId', 'allKota'));
+        return view('master.kurirCustomer.create',compact('allKota'));
     }
 
     public function store(Request $request) {

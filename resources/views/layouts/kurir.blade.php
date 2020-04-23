@@ -157,8 +157,19 @@
   <script src="/depot/js/jquery.fancybox.min.js"></script>
   <script src="/depot/js/jquery.easing.1.3.js"></script>
   <script src="/depot/js/aos.js"></script>
-
   <script src="/depot/js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="sweetalert2.all.min.js"></script>
+  <link rel="stylesheet" href="sweetalert2.min.css">
+  <script>
+    function alertError(teks){
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: teks,
+        })
+    }
+</script>
 
   @yield('scripts')
   </body>

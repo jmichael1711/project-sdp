@@ -13,8 +13,7 @@ class PegawaiController extends Controller
 {
     public function create(){
         $allKota = Kota::getAll()->get();
-        $nextId = Pegawai::getNextId();
-        return view('master.pegawai.create',compact('allKota','nextId'));
+        return view('master.pegawai.create',compact('allKota'));
     }
 
     public function index(){
@@ -44,6 +43,8 @@ class PegawaiController extends Controller
         date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $user = Session::get('id');
+        
+        $request['id'] = Pegawai::getNextId();
         $request['password'] = md5($request['password']);
         $request['user_created'] = $user;
         $request['user_updated'] = $user;

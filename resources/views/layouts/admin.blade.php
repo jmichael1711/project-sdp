@@ -48,7 +48,7 @@
                     </button>
                 </div>
             </div>
-            <div class="app-header__menu">
+            {{-- <div class="app-header__menu">
                 <span>
                     <button type="button" class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
                         <span class="btn-icon-wrapper">
@@ -56,7 +56,7 @@
                         </span>
                     </button>
                 </span>
-            </div>
+            </div> --}}
 
             <div class="app-header__content">
                 <div class="app-header-left">
@@ -232,6 +232,8 @@
                     <div class="scrollbar-sidebar">
                         <div class="app-sidebar__inner">
                             <ul class="vertical-nav-menu">
+                                @if (Session::has('loginstatus'))
+                                    @if (Session::get('loginstatus') != 3 && Session::get('loginstatus') != 4)
                                 <li class="app-sidebar__heading">Dashboards</li>
                                 <li>
                                     <a id="header-dashboard" href="{{ url('/admin') }}">
@@ -239,13 +241,18 @@
                                         Dashboard Page
                                     </a>
                                 </li>
+                                    @endif
+                                @endif
                                 <li class="app-sidebar__heading">CUSTOMER</li>
 
+                                @if (Session::has('loginstatus'))
+                                    @if (Session::get('loginstatus') != 4)
                                 {{-- SIDEBAR - Resi --}}
                                 <li id="upperlist-resi">
                                     <a id="btn-resi" href="">
                                         <i class="metismenu-icon pe-7s-note2"></i>
                                             Resi
+                                            <span class="badge badge-pill badge-danger pull-right mt-2 mr-2" id="countResi" ></span>     
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
                                     <ul id="list-resi">
@@ -253,6 +260,7 @@
                                             <a id="header-resi" href="{{ url('/admin/resi') }}">
                                                 <i class="metismenu-icon"></i>
                                                 Semua Resi
+                                                <span class="badge badge-pill badge-danger ml-5" id="countSemuaResi"></span>   
                                             </a>
                                         </li>
                                         <li>
@@ -262,8 +270,17 @@
                                                 Tambah Resi
                                             </a>
                                         </li>
+                                        <li>
+                                            <a id="header-track-resi" href="{{ url('/admin/resi/trackResi') }}">
+                                                <i class="metismenu-icon">
+                                                </i>
+                                                Tracking Resi
+                                            </a>
+                                        </li>
                                     </ul>
                                 </li>
+                                    @endif
+                                @endif
                                 
                                 {{-- SIDEBAR - BON MUAT --}}
                                 <li id="upperlist-bonmuat">
@@ -279,6 +296,8 @@
                                                 Semua Bon Muat
                                             </a>
                                         </li>
+                                        @if (Session::has('loginstatus'))
+                                            @if (Session::get('loginstatus') != 4)
                                         <li>
                                             <a id="header-tambah-bonmuat" href="{{ url('/admin/bonmuat/create') }}">
                                                 <i class="metismenu-icon">
@@ -286,9 +305,11 @@
                                                 Tambah Bon Muat
                                             </a>
                                         </li>
+                                            @endif
+                                        @endif
                                     </ul>
                                 </li>
-
+                                
                                 {{-- SIDEBAR - PENGIRIMAN CUSTOMER --}}
                                 <li id="upperlist-pengirimanCustomer">
                                     <a id="btn-pengirimanCustomer" href="">
@@ -303,6 +324,8 @@
                                                 Semua Pengiriman Cust
                                             </a>
                                         </li>
+                                        @if (Session::has('loginstatus'))
+                                            @if (Session::get('loginstatus') != 4)
                                         <li>
                                             <a id="header-tambah-pengirimanCustomer" href="{{ url('/admin/pengirimanCustomer/create') }}">
                                                 <i class="metismenu-icon">
@@ -310,23 +333,13 @@
                                                 Tambah Pengiriman Cust
                                             </a>
                                         </li>
-                                        <li>
-                                            <a id="header-pengirim-pengirimanCustomer" href="{{ url('/admin/pengirimanCustomer/pengirim') }}">
-                                                <i class="metismenu-icon">
-                                                </i>
-                                                Semua Menuju Pengirim
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a id="header-penerima-pengirimanCustomer" href="{{ url('/admin/pengirimanCustomer/penerima') }}">
-                                                <i class="metismenu-icon">
-                                                </i>
-                                                Semua Menuju Penerima
-                                            </a>
-                                        </li>
+                                            @endif
+                                        @endif
                                     </ul>
                                 </li>
 
+                                @if (Session::has('loginstatus'))
+                                    @if (Session::get('loginstatus') != 3 && Session::get('loginstatus') != 4)
                                 <li class="app-sidebar__heading">PEGAWAI</li>
 
                                 {{-- SIDEBAR - PEGAWAI --}}
@@ -473,7 +486,8 @@
                                         </li>
                                     </ul>
                                 </li>
-
+                                    @endif
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -541,10 +555,38 @@
                 <script src="{{asset('js/jquery.js')}}"></script>
                 <script src="{{asset('js/formvalidationadmin.js')}}"></script>
                 <script src="{{asset('DataTables/datatables.min.js')}}" ></script>
-                <script src="{{asset('js/instascan.min.js')}}"></script>
-                @yield('scripts');
+                <script src="{{asset('js/instascan.min.js')}}"></script> 
+                <script>
+                    var timer = setInterval(count(),5000);
+                    function count(){
+                            $.ajax({
+                            method : "POST",
+                            url : '/admin/resi/countResi',
+                            datatype : "json",
+                            data : {  _token : "{{ csrf_token() }}" },
+                            success: function(result){
+                                if(result > 0){
+                                    $("#countResi").html("&nbsp");
+                                    $("#countSemuaResi").html(result);
+                                }else{
+                                    $("#countResi").html("");
+                                    $("#countSemuaResi").html("");
+                                }
+                            },
+                            error: function(){
+                                console.log('error');
+                            }
+                        });
+                    }
+                    
+                    
+                </script>
+                @yield('scripts')
         </div>
     </div>
 </body>
 </html>
+
+
+
 

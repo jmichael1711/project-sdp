@@ -437,6 +437,13 @@
 @section('scripts')
 <script>
   $(document).ready(function () {        
+        if ('{{Session::has("fail-resi")}}'){
+          alertError('{{Session::get("fail-resi")}}');
+            @php
+                Session::forget('fail-resi');
+            @endphp
+        } 
+        
         scanner.addListener('scan', function(content) {
             var id = content;
             $("#resi_id").val(content);

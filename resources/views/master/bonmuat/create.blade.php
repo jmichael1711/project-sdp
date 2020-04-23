@@ -28,17 +28,8 @@ Halaman ini untuk menambah data bon muat.
             <div class="card-body">
                 <form novalidate class="needs-validation" method="post" action="/admin/bonmuat/store" enctype="multipart/form-data">
                 @csrf
-                    <div class="form-row">
-                        <div class="col-md-4">
-                            <div class="position-relative form-group">
-                                <label class="">ID Bon Muat</label>
-                                <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id"  
-                                type="text" class="form-control" value="{{$nextId}}" readonly>
-                            </div>
-                        </div>
-                    </div>
-
+                    @if (Session::has('loginstatus'))
+                        @if (Session::get('loginstatus') != 3)
                     <div class="form-row">
                         <div class="col-md-4">
                             <div class="position-relative form-group">
@@ -51,7 +42,6 @@ Halaman ini untuk menambah data bon muat.
                             </div>
                         </div>
                     </div>
-
                     <div class="form-row">
                         <div class="col-md-4">
                             <div class="position-relative form-group">
@@ -61,7 +51,8 @@ Halaman ini untuk menambah data bon muat.
                             </div>
                         </div>
                     </div>
-
+                        @endif  
+                    @endif
                     <div class="form-row">
                         <div class="col-md-4">
                             <div class="position-relative form-group">
@@ -128,8 +119,12 @@ Halaman ini untuk menambah data bon muat.
         $("#list-bonmuat").attr("class", "mm-collapse mm-show");
         $("#header-tambah-bonmuat").attr("class", "mm-active");
 
-        var idKota = $('#kotaAsal').val();
-        refreshKantor(idKota,"Asal");
+        var idKota = $('#kotaTujuan').val();
+        @if (Session::has('loginstatus'))
+            @if (Session::get('loginstatus') != 3)
+                refreshKantor(idKota,"Asal");
+            @endif
+        @endif
         refreshKantor(idKota,"Tujuan");
         refreshComboBox();
     })
@@ -157,7 +152,13 @@ Halaman ini untuk menambah data bon muat.
     }
 
     function refreshComboBox(){
-        var kantorAsal = $('#kantorAsal').val();
+        @if (Session::has('loginstatus'))
+            @if (Session::get('loginstatus') == 3)
+                var kantorAsal = "{{Session::get('pegawai')->kantor->id}}";
+            @else
+                var kantorAsal = $('#kantorAsal').val();
+            @endif
+        @endif
         var kantorTujuan = $('#kantorTujuan').val();
         $.ajax({
             method : "POST",

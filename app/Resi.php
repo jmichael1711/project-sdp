@@ -30,6 +30,7 @@ class Resi extends Model
         ;
     }
 
+
     //static functions for query
     public static function getAll() {
         return Resi::where("is_deleted", 0);
@@ -62,7 +63,15 @@ class Resi extends Model
     public function sejarahs() {
         return $this
         ->hasMany('App\Sejarah')
-        ->orderBy('created_at', 'asc')
+        ->orderBy('waktu', 'desc')
         ;
+    }
+
+    public function getKotaAsal() {
+        return $this->belongsTo('App\Kota','kota_asal','nama');
+    }
+
+    public function getKotaTujuan() {
+        return $this->belongsTo('App\Kota','kota_tujuan','nama');
     }
 }

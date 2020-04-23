@@ -33,19 +33,9 @@ Halaman ini untuk menambah data kurir non customer
 
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
-            <div class="card-body"><h5 class="card-title">Kurir Non Customer</h5>
+            <div class="card-body">
                 <form novalidate class="needs-validation" method="post" action="/admin/kurir_noncustomer/store" enctype="multipart/form-data">
                 @csrf
-                    <div class="form-row">
-                        <div class="col-md-5">
-                            <div class="position-relative form-group">
-                                <label class="">ID</label>
-                                <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" 
-                                type="text" class="form-control" value="{{$nextId}}" readonly>
-                            </div>
-                        </div>
-                    </div>
                     <div class="form-row">
                         <div class="col-md-5">
                             <div class="position-relative form-group">
