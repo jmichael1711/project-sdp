@@ -68,9 +68,9 @@
         <div class="row align-items-center position-relative">
 
 
-          <div class="site-logo">
-            <a href="/" class="text-black"><span class="text-primary">TeamAte Expedition</a>
-          </div>
+          <a href="/" class="site-logo" style="width: 20%;height: 100%;background-image: url('images/TAE Logo.png');background-size: cover">
+            
+          </a>
 
           <div class="col-12">
             <nav class="site-navigation text-right ml-auto " role="navigation">

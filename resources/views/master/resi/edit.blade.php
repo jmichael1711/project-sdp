@@ -33,6 +33,7 @@ Halaman ini untuk mengubah data resi
     <button id="triggerModal" type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal" style="display: none">
         Trigger Modal
     </button>
+    <button class="mt-2 btn btn-primary pull-right">&nbsp Print &nbsp</button>
     <form novalidate class="needs-validation" method="post" action="/admin/resi/update/{{$resi->id}}" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="form-row">
