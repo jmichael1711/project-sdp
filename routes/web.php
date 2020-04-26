@@ -89,6 +89,13 @@ Route::get('/tryemail', function () {
     //END EMAIL
 });
 
+Route::get('/emailpengirim', function () {
+    $password = "11117777"; 
+    $idResi = "";
+    $linkQrCode = "https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=$idResi&choe=UTF-8";
+    return view('customer.emailotppengirim', compact('linkQrCode', 'password'));
+});
+
 Route::get('/form', function () {
     return view('form');
 });
