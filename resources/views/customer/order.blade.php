@@ -150,8 +150,8 @@
                     <p>Harga: Rp <b id="harga">0.00</b></p>
                 </div>
             </div>
-            <input type="text" name='latitude_pengirim' id="lat" required>
-            <input type="text" name='longitude_pengirim' id="long" required>
+            <input type="hidden" name='latitude_pengirim' id="lat" required>
+            <input type="hidden" name='longitude_pengirim' id="long" required>
             </form>
 
             <div class="form-group row">
