@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2020 at 04:19 PM
+-- Generation Time: Apr 30, 2020 at 05:44 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -74,6 +74,13 @@ CREATE TABLE `d_pengiriman_customers` (
   `waktu_sampai_cust` datetime DEFAULT NULL,
   `is_canceled` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `d_pengiriman_customers`
+--
+
+INSERT INTO `d_pengiriman_customers` (`resi_id`, `pengiriman_customer_id`, `telah_sampai`, `created_at`, `updated_at`, `is_deleted`, `user_created`, `user_updated`, `password`, `waktu_sampai_cust`, `is_canceled`) VALUES
+('R00000001230420', 'P00000002240420', 1, '2020-04-24 10:48:00', '2020-04-24 10:51:55', 0, 'PE000056', 'KC000012', NULL, '2020-04-24 10:51:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -509,8 +516,8 @@ CREATE TABLE `pengiriman_customers` (
 --
 
 INSERT INTO `pengiriman_customers` (`id`, `kurir_customer_id`, `total_muatan`, `menuju_penerima`, `kantor_id`, `created_at`, `updated_at`, `is_deleted`, `user_created`, `user_updated`, `waktu_berangkat`, `waktu_sampai_kantor`) VALUES
-('P00000000200420', 'KC000000', '20.0', 0, 'KA000001', '2020-04-20 19:50:51', '2020-04-22 05:48:27', 0, 'PEADMIN', 'KC000000', '2020-04-20 20:06:20', NULL),
-('P00000001200420', 'KC000001', '0.0', 1, 'KA000001', '2020-04-20 19:52:39', '2020-04-20 19:52:39', 0, 'PEADMIN', 'PEADMIN', NULL, NULL);
+('P00000001200420', 'KC000001', '0.0', 1, 'KA000001', '2020-04-20 19:52:39', '2020-04-20 19:52:39', 0, 'PEADMIN', 'PEADMIN', NULL, NULL),
+('P00000002240420', 'KC000012', '15.0', 0, 'KA000005', '2020-04-24 10:48:00', '2020-04-24 10:53:24', 0, 'PE000056', 'PE000056', '2020-04-24 10:49:59', '2020-04-24 10:53:24');
 
 -- --------------------------------------------------------
 
@@ -522,6 +529,7 @@ DROP TABLE IF EXISTS `resis`;
 CREATE TABLE `resis` (
   `id` varchar(15) NOT NULL,
   `kantor_asal_id` varchar(8) NOT NULL,
+  `kantor_sekarang_id` varchar(8) DEFAULT NULL,
   `harga` decimal(8,0) NOT NULL,
   `verifikasi` tinyint(1) DEFAULT NULL,
   `status_perjalanan` varchar(20) DEFAULT 'PERJALANAN',
@@ -559,8 +567,10 @@ CREATE TABLE `resis` (
 -- Dumping data for table `resis`
 --
 
-INSERT INTO `resis` (`id`, `kantor_asal_id`, `harga`, `verifikasi`, `status_perjalanan`, `berat_barang`, `alamat_asal`, `alamat_tujuan`, `kota_asal`, `kota_tujuan`, `nama_pengirim`, `nama_penerima`, `lebar`, `panjang`, `tinggi`, `no_telp_pengirim`, `no_telp_penerima`, `keterangan`, `is_fragile`, `email_pengirim`, `email_penerima`, `waktu_berangkat_kurir`, `longitude_pengirim`, `latitude_pengirim`, `kode_pos_pengirim`, `kode_pos_penerima`, `created_at`, `updated_at`, `is_deleted`, `user_created`, `user_updated`, `kode_verifikasi_email`, `status_verifikasi_email`) VALUES
-('R00000000220420', 'KA000000', '140000', 1, 'PERJALANAN', '20.000', 'Jln Aku', 'Jln Kamu', 'SURABAYA', 'BANGKALAN', 'AKU', 'KAMU', '100', '100', '100', '087812365478', '087812365478', 'INI ADALAH KETERANGAN', 1, 'aku@gmail.com', 'kamu@gmail.com', NULL, NULL, NULL, 12345, 12345, '2020-04-22 13:33:47', '2020-04-22 13:33:47', 0, 'PEADMIN', 'PEADMIN', NULL, NULL);
+INSERT INTO `resis` (`id`, `kantor_asal_id`, `kantor_sekarang_id`, `harga`, `verifikasi`, `status_perjalanan`, `berat_barang`, `alamat_asal`, `alamat_tujuan`, `kota_asal`, `kota_tujuan`, `nama_pengirim`, `nama_penerima`, `lebar`, `panjang`, `tinggi`, `no_telp_pengirim`, `no_telp_penerima`, `keterangan`, `is_fragile`, `email_pengirim`, `email_penerima`, `waktu_berangkat_kurir`, `longitude_pengirim`, `latitude_pengirim`, `kode_pos_pengirim`, `kode_pos_penerima`, `created_at`, `updated_at`, `is_deleted`, `user_created`, `user_updated`, `kode_verifikasi_email`, `status_verifikasi_email`) VALUES
+('R00000000220420', 'KA000000', 'KA000005', '140000', 1, 'PERJALANAN', '20.000', 'Jln Aku', 'Jln Kamu', 'SURABAYA', 'BANGKALAN', 'AKU', 'KAMU', '100', '100', '100', '087812365478', '087812365478', 'INI ADALAH KETERANGAN', 1, 'aku@gmail.com', 'kamu@gmail.com', NULL, NULL, NULL, 12345, 12345, '2020-04-22 13:33:47', '2020-04-22 13:33:47', 0, 'PEADMIN', 'PEADMIN', NULL, NULL),
+('R00000001230420', 'KA000005', 'KA000005', '105000', 1, 'PERJALANAN', '15.000', 'Jln Aku', 'Jln Kamu', 'SURABAYA', 'SIDOARJO', 'AKU', 'KAMU', '120', '20', '20', '087812365478', '087812365478', NULL, 1, 'aku@gmail.com', 'kamu@gmail.com', NULL, '112.73009', '-7.26515', 12345, 12345, '2020-04-23 21:31:46', '2020-04-24 03:51:55', 0, 'CUSTOMER', 'KC000012', 78484973, 0),
+('R00000002240420', 'KA000005', 'KA000005', '70000', 0, 'PERJALANAN', '10.000', 'Jln Aku', 'Jln Kamu', 'SURABAYA', 'SIDOARJO', 'AKU', 'KAMU', '100', '100', '100', '087812365478', '087812365478', 'ini adalah keterangan', 1, 'aku@gmail.com', 'kamu@gmail.com', NULL, '112.73008', '-7.26515', 12345, 12345, '2020-04-24 10:44:01', '2020-04-24 10:44:01', 0, 'CUSTOMER', 'CUSTOMER', 59175565, 0);
 
 -- --------------------------------------------------------
 
@@ -592,7 +602,12 @@ INSERT INTO `sejarahs` (`id`, `resi_id`, `keterangan`, `waktu`) VALUES
 (9, 'R00000000220420', 'Kurir KARMA MAHENDRA telah berangkat dari kantor JL. KEPANJEN NO.27, SURABAYA untuk mengantar barang ke penerima di JLN SANGGAR, PASURUAN', '2020-04-16 20:19:16'),
 (10, 'R00000000220420', 'Penerima telah menerima barang', '2020-04-16 20:21:50'),
 (11, 'R00000000220420', 'Penerima telah menerima barang', '2020-04-16 20:23:52'),
-(12, 'R00000000220420', 'Kurir MUMPUNI MANGUNSONG telah melakukan verifikasi resi, mengambil bayaran, serta barang dari pengirim di JLN AKU, SURABAYA', '2020-04-22 12:48:27');
+(12, 'R00000000220420', 'Kurir MUMPUNI MANGUNSONG telah melakukan verifikasi resi, mengambil bayaran, serta barang dari pengirim di JLN AKU, SURABAYA', '2020-04-22 12:48:27'),
+(13, 'R00000001230420', 'Email verifikasi telah dikirimkan ke aku@gmail.com.', '2020-04-23 21:31:46'),
+(14, 'R00000002240420', 'Email verifikasi telah dikirimkan ke aku@gmail.com.', '2020-04-24 10:44:01'),
+(15, 'R00000001230420', 'Kurir INDRA BUDIYANTO telah berangkat dari kantor JL. ARJUNO NO.151, SURABAYA untuk mengambil barang dari pengirim di JLN AKU, SURABAYA', '2020-04-24 10:49:59'),
+(16, 'R00000001230420', 'Kurir INDRA BUDIYANTO telah melakukan verifikasi resi, mengambil bayaran, serta barang dari pengirim di JLN AKU, SURABAYA', '2020-04-24 10:51:55'),
+(17, 'R00000001230420', 'Barang telah sampai di kantor JL. ARJUNO NO.151, SURABAYA.', '2020-04-24 10:53:24');
 
 -- --------------------------------------------------------
 
@@ -691,7 +706,7 @@ ALTER TABLE `surat_jalans`
 -- AUTO_INCREMENT for table `sejarahs`
 --
 ALTER TABLE `sejarahs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

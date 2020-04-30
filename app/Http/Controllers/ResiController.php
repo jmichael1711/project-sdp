@@ -29,6 +29,7 @@ class ResiController extends Controller
         if(substr($user->id, 0, 2) == "PE"){
             $request['verifikasi'] = 1;
             $request['kantor_asal_id'] = $user->kantor->id;
+            $request['kantor_sekarang_id'] = $user->kantor->id;
         }else $request['verifikasi'] = 0;
 
         $request['harga'] = preg_replace("/[^0-9]/", "", $request['harga'])/100;
@@ -49,20 +50,35 @@ class ResiController extends Controller
         }
         
         if($user->jabatan == "kasir"){
+            
+            //untuk select resi yang dipesan oleh customer dari web dan belum diproses di pengiriman_customer
             $allPengirimanCustomer = DB::table('d_pengiriman_customers')->select('resi_id');
             $allResiBaru = Resi::getAll()
             ->where("kantor_asal_id","=",$user->kantor_id)
             ->where("verifikasi",0)
             ->whereNotIn('id', $allPengirimanCustomer)
             ->get();
+            //
         }else{
+
+            //untuk select resi yang dipesan oleh customer dari web dan belum diproses di pengiriman_customer
             $allPengirimanCustomer = DB::table('d_pengiriman_customers')->select('resi_id');
             $allResiBaru = Resi::getAll()
             ->where("verifikasi",0)
             ->whereNotIn('id', $allPengirimanCustomer)
             ->get();
+            //
+
         }
-        return view('master.resi.index',compact('allResi','allResiBaru'));
+    
+        //untuk select resi yang sekarang posisi nya dikantor ini tetapi kantor asalnya bukan dari kantor ini
+        $allResiSedangDiKantorIni = Resi::getAll()
+        ->where("kantor_sekarang_id","=",$user->kantor_id)
+        ->where("kantor_asal_id","<>",$user->kantor_id)
+        ->get();
+        //
+
+        return view('master.resi.index',compact('allResi','allResiBaru','allResiSedangDiKantorIni'));
     }
 
     public function edit($id){
@@ -168,5 +184,12 @@ class ResiController extends Controller
         $allSejarah = $resi->sejarahs;
         return view('master.resi.trackingField', compact('resi', 'allSejarah'));
     }
+
+    public function print($id){
+        $resi = Resi::find($id);
+        $user = Pegawai::findOrFail(Session::get('id'));
+        return view('master.resi.print', compact('resi','user'));
+    }
+
     
 }

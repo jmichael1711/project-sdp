@@ -200,6 +200,7 @@ Route::group(['middleware' => ['checkstatus:kasir']], function () {
     Route::get('/admin/resi/trackResi', 'ResiController@trackResi');
     Route::post('/admin/resi/isiSejarah', 'ResiController@isiSejarah');
     Route::get('/admin/resi/trackingField/{id}', 'ResiController@trackingField');
+    Route::get('/admin/resi/print/{id}', 'ResiController@print');
     
     //ADMING - BON MUAT
     Route::get('/admin/bonmuat/create', 'Bon_MuatController@create');

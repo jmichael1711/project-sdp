@@ -370,6 +370,9 @@ class PengirimanCustomerController extends Controller
             $kurir->save();
 
             if($pengirimanCust->menuju_penerima == '0'){
+                $resi = findOrFail($pengirimanCust->resis()->first()->id);
+                $resi['kantor_sekarang_id'] = $user->kantor->id;
+                $resi->save();
                 $keterangan = 'Barang telah sampai di kantor ' . $kurir->kantor->alamat . ', ' . $kurir->kantor->getKota->nama . '.';
                 $sejarah = [
                     'resi_id'=>$pengirimanCust->resis()->first()->id,

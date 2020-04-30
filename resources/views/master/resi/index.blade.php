@@ -21,7 +21,12 @@ Halaman ini untuk menampilkan semua data resi.
     </li>
     <li class="nav-item">
         <a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1">
-            <span>SEMUA</span>
+            <span>SEDANG BERADA DI KANTOR INI</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2">
+            <span>DARI KANTOR INI</span>
         </a>
     </li>
 </ul>
@@ -96,7 +101,104 @@ Halaman ini untuk menampilkan semua data resi.
             </div>
         </div>  
     </div>
+
     <div class="tab-pane tabs-animation fade show active" id="tab-content-1" role="tabpanel"> 
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+                <div class="container">
+                    <button class="btn btn-primary pull-right" onclick="window.location.href='{{url('/admin/resi/create')}}';">Tambah Data</button>
+                    <button type="button" class="btn mr-2 mb-2 btn-primary pull-right" data-toggle="modal" data-target="#exampleModalLong" id="scanResi" onclick="triggerScanner()">
+                        &nbsp Scan &nbsp
+                    </button>
+                    <br><hr>
+                    <table class="table table-hover table-striped dataTable dtr-inline" id="tableResiSedangDiKantorIni">
+                        <thead>
+                            <th>ID</th>
+                            <th>Alamat Asal</th>
+                            <th>Alamat Tujuan</th>
+                            <th>Dimensi Barang</th>
+                            <th>Berat Barang</th>
+                            <th>Fragile</th>
+                            <th>Status Verifikasi</th>
+                            <th>Status Perjalanan</th>
+                            <th>Diubah Tanggal</th>
+                            <th>Diubah Oleh</th>
+                            <th>Dibuat Tanggal</th>
+                            <th>Dibuat Oleh</th>
+                        </thead>
+                        <tbody>
+                            @foreach ($allResiSedangDiKantorIni as $i)
+                            <tr>
+                                <td>{{$i->id}}</td>
+                                <td>{{$i->alamat_asal}}, {{$i->kota_asal}}</td>
+                                <td>{{$i->alamat_tujuan}}, {{$i->kota_tujuan}}</td>
+                                <td>{{$i->panjang}} cm x {{$i->lebar}} cm x {{$i->tinggi}} cm</td>
+                                <td>{{$i->berat_barang}} Kg</td>
+                                @if ($i->is_fragile)
+                                <td class="text-center text-white">
+                                    <div class="badge badge-danger">
+                                        FRAGILE
+                                    </div>
+                                </td>    
+                                @else 
+                                <td class="text-center text-white">
+                                    <div class="badge badge-success">
+                                        FINE
+                                    </div>
+                                </td>
+                                @endif
+                                @if($i->verifikasi)
+                                <td class="text-center text-white">
+                                    <div class="badge badge-success">
+                                        VERIFIKASI
+                                    </div>
+                                </td>
+                                    @if($i->status_perjalanan == "PERJALANAN")
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-warning">
+                                            PERJALANAN
+                                        </div>
+                                    </td>
+                                    @elseif($i->status_perjalanan == "BATAL")
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-danger">
+                                            BATAL
+                                        </div>
+                                    </td>
+                                    @elseif($i->status_perjalanan == "SELESAI")
+                                    <td class="text-center text-white">
+                                        <div class="badge badge-success">
+                                            SELESAI
+                                        </div>
+                                    </td>
+                                    @endif
+                                @else
+                                <td class="text-center text-white">
+                                    <div class="badge badge-danger">
+                                        BELUM VERIFKASI
+                                    </div>
+                                </td>
+                                <td class="text-center text-white">
+                                    <div class="badge badge-info">
+                                        BELUM TERVERIFIKASI
+                                    </div>
+                                </td>
+                                @endif
+                                
+                                <td>{{$i->updated_at}}</td>
+                                <td>{{$i->user_updated}}</td>
+                                <td>{{$i->created_at}}</td>
+                                <td>{{$i->user_created}}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>  
+    </div>
+
+    <div class="tab-pane tabs-animation fade show active" id="tab-content-2" role="tabpanel"> 
         <div class="main-card mb-3 card">
             <div class="card-body">
                 <div class="container">
@@ -243,6 +345,7 @@ Halaman ini untuk menampilkan semua data resi.
         $("#header-resi").attr("class", "mm-active");
 
         $("#tab-content-1").removeClass("show active");
+        $("#tab-content-2").removeClass("show active");
         
         if ('{{Session::has("success-failresi")}}'){
             triggerNotification('{{Session::get("success-failresi")}}');
@@ -276,6 +379,13 @@ Halaman ini untuk menampilkan semua data resi.
     });
 
     var table = $('#tableResiBaru').DataTable({
+        "pagingType": 'full_numbers',
+        'paging': true,
+        'lengthMenu': [10,25, 50, 100],
+        "scrollX": true
+    });
+
+    var table = $('#tableResiSedangDiKantorIni').DataTable({
         "pagingType": 'full_numbers',
         'paging': true,
         'lengthMenu': [10,25, 50, 100],

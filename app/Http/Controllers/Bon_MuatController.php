@@ -11,6 +11,7 @@ use App\Resi;
 use App\Kendaraan;
 use App\Sejarah;
 use App\Pengiriman_customer;
+use App\Pegawai;
 use Illuminate\Support\Facades\Session;
 class Bon_MuatController extends Controller
 {
@@ -170,11 +171,20 @@ class Bon_MuatController extends Controller
                 Session::put('success-failsuratjalan', $fail);
                 return redirect('/admin/bonmuat/edit/'.$id);
             }else if(!$found && !$overweight){
-                $user = Session::get('id');
-                $bonmuat->resis()->attach($request["resi_id"],['user_created' => $user]);
-                $bonmuat->resis()->updateExistingPivot($request["resi_id"],['user_updated' => $user]);
+                $user = Pegawai::findOrFail(Session::get('id'));
+
+                //untuk mengecek apakah resi yang akan diinputkan oleh pegawai berasal dari kantor ini
+                if($resi->kantor_sekarang_id != $user->kantor_id){
+                    $fail = "Resi sedang tidak berada di kantor ini.";
+                    Session::put('success-failsuratjalan', $fail);
+                    return redirect('/admin/bonmuat/edit/'.$id);
+                }
+                //
+
+                $bonmuat->resis()->attach($request["resi_id"],['user_created' => $user->id]);
+                $bonmuat->resis()->updateExistingPivot($request["resi_id"],['user_updated' => $user->id]);
                 $bonmuat->update(['total_muatan' => ($bonmuat->total_muatan+$resi->berat_barang)]);
-                $bonmuat->update(['user_updated' => $user]);
+                $bonmuat->update(['user_updated' => $user->id]);
                 $success = 'Surat Jalan berhasil didaftarkan.';
                 Session::put('success-suratjalan', $success);
                 return redirect('/admin/bonmuat/edit/'.$id);
@@ -238,11 +248,19 @@ class Bon_MuatController extends Controller
             }
             $sampai =  $bonmuat->resis()->where("resi_id",$request["resi_id"])->first()->surat_jalan->telah_sampai;
             if($sampai == 0){
+
+                //update surat jalan
                 $bonmuat->update(['user_updated' => $user]); 
                 $bonmuat->resis()->updateExistingPivot($request["resi_id"],['telah_sampai' => 1]);
                 $bonmuat->resis()->updateExistingPivot($request["resi_id"],['waktu_sampai' => now()]);
                 $bonmuat->resis()->updateExistingPivot($request["resi_id"],['user_updated' => $user]);
-                
+                //
+
+                //update posisi sekarang dari resi
+                $resi['kantor_sekarang_id'] = $user->kantor->id;
+                $resi->save();
+                //
+
                 $keterangan = 'Barang telah sampai di kantor '. $bonmuat->kantor_tujuan->alamat . ', ' . $bonmuat->kantor_tujuan->getKota->nama . '.';
                 $sejarah = [
                     'resi_id'=>$request["resi_id"],
@@ -251,6 +269,7 @@ class Bon_MuatController extends Controller
                 ];
                 Sejarah::create($sejarah);
 
+                //untuk mengecek apakah semua resi telah sampai
                 $count = 0;
                 foreach($bonmuat->resis as $i){
                     if($i->surat_jalan->telah_sampai == 0 && $i->surat_jalan->waktu_sampai != null){
@@ -268,7 +287,8 @@ class Bon_MuatController extends Controller
                     if($kendaraan->posisi_di_kantor_1 == 0) $kendaraan->update(['posisi_di_kantor_1' => 1]);
                     else $kendaraan->update(['posisi_di_kantor_1' => 0]);
                 }
-    
+                //
+
                 $success = 'Surat Jalan '. $request["resi_id"]. ' telah selesai.';
                 Session::put('success-suratjalan', $success);
                 return redirect('/admin/bonmuat/editSuratJalan/'.$id);

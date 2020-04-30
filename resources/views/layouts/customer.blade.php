@@ -68,9 +68,7 @@
         <div class="row align-items-center position-relative">
 
 
-          <a href="/" class="site-logo" style="width: 20%;height: 100%;background-image: url('images/TAE Logo.png');background-size: cover">
-            
-          </a>
+          <a href="/" class="site-logo" style="width: 20%;height: 100%;background-image: url('images/TAE Logo.png');background-size: cover"></a>
 
           <div class="col-12">
             <nav class="site-navigation text-right ml-auto " role="navigation">
