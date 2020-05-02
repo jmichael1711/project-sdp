@@ -159,7 +159,6 @@
     }
 
     .invoice footer {
-        position: absolute;
         bottom: 10px;
         page-break-after: always
     }
@@ -171,133 +170,107 @@
 
 </style>
 
-<div id="invoice">
-    <div class="toolbar hidden-print">
-        <div class="text-right">
-            <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
-            <button class="btn btn-info"><i class="fa fa-file-pdf-o"></i> Export as PDF</button>
+<body>
+    <div id="invoice">
+        <div class="toolbar hidden-print">
+            <div class="text-right">
+                <button onclick="window.location.href='{{url('/admin/resi/edit/'.$resi->id)}}';" class="btn btn-danger ">&nbsp Back &nbsp</button>
+                <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> &nbsp Print &nbsp</button>
+            </div>
+            <hr>
         </div>
-        <hr>
-    </div>
-    <div class="invoice overflow-auto">
-        <div style="min-width: 600px">
-            <header>
-                <div class="row">
-                    <div class="col">
-                        <a target="_blank" href="https://lobianijs.com">
+        <div class="invoice overflow-auto" id="printArea" style="max-height: 1000px;">
+            <div style="min-width: 600px">
+                <header>
+                    <div class="row">
+                        <div class="col">
                             <img src="/images/TAE Logo.png" alt="" data-holder-rendered="true">
-                            </a>
+                        </div>
+                        <div class="col company-details">
+                            <h2 class="name">
+                                TAE {{$user->kantor->getKota->nama}}
+                            </h2>
+                            <div>{{$user->kantor->alamat}},{{$user->kantor->getKota->nama}}</div>
+                            <div>{{$user->kantor->no_telp}}</div>
+                            <div>4team.ate@gmail.com</div>
+                        </div>
                     </div>
-                    <div class="col company-details">
-                        <h2 class="name">
-                            TAE {{$user->kantor->getKota->nama}}
-                        </h2>
-                        <div>{{$user->kantor->alamat}},{{$user->kantor->getKota->nama}}</div>
-                        <div>{{$user->kantor->no_telp}}</div>
-                        <div>4team.ate@gmail.com</div>
+                </header>
+                <main>
+                    <div class="row contacts">
+                        <div class="col invoice-to">
+                            <div class="text-gray-light">PENGIRIM:</div>
+                            <h2 class="to">{{$resi->nama_pengirim}}</h2>
+                            <div class="address">{{$resi->alamat_asal}},</div>
+                            <div class="address">{{$resi->kota_asal}}, {{$resi->kode_pos_pengirim}}</div>
+                            <div class="address">{{$resi->no_telp_pengirim}}</div>
+                            <div class="email">{{$resi->email_pengirim}}</div>
+                            <br><br>
+                            <div class="text-gray-light">PENERIMA:</div>
+                            <h2 class="to">{{$resi->nama_penerima}}</h2>
+                            <div class="address">{{$resi->alamat_tujuan}}, </div>
+                            <div class="address">{{$resi->kota_tujuan}}, {{$resi->kode_pos_penerima}}</div>
+                            <div class="address">{{$resi->no_telp_penerima}}</div>
+                            <div class="email">{{$resi->email_penerima}}</div>
+                        </div>
+                        <div class="col invoice-details">
+                            <h1 class="invoice-id">{{$resi->id}}</h1>
+                            <img style="border: 1px solid black" src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl={{$resi->id}}&choe=UTF-8"/>
+                            <div class="date">Tanggal dibuat: {{date('d/m/Y H:i:s',strtotime($resi->created_at))}}</div>
+                            <div class="date">Dibuat Oleh: {{$user->nama}}</div>
+                        </div>
                     </div>
-                </div>
-            </header>
-            <main>
-                <div class="row contacts">
-                    <div class="col invoice-to">
-                        <div class="text-gray-light">PENGIRIM:</div>
-                        <h2 class="to">{{$resi->nama_pengirim}}</h2>
-                        <div class="address">{{$resi->alamat_asal}},{{$resi->kota_asal}}</div>
-                        <div class="email">{{$resi->email_pengirim}}</div>
-                    </div>
-                    <div class="col invoice-details">
-                        <h1 class="invoice-id">{{$resi->id}}</h1>
-                        <div class="date">Tanggal dibuat: {{$resi->created_at}}</div>
-                        <div class="date">Due Date: 30/10/2018</div>
-                    </div>
-                </div>
-                <div class="row contacts">
-                    <div class="col invoice-to">
-                        <div class="text-gray-light">PENERIMA:</div>
-                        <h2 class="to">{{$resi->nama_penerima}}</h2>
-                        <div class="address">{{$resi->alamat_tujuan}},{{$resi->kota_tujuan}}</div>
-                        <div class="email">{{$resi->email_penerima}}</div>
-                    </div>
-                </div>
-                <table border="0" cellspacing="0" cellpadding="0">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th class="text-left">DESCRIPTION</th>
-                            <th class="text-right">HOUR PRICE</th>
-                            <th class="text-right">HOURS</th>
-                            <th class="text-right">TOTAL</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="no">04</td>
-                            <td class="text-left"><h3>
-                                <a target="_blank" href="https://www.youtube.com/channel/UC_UMEcP_kF0z4E6KbxCpV1w">
-                                Youtube channel
-                                </a>
-                                </h3>
-                               <a target="_blank" href="https://www.youtube.com/channel/UC_UMEcP_kF0z4E6KbxCpV1w">
-                                   Useful videos
-                               </a> 
-                               to improve your Javascript skills. Subscribe and stay tuned :)
-                            </td>
-                            <td class="unit">$0.00</td>
-                            <td class="qty">100</td>
-                            <td class="total">$0.00</td>
-                        </tr>
-                        <tr>
-                            <td class="no">01</td>
-                            <td class="text-left"><h3>Website Design</h3>Creating a recognizable design solution based on the company's existing visual identity</td>
-                            <td class="unit">$40.00</td>
-                            <td class="qty">30</td>
-                            <td class="total">$1,200.00</td>
-                        </tr>
-                        <tr>
-                            <td class="no">02</td>
-                            <td class="text-left"><h3>Website Development</h3>Developing a Content Management System-based Website</td>
-                            <td class="unit">$40.00</td>
-                            <td class="qty">80</td>
-                            <td class="total">$3,200.00</td>
-                        </tr>
-                        <tr>
-                            <td class="no">03</td>
-                            <td class="text-left"><h3>Search Engines Optimization</h3>Optimize the site for search engines (SEO)</td>
-                            <td class="unit">$40.00</td>
-                            <td class="qty">20</td>
-                            <td class="total">$800.00</td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="2"></td>
-                            <td colspan="2">SUBTOTAL</td>
-                            <td>$5,200.00</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"></td>
-                            <td colspan="2">TAX 25%</td>
-                            <td>$1,300.00</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"></td>
-                            <td colspan="2">GRAND TOTAL</td>
-                            <td>$6,500.00</td>
-                        </tr>
-                    </tfoot>
-                </table>
-                <div class="thanks">Thank you!</div>
-                <div class="notices">
-                    <div>NOTICE:</div>
-                    <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
-                </div>
-            </main>
-            <footer>
-                Invoice was created on a computer and is valid without the signature and seal.
-            </footer>
+                    <table border="0" cellspacing="0" cellpadding="0" style="max-width: 100%">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width: 50%">KETERANGAN</th>
+                                <th class="text-center" style="width: 25%">DIMENSI</th>
+                                <th class="text-center" style="width: 25%">BERAT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center" style="width: 50%;">
+                                    <div style="width: 100%;word-break: break-all;">
+                                    {{$resi->keterangan}}     
+                                    </div>
+                                </td>
+                                <td class="unit text-center" style="width: 25%">
+                                    {{$resi->panjang}}cm X {{$resi->lebar}}cm X {{$resi->tinggi}}cm
+                                </td>
+                                <td class="qty text-center" style="width: 25%">
+                                    {{$resi->berat_barang}} Kg
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <table>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td style="width: 30%">TOTAL BIAYA &emsp;&emsp; {{$harga}}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </main>
+                <footer>
+                    Hak Cipta Oleh Team Ate Expedition
+                </footer>
+            </div>
+            <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+            <div></div>
         </div>
-        <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
-        <div></div>
     </div>
-</div>
+    <input type="hidden" id="resi_id" value="{{$resi->id}}">
+</body>
+<script>
+    $('#printInvoice').click(function(){
+            var printContents = document.getElementById("printArea").outerHTML;
+            var originalContents = document.getElementById("invoice").outerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+            window.location.reload();
+    });
+</script>

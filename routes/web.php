@@ -207,6 +207,7 @@ Route::group(['middleware' => ['checkstatus:kasir']], function () {
     Route::post('/admin/bonmuat/store', 'Bon_MuatController@store');
     Route::post('/admin/bonmuat/update/{id}', 'Bon_MuatController@update');
     Route::post('/admin/bonmuat/mulaiBonMuat/{id}', 'Bon_MuatController@mulaiBonMuat');
+    Route::get('/admin/bonmuat/print/{id}', 'Bon_MuatController@print');
 
     //ADMIN - PENGIRIMAN CUSTOMER
     Route::get('/admin/pengirimanCustomer/create', 'PengirimanCustomerController@create');
@@ -218,7 +219,7 @@ Route::group(['middleware' => ['checkstatus:kasir']], function () {
 });
 
 
-//INSIDE KASIR GROUP
+//INSIDE PEGAWAI GROUP
 Route::group(['middleware' => ['checkstatus:pegawai']], function () {
     //ADMING - BON MUAT
     Route::get('/admin/bonmuat','Bon_MuatController@index');
