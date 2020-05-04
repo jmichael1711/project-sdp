@@ -188,7 +188,8 @@ class ResiController extends Controller
     public function print($id){
         $resi = Resi::find($id);
         $user = Pegawai::findOrFail(Session::get('id'));
-        return view('master.resi.print', compact('resi','user'));
+        $harga =  "Rp " . number_format($resi->harga, 2, ".", ",");
+        return view('master.resi.print', compact('resi','user','harga'));
     }
 
     

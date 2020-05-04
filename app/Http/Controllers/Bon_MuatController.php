@@ -207,14 +207,6 @@ class Bon_MuatController extends Controller
         return redirect('/admin/bonmuat/edit/'.$id);
     }
 
-    // public function incomingbonmuat(){
-    //     // jika admin kota maka harus ambil bon muat yang akan datang ke kota itu saja
-    //     // jika pegawai atau kasir maka harus ambil bon muat yang akan datang ke kantor itu saja
-    //     // jika admin super maka ambil semua bon muat yang ada
-    //     $allBonMuat = Bon_Muat::getAll()->get(); //untuk admin super
-    //     return view('master.bonmuat.incomingbonmuat',compact('allBonMuat'));
-    // }
-
     public function editSuratJalan($id) {
         $bonmuat = Bon_Muat::find($id);
         if($bonmuat == null){
@@ -332,5 +324,11 @@ class Bon_MuatController extends Controller
             Session::put('success-failsuratjalan', $fail);
             return redirect('/admin/bonmuat/edit/'.$id);
         }
+    }
+
+    public function print($id){
+        $bonmuat = Bon_Muat::findOrFail($id);
+        $user = Pegawai::findOrFail($bonmuat->user_created);
+        return view('master.bonmuat.print', compact('bonmuat','user'));
     }
 }

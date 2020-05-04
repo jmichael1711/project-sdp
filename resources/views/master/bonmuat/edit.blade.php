@@ -219,6 +219,7 @@ Halaman ini untuk mengubah data bon muat.
                         @endif
                         >Mulai Bon Muat</button>
                 </form>
+                <button class="btn ml-2 mr-2 btn-primary pull-right" onclick="window.location.href='{{url('/admin/bonmuat/print/'.$bonmuat->id)}}';">Print Preview</button>
                 <button type="button" data-toggle="collapse" href="#collapseEdit" class="btn btn-secondary">Ubah Bon Muat</button>
             </div>
         </div>
