@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>A simple, clean, and responsive HTML invoice template</title>
+    <title>Bon Muat {{$bonmuat->id}} dan Surat Jalan</title>
     
     <style>
     .invoice-box {
@@ -116,68 +116,191 @@
     <button id="print" class="ml-2 btn btn-info">&nbsp Print &nbsp</button>
     <button onclick="window.location.href='{{url('/admin/bonmuat/edit/'.$bonmuat->id)}}';" class="btn btn-danger">&nbsp Back &nbsp</button>
     </div>  
-    <div class="invoice-box" id="printArea">
-        <table cellpadding="0" cellspacing="0">
-            <tr class="top">
-                <td colspan="2">
-                    <table>
-                        <tr>
-                            <td class="title">
-                                <img src="/images/TAE Logo.png" style="width:100%; max-width:300px;">
-                            </td>
-                            <td>
-                                Bon Muat #: {{$bonmuat->id}}<br>
-                                Tanggal Dibuat: {{date('d/m/Y',strtotime($bonmuat->created_at))}}<br>
-                                Dibuat Oleh: {{$user->nama}}
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            
-            <tr class="information">
-                <td colspan="2">
-                    <table>
-                        <tr>
-                            <td>
-                                GUDANG : {{$bonmuat->kantor_asal->alamat}}, {{$bonmuat->kantor_asal->kota}} <br>
-                                PENGANGKUT : {{$bonmuat->kurir_non_customer->nama}}<br>
-                                NOMOR TRUK : {{$bonmuat->kendaraan->nopol}}
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            
-            <tr class="heading">
-                <td>
-                    Muatan
-                </td>
+    <div id="printArea">
+
+        <div class="invoice-box">
+            <table cellpadding="0" cellspacing="0">
+                <tr class="top">
+                    <td colspan="2" style="border-bottom: 5px solid black;">
+                        <table>
+                            <tr>
+                                <td class="title">
+                                    <img src="/images/TAE Logo.png" style="width:100%; max-width:300px;">
+                                </td>
+                                <td>
+                                    <h1> Bon Muat</h1>
+                                    <h4>{{$bonmuat->id}}</h4>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
                 
-                <td>
+                <tr class="information">
+                    <td colspan="2">
+                        <table>
+                            <tr>
+                                <td>
+                                    <br>
+                                    Gudang : {{$bonmuat->kantor_asal->alamat}}, {{$bonmuat->kantor_asal->kota}} <br>
+                                    Pengangkut : {{$bonmuat->kurir_non_customer->nama}}<br>
+                                    No. Truk : {{$bonmuat->kendaraan->nopol}}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                
+                <tr class="heading">
+                    <td>
+                        Muatan
+                    </td>
                     
-                </td>
-            </tr>
-            
-            <tr class="details">
-                <td>
-                    Isi
-                </td>
+                    <td>
+                        
+                    </td>
+                </tr>
                 
-                <td>
-                    {{$bonmuat->resis()->count()}} colly
-                </td>
-            </tr>
-            <tr class="details">
-                <td>
-                    Berat
-                </td>
+                <tr class="details">
+                    <td>
+                        Isi
+                    </td>
+                    
+                    <td>
+                        {{$bonmuat->resis()->count()}} colly
+                    </td>
+                </tr>
+                <tr class="details">
+                    <td>
+                        Berat
+                    </td>
+                    
+                    <td>
+                        {{$bonmuat->total_muatan}} Kg
+                    </td>
+                </tr>
+            </table>
+            <br><br>
+            <table>
+                <tr>
+                    <td style="width: 50%"></td>
+                    <td style="width: 50%" class="text-center">
+                        {{$bonmuat->kantor_asal->kota}}, {{date('d-m-Y',strtotime($bonmuat->created_at))}}<br>
+                    </td>
+                </tr>
+                <tr><td><br></td></tr>
+                <tr><td><br></td></tr>
+                <tr><td><br></td></tr>
+                <tr>
+                    <td style="width: 50%"></td>
+                    <td style="width: 50%" class="text-center">
+                        ( {{$user->nama}} )<br>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <br><br>
+        <hr style="border-top: 1px dashed black">
+        <br><br>
+
+        <div class="invoice-box">
+            <table cellpadding="0" cellspacing="0">
+                <tr class="top">
+                    <td colspan="3" style="border-bottom: 5px solid black;">
+                        <table>
+                            <tr>
+                                <td class="title">
+                                    <img src="/images/TAE Logo.png" style="width:100%; max-width:300px;">
+                                </td>
+                                <td>
+                                    <br>
+                                    <h1> Surat Jalan</h1>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
                 
-                <td>
-                    {{$bonmuat->total_muatan}} Kg
-                </td>
-            </tr>
-        </table>
+                <tr class="information">
+                    <td colspan="2">
+                        <table>
+                            <tr>
+                                <td>
+                                    <br>
+                                    <span class="font-weight-bold"> Kepada Yth, </span><br>
+                                    {{$bonmuat->kantor_tujuan->alamat}}, {{$bonmuat->kantor_tujuan->kota}} <br>
+                                    {{$bonmuat->kantor_tujuan->no_telp}}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                
+                <tr class="information">
+                    <td colspan="2">
+                        <table>
+                            <tr>
+                                <td>
+                                    Tanggal : {{date('d-m-Y',strtotime($bonmuat->created_at))}} <br>
+                                    No. Bon Muat: {{$bonmuat->id}}<br>
+                                    Pengangkut : {{$bonmuat->kurir_non_customer->nama}}<br>
+                                    No. Truk : {{$bonmuat->kendaraan->nopol}}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr class="heading">
+                    <td style="width: 5%">
+                        No. 
+                    </td>
+                    <td class="text-left" style="width: 70%">
+                        Resi 
+                    </td>
+                    <td style="width: 25%">
+                        Berat
+                    </td>
+                </tr>
+                @foreach($bonmuat->resis as $i)
+                    <tr class="details">
+                        <td style="width: 5%">
+                            {{$loop->iteration}}.
+                        </td>
+                        <td class="text-left" style="width: 70%">
+                            {{$i->id}}
+                        </td>
+                        <td style="width: 25%">
+                            {{$i->berat_barang}} Kg
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+            <br><br>
+            <table>
+                <tr>
+                    <td style="width: 50%" class="text-center">
+                        Penerima<br>
+                    </td>
+                    <td style="width: 50%" class="text-center">
+                        Pengirim<br>
+                    </td>
+                </tr>
+                <tr><td><br></td></tr>
+                <tr><td><br></td></tr>
+                <tr><td><br></td></tr>
+                <tr>
+                    <td style="width: 50%" class="text-center">
+                        (.........................)<br>
+                    </td>
+                    <td style="width: 50%" class="text-center">
+                        ( {{$user->nama}} )<br>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
     </div>
 </body>
 </html>
