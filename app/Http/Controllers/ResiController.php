@@ -28,6 +28,7 @@ class ResiController extends Controller
 
         if(substr($user->id, 0, 2) == "PE"){
             $request['verifikasi'] = 1;
+            $request['status_verifikasi_email'] = 1;
             $request['kantor_asal_id'] = $user->kantor->id;
             $request['kantor_sekarang_id'] = $user->kantor->id;
         }else $request['verifikasi'] = 0;
