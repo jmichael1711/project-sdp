@@ -92,6 +92,9 @@ class KurirController extends Controller
     }
 
     public function setWaktuBerangkat(Request $request) {
+
+        require_once(app_path() . '\Classes\mailer2\class.phpmailer.php');
+
         $request = $request->all();
         $pengiriman = Pengiriman_customer::getAll()
         ->where('id', $request['id'])
@@ -102,6 +105,38 @@ class KurirController extends Controller
         $pengiriman->save();
 
         $kurir = Kurir_customer::findOrFail(Session::get('id'));
+
+        if (!$pengiriman->menuju_penerima) {
+            $password = rand(1000, 9999) * 10000 + rand(1000, 9999);
+            $resi = $pengiriman->resis()->first();
+
+            $detailPengiriman = $resi->d_pengiriman_customer;
+            $detailPengiriman->password = $password;
+            $detailPengiriman->save();
+
+            $idResi = $resi->id;
+            $linkQrCode = "https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=$idResi&choe=UTF-8";
+
+            $mail             = new \PHPMailer(true);
+            $address 		  = $resi->email_pengirim;
+            $mail->Subject    = "TeamAte Expedition - One Time Password - " . $idResi;
+            $body = view('customer.emailotppengirim', compact('linkQrCode', 'password'));
+            $mail->IsSMTP(); // telling the class to use SMTP
+            $mail->Host       = "mail.google.com"; // SMTP server
+            $mail->SMTPDebug  = 0;                     // enables SMTP debug information (for testing)
+            $mail->SMTPAuth   = true;                  // enable SMTP authentication
+            $mail->SMTPSecure = "tls";                 // sets the prefix to the servier
+            $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+            $mail->Port       = 587;                   // set the SMTP port for the GMAIL server
+            $mail->Username   = "4team.ate@gmail.com";  // GMAIL username
+            $mail->Password   = "sttsteam4";     // GMAIL password
+            $mail->MsgHTML($body);
+            $mail->AddAddress($address, $resi->nama_pengirim);
+
+            if(!$mail->Send()) {  
+                //ERROR
+            } 
+        }
 
         foreach ($pengiriman->resis as $i) {
             $keterangan = "Kurir ". strtoupper($kurir->nama) ." telah berangkat dari kantor " . strtoupper($kurir->kantor->alamat) . ", " . strtoupper($kurir->kantor->kota);
