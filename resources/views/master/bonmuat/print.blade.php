@@ -121,7 +121,7 @@
         <div class="invoice-box">
             <table cellpadding="0" cellspacing="0">
                 <tr class="top">
-                    <td colspan="2" style="border-bottom: 5px solid black;">
+                    <td colspan="3" style="border-bottom: 5px solid black;">
                         <table>
                             <tr>
                                 <td class="title">
@@ -155,7 +155,9 @@
                     <td>
                         Muatan
                     </td>
-                    
+                    <td>
+                        
+                    </td>
                     <td>
                         
                     </td>
@@ -165,7 +167,9 @@
                     <td>
                         Isi
                     </td>
-                    
+                    <td>
+                        
+                    </td>
                     <td>
                         {{$bonmuat->resis()->count()}} colly
                     </td>
@@ -174,84 +178,16 @@
                     <td>
                         Berat
                     </td>
-                    
+                    <td>
+                        
+                    </td>
                     <td>
                         {{$bonmuat->total_muatan}} Kg
                     </td>
                 </tr>
-            </table>
-            <br><br>
-            <table>
-                <tr>
-                    <td style="width: 50%"></td>
-                    <td style="width: 50%" class="text-center">
-                        {{$bonmuat->kantor_asal->kota}}, {{date('d-m-Y',strtotime($bonmuat->created_at))}}<br>
-                    </td>
-                </tr>
-                <tr><td><br></td></tr>
-                <tr><td><br></td></tr>
-                <tr><td><br></td></tr>
-                <tr>
-                    <td style="width: 50%"></td>
-                    <td style="width: 50%" class="text-center">
-                        ( {{$user->nama}} )<br>
-                    </td>
-                </tr>
-            </table>
-        </div>
 
-        <br><br>
-        <hr style="border-top: 1px dashed black">
-        <br><br>
-
-        <div class="invoice-box">
-            <table cellpadding="0" cellspacing="0">
-                <tr class="top">
-                    <td colspan="3" style="border-bottom: 5px solid black;">
-                        <table>
-                            <tr>
-                                <td class="title">
-                                    <img src="/images/TAE Logo.png" style="width:100%; max-width:300px;">
-                                </td>
-                                <td>
-                                    <br>
-                                    <h1> Surat Jalan</h1>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                
-                <tr class="information">
-                    <td colspan="2">
-                        <table>
-                            <tr>
-                                <td>
-                                    <br>
-                                    <span class="font-weight-bold"> Kepada Yth, </span><br>
-                                    {{$bonmuat->kantor_tujuan->alamat}}, {{$bonmuat->kantor_tujuan->kota}} <br>
-                                    {{$bonmuat->kantor_tujuan->no_telp}}
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                
-                <tr class="information">
-                    <td colspan="2">
-                        <table>
-                            <tr>
-                                <td>
-                                    Tanggal : {{date('d-m-Y',strtotime($bonmuat->created_at))}} <br>
-                                    No. Bon Muat: {{$bonmuat->id}}<br>
-                                    Pengangkut : {{$bonmuat->kurir_non_customer->nama}}<br>
-                                    No. Truk : {{$bonmuat->kendaraan->nopol}}
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-
+                <tr><td><br></td></tr>
+                <tr><td><h3>DETAIL</h3></td></tr>
                 <tr class="heading">
                     <td style="width: 5%">
                         No. 
@@ -281,10 +217,12 @@
             <table>
                 <tr>
                     <td style="width: 50%" class="text-center">
-                        Penerima<br>
+                        {{$bonmuat->kantor_asal->kota}}, {{date('d-m-Y',strtotime($bonmuat->created_at))}}<br>
+                         Pengirim
                     </td>
                     <td style="width: 50%" class="text-center">
-                        Pengirim<br>
+                        {{$bonmuat->kantor_tujuan->kota}}, ..........................<br>
+                        Penerima
                     </td>
                 </tr>
                 <tr><td><br></td></tr>
@@ -292,15 +230,14 @@
                 <tr><td><br></td></tr>
                 <tr>
                     <td style="width: 50%" class="text-center">
-                        (.........................)<br>
+                        ( {{$user->nama}} )<br>
                     </td>
                     <td style="width: 50%" class="text-center">
-                        ( {{$user->nama}} )<br>
+                        (...........................)<br>
                     </td>
                 </tr>
             </table>
         </div>
-
     </div>
 </body>
 </html>

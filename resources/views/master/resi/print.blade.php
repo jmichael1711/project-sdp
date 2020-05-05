@@ -166,6 +166,7 @@
     .invoice>div:last-child {
         page-break-before: always
     }
+    
 }
 
 </style>
@@ -198,10 +199,16 @@
                 </header>
                 <main>
                     <div class="row contacts">
-                        <div class="col invoice-to">
-                            <div class="text-gray-light">PENGIRIM:</div>
+                        <div class="invoice-to" style="width: auto;">
+                            <h2 class="invoice-id">{{$resi->id}}</h2>
+                            <img style="border: 1px solid black" src="https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl={{$resi->id}}&choe=UTF-8"/>
+                            <div class="date">Tanggal dibuat: {{date('d/m/Y H:i:s',strtotime($resi->created_at))}}</div>
+                            <div class="date">Dibuat Oleh: {{$user->nama}}</div>
+                        </div>
+                        <div class="col-4 invoice-details text-left ml-3" style="border-right: 1px solid black">
+                            <div class="text-gray-light mt-3">PENGIRIM:</div>
                             <h2 class="to">{{$resi->nama_pengirim}}</h2>
-                            <div class="address">{{$resi->alamat_asal}},</div>
+                            <div class="address" style="height: auto; word-break: break-word;">{{$resi->alamat_asal}},</div>
                             <div class="address">{{$resi->kota_asal}}, {{$resi->kode_pos_pengirim}}</div>
                             <div class="address">{{$resi->no_telp_pengirim}}</div>
                             <div class="email">{{$resi->email_pengirim}}</div>
@@ -213,46 +220,28 @@
                             <div class="address">{{$resi->no_telp_penerima}}</div>
                             <div class="email">{{$resi->email_penerima}}</div>
                         </div>
-                        <div class="col invoice-details">
-                            <h1 class="invoice-id">{{$resi->id}}</h1>
-                            <img style="border: 1px solid black" src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl={{$resi->id}}&choe=UTF-8"/>
-                            <div class="date">Tanggal dibuat: {{date('d/m/Y H:i:s',strtotime($resi->created_at))}}</div>
-                            <div class="date">Dibuat Oleh: {{$user->nama}}</div>
+                        <div class="col-4 invoice-details text-left ml-5">
+                            <div style="height: 250px;">
+                                <div class="text-gray-light">BARANG:</div>
+                                <div class="address">DIMENSI : {{$resi->panjang}}cm X {{$resi->lebar}}cm X {{$resi->tinggi}}cm</div>
+                                <div class="address">BERAT : {{$resi->berat_barang}} Kg</div>
+                                <div class="address" style="word-break: break-word">KETERANGAN : {{$resi->keterangan}}</div>
+                                <br>
+                                <h4> TOTAL BIAYA : {{$harga}}</h4>
+                            </div>
+                            <div class="row" style="height: 50%;">
+                                <div class="col-4 text-center" style="height:100%;border: 1px solid black">
+                                Ttd Petugas,<br><br><br><br><br><br><br>( {{$user->nama}} )
+                                </div>
+                                <div class="col-4 text-center" style="height:100%;border: 1px solid black">
+                                Ttd Pengirim,<br><br><br><br><br><br><br>( {{$resi->nama_pengirim}} )
+                                </div>
+                                <div class="col-4 text-center" style="height:100%;border: 1px solid black">
+                                Ttd Penerima,<br><br><br><br><br><br><br>(...........................)
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <table border="0" cellspacing="0" cellpadding="0" style="max-width: 100%">
-                        <thead>
-                            <tr>
-                                <th class="text-center" style="width: 50%">KETERANGAN</th>
-                                <th class="text-center" style="width: 25%">DIMENSI</th>
-                                <th class="text-center" style="width: 25%">BERAT</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-center" style="width: 50%;">
-                                    <div style="width: 100%;word-break: break-all;">
-                                    {{$resi->keterangan}}     
-                                    </div>
-                                </td>
-                                <td class="unit text-center" style="width: 25%">
-                                    {{$resi->panjang}}cm X {{$resi->lebar}}cm X {{$resi->tinggi}}cm
-                                </td>
-                                <td class="qty text-center" style="width: 25%">
-                                    {{$resi->berat_barang}} Kg
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <br>
-                    <table>
-                        <tfoot>
-                            <tr>
-                                <td></td>
-                                <td style="width: 30%">TOTAL BIAYA &emsp;&emsp; {{$harga}}</td>
-                            </tr>
-                        </tfoot>
-                    </table>
                 </main>
                 <footer>
                     Hak Cipta Oleh Team Ate Expedition
@@ -262,15 +251,14 @@
             <div></div>
         </div>
     </div>
-    <input type="hidden" id="resi_id" value="{{$resi->id}}">
 </body>
 <script>
     $('#printInvoice').click(function(){
-            var printContents = document.getElementById("printArea").outerHTML;
-            var originalContents = document.getElementById("invoice").outerHTML;
-            document.body.innerHTML = printContents;
-            window.print();
-            document.body.innerHTML = originalContents;
-            window.location.reload();
+        var printContents = document.getElementById("printArea").outerHTML;         
+        var originalContents = document.getElementById("invoice").outerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+        window.location.reload();
     });
 </script>
