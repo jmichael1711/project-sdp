@@ -183,6 +183,9 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::post('/admin/kurir_noncustomer/store', 'kurir_noncustomerController@store');
     Route::get('/admin/kurir_noncustomer/edit/{id}', 'kurir_noncustomerController@edit');
     Route::post('/admin/kurir_noncustomer/update/{id}', 'kurir_noncustomerController@update');
+
+    Route::get('/admin/reports/reportpendapatan', 'AdminController@reportpendapatan');
+    Route::post('/admin/reports/carikantor', 'AdminController@getKantors');
 });
 
 //INSIDE KASIR GROUP
