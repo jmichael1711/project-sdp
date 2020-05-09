@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Resi;
+use App\Kota;
 use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
@@ -207,5 +208,19 @@ class AdminController extends Controller
         'resiTerbentukTahunan', 'resiTerverifikasiTahunan', 'resiCancelTahunan'));
 
 
+    }
+
+    public function waktuPesanan(){
+        $allKota = Kota::getAll()->get();
+        return view('master.reports.waktuPesanan',compact('allKota'));
+    }
+
+    public function reportWaktuPesanan(){
+        // $allPengirimanCustomer = DB::table('d_pengiriman_customers')->select('resi_id');
+        // $allResiBaru = Resi::getAll()
+        // ->where("kantor_asal_id","=",$user->kantor_id)
+        // ->where("user_created","CUSTOMER")
+        // ->whereIn('id', $allPengirimanCustomer)
+        // ->get();
     }
 }

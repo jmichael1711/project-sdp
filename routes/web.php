@@ -177,12 +177,16 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
      Route::get('/admin/kurir_customer/edit/{id}', 'kurir_customerController@edit');
      Route::post('/admin/kurir_customer/update/{id}', 'kurir_customerController@update');
 
-      //ADMIN - Kurir non customer
+    //ADMIN - Kurir non customer
     Route::get('/admin/kurir_noncustomer', 'kurir_noncustomerController@index');
     Route::get('/admin/kurir_noncustomer/create', 'kurir_noncustomerController@create');
     Route::post('/admin/kurir_noncustomer/store', 'kurir_noncustomerController@store');
     Route::get('/admin/kurir_noncustomer/edit/{id}', 'kurir_noncustomerController@edit');
     Route::post('/admin/kurir_noncustomer/update/{id}', 'kurir_noncustomerController@update');
+
+    //ADMIN - Report
+    Route::get('/admin/reports/waktuPesanan', 'AdminController@waktuPesanan');
+    Route::post('/admin/reports/getKantor', 'AdminController@waktuPesanan');
 });
 
 //INSIDE KASIR GROUP
