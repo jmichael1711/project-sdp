@@ -486,6 +486,28 @@
                                         </li>
                                     </ul>
                                 </li>
+
+                                {{-- SIDEBAR - Report --}}
+                                <li class="app-sidebar__heading">REPORT</li>
+                                <li>
+                                    <a id="header-kendaraan" href="{{ url('/admin/kendaraan') }}">
+                                        <i class="metismenu-icon"></i>
+                                        Jangka Waktu Proses Pesanan
+                                    </a>
+                                </li>
+                                <li>
+                                    <a id="header-kendaraan" href="{{ url('/admin/kendaraan') }}">
+                                        <i class="metismenu-icon"></i>
+                                        Pendapatan Kantor
+                                    </a>
+                                </li>
+                                <li>
+                                    <a id="header-tambah-kendaraan" href="{{ url('/admin/kendaraan/create') }}">
+                                        <i class="metismenu-icon">
+                                        </i>
+                                        Intensitas Pesanan Kantor
+                                    </a>
+                                </li>
                                     @endif
                                 @endif
                             </ul>
