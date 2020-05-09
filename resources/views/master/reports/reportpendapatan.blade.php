@@ -67,8 +67,7 @@ Halaman ini untuk melihat report pendapatan per-tahun setiap kantor.
        
     })
    
-
-    // //UNTUK KANTOR
+    //UNTUK KANTOR
     function isiKantor(){
         var idKota = $('#kota').val();
 

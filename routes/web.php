@@ -23,7 +23,7 @@ use App\Kurir_non_customer;
 use App\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-
+use Carbon\Carbon;
 
 Route::get('/create', function () {
     $kantor['id'] = "aaaaa";
@@ -43,6 +43,8 @@ Route::post('/ghajd', function (Request $request) {
 });
 
 Route::get('/try', function () {
+    
+   
 });
 
 Route::get('/tryemail', function () {
@@ -139,7 +141,7 @@ Route::group(['middleware' => ['checkstatus:kurir']], function () {
 //INSIDE ADMIN GROUP
 Route::group(['middleware' => ['checkstatus:admin']], function () {
     //INDEX
-    Route::get('/admin', 'AdminController@dashboard');
+    // Route::get('/admin', 'AdminController@dashboard');
 
     //ADMIN - KANTOR
     Route::get('/admin/kantor', 'KantorController@index');
@@ -188,6 +190,7 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::get('/admin/reports/waktuPesanan', 'AdminController@waktuPesanan');
     Route::get('/admin/reports/reportpendapatan', 'AdminController@reportpendapatan');
     Route::post('/admin/reports/carikantor', 'AdminController@getKantors');
+    Route::post('/admin/reports/reportWaktuPesanan', 'AdminController@reportWaktuPesanan');
 });
 
 //INSIDE KASIR GROUP

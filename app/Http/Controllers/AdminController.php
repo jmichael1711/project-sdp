@@ -9,7 +9,7 @@ use App\Resi;
 use App\Kota;
 use Illuminate\Support\Facades\DB;
 use App\Kantor;
-use App\Kota;
+use App\Pengiriman_customer;
 
 class AdminController extends Controller
 {
@@ -276,13 +276,10 @@ class AdminController extends Controller
         'resiTerbentukBulanan', 'resiSelesaiBulanan', 'resiProsesBulanan', 'resiCancelBulanan', 'resiTerbentukTahunanLabel',
         'resiTerbentukTahunan', 'resiProsesTahunan', 'resiCancelTahunan', 'resiSelesaiTahunan',
         'jumlahKantorCabang', 'jumlahKantorWarehouse'));
-
-
     }
 
     public function reportpendapatan() {
         $kotas = Kota::getAll()->get();
-
         return view('master.reports.reportpendapatan', compact('kotas'));
     }
 
@@ -295,7 +292,6 @@ class AdminController extends Controller
         foreach ($kantors as $k) {
             $s .= '<option class="form-control" value="'.$k->id.'">'.$k->alamat.'</option>';
         }
-
         return $s;
     }
 
@@ -304,12 +300,49 @@ class AdminController extends Controller
         return view('master.reports.waktuPesanan',compact('allKota'));
     }
 
-    public function reportWaktuPesanan(){
-        // $allPengirimanCustomer = DB::table('d_pengiriman_customers')->select('resi_id');
-        // $allResiBaru = Resi::getAll()
-        // ->where("kantor_asal_id","=",$user->kantor_id)
-        // ->where("user_created","CUSTOMER")
-        // ->whereIn('id', $allPengirimanCustomer)
-        // ->get();
+    public function reportWaktuPesanan(Request $request){
+        
+        $allPengirimanCustomer = Pengiriman_customer::
+        join('kantors','pengiriman_customers.kantor_id','kantors.id')
+        ->select("pengiriman_customers.id")
+        ->where("pengiriman_customers.menuju_penerima",0)
+        ->where("pengiriman_customers.is_deleted",0)
+        ->where("kantors.kota",$request->kota)
+        ->groupBy("pengiriman_customers.kantor_id","pengiriman_customers.id")
+        ->get();
+
+        $allResi = Resi::getAll()
+        ->where("kota_asal","=",$request->kota)
+        ->where("user_created","CUSTOMER")
+        ->get();
+
+        $allKantor  = Kantor::getAll()
+        ->where("kota",$request->kota)
+        ->where("is_warehouse",0)
+        ->get();
+
+        $waktu = new \stdclass();
+        $count = 0;
+        foreach($allKantor as $kantor){
+            $id = $kantor->id;
+            $waktu->$id = "";
+            $totalMinute = 0;
+            foreach($allPengirimanCustomer as $p){
+                $temp = Pengiriman_customer::findOrFail($p->id);
+                if($temp->kantor_id == $kantor->id){
+                    foreach($allResi as $resi){
+                        if($temp->resis()->first()->id == $resi->id){
+                            $totalDuration = $temp->created_at->diffInMinutes($resi->created_at);
+                            $totalMinute = $totalMinute + $totalDuration;
+                            $count++;
+                        }
+                    }
+                }
+            }
+            if($totalMinute != 0)$totalMinute = $totalMinute/$count;
+            $waktu->$id = $totalMinute;
+        }
+
+        return json_encode($waktu);
     }
 }
