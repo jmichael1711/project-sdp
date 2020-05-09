@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Session;
 use App\Resi;
 use App\Kota;
 use Illuminate\Support\Facades\DB;
+use App\Kantor;
+use App\Kota;
 
 class AdminController extends Controller
 {
@@ -20,17 +22,27 @@ class AdminController extends Controller
         ->get()
         ;
 
-        $resiTerverifikasiMingguanQuery = Resi::getAll()
-        ->select(DB::raw('SUM(resis.verifikasi) as countResi'), 'created_at')
-        ->whereDate('created_at', '>=', now()->subDays(7))
-        ->groupBy("created_at")
+        $resiSelesaiMingguanQuery = Resi::where('resis.is_deleted', '=', 0)
+        ->select(DB::raw('NVL(COUNT(pengiriman_customers.waktu_sampai_kantor), 0) as countResi'), 'resis.created_at')
+        ->leftjoin('d_pengiriman_customers', 'resis.id', '=', 'd_pengiriman_customers.resi_id')
+        ->leftjoin('pengiriman_customers', function ($q) {
+            $q->on('d_pengiriman_customers.pengiriman_customer_id', '=', 'pengiriman_customers.id');
+            $q->where('pengiriman_customers.menuju_penerima', 1);
+            $q->whereNotNull('waktu_sampai_kantor');
+        })
+        ->whereDate('resis.created_at', '>=', now()->subDays(7))
+        ->groupBy("resis.created_at")
         ->get()
         ;
 
-        $resiCancelMingguanQuery = Resi::getAll()
-        ->select(DB::raw('SUM(IF(resis.verifikasi, 0, 1)) as countResi'), 'created_at')
-        ->whereDate('created_at', '>=', now()->subDays(7))
-        ->where('created_at', '<=', now()->subMinutes(30))
+        //dd($resiSelesaiMingguanQuery);
+
+        $resiCancelMingguanQuery = Resi::select(DB::raw('SUM(IF(resis.status_verifikasi_email, 0, 1)) as countResi'), 'created_at')
+        ->where(function($q) {
+            $q->whereDate('created_at', '>=', now()->subDays(7));
+            $q->where('created_at', '<=', now()->subMinutes(30));
+        })
+        ->orWhere('is_deleted', 1)
         ->groupBy("created_at")
         ->get()
         ;
@@ -39,8 +51,9 @@ class AdminController extends Controller
 
         //ini variabel yang dipassing nanti
         $resiTerbentukMingguan = [];
-        $resiTerverifikasiMingguan = [];
+        $resiSelesaiMingguan = [];
         $resiCancelMingguan = [];
+        $resiProsesMingguan = [];
 
         //ngisi yang kosong-kosong
         $index = 0;
@@ -53,17 +66,20 @@ class AdminController extends Controller
                 if ($dateResi == $dateSub) {
                     //disini artinya ketemu
                     $resiTerbentukMingguan[] = $resiTerbentukMingguanQuery[$index]->countResi;
-                    $resiTerverifikasiMingguan[] = intval($resiTerverifikasiMingguanQuery[$index]->countResi);
+                    $resiSelesaiMingguan[] = intval($resiSelesaiMingguanQuery[$index]->countResi);
                     $resiCancelMingguan[] = intval($resiCancelMingguanQuery[$index]->countResi);
-                    
+                    $resiProsesMingguan[] = intval($resiTerbentukMingguanQuery[$index]->countResi) -
+                    intval($resiSelesaiMingguanQuery[$index]->countResi) -
+                    intval($resiCancelMingguanQuery[$index]->countResi);
                     $index++;
                     continue;
                 }
             } 
             //artinya hari itu gada resi
             $resiTerbentukMingguan[] = 0;
-            $resiTerverifikasiMingguan[] = 0;
+            $resiSelesaiMingguan[] = 0;
             $resiCancelMingguan[] = 0;
+            $resiProsesMingguan[] = 0;
         }
 
         //dd($resiTerverifikasiMingguan);
@@ -83,26 +99,36 @@ class AdminController extends Controller
         ->get()
         ;
 
-        $resiTerverifikasiBulananQuery = Resi::getAll()
-        ->select(DB::raw('SUM(resis.verifikasi) as countResi'), 'created_at')
-        ->whereDate('created_at', '>=', now()->subDays(30))
-        ->groupBy("created_at")
+        $resiSelesaiBulananQuery = Resi::where('resis.is_deleted', '=', 0)
+        ->select(DB::raw('NVL(COUNT(pengiriman_customers.waktu_sampai_kantor), 0) as countResi'), 'resis.created_at')
+        ->leftjoin('d_pengiriman_customers', 'resis.id', '=', 'd_pengiriman_customers.resi_id')
+        ->leftjoin('pengiriman_customers', function ($q) {
+            $q->on('d_pengiriman_customers.pengiriman_customer_id', '=', 'pengiriman_customers.id');
+            $q->where('pengiriman_customers.menuju_penerima', 1);
+            $q->whereNotNull('waktu_sampai_kantor');
+        })
+        ->whereDate('resis.created_at', '>=', now()->subDays(30))
+        ->groupBy("resis.created_at")
         ->get()
         ;
 
-        $resiCancelBulananQuery = Resi::getAll()
-        ->select(DB::raw('SUM(IF(resis.verifikasi, 0, 1)) as countResi'), 'created_at')
-        ->whereDate('created_at', '>=', now()->subDays(30))
-        ->where('created_at', '<=', now()->subMinutes(30))
+        //dd($resiSelesaiMingguanQuery);
+
+        $resiCancelBulananQuery = Resi::select(DB::raw('SUM(IF(resis.status_verifikasi_email, 0, 1)) as countResi'), 'created_at')
+        ->where(function($q) {
+            $q->whereDate('created_at', '>=', now()->subDays(30));
+            $q->where('created_at', '<=', now()->subMinutes(30));
+        })
+        ->orWhere('is_deleted', 1)
         ->groupBy("created_at")
         ->get()
         ;
-
         //dd($resiCancelMingguanQuery);
 
         //ini variabel yang dipassing nanti
         $resiTerbentukBulanan = [];
-        $resiTerverifikasiBulanan = [];
+        $resiProsesBulanan = [];
+        $resiSelesaiBulanan = [];
         $resiCancelBulanan = [];
 
         //ngisi yang kosong-kosong
@@ -116,8 +142,11 @@ class AdminController extends Controller
                 if ($dateResi == $dateSub) {
                     //disini artinya ketemu
                     $resiTerbentukBulanan[] = $resiTerbentukBulananQuery[$index]->countResi;
-                    $resiTerverifikasiBulanan[] = intval($resiTerverifikasiBulananQuery[$index]->countResi);
+                    $resiSelesaiBulanan[] = intval($resiSelesaiBulananQuery[$index]->countResi);
                     $resiCancelBulanan[] = intval($resiCancelBulananQuery[$index]->countResi);
+                    $resiProsesBulanan[] = intval($resiTerbentukBulananQuery[$index]->countResi) -
+                    intval($resiSelesaiBulananQuery[$index]->countResi) -
+                    intval($resiCancelBulananQuery[$index]->countResi);
                     
                     $index++;
                     continue;
@@ -125,8 +154,9 @@ class AdminController extends Controller
             } 
             //artinya hari itu gada resi
             $resiTerbentukBulanan[] = 0;
-            $resiTerverifikasiBulanan[] = 0;
+            $resiSelesaiBulanan[] = 0;
             $resiCancelBulanan[] = 0;
+            $resiProsesBulanan[] = 0;
         }
 
         //dd($resiTerverifikasiMingguan);
@@ -148,27 +178,55 @@ class AdminController extends Controller
 
         //dd($resiTerbentukTahunanQuery);
 
-        $resiTerverifikasiTahunanQuery = Resi::getAll()
-        ->select(DB::raw('SUM(resis.verifikasi) as countResi'), DB::raw("date_format(resis.created_at, '%M-%Y') as date"))
-        ->whereDate('created_at', '>=', now()->subYear())
+        $resiSelesaiTahunanQuery = Resi::where('resis.is_deleted', '=', 0)
+        ->select(DB::raw('NVL(COUNT(pengiriman_customers.waktu_sampai_kantor), 0) as countResi'), DB::raw("date_format(resis.created_at, '%M-%Y') as date"))
+        ->leftjoin('d_pengiriman_customers', 'resis.id', '=', 'd_pengiriman_customers.resi_id')
+        ->leftjoin('pengiriman_customers', function ($q) {
+            $q->on('d_pengiriman_customers.pengiriman_customer_id', '=', 'pengiriman_customers.id');
+            $q->where('pengiriman_customers.menuju_penerima', 1);
+            $q->whereNotNull('waktu_sampai_kantor');
+        })
+        ->whereDate('resis.created_at', '>=', now()->subYear())
         ->groupBy(DB::raw("date_format(resis.created_at, '%M-%Y')"))
         ->get()
         ;
 
-        $resiCancelTahunanQuery = Resi::getAll()
-        ->select(DB::raw('SUM(IF(resis.verifikasi, 0, 1)) as countResi'), DB::raw("date_format(resis.created_at, '%M-%Y') as date"))
-        ->whereDate('created_at', '>=', now()->subYear())
-        ->where('created_at', '<=', now()->subMinutes(30))
+        //dd($resiSelesaiTahunanQuery);
+
+        $resiCancelTahunanQuery = Resi::select(DB::raw('SUM(IF(resis.status_verifikasi_email, 0, 1)) as countResi'), DB::raw("date_format(resis.created_at, '%M-%Y') as date"))
+        ->where(function($q) {
+            $q->whereDate('created_at', '>=', now()->subYear());
+            $q->where('created_at', '<=', now()->subMinutes(30));
+        })
+        ->orWhere('is_deleted', 1)
         ->groupBy(DB::raw("date_format(resis.created_at, '%M-%Y')"))
         ->get()
         ;
+
+        //dd($resiCancelTahunanQuery);
+
+        // $resiTerverifikasiTahunanQuery = Resi::getAll()
+        // ->select(DB::raw('SUM(resis.verifikasi) as countResi'), DB::raw("date_format(resis.created_at, '%M-%Y') as date"))
+        // ->whereDate('created_at', '>=', now()->subYear())
+        // ->groupBy(DB::raw("date_format(resis.created_at, '%M-%Y')"))
+        // ->get()
+        // ;
+
+        // $resiCancelTahunanQuery = Resi::getAll()
+        // ->select(DB::raw('SUM(IF(resis.verifikasi, 0, 1)) as countResi'), DB::raw("date_format(resis.created_at, '%M-%Y') as date"))
+        // ->whereDate('created_at', '>=', now()->subYear())
+        // ->where('created_at', '<=', now()->subMinutes(30))
+        // ->groupBy(DB::raw("date_format(resis.created_at, '%M-%Y')"))
+        // ->get()
+        // ;
 
         //dd($resiCancelTahunanQuery[0]->date);
 
         //ini variabel yang dipassing nanti
         $resiTerbentukTahunan = [];
-        $resiTerverifikasiTahunan = [];
+        $resiProsesTahunan = [];
         $resiCancelTahunan = [];
+        $resiSelesaiTahunan = [];
 
         //ngisi yang kosong-kosong
         $index = 0;
@@ -180,8 +238,11 @@ class AdminController extends Controller
                 if ($dateResi == $dateSub) {
                     //disini artinya ketemu
                     $resiTerbentukTahunan[] = $resiTerbentukTahunanQuery[$index]->countResi;
-                    $resiTerverifikasiTahunan[] = intval($resiTerverifikasiTahunanQuery[$index]->countResi);
+                    $resiSelesaiTahunan[] = intval($resiSelesaiTahunanQuery[$index]->countResi);
                     $resiCancelTahunan[] = intval($resiCancelTahunanQuery[$index]->countResi);
+                    $resiProsesTahunan[] = intval($resiTerbentukTahunanQuery[$index]->countResi) -
+                    intval($resiSelesaiTahunanQuery[$index]->countResi) -
+                    intval($resiCancelTahunanQuery[$index]->countResi);
                     
                     $index++;
                     continue;
@@ -189,8 +250,9 @@ class AdminController extends Controller
             } 
             //artinya hari itu gada resi
             $resiTerbentukTahunan[] = 0;
-            $resiTerverifikasiTahunan[] = 0;
+            $resiProsesTahunan[] = 0;
             $resiCancelTahunan[] = 0;
+            $resiSelesaiTahunan[] = 0;
         }
 
         //dd($resiTerverifikasiMingguan);
@@ -202,12 +264,39 @@ class AdminController extends Controller
 
         //dd($resiTerbentukTahunan);
 
+        // /dd($resiCancelBulanan)
+
+        //REPORT MISC
+
+        $jumlahKantorCabang = Kantor::getAll()->where('is_warehouse', 0)->count();
+        $jumlahKantorWarehouse = Kantor::getAll()->where('is_warehouse', 1)->count();
+
         return view('master.index', compact('resiTerbentukMingguan', 'resiTerbentukMingguanLabel', 
-        'resiTerverifikasiMingguan', 'resiCancelMingguan', 'resiTerbentukBulananLabel',
-        'resiTerbentukBulanan', 'resiTerverifikasiBulanan', 'resiCancelBulanan', 'resiTerbentukTahunanLabel',
-        'resiTerbentukTahunan', 'resiTerverifikasiTahunan', 'resiCancelTahunan'));
+        'resiSelesaiMingguan', 'resiCancelMingguan', 'resiProsesMingguan', 'resiTerbentukBulananLabel',
+        'resiTerbentukBulanan', 'resiSelesaiBulanan', 'resiProsesBulanan', 'resiCancelBulanan', 'resiTerbentukTahunanLabel',
+        'resiTerbentukTahunan', 'resiProsesTahunan', 'resiCancelTahunan', 'resiSelesaiTahunan',
+        'jumlahKantorCabang', 'jumlahKantorWarehouse'));
 
 
+    }
+
+    public function reportpendapatan() {
+        $kotas = Kota::getAll()->get();
+
+        return view('master.reports.reportpendapatan', compact('kotas'));
+    }
+
+    public function getKantors(Request $request) {
+        $request = $request->all();
+        $kota = Kota::findOrFail($request['kota']);
+        $kantors = $kota->kantor;
+
+        $s = "";
+        foreach ($kantors as $k) {
+            $s .= '<option class="form-control" value="'.$k->id.'">'.$k->alamat.'</option>';
+        }
+
+        return $s;
     }
 
     public function waktuPesanan(){

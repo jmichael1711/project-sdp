@@ -22,53 +22,38 @@ Page ini untuk menampilkan report-report penting
             Session::forget('success-kantor');
         @endphp
     @endif
-    {{-- <div class="row">
-        <div class="col-md-6 col-xl-4">
-            <div class="card mb-3 widget-content">
+    <div class="row">
+        <div class="col-md-6 col-xl-6">
+            <div class="card mb-3 widget-content bg-midnight-bloom">
                 <div class="widget-content-outer">
-                    <div class="widget-content-wrapper">
+                    <div class="widget-content-wrapper text-white">
                         <div class="widget-content-left">
-                            <div class="widget-heading">Resi yang terbentuk hari ini</div>
-                            <div class="widget-subheading"></div>
+                            <div class="widget-heading  ">Jumlah Kantor Cabang</div>
+                            <div class="widget-subheading">Jumlah di seluruh Jawa Timur</div>
                         </div>
                         <div class="widget-content-right">
-                            <div class="widget-numbers text-success">{{$resiHariIni}}</div>
+                            <div class="widget-numbers">{{$jumlahKantorCabang}}</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-xl-4">
-            <div class="card mb-3 widget-content">
+        <div class="col-md-6 col-xl-6">
+            <div class="card mb-3 widget-content bg-grow-early">
                 <div class="widget-content-outer">
-                    <div class="widget-content-wrapper">
+                    <div class="widget-content-wrapper text-white">
                         <div class="widget-content-left">
-                            <div class="widget-heading">Resi yang terverifikasi hari ini</div>
-                            <div class="widget-subheading"></div>
+                            <div class="widget-heading">Jumlah Kantor Warehouse</div>
+                            <div class="widget-subheading">Jumlah di seluruh Jawa Timur</div>
                         </div>
                         <div class="widget-content-right">
-                            <div class="widget-numbers text-warning">{{$resiVerifikasi}}</div>
+                            <div class="widget-numbers text-white">{{$jumlahKantorWarehouse}}</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-xl-4">
-            <div class="card mb-3 widget-content">
-                <div class="widget-content-outer">
-                    <div class="widget-content-wrapper">
-                        <div class="widget-content-left">
-                            <div class="widget-heading">Resi yang tercancel hari ini</div>
-                            <div class="widget-subheading"></div>
-                        </div>
-                        <div class="widget-content-right">
-                            <div class="widget-numbers text-danger">{{$resiCancel}}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
+    </div>
     <div class="col-md-12 col-lg-12">
         <div class="mb-3 card">
             <div class="card-header-tab card-header">
@@ -105,11 +90,20 @@ Page ini untuk menampilkan report-report penting
                             <canvas id="report-resi-mingguan"></canvas>
                         </div>
                         <div class="widget-chart-content text-center mt-5">
-                            <div class="widget-description mt-0 text-warning">
-                                <i class="fa fa-arrow-left"></i>
-                                <span class="pl-1">175.5%</span>
-                                <span class="text-muted opacity-8 pl-1">increased server resources</span>
-                            </div>
+                            <span class="widget-description mt-0 text-warning">
+                                <i class="fa fa-arrow-right"></i>
+                                <span class="pl-1">{{array_sum($resiProsesMingguan)}}</span>
+                                <span class="text-muted opacity-8 pl-1">Dalam Proses</span>
+                            </span>
+                            <span class="widget-description mt-0 text-success">
+                                <i class="fa fa-arrow-right"></i>
+                                <span class="pl-1">{{array_sum($resiSelesaiMingguan)}}</span>
+                                <span class="text-muted opacity-8 pl-1">Selesai</span>
+                            <span class="widget-description mt-0 text-danger">
+                                <i class="fa fa-arrow-right"></i>
+                                <span class="pl-1">{{array_sum($resiCancelMingguan)}}</span>
+                                <span class="text-muted opacity-8 pl-1">Cancel</span>
+                            </span>
                         </div>
                     </div>
                     <div class="pt-2 card-body">
@@ -119,15 +113,20 @@ Page ini untuk menampilkan report-report penting
                                     <div class="widget-content-outer">
                                         <div class="widget-content-wrapper">
                                             <div class="widget-content-left">
-                                                <div class="widget-numbers fsize-3 text-muted">63%</div>
+                                                <div class="widget-numbers fsize-3 text-muted">{{array_sum($resiTerbentukMingguan) == 0 ? 0 : 
+                                                round(array_sum($resiProsesMingguan) * 100 /
+                                                array_sum($resiTerbentukMingguan))}}%</div>
                                             </div>
                                             <div class="widget-content-right">
-                                                <div class="text-muted opacity-6">Generated Leads</div>
+                                                <div class="text-muted opacity-6">Proses</div>
                                             </div>
                                         </div>
                                         <div class="widget-progress-wrapper mt-1">
                                             <div class="progress-bar-sm progress-bar-animated-alt progress">
-                                                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100" style="width: 63%;"></div>
+                                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="63" 
+                                                aria-valuemin="0" aria-valuemax="100" style="width: {{array_sum($resiTerbentukMingguan) == 0 ? 0 : 
+                                                array_sum($resiProsesMingguan) * 100 /
+                                                    array_sum($resiTerbentukMingguan)}}%;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -138,15 +137,44 @@ Page ini untuk menampilkan report-report penting
                                     <div class="widget-content-outer">
                                         <div class="widget-content-wrapper">
                                             <div class="widget-content-left">
-                                                <div class="widget-numbers fsize-3 text-muted">71%</div>
+                                                <div class="widget-numbers fsize-3 text-muted">{{array_sum($resiTerbentukMingguan) == 0 ? 0 : 
+                                                round(array_sum($resiSelesaiMingguan) * 100 /
+                                                array_sum($resiTerbentukMingguan))}}%</div>
                                             </div>
                                             <div class="widget-content-right">
-                                                <div class="text-muted opacity-6">Server Allocation</div>
+                                                <div class="text-muted opacity-6">Selesai</div>
                                             </div>
                                         </div>
                                         <div class="widget-progress-wrapper mt-1">
                                             <div class="progress-bar-sm progress-bar-animated-alt progress">
-                                                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100" style="width: 71%;"></div>
+                                                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="63" 
+                                                aria-valuemin="0" aria-valuemax="100" style="width: {{array_sum($resiTerbentukMingguan) == 0 ? 0 : 
+                                                array_sum($resiSelesaiMingguan) * 100 /
+                                                    array_sum($resiTerbentukMingguan)}}%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="widget-content">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-numbers fsize-3 text-muted">{{array_sum($resiTerbentukMingguan) == 0 ? 0 : 
+                                                round(array_sum($resiCancelMingguan) * 100 /
+                                                array_sum($resiTerbentukMingguan))}}%</div>
+                                            </div>
+                                            <div class="widget-content-right">
+                                                <div class="text-muted opacity-6">Cancel</div>
+                                            </div>
+                                        </div>
+                                        <div class="widget-progress-wrapper mt-1">
+                                            <div class="progress-bar-sm progress-bar-animated-alt progress">
+                                                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="63" 
+                                                aria-valuemin="0" aria-valuemax="100" style="width: {{array_sum($resiTerbentukMingguan) == 0 ? 0 : 
+                                                array_sum($resiCancelMingguan) * 100 /
+                                                    array_sum($resiTerbentukMingguan)}}%;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -161,11 +189,20 @@ Page ini untuk menampilkan report-report penting
                             <canvas id="report-resi-bulanan"></canvas>
                         </div>
                         <div class="widget-chart-content text-center mt-5">
-                            <div class="widget-description mt-0 text-warning">
-                                <i class="fa fa-arrow-left"></i>
-                                <span class="pl-1">175.5%</span>
-                                <span class="text-muted opacity-8 pl-1">WOY server resources</span>
-                            </div>
+                            <span class="widget-description mt-0 text-warning">
+                                <i class="fa fa-arrow-right"></i>
+                                <span class="pl-1">{{array_sum($resiProsesBulanan)}}</span>
+                                <span class="text-muted opacity-8 pl-1">Dalam Proses</span>
+                            </span>
+                            <span class="widget-description mt-0 text-success">
+                                <i class="fa fa-arrow-right"></i>
+                                <span class="pl-1">{{array_sum($resiSelesaiBulanan)}}</span>
+                                <span class="text-muted opacity-8 pl-1">Selesai</span>
+                            <span class="widget-description mt-0 text-danger">
+                                <i class="fa fa-arrow-right"></i>
+                                <span class="pl-1">{{array_sum($resiCancelBulanan)}}</span>
+                                <span class="text-muted opacity-8 pl-1">Cancel</span>
+                            </span>
                         </div>
                     </div>
                     <div class="pt-2 card-body">
@@ -175,15 +212,20 @@ Page ini untuk menampilkan report-report penting
                                     <div class="widget-content-outer">
                                         <div class="widget-content-wrapper">
                                             <div class="widget-content-left">
-                                                <div class="widget-numbers fsize-3 text-muted">63%</div>
+                                                <div class="widget-numbers fsize-3 text-muted">{{array_sum($resiTerbentukBulanan) == 0 ? 0 : 
+                                                round(array_sum($resiProsesBulanan) * 100 /
+                                                array_sum($resiTerbentukBulanan))}}%</div>
                                             </div>
                                             <div class="widget-content-right">
-                                                <div class="text-muted opacity-6">Generated Leads</div>
+                                                <div class="text-muted opacity-6">Proses</div>
                                             </div>
                                         </div>
                                         <div class="widget-progress-wrapper mt-1">
                                             <div class="progress-bar-sm progress-bar-animated-alt progress">
-                                                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100" style="width: 63%;"></div>
+                                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="63" 
+                                                aria-valuemin="0" aria-valuemax="100" style="width: {{array_sum($resiTerbentukBulanan) == 0 ? 0 : 
+                                                array_sum($resiProsesBulanan) * 100 /
+                                                    array_sum($resiTerbentukBulanan)}}%;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -194,15 +236,44 @@ Page ini untuk menampilkan report-report penting
                                     <div class="widget-content-outer">
                                         <div class="widget-content-wrapper">
                                             <div class="widget-content-left">
-                                                <div class="widget-numbers fsize-3 text-muted">71%</div>
+                                                <div class="widget-numbers fsize-3 text-muted">{{array_sum($resiTerbentukBulanan) == 0 ? 0 : 
+                                                round(array_sum($resiSelesaiBulanan) * 100 /
+                                                array_sum($resiTerbentukBulanan))}}%</div>
                                             </div>
                                             <div class="widget-content-right">
-                                                <div class="text-muted opacity-6">Server Allocation</div>
+                                                <div class="text-muted opacity-6">Selesai</div>
                                             </div>
                                         </div>
                                         <div class="widget-progress-wrapper mt-1">
                                             <div class="progress-bar-sm progress-bar-animated-alt progress">
-                                                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100" style="width: 71%;"></div>
+                                                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="63" 
+                                                aria-valuemin="0" aria-valuemax="100" style="width: {{array_sum($resiTerbentukBulanan) == 0 ? 0 : 
+                                                array_sum($resiSelesaiBulanan) * 100 /
+                                                    array_sum($resiTerbentukBulanan)}}%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="widget-content">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-numbers fsize-3 text-muted">{{array_sum($resiTerbentukBulanan) == 0 ? 0 : 
+                                                round(array_sum($resiCancelBulanan) * 100 /
+                                                array_sum($resiTerbentukBulanan))}}%</div>
+                                            </div>
+                                            <div class="widget-content-right">
+                                                <div class="text-muted opacity-6">Cancel</div>
+                                            </div>
+                                        </div>
+                                        <div class="widget-progress-wrapper mt-1">
+                                            <div class="progress-bar-sm progress-bar-animated-alt progress">
+                                                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="63" 
+                                                aria-valuemin="0" aria-valuemax="100" style="width: {{array_sum($resiTerbentukBulanan) == 0 ? 0 : 
+                                                array_sum($resiCancelBulanan) * 100 /
+                                                    array_sum($resiTerbentukBulanan)}}%;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -217,11 +288,20 @@ Page ini untuk menampilkan report-report penting
                             <canvas id="report-resi-tahunan"></canvas>
                         </div>
                         <div class="widget-chart-content text-center mt-5">
-                            <div class="widget-description mt-0 text-warning">
-                                <i class="fa fa-arrow-left"></i>
-                                <span class="pl-1">175.5%</span>
-                                <span class="text-muted opacity-8 pl-1">WOY server resources</span>
-                            </div>
+                            <span class="widget-description mt-0 text-warning">
+                                <i class="fa fa-arrow-right"></i>
+                                <span class="pl-1">{{array_sum($resiProsesTahunan)}}</span>
+                                <span class="text-muted opacity-8 pl-1">Dalam Proses</span>
+                            </span>
+                            <span class="widget-description mt-0 text-success">
+                                <i class="fa fa-arrow-right"></i>
+                                <span class="pl-1">{{array_sum($resiSelesaiTahunan)}}</span>
+                                <span class="text-muted opacity-8 pl-1">Selesai</span>
+                            <span class="widget-description mt-0 text-danger">
+                                <i class="fa fa-arrow-right"></i>
+                                <span class="pl-1">{{array_sum($resiCancelTahunan)}}</span>
+                                <span class="text-muted opacity-8 pl-1">Cancel</span>
+                            </span>
                         </div>
                     </div>
                     <div class="pt-2 card-body">
@@ -231,15 +311,20 @@ Page ini untuk menampilkan report-report penting
                                     <div class="widget-content-outer">
                                         <div class="widget-content-wrapper">
                                             <div class="widget-content-left">
-                                                <div class="widget-numbers fsize-3 text-muted">63%</div>
+                                                <div class="widget-numbers fsize-3 text-muted">{{array_sum($resiTerbentukTahunan) == 0 ? 0 : 
+                                                round(array_sum($resiProsesTahunan) * 100 /
+                                                array_sum($resiTerbentukTahunan))}}%</div>
                                             </div>
                                             <div class="widget-content-right">
-                                                <div class="text-muted opacity-6">Generated Leads</div>
+                                                <div class="text-muted opacity-6">Proses</div>
                                             </div>
                                         </div>
                                         <div class="widget-progress-wrapper mt-1">
                                             <div class="progress-bar-sm progress-bar-animated-alt progress">
-                                                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100" style="width: 63%;"></div>
+                                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="63" 
+                                                aria-valuemin="0" aria-valuemax="100" style="width: {{array_sum($resiTerbentukTahunan) == 0 ? 0 : 
+                                                array_sum($resiProsesTahunan) * 100 /
+                                                    array_sum($resiTerbentukTahunan)}}%;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -250,15 +335,44 @@ Page ini untuk menampilkan report-report penting
                                     <div class="widget-content-outer">
                                         <div class="widget-content-wrapper">
                                             <div class="widget-content-left">
-                                                <div class="widget-numbers fsize-3 text-muted">71%</div>
+                                                <div class="widget-numbers fsize-3 text-muted">{{array_sum($resiTerbentukTahunan) == 0 ? 0 : 
+                                                round(array_sum($resiSelesaiTahunan) * 100 /
+                                                array_sum($resiTerbentukTahunan))}}%</div>
                                             </div>
                                             <div class="widget-content-right">
-                                                <div class="text-muted opacity-6">Server Allocation</div>
+                                                <div class="text-muted opacity-6">Selesai</div>
                                             </div>
                                         </div>
                                         <div class="widget-progress-wrapper mt-1">
                                             <div class="progress-bar-sm progress-bar-animated-alt progress">
-                                                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="71" aria-valuemin="0" aria-valuemax="100" style="width: 71%;"></div>
+                                                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="63" 
+                                                aria-valuemin="0" aria-valuemax="100" style="width: {{array_sum($resiTerbentukTahunan) == 0 ? 0 : 
+                                                array_sum($resiSelesaiTahunan) * 100 /
+                                                    array_sum($resiTerbentukTahunan)}}%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="widget-content">
+                                    <div class="widget-content-outer">
+                                        <div class="widget-content-wrapper">
+                                            <div class="widget-content-left">
+                                                <div class="widget-numbers fsize-3 text-muted">{{array_sum($resiTerbentukTahunan) == 0 ? 0 : 
+                                                round(array_sum($resiCancelTahunan) * 100 /
+                                                array_sum($resiTerbentukTahunan))}}%</div>
+                                            </div>
+                                            <div class="widget-content-right">
+                                                <div class="text-muted opacity-6">Cancel</div>
+                                            </div>
+                                        </div>
+                                        <div class="widget-progress-wrapper mt-1">
+                                            <div class="progress-bar-sm progress-bar-animated-alt progress">
+                                                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="63" 
+                                                aria-valuemin="0" aria-valuemax="100" style="width: {{array_sum($resiTerbentukTahunan) == 0 ? 0 : 
+                                                array_sum($resiCancelTahunan) * 100 /
+                                                    array_sum($resiTerbentukTahunan)}}%;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -292,19 +406,19 @@ var reportResiTahunanLabel = @json($resiTerbentukTahunanLabel)
 var reportResiMingguanData = {
     labels: reportResiMingguanLabel,
     datasets: [{
-        label: 'Jumlah Resi terbuat',
+        label: 'Jumlah Resi Dalam Proses',
         borderColor: window.chartColors.yellow,
         backgroundColor: window.chartColors.yellow,
         fill: false,
-        data: @json($resiTerbentukMingguan),
+        data: @json($resiProsesMingguan),
         yAxisID: 'y-axis-1',
         cubicInterpolationMode: 'monotone'
     }, {
-        label: 'Jumlah Resi terverifikasi',
-        borderColor: window.chartColors.blue,
-        backgroundColor: window.chartColors.blue,
+        label: 'Jumlah Resi Selesai',
+        borderColor: window.chartColors.green,
+        backgroundColor: window.chartColors.green,
         fill: false,
-        data: @json($resiTerverifikasiMingguan),
+        data: @json($resiSelesaiMingguan),
         yAxisID: 'y-axis-1',
         cubicInterpolationMode: 'monotone'
     }, {
@@ -322,19 +436,19 @@ var reportResiMingguanData = {
 var reportResiBulananData = {
     labels: reportResiBulananLabel,
     datasets: [{
-        label: 'Jumlah Resi terbuat',
+        label: 'Jumlah Resi Dalam Proses',
         borderColor: window.chartColors.yellow,
         backgroundColor: window.chartColors.yellow,
         fill: false,
-        data: @json($resiTerbentukBulanan),
+        data: @json($resiProsesBulanan),
         yAxisID: 'y-axis-1',
         cubicInterpolationMode: 'monotone'
     }, {
-        label: 'Jumlah Resi terverifikasi',
-        borderColor: window.chartColors.blue,
-        backgroundColor: window.chartColors.blue,
+        label: 'Jumlah Resi Selesai',
+        borderColor: window.chartColors.green,
+        backgroundColor: window.chartColors.green,
         fill: false,
-        data: @json($resiTerverifikasiBulanan),
+        data: @json($resiSelesaiBulanan),
         yAxisID: 'y-axis-1',
         cubicInterpolationMode: 'monotone'
     }, {
@@ -351,18 +465,18 @@ var reportResiBulananData = {
 var reportResiTahunanData = {
     labels: reportResiTahunanLabel,
     datasets: [{
-        label: 'Jumlah Resi terbuat',
+        label: 'Jumlah Resi Dalam Proses',
         borderColor: window.chartColors.yellow,
         backgroundColor: window.chartColors.yellow,
         fill: false,
-        data: @json($resiTerbentukTahunan),
+        data: @json($resiProsesTahunan),
         yAxisID: 'y-axis-1',
     }, {
-        label: 'Jumlah Resi terverifikasi',
-        borderColor: window.chartColors.blue,
-        backgroundColor: window.chartColors.blue,
+        label: 'Jumlah Resi Selesai',
+        borderColor: window.chartColors.green,
+        backgroundColor: window.chartColors.green,
         fill: false,
-        data: @json($resiTerverifikasiTahunan),
+        data: @json($resiSelesaiTahunan),
         yAxisID: 'y-axis-1'
     }, {
         label: 'Jumlah Resi tercancel',
@@ -382,7 +496,7 @@ window.myLine = Chart.Line(reportResiMingguan, {
         stacked: false,
         title: {
             display: true,
-            text: 'Grafik Resi 1 Minggu Terakhir'
+            text: 'Grafik Resi yang terbuat 1 Minggu Terakhir'
         },
         scales: {
             yAxes: [{
@@ -403,7 +517,7 @@ window.myLine = Chart.Line(reportResiBulanan, {
         stacked: false,
         title: {
             display: true,
-            text: 'Grafik Resi 1 Bulan Terakhir'
+            text: 'Grafik Resi yang terbuat 1 Bulan Terakhir'
         },
         scales: {
             yAxes: [{
@@ -424,7 +538,7 @@ window.myLine = Chart.Line(reportResiTahunan, {
         stacked: false,
         title: {
             display: true,
-            text: 'Grafik Resi 1 Tahun Terakhir'
+            text: 'Grafik Resi yang terbuat 1 Tahun Terakhir'
         },
         scales: {
             yAxes: [{

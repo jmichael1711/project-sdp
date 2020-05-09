@@ -186,7 +186,8 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
 
     //ADMIN - Report
     Route::get('/admin/reports/waktuPesanan', 'AdminController@waktuPesanan');
-    Route::post('/admin/reports/getKantor', 'AdminController@waktuPesanan');
+    Route::get('/admin/reports/reportpendapatan', 'AdminController@reportpendapatan');
+    Route::post('/admin/reports/carikantor', 'AdminController@getKantors');
 });
 
 //INSIDE KASIR GROUP
