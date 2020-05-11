@@ -32,7 +32,7 @@ class Kota extends Model
     }
 
     public static function getAll(){
-        return Kota::where('is_deleted',0);
+        return Kota::where('is_deleted',0)->has('kantor');
     }
 
     public static function getAll2($nama){

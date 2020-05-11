@@ -490,9 +490,9 @@
                                 {{-- SIDEBAR - Report --}}
                                 <li class="app-sidebar__heading">REPORT</li>
                                 <li>
-                                    <a id="header-kendaraan" href="{{ url('/admin/kendaraan') }}">
-                                        <i class="metismenu-icon"></i>
-                                        Jangka Waktu Proses Pesanan
+                                    <a id="header-ProsesPesanan" href="{{ url('/admin/reports/waktuPesanan') }}">
+                                        <i class="metismenu-icon pe-7s-file"></i>
+                                        Jangka Waktu Pesanan Diproses
                                     </a>
                                 </li>
                                 <li>
@@ -503,7 +503,7 @@
                                 </li>
                                 <li>
                                     <a id="header-tambah-kendaraan" href="{{ url('/admin/kendaraan/create') }}">
-                                        <i class="metismenu-icon">
+                                        <i class="metismenu-icon pe-7s-file">
                                         </i>
                                         Intensitas Pesanan Kantor
                                     </a>

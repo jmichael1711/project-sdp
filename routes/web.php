@@ -23,7 +23,7 @@ use App\Kurir_non_customer;
 use App\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-
+use Carbon\Carbon;
 
 Route::get('/create', function () {
     $kantor['id'] = "aaaaa";
@@ -42,7 +42,10 @@ Route::post('/ghajd', function (Request $request) {
     Kantor::create($request);
 });
 
-Route::get('/try/{kantorId}/{tahun}', 'AdminController@reportpendapatanGetData');
+Route::get('/try', function () {
+    
+   
+});
 
 Route::get('/tryemail', function () {
     //EMAIL
@@ -138,7 +141,7 @@ Route::group(['middleware' => ['checkstatus:kurir']], function () {
 //INSIDE ADMIN GROUP
 Route::group(['middleware' => ['checkstatus:admin']], function () {
     //INDEX
-    Route::get('/admin', 'AdminController@dashboard');
+    // Route::get('/admin', 'AdminController@dashboard');
 
     //ADMIN - KANTOR
     Route::get('/admin/kantor', 'KantorController@index');
@@ -176,17 +179,20 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
      Route::get('/admin/kurir_customer/edit/{id}', 'kurir_customerController@edit');
      Route::post('/admin/kurir_customer/update/{id}', 'kurir_customerController@update');
 
-      //ADMIN - Kurir non customer
+    //ADMIN - Kurir non customer
     Route::get('/admin/kurir_noncustomer', 'kurir_noncustomerController@index');
     Route::get('/admin/kurir_noncustomer/create', 'kurir_noncustomerController@create');
     Route::post('/admin/kurir_noncustomer/store', 'kurir_noncustomerController@store');
     Route::get('/admin/kurir_noncustomer/edit/{id}', 'kurir_noncustomerController@edit');
     Route::post('/admin/kurir_noncustomer/update/{id}', 'kurir_noncustomerController@update');
 
+    //ADMIN - Report
+    Route::get('/admin/reports/waktuPesanan', 'AdminController@waktuPesanan');
     Route::get('/admin/reports/reportpendapatan', 'AdminController@reportpendapatan');
     Route::get('/admin/reports/carikantor', 'AdminController@getKantors');
     Route::get('/admin/reports/reportpendapatan/getdata', 'AdminController@reportpendapatanGetData');
     Route::get('/admin/reports/reportpendapatan/print/{kantorId}/{tahun}', 'AdminController@reportpendapatanPrint');
+    Route::post('/admin/reports/reportWaktuPesanan', 'AdminController@reportWaktuPesanan');
 });
 
 //INSIDE KASIR GROUP
