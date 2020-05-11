@@ -390,6 +390,7 @@ Page ini untuk menampilkan report-report penting
 @section('scripts')
 <script>
 $(document).ready(function () {
+    $("#header-dashboard").attr("class", "mm-active");
     $("#tab-report-resi-bulanan").removeClass("show active");
     $("#tab-report-resi-tahunan").removeClass("show active");
 })

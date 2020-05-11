@@ -51,7 +51,6 @@ class CustomerController extends Controller
 
         $request['id'] = Resi::getNextId();
         $request['verifikasi'] = 0;
-        $request['status_perjalanan'] = 'PERJALANAN';
         $request['kode_verifikasi_email'] = rand(1000, 9999) * 10000 + rand(1000, 9999);
         $request['status_verifikasi_email'] = 0;
 
@@ -171,6 +170,7 @@ class CustomerController extends Controller
         $page = 'none';
         if ($resi) {
             $resi->status_verifikasi_email = true;
+            $resi->status_perjalanan = 'PERJALANAN';
             $resi->save();
 
             $keterangan = "Email telah di-verifikasi, dan pesanan diproses oleh kantor.";

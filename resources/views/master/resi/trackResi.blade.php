@@ -106,7 +106,7 @@ Halaman ini untuk melacak resi.
     $(document).ready(function () {
         $("#upperlist-track-resi").addClass("mm-active");
         $("#btn-track-resi").attr("aria-expanded", "true");
-        $("#list-track-resi").attr("class", "mm-collapse mm-show");
+        $("#list-resi").attr("class", "mm-collapse mm-show");
         $("#header-track-resi").attr("class", "mm-active");
         
         if ('{{Session::has("success-failresi")}}'){

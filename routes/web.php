@@ -141,7 +141,7 @@ Route::group(['middleware' => ['checkstatus:kurir']], function () {
 //INSIDE ADMIN GROUP
 Route::group(['middleware' => ['checkstatus:admin']], function () {
     //INDEX
-    // Route::get('/admin', 'AdminController@dashboard');
+    Route::get('/admin', 'AdminController@dashboard');
 
     //ADMIN - KANTOR
     Route::get('/admin/kantor', 'KantorController@index');
