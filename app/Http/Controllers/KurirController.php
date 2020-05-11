@@ -76,6 +76,11 @@ class KurirController extends Controller
             }
         }
 
+        //set resi jadi selesai
+        $resi = Resi::findOrFail($resi_id);
+        $resi->status_perjalanan = 'SELESAI';
+        $resi->save();
+
         //TAMBAH TABEL HISTORY JGN LUPA
         //SET HISTORY PESANAN SAMPAI
         $kurir = Kurir_customer::findOrFail(Session::get('id'));

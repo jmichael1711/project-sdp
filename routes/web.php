@@ -187,7 +187,9 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     //ADMIN - Report
     Route::get('/admin/reports/waktuPesanan', 'AdminController@waktuPesanan');
     Route::get('/admin/reports/reportpendapatan', 'AdminController@reportpendapatan');
-    Route::post('/admin/reports/carikantor', 'AdminController@getKantors');
+    Route::get('/admin/reports/carikantor', 'AdminController@getKantors');
+    Route::get('/admin/reports/reportpendapatan/getdata', 'AdminController@reportpendapatanGetData');
+    Route::get('/admin/reports/reportpendapatan/print/{kantorId}/{tahun}', 'AdminController@reportpendapatanPrint');
     Route::post('/admin/reports/reportWaktuPesanan', 'AdminController@reportWaktuPesanan');
 
     Route::get('/admin/reports/intensitasPesanan', 'AdminController@intensitasPesanan');
@@ -209,6 +211,7 @@ Route::group(['middleware' => ['checkstatus:kasir']], function () {
     Route::post('/admin/resi/isiSejarah', 'ResiController@isiSejarah');
     Route::get('/admin/resi/trackingField/{id}', 'ResiController@trackingField');
     Route::get('/admin/resi/print/{id}', 'ResiController@print');
+    Route::get('/admin/resi/selesai/{id}', 'ResiController@selesai');
     
     //ADMING - BON MUAT
     Route::get('/admin/bonmuat/create', 'Bon_MuatController@create');

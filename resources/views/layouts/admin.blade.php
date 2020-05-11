@@ -487,17 +487,18 @@
                                     </ul>
                                 </li>
 
+                                
                                 {{-- SIDEBAR - Report --}}
                                 <li class="app-sidebar__heading">REPORT</li>
                                 <li>
                                     <a id="header-ProsesPesanan" href="{{ url('/admin/reports/waktuPesanan') }}">
-                                        <i class="metismenu-icon pe-7s-file"></i>
-                                        Jangka Waktu Pesanan Diproses
+                                        <i class="metismenu-icon pe-7s-clock"></i>
+                                        Proses Pesanan
                                     </a>
                                 </li>
                                 <li>
-                                    <a id="header-kendaraan" href="{{ url('/admin/kendaraan') }}">
-                                        <i class="metismenu-icon pe-7s-file"></i>
+                                    <a id="header-pendapatan" href="{{ url('/admin/reports/reportpendapatan') }}">
+                                        <i class="metismenu-icon pe-7s-wallet"></i>
                                         Pendapatan Kantor
                                     </a>
                                 </li>

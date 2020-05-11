@@ -9,6 +9,7 @@ use App\Resi;
 use App\Kota;
 use Illuminate\Support\Facades\DB;
 use App\Kantor;
+use Carbon\Carbon;
 use App\Pengiriman_customer;
 
 class AdminController extends Controller
@@ -280,7 +281,11 @@ class AdminController extends Controller
 
     public function reportpendapatan() {
         $kotas = Kota::getAll()->get();
-        return view('master.reports.reportpendapatan', compact('kotas'));
+        $tahun = now()->isoFormat('Y');
+        $labels = ['January', 'February', 'March', 'April', 'May', 'June', 
+        'July', 'August', 'September', 'October', 'November', 'December'];
+
+        return view('master.reports.reportpendapatan', compact('kotas', 'tahun', 'labels'));
     }
 
     public function getKantors(Request $request) {
@@ -319,6 +324,88 @@ class AdminController extends Controller
         return json_encode($returnData);
     }
 
+    public function reportpendapatanGetData(Request $req) {
+        $req = $req->all();
+        
+        $res = Resi::getAll()
+        ->select(DB::raw('SUM(harga) as sum'), 
+        DB::raw('COUNT(harga) as count'),
+        DB::raw("date_format(created_at, '%m') as date") )
+        ->where('kantor_asal_id', $req['idKantor'])
+        ->where('status_perjalanan', 'SELESAI')
+        ->whereRaw("date_format(created_at, '%Y') = ?", [$req['tahun']])
+        ->groupBy(DB::raw("date_format(created_at, '%M-%Y')"), DB::raw("date_format(created_at, '%m')"))
+        ->orderby(DB::raw("date_format(created_at, '%M-%Y')"), 'asc')
+        ->get()
+        ;
+        
+        $data = [];
+        for ($i = 0; $i < 12; $i++) {
+            $found = false;
+            foreach ($res as $r) {
+                if (intval($r->date) == $i+1) {
+                    $data[] = $r->toArray();
+                    $found = true;    
+                    break;
+                }
+            }
+            if (!$found) {
+                $obj = new \stdClass();
+                $obj->sum = 0;
+                $obj->count = 0;
+                $obj->date = $i+1;
+                $data[] = $obj;
+            }
+        }
+
+        return json_encode($data);
+    }
+
+    public function reportpendapatanPrint($idKantor, $tahun) {
+        $kantor = Kantor::findOrFail($idKantor);
+        $kota = $kantor->kota;
+
+        $res = Resi::getAll()
+        ->select(DB::raw('SUM(harga) as sum'), 
+        DB::raw('COUNT(harga) as count'),
+        DB::raw("date_format(created_at, '%m') as date") )
+        ->where('kantor_asal_id', $idKantor)
+        ->where('status_perjalanan', 'SELESAI')
+        ->whereRaw("date_format(created_at, '%Y') = ?", [$tahun])
+        ->groupBy(DB::raw("date_format(created_at, '%M-%Y')"), DB::raw("date_format(created_at, '%m')"))
+        ->orderby(DB::raw("date_format(created_at, '%M-%Y')"), 'asc')
+        ->get()
+        ;
+
+        $totalSum = 0;
+        
+        $data = [];
+        for ($i = 0; $i < 12; $i++) {
+            $found = false;
+            foreach ($res as $r) {
+                if (intval($r->date) == $i+1) {
+                    $data[] = $r->toArray();
+                    $totalSum += $r['sum'];
+                    $found = true;    
+                    break;
+                }
+            }
+            if (!$found) {
+                $obj = new \stdClass();
+                $obj->sum = 0;
+                $obj->count = 0;
+                $obj->date = $i+1;
+                $data[] =  json_decode(json_encode($obj), true);
+            }
+        }
+
+        $labels = ['January', 'February', 'March', 'April', 'May', 'June', 
+        'July', 'August', 'September', 'October', 'November', 'December'];
+
+
+        return view('master.reports.reportpendapatanprint', compact('data', 'kantor', 'kota', 'tahun', 'totalSum', 'labels'));
+    }
+    
     public function waktuPesanan(){
         $allKota = Kota::getAll()->get();
         return view('master.reports.waktuPesanan',compact('allKota'));

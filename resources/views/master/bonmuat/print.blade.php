@@ -128,7 +128,7 @@
                                     <img src="/images/TAE Logo.png" style="width:100%; max-width:300px;">
                                 </td>
                                 <td>
-                                    <h1> Bon Muat</h1>
+                                    <h1> Laporan Pendapatan</h1>
                                     <h4>{{$bonmuat->id}}</h4>
                                 </td>
                             </tr>

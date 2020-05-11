@@ -128,7 +128,7 @@ Halaman ini untuk menampilkan semua data resi.
                         </thead>
                         <tbody>
                             @foreach ($allResiSedangDiKantorIni as $i)
-                            <tr>
+                            <tr onclick='editResi("{{$i->id}}")'>
                                 <td>{{$i->id}}</td>
                                 <td>{{$i->alamat_asal}}, {{$i->kota_asal}}</td>
                                 <td>{{$i->alamat_tujuan}}, {{$i->kota_tujuan}}</td>
