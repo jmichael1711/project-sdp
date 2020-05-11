@@ -10,6 +10,7 @@ use App\Resi;
 use App\Kota;
 use App\Pegawai;
 use App\Pengiriman_customer;
+use App\Sejarah;
 
 class ResiController extends Controller
 {
@@ -203,6 +204,15 @@ class ResiController extends Controller
         $resi->status_perjalanan = "SELESAI";
         $resi->user_updated = Session::get('id');
         $resi->save();
+
+        $keterangan = "Penerima telah menerima barang";
+        $sejarah = [
+            'resi_id'=>$resi_id,
+            'keterangan'=>$keterangan,
+            'waktu'=>now()
+        ];
+        Sejarah::create($sejarah);
+
         $success = 'Resi ' . '"' . $id .  '"' . 'berhasil diubah.';
         Session::put('success-resi', $success);
         return redirect('/admin/resi');
