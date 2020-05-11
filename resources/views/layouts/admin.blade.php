@@ -492,7 +492,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a id="header-tambah-kendaraan" href="{{ url('/admin/kendaraan/create') }}">
+                                    <a id="header-intensitas-pesanan" href="{{ url('/admin/reports/intensitasPesanan') }}">
                                         <i class="metismenu-icon pe-7s-file">
                                         </i>
                                         Intensitas Pesanan Kantor

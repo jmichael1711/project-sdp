@@ -43,8 +43,6 @@ Route::post('/ghajd', function (Request $request) {
 });
 
 Route::get('/try', function () {
-    
-   
 });
 
 Route::get('/tryemail', function () {
@@ -193,6 +191,10 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::get('/admin/reports/reportpendapatan/getdata', 'AdminController@reportpendapatanGetData');
     Route::get('/admin/reports/reportpendapatan/print/{kantorId}/{tahun}', 'AdminController@reportpendapatanPrint');
     Route::post('/admin/reports/reportWaktuPesanan', 'AdminController@reportWaktuPesanan');
+
+    Route::get('/admin/reports/intensitasPesanan', 'AdminController@intensitasPesanan');
+    Route::post('/admin/reports/reportIntensitasPesanan', 'AdminController@reportIntensitasPesanan');
+    
 });
 
 //INSIDE KASIR GROUP
