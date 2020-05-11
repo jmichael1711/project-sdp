@@ -72,10 +72,11 @@ class ResiController extends Controller
 
         }
     
-        //untuk select resi yang sekarang posisi nya dikantor ini tetapi kantor asalnya bukan dari kantor ini
+        //untuk select resi yang sekarang posisi nya dikantor ini tetapi kantor asalnya bukan dari kantor ini dan status perjalanan nya masih perjalanan
         $allResiSedangDiKantorIni = Resi::getAll()
         ->where("kantor_sekarang_id","=",$user->kantor_id)
         ->where("kantor_asal_id","<>",$user->kantor_id)
+        ->where("status_perjalanan","=","PERJALANAN")
         ->get();
         //
 
@@ -93,8 +94,11 @@ class ResiController extends Controller
             $resi->harga = "Rp " . number_format($resi->harga, 2, ".", ",");
             $status = "";
             if($resi->status_perjalanan == "CANCEL" || $resi->status_perjalanan == "SELESAI"){$status = "disabled";}
+            $user = Pegawai::findOrFail(Session::get('id'));
+            $selesai = 0;
+            if($resi->status_perjalanan == "PERJALANAN" && $resi->kantor_sekarang != null && $user->kantor->kota == $resi->kantor_sekarang->kota) {$selesai = 1;}
             $allKota = Kota::getAll()->get();
-            return view('master.resi.edit',compact('resi','status','allKota'));
+            return view('master.resi.edit',compact('resi','status','allKota','selesai'));
         }
     }
 
@@ -193,5 +197,15 @@ class ResiController extends Controller
         return view('master.resi.print', compact('resi','user','harga'));
     }
 
+    public function selesai($id){
+        date_default_timezone_set("Asia/Jakarta");
+        $resi = Resi::find($id);
+        $resi->status_perjalanan = "SELESAI";
+        $resi->user_updated = Session::get('id');
+        $resi->save();
+        $success = 'Resi ' . '"' . $id .  '"' . 'berhasil diubah.';
+        Session::put('success-resi', $success);
+        return redirect('/admin/resi');
+    }
     
 }

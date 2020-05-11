@@ -73,4 +73,8 @@ class Resi extends Model
     public function getKotaTujuan() {
         return $this->belongsTo('App\Kota','kota_tujuan','nama');
     }
+
+    public function kantor_sekarang(){
+        return $this->belongsTo('App\Kantor','kantor_sekarang_id','id');
+    }
 }
