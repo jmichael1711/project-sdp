@@ -487,6 +487,7 @@
                                     </ul>
                                 </li>
 
+                                
                                 {{-- SIDEBAR - Report --}}
                                 <li class="app-sidebar__heading">REPORT</li>
                                 <li>

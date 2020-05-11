@@ -73,9 +73,9 @@ Halaman ini untuk melihat report rata-rata jangka waktu pesanan diproses oleh ka
                 var report = {
                 labels: kantor,
                 datasets: [{
-                    label: '',
-                    borderColor: window.chartColors.yellow,
-                    backgroundColor: window.chartColors.yellow,
+                    label: 'Rata-rata waktu',
+                    borderColor: window.chartColors.green,
+                    backgroundColor: window.chartColors.green,
                     fill: false,
                     data: values,
                     yAxisID: 'y-axis-1',
