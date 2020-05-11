@@ -189,7 +189,9 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     //ADMIN - Report
     Route::get('/admin/reports/waktuPesanan', 'AdminController@waktuPesanan');
     Route::get('/admin/reports/reportpendapatan', 'AdminController@reportpendapatan');
-    Route::post('/admin/reports/carikantor', 'AdminController@getKantors');
+    Route::get('/admin/reports/carikantor', 'AdminController@getKantors');
+    Route::get('/admin/reports/reportpendapatan/getdata', 'AdminController@reportpendapatanGetData');
+    Route::get('/admin/reports/reportpendapatan/print/{kantorId}/{tahun}', 'AdminController@reportpendapatanPrint');
     Route::post('/admin/reports/reportWaktuPesanan', 'AdminController@reportWaktuPesanan');
 });
 
