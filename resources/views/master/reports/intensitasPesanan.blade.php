@@ -1,15 +1,15 @@
 @extends('layouts.admin')
 
 @section('title-icon')
-<i class="pe-7s-clock icon-gradient bg-mean-fruit"></i>
+<i class="pe-7s-map-2 icon-gradient bg-mean-fruit"></i>
 @endsection
 
 @section('title')
-REPORT JANGKA WAKTU PESANAN DIPROSES
+    REPORT INTENSITAS PESANAN TIAP KANTOR
 @endsection
 
 @section('subtitle')
-Halaman ini untuk melihat report rata-rata jangka waktu pesanan diproses oleh kasir pada setiap kantor
+    Halaman ini untuk melihat report banyaknya resi yang telah terbentuk di kantor tertentu.
 @endsection
 
 @section('content')
@@ -31,34 +31,32 @@ Halaman ini untuk melihat report rata-rata jangka waktu pesanan diproses oleh ka
     </div>
 </div>
 
-{{-- REPORT --}}
-<div class="main-card mb-3 card">
-    <div class="card-body">
-        <div class="container">
-            <canvas id="chart"></canvas>
+<div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
+    <div class="main-card mb-3 card">
+        <div class="card-body">
+            <div class="container">
+                <canvas id="chart"></canvas>
+            </div>
         </div>
     </div>
 </div>
 @endsection
 
-
 @section('scripts')
 <script>
     $(document).ready(function () {
-        //UNTUK SIDEBAR
-        $("#upperlist-ProsesPesanan").addClass("mm-active");
-        $("#btn-ProsesPesanan").attr("aria-expanded", "true");
-        $("#list-ProsesPesanan").attr("class", "mm-collapse mm-show");
-        $("#header-ProsesPesanan").attr("class", "mm-active");
+        $("#app-sidebar__heading").addClass("mm-active");
+        $("#btn-intensitas-pesanan").attr("aria-expanded", "true");
+        $("#list-intensitas-pesanan").attr("class", "mm-collapse mm-show");
+        $("#header-intensitas-pesanan").attr("class", "mm-active");
+
     })
-
-
+    
     function generateReport(){
-
         var kota = $('#kota').val();
         $.ajax({
             method : "POST",
-            url : '/admin/reports/reportWaktuPesanan',
+            url : '/admin/reports/reportIntensitasPesanan',
             datatype : "json",
             data : { 
                 kota : kota, _token : "{{ csrf_token() }}" 
@@ -67,13 +65,15 @@ Halaman ini untuk melihat report rata-rata jangka waktu pesanan diproses oleh ka
                 var chart = document.getElementById('chart').getContext('2d');
                 var data = JSON.parse(result);
 
-                kantor = Object.keys(data);
-                values = Object.values(data);
+                kantor = data[0];
+                values = data[1];
+
+                console.log(kantor);
                 
                 var report = {
                 labels: kantor,
                 datasets: [{
-                    label: 'Rata-rata waktu',
+                    label: 'Jumlah Resi yang terbentuk',
                     borderColor: window.chartColors.green,
                     backgroundColor: window.chartColors.green,
                     fill: false,
@@ -92,7 +92,7 @@ Halaman ini untuk melihat report rata-rata jangka waktu pesanan diproses oleh ka
                         stacked: false,
                         title: {
                             display: true,
-                            text: 'Grafik rata-rata jangka waktu sebuah pesanan diproses dalam satuan menit'
+                            text: 'Grafik banyaknya resi yang terbentuk tiap kantor'
                         },
                         scales: {
                             yAxes: [{
@@ -110,7 +110,5 @@ Halaman ini untuk melihat report rata-rata jangka waktu pesanan diproses oleh ka
             }
         });
     }
-
-
 </script>
 @endsection

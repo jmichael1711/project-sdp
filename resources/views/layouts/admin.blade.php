@@ -232,17 +232,6 @@
                     <div class="scrollbar-sidebar">
                         <div class="app-sidebar__inner">
                             <ul class="vertical-nav-menu">
-                                @if (Session::has('loginstatus'))
-                                    @if (Session::get('loginstatus') != 3 && Session::get('loginstatus') != 4)
-                                <li class="app-sidebar__heading">Dashboards</li>
-                                <li>
-                                    <a id="header-dashboard" href="{{ url('/admin') }}">
-                                        <i class="metismenu-icon pe-7s-display2"></i>
-                                        Dashboard Page
-                                    </a>
-                                </li>
-                                    @endif
-                                @endif
                                 <li class="app-sidebar__heading">CUSTOMER</li>
 
                                 @if (Session::has('loginstatus'))
@@ -487,6 +476,7 @@
                                     </ul>
                                 </li>
 
+                                
                                 {{-- SIDEBAR - Report --}}
                                 <li class="app-sidebar__heading">REPORT</li>
                                 <li>
@@ -502,7 +492,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a id="header-tambah-kendaraan" href="{{ url('/admin/kendaraan/create') }}">
+                                    <a id="header-intensitas-pesanan" href="{{ url('/admin/reports/intensitasPesanan') }}">
                                         <i class="metismenu-icon pe-7s-file">
                                         </i>
                                         Intensitas Pesanan Kantor
