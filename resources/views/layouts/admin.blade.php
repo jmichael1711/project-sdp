@@ -496,7 +496,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a id="header-kendaraan" href="{{ url('/admin/kendaraan') }}">
+                                    <a id="header-kendaraan" href="{{ url('/admin/reports/reportpendapatan') }}">
                                         <i class="metismenu-icon"></i>
                                         Pendapatan Kantor
                                     </a>

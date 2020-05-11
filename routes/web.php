@@ -42,8 +42,7 @@ Route::post('/ghajd', function (Request $request) {
     Kantor::create($request);
 });
 
-Route::get('/try', function () {
-});
+Route::get('/try/{kantorId}/{tahun}', 'AdminController@reportpendapatanGetData');
 
 Route::get('/tryemail', function () {
     //EMAIL
@@ -185,7 +184,9 @@ Route::group(['middleware' => ['checkstatus:admin']], function () {
     Route::post('/admin/kurir_noncustomer/update/{id}', 'kurir_noncustomerController@update');
 
     Route::get('/admin/reports/reportpendapatan', 'AdminController@reportpendapatan');
-    Route::post('/admin/reports/carikantor', 'AdminController@getKantors');
+    Route::get('/admin/reports/carikantor', 'AdminController@getKantors');
+    Route::get('/admin/reports/reportpendapatan/getdata', 'AdminController@reportpendapatanGetData');
+    Route::get('/admin/reports/reportpendapatan/print/{kantorId}/{tahun}', 'AdminController@reportpendapatanPrint');
 });
 
 //INSIDE KASIR GROUP
