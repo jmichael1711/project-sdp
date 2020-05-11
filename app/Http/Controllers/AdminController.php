@@ -295,6 +295,30 @@ class AdminController extends Controller
         return $s;
     }
 
+    public function intensitasPesanan(){
+        $allKota = Kota::getAll()->get();
+        return view('master.reports.intensitasPesanan', compact('allKota'));
+    }
+
+    public function reportIntensitasPesanan(Request $request){
+        $kota = $request['kota'];
+
+        $returnData = array();
+        $key = array();
+        $data = array();
+        $allKantor = Kantor::getAll()->where('kota',$kota)->get();
+        foreach ($allKantor as $kantor) {
+            $count = count(Resi::getAll()->where('kantor_asal_id',$kantor['id'])->get());
+            $key[] = $kantor['id'];
+            $data[] = $count;
+        }
+
+        $returnData[] = $key;
+        $returnData[] = $data;
+        
+        return json_encode($returnData);
+    }
+
     public function waktuPesanan(){
         $allKota = Kota::getAll()->get();
         return view('master.reports.waktuPesanan',compact('allKota'));
