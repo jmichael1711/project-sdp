@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title-icon')
-<i class="pe-7s-file icon-gradient bg-mean-fruit"></i>
+<i class="pe-7s-clock icon-gradient bg-mean-fruit"></i>
 @endsection
 
 @section('title')
@@ -9,7 +9,7 @@ REPORT JANGKA WAKTU PESANAN DIPROSES
 @endsection
 
 @section('subtitle')
-Halaman ini untuk melihat report jangka waktu pesanan diproses oleh kasir
+Halaman ini untuk melihat report rata-rata jangka waktu pesanan diproses oleh kasir pada setiap kantor
 @endsection
 
 @section('content')
@@ -44,6 +44,15 @@ Halaman ini untuk melihat report jangka waktu pesanan diproses oleh kasir
 
 @section('scripts')
 <script>
+    $(document).ready(function () {
+        //UNTUK SIDEBAR
+        $("#upperlist-ProsesPesanan").addClass("mm-active");
+        $("#btn-ProsesPesanan").attr("aria-expanded", "true");
+        $("#list-ProsesPesanan").attr("class", "mm-collapse mm-show");
+        $("#header-ProsesPesanan").attr("class", "mm-active");
+    })
+
+
     function generateReport(){
 
         var kota = $('#kota').val();

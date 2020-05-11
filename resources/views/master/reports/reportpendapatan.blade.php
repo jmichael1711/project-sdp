@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title-icon')
-<i class="pe-7s-gift icon-gradient bg-mean-fruit"></i>
+<i class="pe-7s-wallet icon-gradient bg-mean-fruit"></i>
 @endsection
 
 @section('title')
@@ -94,10 +94,10 @@ Halaman ini untuk melihat report pendapatan per-tahun setiap kantor.
 <script>
     $(document).ready(function () {
         //UNTUK SIDEBAR
-        $("#upperlist-pengirimanCustomer").addClass("mm-active");
-        $("#btn-pengirimanCustomer").attr("aria-expanded", "true");
-        $("#list-pengirimanCustomer").attr("class", "mm-collapse mm-show");
-        $("#header-tambah-pengirimanCustomer").attr("class", "mm-active");
+        $("#upperlist-pendapatan").addClass("mm-active");
+        $("#btn-pendapatan").attr("aria-expanded", "true");
+        $("#list-pendapatan").attr("class", "mm-collapse mm-show");
+        $("#header-pendapatan").attr("class", "mm-active");
         isiKantor();
     })
 
