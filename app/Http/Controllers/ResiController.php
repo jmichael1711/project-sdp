@@ -209,7 +209,7 @@ class ResiController extends Controller
 
         $keterangan = "Penerima telah menerima barang";
         $sejarah = [
-            'resi_id'=>$resi_id,
+            'resi_id'=>$resi->id,
             'keterangan'=>$keterangan,
             'waktu'=>now()
         ];
@@ -219,5 +219,4 @@ class ResiController extends Controller
         Session::put('success-resi', $success);
         return redirect('/admin/resi');
     }
-    
 }
