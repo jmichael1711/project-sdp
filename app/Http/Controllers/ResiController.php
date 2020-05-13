@@ -97,7 +97,9 @@ class ResiController extends Controller
             if($resi->status_perjalanan == "CANCEL" || $resi->status_perjalanan == "SELESAI"){$status = "disabled";}
             $user = Pegawai::findOrFail(Session::get('id'));
             $selesai = 0;
-            if($resi->status_perjalanan == "PERJALANAN" && $resi->kantor_sekarang != null && $user->kantor->kota == $resi->kantor_sekarang->kota) {$selesai = 1;}
+            if($user->jabatan != "admin"){
+                if($resi->status_perjalanan == "PERJALANAN" && $resi->kantor_asal_id != $user->kantor_id && $resi->kantor_sekarang_id != null && $user->kantor->kota == $resi->kantor_sekarang->kota) {$selesai = 1;}
+            }else if($user->jabatan == "admin") $selesai = 1;
             $allKota = Kota::getAll()->get();
             return view('master.resi.edit',compact('resi','status','allKota','selesai'));
         }

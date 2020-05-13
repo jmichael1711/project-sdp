@@ -96,7 +96,7 @@ class Bon_MuatController extends Controller
             //untuk kasir
             if(Session::get('loginstatus') == 3){
                 $kantor = Session::get('pegawai')->kantor->id;
-                $allIncomingBonMuat = Bon_Muat::getAll()->where('kantor_asal_id',$kantor)->where('waktu_berangkat','<>',null)->get();
+                $allIncomingBonMuat = Bon_Muat::getAll()->where('kantor_tujuan_id',$kantor)->where('waktu_berangkat','<>',null)->get();
                 $allBonMuat = Bon_muat::where('kantor_asal_id',$kantor)->get();
             }
             //untuk admin dll
@@ -226,7 +226,7 @@ class Bon_MuatController extends Controller
 
     public function updateSuratJalan($id,Request $request){
         date_default_timezone_set("Asia/Jakarta");
-        $user = Session::get('id');
+        $user = Pegawai::findOrFail(Session::get('id'));
         $bonmuat = Bon_Muat::findOrFail($id);
         $resi = Resi::find($request["resi_id"]);
         if($resi == null){
@@ -236,16 +236,16 @@ class Bon_MuatController extends Controller
         }else{
             if($bonmuat->waktu_sampai == null){
                 $bonmuat->update(['waktu_sampai' => now()]);
-                $bonmuat->update(['user_updated' => $user]);  
+                $bonmuat->update(['user_updated' => $user->id]);  
             }
             $sampai =  $bonmuat->resis()->where("resi_id",$request["resi_id"])->first()->surat_jalan->telah_sampai;
             if($sampai == 0){
 
                 //update surat jalan
-                $bonmuat->update(['user_updated' => $user]); 
+                $bonmuat->update(['user_updated' => $user->id]); 
                 $bonmuat->resis()->updateExistingPivot($request["resi_id"],['telah_sampai' => 1]);
                 $bonmuat->resis()->updateExistingPivot($request["resi_id"],['waktu_sampai' => now()]);
-                $bonmuat->resis()->updateExistingPivot($request["resi_id"],['user_updated' => $user]);
+                $bonmuat->resis()->updateExistingPivot($request["resi_id"],['user_updated' => $user->id]);
                 //
 
                 //update posisi sekarang dari resi
