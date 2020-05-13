@@ -41,7 +41,7 @@ Halaman ini untuk menambah data resi.
                     <label class="">Nama Pengirim</label>
                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nama_pengirim"
-                    placeholder="NAMA PENGIRIM" type="text" class="form-control" required>
+                    placeholder="NAMA PENGIRIM" type="text" class="form-control" required maxlength="255">
                     <div class="invalid-feedback">Mohon input nama pengirim yang valid.</div>
                 </div>
             </div>
@@ -50,7 +50,7 @@ Halaman ini untuk menambah data resi.
                     <label class="">Nama Penerima</label>
                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nama_penerima"
-                    placeholder="NAMA PENERIMA" type="text" class="form-control" required>
+                    placeholder="NAMA PENERIMA" type="text" class="form-control" required maxlength="255">
                     <div class="invalid-feedback">Mohon input nama penerima yang valid.</div>
                 </div>
             </div>
@@ -59,7 +59,7 @@ Halaman ini untuk menambah data resi.
                     <label class="">Nomor Telepon Pengirim</label>
                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="no_telp_pengirim" 
-                    placeholder="NOMOR TELEPON PENGIRIM" type="text" class="form-control" required>
+                    placeholder="NOMOR TELEPON PENGIRIM" type="text" class="form-control" required maxlength="20">
                     <div class="invalid-feedback">
                         Mohon input nomor telepon pengirim yang valid.
                     </div>
@@ -70,7 +70,7 @@ Halaman ini untuk menambah data resi.
                     <label class="">Nomor Telepon Penerima</label>
                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="no_telp_penerima" 
-                    placeholder="NOMOR TELEPON PENERIMA" type="text" class="form-control" required>
+                    placeholder="NOMOR TELEPON PENERIMA" type="text" class="form-control" required maxlength="20">
                     <div class="invalid-feedback">
                         Mohon input nomor telepon penerima yang valid.
                     </div>
@@ -81,7 +81,7 @@ Halaman ini untuk menambah data resi.
                     <label class="">Email Pengirim</label>
                     <input oninput="let p = this.selectionStart; 
                     this.setSelectionRange(p, p);" name="email_pengirim" 
-                    placeholder="EMAIL PENGIRIM" type="email" class="form-control" required>
+                    placeholder="EMAIL PENGIRIM" type="email" class="form-control" required maxlength="255">
                     <div class="invalid-feedback">
                         Mohon input email pengirim yang valid.
                     </div>
@@ -92,7 +92,7 @@ Halaman ini untuk menambah data resi.
                     <label class="">Email Penerima</label>
                     <input oninput="let p = this.selectionStart;
                     this.setSelectionRange(p, p);"  name="email_penerima" 
-                    placeholder="EMAIL penerima" type="email" class="form-control" required>
+                    placeholder="EMAIL penerima" type="email" class="form-control" required maxlength="255">
                     <div class="invalid-feedback">
                         Mohon input email pengirim yang valid.
                     </div>
@@ -129,7 +129,7 @@ Halaman ini untuk menambah data resi.
                     <label class="">Alamat Pengirim</label>
                     <textarea style="resize: none;" rows="5" oninput="let p = this.selectionStart; 
                     this.setSelectionRange(p, p);" name="alamat_asal"
-                    placeholder="ALAMAT PENGIRIM" type="text" class="form-control" required></textarea>
+                    placeholder="ALAMAT PENGIRIM" type="text" class="form-control" required maxlength="255"></textarea>
                     <div class="invalid-feedback">
                         Mohon input alamat pengirim yang valid.
                     </div>
@@ -140,7 +140,7 @@ Halaman ini untuk menambah data resi.
                     <label class="">Alamat Penerima</label>
                     <textarea style="resize: none;" rows="5" oninput="let p = this.selectionStart;
                     this.setSelectionRange(p, p);" name="alamat_tujuan"
-                    placeholder="ALAMAT PENERIMA" type="text" class="form-control" required></textarea>
+                    placeholder="ALAMAT PENERIMA" type="text" class="form-control" required maxlength="255"></textarea>
                     <div class="invalid-feedback">
                         Mohon input alamat penerima yang valid.
                     </div>
@@ -151,7 +151,7 @@ Halaman ini untuk menambah data resi.
                     <label class="">Kodepos Pengirim</label>
                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="kode_pos_pengirim" 
-                    placeholder="KODEPOS PENGIRIM" type="number" class="form-control" required>
+                    placeholder="KODEPOS PENGIRIM" type="number" class="form-control" required type="number" max="99999" min="11111">
                     <div class="invalid-feedback">
                         Mohon input kodepos pengirim yang valid.
                     </div>
@@ -162,7 +162,7 @@ Halaman ini untuk menambah data resi.
                     <label class="">Kodepos Penerima</label>
                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="kode_pos_penerima" 
-                    placeholder="KODEPOS PENERIMA" type="number" class="form-control" required>
+                    placeholder="KODEPOS PENERIMA" type="number" class="form-control" required type="number" max="99999" min="11111">
                     <div class="invalid-feedback">
                         Mohon input kodepos penerima yang valid.
                     </div>
@@ -176,7 +176,7 @@ Halaman ini untuk menambah data resi.
                     <label class="">Keterangan</label>
                     <textarea style="resize: none;" rows="5" oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="keterangan"
-                    placeholder="KETERANGAN" type="text" class="form-control" required></textarea>
+                    placeholder="KETERANGAN" type="text" class="form-control" required maxlength="255"></textarea>
                     <div class="invalid-feedback">
                         Mohon input keterangan yang valid.
                     </div>

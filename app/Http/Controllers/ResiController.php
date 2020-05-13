@@ -99,7 +99,7 @@ class ResiController extends Controller
             $selesai = 0;
             if($user->jabatan != "admin"){
                 if($resi->status_perjalanan == "PERJALANAN" && $resi->kantor_asal_id != $user->kantor_id && $resi->kantor_sekarang_id != null && $user->kantor->kota == $resi->kantor_sekarang->kota) {$selesai = 1;}
-            }else if($user->jabatan == "admin") $selesai = 1;
+            }else if($user->jabatan == "admin" && $resi->status_perjalanan == "PERJALANAN") $selesai = 1;
             $allKota = Kota::getAll()->get();
             return view('master.resi.edit',compact('resi','status','allKota','selesai'));
         }

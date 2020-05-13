@@ -52,7 +52,7 @@ Halaman ini untuk mengubah data resi
                     <label class="">Nama Pengirim</label>
                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nama_pengirim"
-                    placeholder="NAMA PENGIRIM" type="text" class="form-control" required value="{{$resi->nama_pengirim}}">
+                    placeholder="NAMA PENGIRIM" type="text" class="form-control" required value="{{$resi->nama_pengirim}}" {{$status}}>
                     <div class="invalid-feedback">Mohon input nama pengirim yang valid.</div>
                 </div>
             </div>
@@ -61,7 +61,7 @@ Halaman ini untuk mengubah data resi
                     <label class="">Nama Penerima</label>
                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="nama_penerima"
-                    placeholder="NAMA PENERIMA" type="text" class="form-control" required value="{{$resi->nama_penerima}}">
+                    placeholder="NAMA PENERIMA" type="text" class="form-control" required value="{{$resi->nama_penerima}}" {{$status}}>
                     <div class="invalid-feedback">Mohon input nama penerima yang valid.</div>
                 </div>
             </div>
@@ -70,7 +70,7 @@ Halaman ini untuk mengubah data resi
                     <label class="">Nomor Telepon Pengirim</label>
                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="no_telp_pengirim" 
-                    placeholder="NOMOR TELEPON PENGIRIM" type="text" class="form-control" required value="{{$resi->no_telp_pengirim}}">
+                    placeholder="NOMOR TELEPON PENGIRIM" type="text" class="form-control" required value="{{$resi->no_telp_pengirim}}" {{$status}}>
                     <div class="invalid-feedback">
                         Mohon input nomor telepon pengirim yang valid.
                     </div>
@@ -81,7 +81,7 @@ Halaman ini untuk mengubah data resi
                     <label class="">Nomor Telepon Penerima</label>
                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="no_telp_penerima" 
-                    placeholder="NOMOR TELEPON PENERIMA" type="text" class="form-control" required value="{{$resi->no_telp_penerima}}">
+                    placeholder="NOMOR TELEPON PENERIMA" type="text" class="form-control" required value="{{$resi->no_telp_penerima}}" {{$status}}>
                     <div class="invalid-feedback">
                         Mohon input nomor telepon penerima yang valid.
                     </div>
@@ -92,7 +92,7 @@ Halaman ini untuk mengubah data resi
                     <label class="">Email Pengirim</label>
                     <input oninput="let p = this.selectionStart; 
                     this.setSelectionRange(p, p);" name="email_pengirim" 
-                    placeholder="EMAIL PENGIRIM" type="email" class="form-control" required value="{{$resi->email_pengirim}}">
+                    placeholder="EMAIL PENGIRIM" type="email" class="form-control" required value="{{$resi->email_pengirim}}" {{$status}}>
                     <div class="invalid-feedback">
                         Mohon input email pengirim yang valid.
                     </div>
@@ -103,7 +103,7 @@ Halaman ini untuk mengubah data resi
                     <label class="">Email Penerima</label>
                     <input oninput="let p = this.selectionStart;
                     this.setSelectionRange(p, p);"  name="email_penerima" 
-                    placeholder="EMAIL PENERIMA" type="email" class="form-control" required value="{{$resi->email_penerima}}">
+                    placeholder="EMAIL PENERIMA" type="email" class="form-control" required value="{{$resi->email_penerima}}" {{$status}}>
                     <div class="invalid-feedback">
                         Mohon input email pengirim yang valid.
                     </div>
@@ -112,7 +112,7 @@ Halaman ini untuk mengubah data resi
             <div class="col-md-5">
                 <div class="position-relative form-group">
                     <label class="">Kota Pengirim</label>
-                    <select id="kota_asal" name="kota_asal" class="form-control" required onchange="hitungHarga()">
+                    <select id="kota_asal" name="kota_asal" class="form-control" required onchange="hitungHarga()" {{$status}}>
                         @foreach ($allKota as $kota)
                             @if($resi->kota_asal == $kota->nama)
                             <option selected class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
@@ -129,7 +129,7 @@ Halaman ini untuk mengubah data resi
             <div class="col-md-5">
                 <div class="position-relative form-group">
                     <label class="">Kota Penerima</label>
-                    <select id="kota_tujuan" name="kota_tujuan" class="form-control" required onchange="hitungHarga()">
+                    <select id="kota_tujuan" name="kota_tujuan" class="form-control" required onchange="hitungHarga()" {{$status}}>
                         @foreach ($allKota as $kota)
                             @if($resi->kota_tujuan == $kota->nama)
                             <option selected class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
@@ -148,7 +148,7 @@ Halaman ini untuk mengubah data resi
                     <label class="">Alamat Pengirim</label>
                     <textarea style="resize: none;" rows="5" oninput="let p = this.selectionStart; 
                     this.setSelectionRange(p, p);" name="alamat_asal"
-                    placeholder="ALAMAT PENGIRIM" type="text" class="form-control" required>{{$resi->alamat_asal}}</textarea>
+                    placeholder="ALAMAT PENGIRIM" type="text" class="form-control" required {{$status}}>{{$resi->alamat_asal}}</textarea>
                     <div class="invalid-feedback">
                         Mohon input alamat pengirim yang valid.
                     </div>
@@ -159,7 +159,7 @@ Halaman ini untuk mengubah data resi
                     <label class="">Alamat Penerima</label>
                     <textarea style="resize: none;" rows="5" oninput="let p = this.selectionStart;
                     this.setSelectionRange(p, p);" name="alamat_tujuan"
-                    placeholder="ALAMAT PENERIMA" type="text" class="form-control" required>{{$resi->alamat_tujuan}}</textarea>
+                    placeholder="ALAMAT PENERIMA" type="text" class="form-control" required {{$status}}>{{$resi->alamat_tujuan}}</textarea>
                     <div class="invalid-feedback">
                         Mohon input alamat penerima yang valid.
                     </div>
@@ -170,7 +170,7 @@ Halaman ini untuk mengubah data resi
                     <label class="">Kodepos Pengirim</label>
                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="kode_pos_pengirim" 
-                    placeholder="KODEPOS PENGIRIM" type="number" class="form-control" required value="{{$resi->kode_pos_pengirim}}">
+                    placeholder="KODEPOS PENGIRIM" type="number" class="form-control" required value="{{$resi->kode_pos_pengirim}}" {{$status}}>
                     <div class="invalid-feedback">
                         Mohon input kodepos pengirim yang valid.
                     </div>
@@ -181,7 +181,7 @@ Halaman ini untuk mengubah data resi
                     <label class="">Kodepos Penerima</label>
                     <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="kode_pos_penerima" 
-                    placeholder="KODEPOS PENERIMA" type="number" class="form-control" required value="{{$resi->kode_pos_penerima}}">
+                    placeholder="KODEPOS PENERIMA" type="number" class="form-control" required value="{{$resi->kode_pos_penerima}}" {{$status}}>
                     <div class="invalid-feedback">
                         Mohon input kodepos penerima yang valid.
                     </div>
@@ -195,7 +195,7 @@ Halaman ini untuk mengubah data resi
                     <label class="">Keterangan</label>
                     <textarea style="resize: none;" rows="5" oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="keterangan"
-                    placeholder="KETERANGAN" type="text" class="form-control" required>{{$resi->keterangan}}</textarea>
+                    placeholder="KETERANGAN" type="text" class="form-control" required {{$status}}>{{$resi->keterangan}}</textarea>
                     <div class="invalid-feedback">
                         Mohon input keterangan yang valid.
                     </div>
@@ -209,13 +209,13 @@ Halaman ini untuk mengubah data resi
                     <div class="form-inline">
                         <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                         this.setSelectionRange(p, p);" style="text-transform:uppercase" name="panjang" 
-                        placeholder="PANJANG (CM)" step="1" type="number" max="999.999999" min="0.000000" class="form-control mr-2" value="{{$resi->panjang}}">X
+                        placeholder="PANJANG (CM)" step="1" type="number" max="999.999999" min="0.000000" class="form-control mr-2" value="{{$resi->panjang}}" {{$status}}>X
                         <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                         this.setSelectionRange(p, p);" style="text-transform:uppercase" name="lebar" 
-                        placeholder="LEBAR (CM)" step="1" type="number" max="999.999999" min="0.000000" class="form-control ml-2 mr-2" value="{{$resi->lebar}}">X
+                        placeholder="LEBAR (CM)" step="1" type="number" max="999.999999" min="0.000000" class="form-control ml-2 mr-2" value="{{$resi->lebar}}" {{$status}}>X
                         <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                         this.setSelectionRange(p, p);" style="text-transform:uppercase" name="tinggi" 
-                        placeholder="TINGGI (CM)" step="1" type="number" max="999.999999" min="0.000000" class="form-control ml-2" value="{{$resi->tinggi}}">
+                        placeholder="TINGGI (CM)" step="1" type="number" max="999.999999" min="0.000000" class="form-control ml-2" value="{{$resi->tinggi}}" {{$status}}>
                         <div class="invalid-feedback">
                             Mohon input dimensi barang yang valid.
                         </div>
@@ -229,7 +229,7 @@ Halaman ini untuk mengubah data resi
                     <label class="">Berat Barang (KiloGram)</label>
                     <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                     this.setSelectionRange(p, p);" style="text-transform:uppercase" name="berat_barang" id="berat_barang"
-                    placeholder="BERAT (KG)" step="0.001" type="number" max="20" min="0.001" class="form-control" value="{{$resi->berat_barang}}" onchange="hitungHarga()">
+                    placeholder="BERAT (KG)" step="0.001" type="number" max="20" min="0.001" class="form-control" value="{{$resi->berat_barang}}" onchange="hitungHarga()" {{$status}}>
                     <div class="invalid-feedback">
                         Mohon input dimensi barang yang valid.
                     </div>
@@ -240,7 +240,7 @@ Halaman ini untuk mengubah data resi
             <div class="col-md-5">
                 <div class="position-relative form-group">
                     <label class="">Fragility Barang</label>
-                    <select id="is_fragile" name="is_fragile" class="form-control" required>
+                    <select id="is_fragile" name="is_fragile" class="form-control" required {{$status}}>
                         @if($resi->is_fragile)
                             <option selected class="form-control" value="1">FRAGILE</option>
                             <option class="form-control" value="0">FINE</option>
@@ -269,9 +269,9 @@ Halaman ini untuk mengubah data resi
         <div class="form-row">
             <div class="col-md-2">
                 <div class="position-relative form-group">
-                    <button class="mt-2 btn btn-primary">Ubah</button>
+                    <button class="mt-2 btn btn-primary" {{$status}}>Ubah</button>
                     @if($selesai == 1)
-                        <button type="button" class="mt-2 btn btn-danger" data-toggle="modal" data-target="#selesaiResi">Selesai</button>
+                        <button type="button" class="mt-2 btn btn-danger" data-toggle="modal" data-target="#selesaiResi" {{$status}}>Selesai</button>
                     @endif
                 </div>
             </div>
