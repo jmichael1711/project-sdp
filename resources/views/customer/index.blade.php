@@ -33,21 +33,21 @@
             <a href="#"><img src="depot/images/depot_img_1.jpg" alt="Image" class="img-fluid"></a>
             <div class="px-md-3">
               <h3><a href="#">Truck Insurance</a></h3>
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae distinctio laudantium nulla eos numquam incidunt!</p>
+              <p></p>
             </div>
           </div>
           <div class="service text-center">
-            <a href="#"><img src="depot/images/depot_img_2.jpg" alt="Image" class="img-fluid"></a>
+            <a href="#"><img src="depot/images/depot_img_2.jpg" alt="Image" class="img-fluid" style="filter: grayscale(100%);"></a>
             <div class="px-md-3">
               <h3><a href="#">Plane Transportation</a></h3>
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae distinctio laudantium nulla eos numquam incidunt!</p>
+              <p>COMING SOON!</p>
             </div>
           </div>
           <div class="service text-center">
-            <a href="#"><img src="depot/images/depot_img_3.jpg" alt="Image" class="img-fluid"></a>
+            <a href="#"><img src="depot/images/depot_img_3.jpg" alt="Image" class="img-fluid" style="filter: grayscale(100%)"></a>
             <div class="px-md-3">
               <h3><a href="#">Sea &amp; Ear Freight</a></h3>
-              <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Beatae distinctio laudantium nulla eos numquam incidunt!</p>
+              <p>COMING SOON!</p>
             </div>
           </div>
         </div>
@@ -182,7 +182,7 @@
         <div class="col-md-7 text-center">
           <div class="block-heading-1" data-aos="fade-up" data-aos-delay="">
             <h2>Our Staff</h2>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+            <p>We are the best team in the world!</p>
           </div>
         </div>
       </div>
@@ -195,7 +195,7 @@
           </figure>
           <h3 class="font-size-20 text-black">Enricho Glenn</h3>
           <span class="d-block font-gray-5 letter-spacing-1 text-uppercase font-size-12 mb-3">Co-Founder</span>
-          <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+          <p class="mb-4"></p>
           <div class="block-social-1">
             <a href="#" class="btn border-w-2 rounded primary-primary-outline--hover"><span class="icon-facebook"></span></a>
             <a href="#" class="btn border-w-2 rounded primary-primary-outline--hover"><span class="icon-twitter"></span></a>
@@ -210,7 +210,7 @@
           </figure>
           <h3 class="font-size-20 text-black">Johannes Michael</h3>
           <span class="d-block font-gray-5 letter-spacing-1 text-uppercase font-size-12 mb-3">Co-Founder</span>
-          <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+          <p class="mb-4"></p>
           <div class="block-social-1">
             <a href="#" class="btn border-w-2 rounded primary-primary-outline--hover"><span class="icon-facebook"></span></a>
             <a href="#" class="btn border-w-2 rounded primary-primary-outline--hover"><span class="icon-twitter"></span></a>
@@ -225,7 +225,7 @@
           </figure>
           <h3 class="font-size-20 text-black">William</h3>
           <span class="d-block font-gray-5 letter-spacing-1 text-uppercase font-size-12 mb-3">Co-Founder</span>
-          <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+          <p class="mb-4"></p>
           <div class="block-social-1">
             <a href="#" class="btn border-w-2 rounded primary-primary-outline--hover"><span class="icon-facebook"></span></a>
             <a href="#" class="btn border-w-2 rounded primary-primary-outline--hover"><span class="icon-twitter"></span></a>
@@ -239,7 +239,7 @@
           </figure>
           <h3 class="font-size-20 text-black">Heinrich Wisesa</h3>
           <span class="d-block font-gray-5 letter-spacing-1 text-uppercase font-size-12 mb-3">Co-Founder</span>
-          <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+          <p class="mb-4"></p>
           <div class="block-social-1">
             <a href="#" class="btn border-w-2 rounded primary-primary-outline--hover"><span class="icon-facebook"></span></a>
             <a href="#" class="btn border-w-2 rounded primary-primary-outline--hover"><span class="icon-twitter"></span></a>
@@ -252,138 +252,8 @@
 
 
 
-  <div class="site-section bg-light" id="pricing-section">
-    <div class="container">
-      <div class="row mb-5 justify-content-center text-center">
-        <div class="col-md-7">
-          <div class="block-heading-1" data-aos="fade-up" data-aos-delay="">
-            <h2>Pricing</h2>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-          </div>
-        </div>
-      </div>
-      <div class="row mb-5">
-        <div class="col-md-6 mb-4 mb-lg-0 col-lg-4" data-aos="fade-up" data-aos-delay="">
-          <div class="pricing">
-            <h3 class="text-center text-black">Basic</h3>
-            <div class="price text-center mb-4 ">
-              <span><span>$47</span> / year</span>
-            </div>
-            <ul class="list-unstyled ul-check success mb-5">
+  
 
-              <li>Officia quaerat eaque neque</li>
-              <li>Possimus aut consequuntur incidunt</li>
-              <li class="remove">Lorem ipsum dolor sit amet</li>
-              <li class="remove">Consectetur adipisicing elit</li>
-              <li class="remove">Dolorum esse odio quas architecto sint</li>
-            </ul>
-            <p class="text-center">
-              <a href="#" class="btn btn-secondary btn-md">Buy Now</a>
-            </p>
-          </div>
-        </div>
-
-        <div class="col-md-6 mb-4 mb-lg-0 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-          <div class="pricing">
-            <h3 class="text-center text-black">Premium</h3>
-            <div class="price text-center mb-4 ">
-              <span><span>$200</span> / year</span>
-            </div>
-            <ul class="list-unstyled ul-check success mb-5">
-
-              <li>Officia quaerat eaque neque</li>
-              <li>Possimus aut consequuntur incidunt</li>
-              <li>Lorem ipsum dolor sit amet</li>
-              <li>Consectetur adipisicing elit</li>
-              <li class="remove">Dolorum esse odio quas architecto sint</li>
-            </ul>
-            <p class="text-center">
-              <a href="#" class="btn btn-primary btn-md text-white">Buy Now</a>
-            </p>
-          </div>
-        </div>
-
-        <div class="col-md-6 mb-4 mb-lg-0 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-          <div class="pricing">
-            <h3 class="text-center text-black">Professional</h3>
-            <div class="price text-center mb-4 ">
-              <span><span>$750</span> / year</span>
-            </div>
-            <ul class="list-unstyled ul-check success mb-5">
-
-              <li>Officia quaerat eaque neque</li>
-              <li>Possimus aut consequuntur incidunt</li>
-              <li>Lorem ipsum dolor sit amet</li>
-              <li>Consectetur adipisicing elit</li>
-              <li>Dolorum esse odio quas architecto sint</li>
-            </ul>
-            <p class="text-center">
-              <a href="#" class="btn btn-secondary btn-md">Buy Now</a>
-            </p>
-          </div>
-        </div>
-      </div>
-
-
-    </div>
-  </div>
-
-
-  <div class="site-section" id="faq-section">
-    <div class="container">
-      <div class="row mb-5">
-        <div class="block-heading-1 col-12 text-center">
-          <h2>Frequently Ask Questions</h2>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-6">
-
-          <div class="mb-5" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="text-black h4 mb-4">Possimus aut consequuntur incidunt?</h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-          </div>
-
-          <div class="mb-5" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="text-black h4 mb-4">Dolorum esse odio quas architecto sint?</h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-          </div>
-
-          <div class="mb-5" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="text-black h4 mb-4">Possimus aut consequuntur incidunt?</h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-          </div>
-
-          <div class="mb-5" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="text-black h4 mb-4">Dolorum esse odio quas architecto sint?</h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-          </div>
-        </div>
-        <div class="col-lg-6">
-
-          <div class="mb-5" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="text-black h4 mb-4">Lorem ipsum dolor sit</h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-          </div>
-
-          <div class="mb-5" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="text-black h4 mb-4">consequuntur incidunt?</h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-          </div>
-
-          <div class="mb-5" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="text-black h4 mb-4">Possimus aut consequuntur incidunt?</h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-          </div>
-
-          <div class="mb-5" data-aos="fade-up" data-aos-delay="100">
-            <h3 class="text-black h4 mb-4">Dolorum esse odio quas architecto sint?</h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <div class="block__73694 site-section border-top" id="why-us-section">
     <div class="container">
@@ -395,8 +265,8 @@
 
 
         <div class="col-lg-5 mr-auto p-lg-5 mt-4 mt-lg-0 order-lg-1" data-aos="fade-right" data-aos-delay="">
-          <h2 class="mb-4 text-black">Why Depot</h2>
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Veniam error aliquid, dolores animi obcaecati quisquam accusamus soluta?</p>
+          <h2 class="mb-4 text-black">Why TAE</h2>
+          <p></p>
 
           <ul class="ul-check primary list-unstyled mt-5">
             <li>Cargo express</li>

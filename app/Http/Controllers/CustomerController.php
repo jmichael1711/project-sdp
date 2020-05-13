@@ -54,7 +54,7 @@ class CustomerController extends Controller
         $request['kode_verifikasi_email'] = rand(1000, 9999) * 10000 + rand(1000, 9999);
         $request['status_verifikasi_email'] = 0;
 
-        $allKantor = Kantor::getAll()->where('kota',$request['kota_asal'])->get();
+        $allKantor = Kantor::getAll()->where('kota',$request['kota_asal'])->where('is_warehouse','0')->get();
         $lon1 = $request['longitude_pengirim'];
         $lat1 = $request['latitude_pengirim'];
         $lon2 = $allKantor[0]->longitude;
