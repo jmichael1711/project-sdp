@@ -11,6 +11,7 @@ use App\Bon_Muat;
 use App\Kota;
 use App\Resi;
 use App\Sejarah;
+use App\Pegawai;
 use App\Kantor;
 
 class PengirimanCustomerController extends Controller
@@ -368,10 +369,10 @@ class PengirimanCustomerController extends Controller
             $kurir = $pengirimanCust->kurir_customer;
             $kurir->status = "1";
             $kurir->save();
-
+            
             if($pengirimanCust->menuju_penerima == '0'){
-                $resi = findOrFail($pengirimanCust->resis()->first()->id);
-                $resi['kantor_sekarang_id'] = $user->kantor->id;
+                $resi = Resi::findOrFail($pengirimanCust->resis()->first()->id);
+                $resi['kantor_sekarang_id'] = Pegawai::find($user)->kantor->id;
                 $resi->save();
                 $keterangan = 'Barang telah sampai di kantor ' . $kurir->kantor->alamat . ', ' . $kurir->kantor->getKota->nama . '.';
                 $sejarah = [
