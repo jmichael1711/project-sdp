@@ -32,7 +32,7 @@ class PengirimanCustomerController extends Controller
         }else{
             $allKota = Kota::getAll()->get();
             $allResi = Resi::getAll()->get();
-            $resi = Resi::getAll()->where("id",$id)->first();
+            $resi = Resi::find($id);
             return view('master.pengirimanCustomer.create',compact('allKota', 'allResi','resi'));
         }
     }
@@ -187,6 +187,7 @@ class PengirimanCustomerController extends Controller
 
         if($request['menuju_penerima'] == "0"){
             $idResi = $request["resi_id"];
+            $request['total_muatan'] = Resi::find($idResi)->berat_barang;
         }
         unset($request["resi_id"]);
 
