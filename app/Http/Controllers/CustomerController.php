@@ -138,7 +138,7 @@ class CustomerController extends Controller
         $request = $request->all();
 
         $sejarah = Sejarah::where('resi_id', $request['resi_id'])
-        ->orderBy('waktu', 'asc')
+        ->orderBy('waktu', 'desc')
         ->get();
 
         $page = 'track';

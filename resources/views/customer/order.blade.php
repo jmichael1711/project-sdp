@@ -34,7 +34,7 @@
             <div class="form-group row">
                 <div class="col-md-12">
                     <label for="">Kode Pos Pengirim</label>
-                    <input type="number" class="form-control" name="kode_pos_pengirim" required>
+                    <input max="99999" type="number" class="form-control" name="kode_pos_pengirim" required>
                 </div>
             </div>
             <div class="form-group row">
@@ -81,7 +81,7 @@
             <div class="form-group row">
                 <div class="col-md-12">
                     <label for="">Kode Pos Penerima</label>
-                    <input type="number" class="form-control" name="kode_pos_penerima" required>
+                    <input max="99999" type="number" class="form-control" name="kode_pos_penerima" required>
                 </div>
             </div>
             <div class="form-group row">
@@ -152,13 +152,16 @@
             </div>
             <input type="hidden" name='latitude_pengirim' id="lat" required>
             <input type="hidden" name='longitude_pengirim' id="long" required>
-            </form>
 
             <div class="form-group row">
                 <div class="col-md-12 mr-auto">
-                <input type="button" onclick="getLocation()" class="btn btn-block btn-primary text-white py-3 px-5" value="Buat Pesanan">
+                <input type="submit" class="btn btn-block btn-primary text-white py-3 px-5" value="Buat Pesanan">
                 </div>
             </div>
+
+            </form>
+
+            
         </div>
         
         </div>
@@ -170,6 +173,7 @@
 <script>
     $(document).ready(function(){
         hitungHarga();
+        getLocation()
     })
     @if (Session::has('error'))
         alertError('{{Session::get("error")}}');
@@ -189,7 +193,7 @@
     function showPosition(position) {
         $('#lat').val(position.coords.latitude);
         $('#long').val(position.coords.longitude);
-        $('#formInput').submit();
+        //$('#formInput').submit();
     }
     
     function hitungHarga(){
