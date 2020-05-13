@@ -50,9 +50,11 @@ class Bon_MuatController extends Controller
             foreach($allKurir as $kurir){
                 $found = false;
                 foreach($allBonMuat as $bonmuat){
-                    if($bonmuat->kurir_non_customer_id == $kurir->id ){
-                        $found = true;
-                    }   
+                    if($request->status == "EDIT"){
+                        if($bonmuat->id != $request->id && $bonmuat->kurir_non_customer_id == $kurir->id ){
+                            $found = true;
+                        }  
+                    } 
                 }
                 if($found == false){
                     $ctr++;
@@ -72,9 +74,11 @@ class Bon_MuatController extends Controller
             foreach($allKendaraan as $kendaraan){
                 $found = false;
                 foreach($allBonMuat as $bonmuat){
-                    if($bonmuat->kendaraan_id == $kendaraan->id){
-                        $found = true;
-                    }   
+                    if($request->status == "EDIT"){
+                        if($bonmuat->id != $request->id && $bonmuat->kendaraan_id == $kendaraan->id){
+                            $found = true;
+                        }   
+                    }
                 }
                 if($found == false){
                     $ctr++;
@@ -138,6 +142,11 @@ class Bon_MuatController extends Controller
         $overweight = false;
         if($resi == null){
             $fail = "Resi tidak terdaftar.";
+            Session::put('success-failsuratjalan', $fail);
+            return redirect('/admin/bonmuat/edit/'.$id);
+        }
+        if($resi->status_perjalanan == "SELESAI" || $resi->is_deleted != 1){
+            $fail = "Resi tidak valid.";
             Session::put('success-failsuratjalan', $fail);
             return redirect('/admin/bonmuat/edit/'.$id);
         }

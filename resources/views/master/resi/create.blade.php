@@ -92,7 +92,7 @@ Halaman ini untuk menambah data resi.
                     <label class="">Email Penerima</label>
                     <input oninput="let p = this.selectionStart;
                     this.setSelectionRange(p, p);"  name="email_penerima" 
-                    placeholder="EMAIL penerima" type="email" class="form-control" required maxlength="255">
+                    placeholder="EMAIL PENERIMA" type="email" class="form-control" required maxlength="255">
                     <div class="invalid-feedback">
                         Mohon input email pengirim yang valid.
                     </div>
