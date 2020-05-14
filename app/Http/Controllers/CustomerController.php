@@ -10,6 +10,7 @@ use App\Resi;
 use App\Kantor;
 use App\Sejarah;
 use Illuminate\Support\Facades\Session;
+use Validator;
 
 class CustomerController extends Controller
 {
@@ -47,7 +48,39 @@ class CustomerController extends Controller
     }
 
     public function inputPesanan(Request $request) {
+
+        //pengecekan form
+        $validator = Validator::make($request->all(), [
+            'nama_pengirim' => 'required|max:255',
+            'alamat_asal' => 'required|max:255',
+            'kode_pos_pengirim' =>'required|max:99999',
+            'kota_asal' => 'exists:App\Kota,nama',
+            'no_telp_pengirim' => 'required|max:20',
+            'email_pengirim' =>'required|email|max:255',
+
+            'nama_penerima' => 'required|max:255',
+            'alamat_tujuan' => 'required|max:255',
+            'kode_pos_penerima' =>'required|max:99999',
+            'kota_tujuan' => 'exists:App\Kota,nama',
+            'no_telp_penerima' => 'required|max:20',
+            'email_penerima' =>'required|email|max:255',
+
+            'panjang' => 'required|min:1|max:999',
+            'lebar' => 'required|min:1|max:999',
+            'tinggi' => 'required|min:1|max:999',
+            'berat_barang' => 'required|min:0.001|max:99.00',
+            'is_fragile' => 'required',
+        ]);
+
         $request = $request->all();
+
+        //dd($request);
+
+        if ($validator->fails() || ($request['is_fragile'] != 1 && $request['is_fragile'] != 0)) {
+            Session::put('error', 'Terdapat kesalahan data pada form.');
+            return redirect('/pesan')
+            ->withInput();
+        }
 
         $request['id'] = Resi::getNextId();
         $request['verifikasi'] = 0;
@@ -138,7 +171,7 @@ class CustomerController extends Controller
         $request = $request->all();
 
         $sejarah = Sejarah::where('resi_id', $request['resi_id'])
-        ->orderBy('waktu', 'asc')
+        ->orderBy('waktu', 'desc')
         ->get();
 
         $page = 'track';
