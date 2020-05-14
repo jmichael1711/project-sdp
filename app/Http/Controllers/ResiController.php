@@ -48,7 +48,7 @@ class ResiController extends Controller
         if($user->jabatan == "admin"){
             $allResi = Resi::getAll()->get();
         }else if($user->jabatan == "kasir"){
-            $allResi = Resi::where("kantor_asal_id","=",$user->kantor_id)->get();
+            $allResi = Resi::where("kantor_asal_id","=",$user->kantor_id)->where("status_perjalanan","=","PERJALANAN")->where("status_perjalanan","=","CANCEL")->get();
         }
         
         if($user->jabatan == "kasir"){
@@ -78,6 +78,7 @@ class ResiController extends Controller
         ->where("kantor_sekarang_id","=",$user->kantor_id)
         ->where("kantor_asal_id","<>",$user->kantor_id)
         ->where("status_perjalanan","=","PERJALANAN")
+        ->where("status_perjalanan","=","CANCEL")
         ->get();
         //
 

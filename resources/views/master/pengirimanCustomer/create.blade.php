@@ -45,9 +45,10 @@ Halaman ini untuk menambah data pengiriman customer.
                                                         <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
                                                     @endif
                                                 @endif
+                                            @else
+                                                <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
                                             @endif
                                         @endif
-                                        <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -131,6 +132,8 @@ Halaman ini untuk menambah data pengiriman customer.
         $("#list-pengirimanCustomer").attr("class", "mm-collapse mm-show");
         $("#header-tambah-pengirimanCustomer").attr("class", "mm-active");
 
+
+        alert("{{$resi->kota_asal}}");
         @if (Session::has('loginstatus'))
             @if (Session::get('loginstatus') == "3")
                 var idKota = "{{Session::get('pegawai')->kantor->getKota->nama}}";
@@ -138,12 +141,13 @@ Halaman ini untuk menambah data pengiriman customer.
             @else
                 var idKota = $('#kota').val();
                 @if($resi == "null")
-                    refreshCombobox(idKota, "null","null");
+                    refreshCombobox(idKota, "null", "null");
                 @else 
                     refreshCombobox(idKota, "null", "{{$resi->kantor_asal_id}}");
                 @endif
             @endif
         @endif
+
         @if($resi == "null")
             showPesanan("penerima","null");
         @else 

@@ -37,7 +37,7 @@ Halaman ini untuk mengubah data bon muat.
                         <div class="position-relative form-group">
                             <label class="">ID</label>
                             <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
-                            this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" disabled id=""
+                            this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" disabled id="bonmuatId"
                             placeholder="ID" type="text" class="form-control" value="{{$bonmuat->id}}" readonly>
                         </div>
                     </div>
@@ -515,11 +515,12 @@ Halaman ini untuk mengubah data bon muat.
             var kantorTujuan = $('#kantorTujuan').val();
             var chosenKurir = $('#kurir').val();
             var chosenKendaraan = $('#kendaraan').val();
+            var id = $('#bonmuatId').val();
             $.ajax({
                 method : "POST",
                 url : '/admin/bonmuat/find',
                 datatype : "json",
-                data : { kantorAsal : kantorAsal,kantorTujuan : kantorTujuan,kurir: chosenKurir,kendaraan: chosenKendaraan, _token : "{{ csrf_token() }}" },
+                data : { status: "EDIT", id: id,kantorAsal : kantorAsal,kantorTujuan : kantorTujuan,kurir: chosenKurir,kendaraan: chosenKendaraan, _token : "{{ csrf_token() }}" },
                 success: function(result){
                     var hasil = result.split('|');
                     $('#kurir').html(hasil[0]);

@@ -34,6 +34,9 @@ Halaman ini untuk mengubah data resi
         Trigger Modal
     </button>
     <button onclick="window.location.href='{{url('/admin/resi/print/'.$resi->id)}}';" class="mt-2 btn btn-primary pull-right">&nbsp Print Preview &nbsp</button>
+    @if($selesai == 1)
+        <button type="button" class="mr-2 mt-2 btn btn-danger pull-right" data-toggle="modal" data-target="#selesaiResi" {{$status}}>Selesai</button>
+    @endif
     <form novalidate class="needs-validation" method="post" action="/admin/resi/update/{{$resi->id}}" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="form-row">
@@ -270,9 +273,7 @@ Halaman ini untuk mengubah data resi
             <div class="col-md-2">
                 <div class="position-relative form-group">
                     <button class="mt-2 btn btn-primary" {{$status}}>Ubah</button>
-                    @if($selesai == 1)
-                        <button type="button" class="mt-2 btn btn-danger" data-toggle="modal" data-target="#selesaiResi" {{$status}}>Selesai</button>
-                    @endif
+                    <button class="mt-2 btn btn-danger" {{$status}}>Cancel</button>
                 </div>
             </div>
         </div>
