@@ -273,7 +273,7 @@ Halaman ini untuk mengubah data resi
             <div class="col-md-2">
                 <div class="position-relative form-group">
                     <button class="mt-2 btn btn-primary" {{$status}}>Ubah</button>
-                    <button class="mt-2 btn btn-danger" {{$status}}>Cancel</button>
+                    <button type="button" class="mt-2 btn btn-danger" data-toggle="modal" data-target="#batalResi" {{$status}}>Batal Resi</button>
                 </div>
             </div>
         </div>
@@ -322,6 +322,27 @@ Halaman ini untuk mengubah data resi
     </div>
 </div>
 
+{{-- Batal resi --}}
+<div class="modal fade" id="batalResi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">APAKAH ANDA YAKIN?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            Apakah anda ingin membatalkan resi ini?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" onclick="batalResi('{{$resi->id}}')" data-dismiss="modal">Selesai</button>
+        </div>
+        </div>
+    </div>
+</div>
+
 @section('scripts')
 <script>
      $(document).ready(function () {
@@ -360,6 +381,9 @@ Halaman ini untuk mengubah data resi
 
     function selesaiResi(id){
         window.location.href = '/admin/resi/selesai/'+id;
+    }
+    function batalResi(id){
+        window.location.href = '/admin/resi/batal/'+id;
     }
     
 </script>

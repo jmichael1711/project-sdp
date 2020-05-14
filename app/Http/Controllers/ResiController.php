@@ -48,7 +48,12 @@ class ResiController extends Controller
         if($user->jabatan == "admin"){
             $allResi = Resi::getAll()->get();
         }else if($user->jabatan == "kasir"){
-            $allResi = Resi::where("kantor_asal_id","=",$user->kantor_id)->where("status_perjalanan","=","PERJALANAN")->where("status_perjalanan","=","CANCEL")->get();
+            $allResi = Resi::where("kantor_asal_id","=",$user->kantor_id)
+            ->where(function ($q) {
+                $q->where("status_perjalanan","=","PERJALANAN");
+                $q->orWhere("status_perjalanan","=","BATAL");
+            })
+            ->get();
         }
         
         if($user->jabatan == "kasir"){
@@ -77,8 +82,10 @@ class ResiController extends Controller
         $allResiSedangDiKantorIni = Resi::getAll()
         ->where("kantor_sekarang_id","=",$user->kantor_id)
         ->where("kantor_asal_id","<>",$user->kantor_id)
-        ->where("status_perjalanan","=","PERJALANAN")
-        ->where("status_perjalanan","=","CANCEL")
+        ->where(function ($q) {
+            $q->where("status_perjalanan","=","PERJALANAN");
+            $q->orWhere("status_perjalanan","=","BATAL");
+        })
         ->get();
         //
 
@@ -95,12 +102,19 @@ class ResiController extends Controller
             $resi = Resi::findOrFail($id);
             $resi->harga = "Rp " . number_format($resi->harga, 2, ".", ",");
             $status = "";
-            if($resi->status_perjalanan == "CANCEL" || $resi->status_perjalanan == "SELESAI"){$status = "disabled";}
+            if($resi->status_perjalanan == "SELESAI"){$status = "disabled";}
             $user = Pegawai::findOrFail(Session::get('id'));
             $selesai = 0;
             if($user->jabatan != "admin"){
-                if($resi->status_perjalanan == "PERJALANAN" && $resi->kantor_asal_id != $user->kantor_id && $resi->kantor_sekarang_id != null && $user->kantor->kota == $resi->kantor_sekarang->kota) {$selesai = 1;}
-            }else if($user->jabatan == "admin" && $resi->status_perjalanan == "PERJALANAN") $selesai = 1;
+                if($resi->status_perjalanan == "PERJALANAN") 
+                {
+                    if($resi->kantor_asal_id != $user->kantor_id && $resi->kantor_sekarang_id != null && $user->kantor->kota == $resi->kantor_sekarang->kota)
+                    {$selesai = 1;}
+                }else if($resi->status_perjalanan == "BATAL"){
+                    if($resi->kantor_sekarang_id != null && $user->kantor->kota == $resi->kantor_sekarang->kota)
+                    {$selesai = 1;}
+                }
+            }else if($user->jabatan == "admin" && ($resi->status_perjalanan == "PERJALANAN" ||$resi->status_perjalanan == "BATAL")) $selesai = 1;
             $allKota = Kota::getAll()->get();
             return view('master.resi.edit',compact('resi','status','allKota','selesai'));
         }
@@ -204,11 +218,34 @@ class ResiController extends Controller
     public function selesai($id){
         date_default_timezone_set("Asia/Jakarta");
         $resi = Resi::find($id);
+
+        if($resi->status_perjalanan == "PERJALANAN"){$keterangan = "Penerima telah menerima barang";}
+        else if($resi->status_perjalanan == "BATAL"){$keterangan = "Pengirim telah menerima barang";}
+        
         $resi->status_perjalanan = "SELESAI";
         $resi->user_updated = Session::get('id');
         $resi->save();
+        
+        $sejarah = [
+            'resi_id'=>$resi->id,
+            'keterangan'=>$keterangan,
+            'waktu'=>now()
+        ];
+        Sejarah::create($sejarah);
 
-        $keterangan = "Penerima telah menerima barang";
+        $success = 'Resi ' . '"' . $id .  '"' . 'berhasil diubah.';
+        Session::put('success-resi', $success);
+        return redirect('/admin/resi');
+    }
+
+    public function batal($id){
+        date_default_timezone_set("Asia/Jakarta");
+        $resi = Resi::find($id);
+        $resi->status_perjalanan = "BATAL";
+        $resi->user_updated = Session::get('id');
+        $resi->save();
+        $user = Pegawai::findOrFail(Session::get('id'));
+        $keterangan = "Kasir " . $user->nama. " dari kantor ". $user->kantor->alamat. " telah membatalkan resi";
         $sejarah = [
             'resi_id'=>$resi->id,
             'keterangan'=>$keterangan,

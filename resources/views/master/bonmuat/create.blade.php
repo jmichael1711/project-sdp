@@ -126,30 +126,31 @@ Halaman ini untuk menambah data bon muat.
             @endif
         @endif
         refreshKantor(idKota,"Tujuan");
-        refreshComboBox();
     })
 
     function isiKantor(posisi){
         var idKota = $('#kota'+posisi).val();
         refreshKantor(idKota,posisi);
-        refreshComboBox();
     }
     
+
     function refreshKantor(idKota, posisi){
-        @for ($i = 0; $i < $allKota->count(); $i++)             
-            if(idKota == '{{$allKota[$i]->nama}}'){
-                @php
-                    $allKantor = $allKota[$i]->kantor;
-                @endphp
-                
-                @if(count($allKantor) > 0)
-                    $('#kantor'+posisi).html('@foreach ($allKantor as $kantor)<option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>@endforeach');
-                @else
-                    $('#kantor'+posisi).html('<option value="">-- TIDAK ADA KANTOR --</option>');
-                @endif
+        $.ajax({
+            method : "POST",
+            url : '/admin/bonmuat/cariKantor',
+            datatype : "json",
+            data : { kota: idKota, _token : "{{ csrf_token() }}" },
+            success: function(result){
+                $('#kantor'+posisi).html(result);
+                refreshComboBox();
+            },
+            error: function(){
+                console.log('error');
             }
-        @endfor        
+        });
     }
+
+
 
     function refreshComboBox(){
         @if (Session::has('loginstatus'))

@@ -76,8 +76,11 @@ class KurirController extends Controller
             }
         }
 
-        //set resi jadi selesai
         $resi = Resi::findOrFail($resi_id);
+        if($resi->status_perjalanan == "PERJALANAN"){$keterangan = "Penerima telah menerima barang";}
+        else if($resi->status_perjalanan == "BATAL"){$keterangan = "Pengirim telah menerima barang";}
+
+        //set resi jadi selesai
         $resi->status_perjalanan = 'SELESAI';
         $resi->save();
 
@@ -85,7 +88,7 @@ class KurirController extends Controller
         //SET HISTORY PESANAN SAMPAI
         $kurir = Kurir_customer::findOrFail(Session::get('id'));
 
-        $keterangan = "Penerima telah menerima barang";
+        
         $sejarah = [
             'resi_id'=>$resi_id,
             'keterangan'=>$keterangan,

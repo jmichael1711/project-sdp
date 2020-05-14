@@ -340,4 +340,24 @@ class Bon_MuatController extends Controller
         $user = Pegawai::findOrFail($bonmuat->user_created);
         return view('master.bonmuat.print', compact('bonmuat','user'));
     }
+
+    public function cariKantor(Request $request){
+        $kantorSekarang = Pegawai::findOrFail(Session::get('id'))->kantor;
+        $user = Pegawai::findOrFail(Session::get('id'));
+        if($user->jabatan == "admin"){$allKantor = Kantor::getAll()->get();}
+        else{
+            $allKantor = Kantor::sortKantor($request->kota,$kantorSekarang->kota,$kantorSekarang->is_warehouse,$kantorSekarang->id);
+        }
+        $str = "";
+        foreach($allKantor as $kantor){
+            $warehouse = "";
+            if($kantor->is_warehouse == 1){$warehouse = "( GUDANG )";}
+            if($kantor->id == $request->kantorSekarang){
+                $str .= '<option selected class="form-control" value="'.$kantor->id.'">'.$kantor->alamat.' '.$warehouse.'</option>';
+            }else{
+                $str .= '<option class="form-control" value="'.$kantor->id.'">'.$kantor->alamat.' '.$warehouse.'</option>';
+            }
+        }
+        return $str;
+    }
 }

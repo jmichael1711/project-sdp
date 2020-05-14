@@ -81,11 +81,6 @@ Halaman ini untuk mengubah data bon muat.
                                     <label class="">Kantor Asal</label>
                                     <select name="kantor_asal_id" class="form-control" id="kantorAsal" onchange="refreshComboBox()" required {{$bonmuat->is_deleted ? 'disabled' : ''}} {{$status}}>
                                         <option selected class="form-control" value="{{$bonmuat->kantor_asal->id}}">{{$bonmuat->kantor_asal->alamat}}</option>
-                                        @foreach($bonmuat->kantor_asal->getKota->kantor as $kantor)
-                                            @if($bonmuat->kantor_asal->id != $kantor->id)
-                                            <option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>
-                                            @endif
-                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -126,11 +121,6 @@ Halaman ini untuk mengubah data bon muat.
                                         @endif
                                         >
                                         <option selected class="form-control" value="{{$bonmuat->kantor_tujuan->id}}">{{$bonmuat->kantor_tujuan->alamat}}</option>
-                                        @foreach($bonmuat->kantor_tujuan->getKota->kantor as $kantor)
-                                            @if($bonmuat->kantor_tujuan->id != $kantor->id)
-                                            <option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>
-                                            @endif
-                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -430,9 +420,15 @@ Halaman ini untuk mengubah data bon muat.
         $("#btn-bonmuat").attr("aria-expanded", "true");
         $("#list-bonmuat").attr("class", "mm-collapse mm-show");
         $("#header-bonmuat").attr("class", "mm-active");
-
-        var idKota = $('#kotaAsal').val();
-        refreshComboBox();
+        
+        @if (Session::has('loginstatus'))
+            @if (Session::get('loginstatus') != 3)
+                var idKota = $('#kotaAsal').val();
+                refreshKantor(idKota,"Asal");
+            @endif
+        @endif
+        var idKota2 = $('#kotaTujuan').val();
+        refreshKantor(idKota2,"Tujuan");
         
         if ('{{Session::has("success-failsuratjalan")}}'){
             triggerNotification('{{Session::get("success-failsuratjalan")}}');
@@ -485,28 +481,28 @@ Halaman ini untuk mengubah data bon muat.
         if(totalSuratJalan == 0){
             var idKota = $('#kota'+posisi).val();
             refreshKantor(idKota,posisi);
-            refreshComboBox();
         }else{
             triggerNotification("Terdapat Surat Jalan dalam Bon Muat. Hapuslah Surat Jalan terlebih dahulu.");
             if(posisi == "Asal") $('#kotaAsal').val(previousKotaAsal);
             else if(posisi == "Tujuan") $('#kotaTujuan').val(previousKotaTujuan);
         }
     }
-    
+
     function refreshKantor(idKota, posisi){
-        @for ($i = 0; $i < $allKota->count(); $i++)             
-            if(idKota == '{{$allKota[$i]->nama}}'){
-                @php
-                    $allKantor = $allKota[$i]->kantor;
-                @endphp
-                
-                @if(count($allKantor) > 0)
-                    $('#kantor'+posisi).html('@foreach ($allKantor as $kantor)<option class="form-control" value="{{$kantor->id}}">{{$kantor->alamat}}</option>@endforeach');
-                @else
-                    $('#kantor'+posisi).html('<option value="">-- TIDAK ADA KANTOR --</option>');
-                @endif
-            }   
-        @endfor        
+        var kantorSekarang = $("#kantor"+posisi).val();
+        $.ajax({
+            method : "POST",
+            url : '/admin/bonmuat/cariKantor',
+            datatype : "json",
+            data : { kota: idKota,kantorSekarang: kantorSekarang, _token : "{{ csrf_token() }}" },
+            success: function(result){
+                $('#kantor'+posisi).html(result);
+                refreshComboBox();
+            },
+            error: function(){
+                console.log('error');
+            }
+        });
     }
 
     function refreshComboBox(){
