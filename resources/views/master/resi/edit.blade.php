@@ -269,11 +269,37 @@ Halaman ini untuk mengubah data resi
             </div>
         </div>
 
+        <hr>
+        <div class="form-row">
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Status Aktif</label>
+                    <select class="form-control" name="is_deleted" id="status" onchange="changeStatus()"
+                    @if (Session::has('loginstatus'))
+                        @if (Session::get('loginstatus') == 4)
+                            disabled
+                        @endif
+                    @endif
+                    >
+                        @if ($resi->is_deleted)
+                            <option selected class="form-control" value="1">TIDAK AKTIF</option>
+                            <option class="form-control" value="0">AKTIF</option>
+                        @else
+                            <option class="form-control" value="1">TIDAK AKTIF</option>
+                            <option selected class="form-control" value="0">AKTIF</option>
+                        @endif
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <div class="form-row">
             <div class="col-md-2">
                 <div class="position-relative form-group">
                     <button class="mt-2 btn btn-primary" {{$status}}>Ubah</button>
-                    <button type="button" class="mt-2 btn btn-danger" data-toggle="modal" data-target="#batalResi" {{$status}}>Batal Resi</button>
+                    @if($resi->status_perjalanan != "BATAL")
+                        <button type="button" class="mt-2 btn btn-danger" data-toggle="modal" data-target="#batalResi" {{$status}}>Batal Resi</button>
+                    @endif
                 </div>
             </div>
         </div>
@@ -384,6 +410,26 @@ Halaman ini untuk mengubah data resi
     }
     function batalResi(id){
         window.location.href = '/admin/resi/batal/'+id;
+    }
+
+    function changeStatus(){
+        var stat = $("#status").val();
+        if(stat == "1"){
+            var permitted = true;
+            @if($resi->kantor_sekarang_id != null)
+                permitted = false;
+            @endif
+            
+            if(!permitted){
+                triggerNotification("Resi tidak boleh dinonaktifkan.");
+                $("#status").val("0");
+            }
+        }   
+    }
+
+    function triggerNotification(text){
+        $("#modalContent").html(text);
+        $("#triggerModal").click();
     }
     
 </script>
