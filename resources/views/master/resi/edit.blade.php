@@ -274,7 +274,7 @@ Halaman ini untuk mengubah data resi
             <div class="col-md-5">
                 <div class="position-relative form-group">
                     <label class="">Status Aktif</label>
-                    <select class="form-control" name="is_deleted" id="status" onchange="changeStatus()"
+                    <select class="form-control" name="is_deleted" id="status" onchange="changeStatus()" {{$status}}
                     @if (Session::has('loginstatus'))
                         @if (Session::get('loginstatus') == 4)
                             disabled
