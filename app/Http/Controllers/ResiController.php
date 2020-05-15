@@ -47,6 +47,14 @@ class ResiController extends Controller
         
         if($user->jabatan == "admin"){
             $allResi = Resi::getAll()->get();
+
+            //untuk select resi yang dipesan oleh customer dari web dan belum diproses di pengiriman_customer
+            $allPengirimanCustomer = DB::table('d_pengiriman_customers')->select('resi_id');
+            $allResiBaru = Resi::getAll()
+            ->where("verifikasi",0)
+            ->whereNotIn('id', $allPengirimanCustomer)
+            ->get();
+            //
         }else if($user->jabatan == "kasir"){
             $allResi = Resi::where("kantor_asal_id","=",$user->kantor_id)
             ->where(function ($q) {
@@ -54,10 +62,7 @@ class ResiController extends Controller
                 $q->orWhere("status_perjalanan","=","BATAL");
             })
             ->get();
-        }
-        
-        if($user->jabatan == "kasir"){
-            
+
             //untuk select resi yang dipesan oleh customer dari web dan belum diproses di pengiriman_customer
             $allPengirimanCustomer = DB::table('d_pengiriman_customers')->select('resi_id');
             $allResiBaru = Resi::getAll()
@@ -66,17 +71,8 @@ class ResiController extends Controller
             ->whereNotIn('id', $allPengirimanCustomer)
             ->get();
             //
-        }else{
-
-            //untuk select resi yang dipesan oleh customer dari web dan belum diproses di pengiriman_customer
-            $allPengirimanCustomer = DB::table('d_pengiriman_customers')->select('resi_id');
-            $allResiBaru = Resi::getAll()
-            ->where("verifikasi",0)
-            ->whereNotIn('id', $allPengirimanCustomer)
-            ->get();
-            //
-
         }
+       
     
         //untuk select resi yang sekarang posisi nya dikantor ini tetapi kantor asalnya bukan dari kantor ini dan status perjalanan nya masih perjalanan
         $allResiSedangDiKantorIni = Resi::getAll()
