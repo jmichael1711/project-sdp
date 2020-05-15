@@ -142,7 +142,7 @@ class KurirController extends Controller
             $mail->AddAddress($address, $resi->nama_pengirim);
 
             if(!$mail->Send()) {  
-                //ERROR
+                return redirect('/kurir');
             } 
         } else {
             foreach ($pengiriman->resis as $resi) {
@@ -172,7 +172,29 @@ class KurirController extends Controller
                 $mail->AddAddress($address, $resi->nama_penerima);
     
                 if(!$mail->Send()) {  
-                    //ERROR
+                    return redirect('/kurir');
+                } 
+
+                //kirim ke pengirim jg
+
+                $mail             = new \PHPMailer(true);
+                $address 		  = $resi->email_pengirim;
+                $mail->Subject    = "TeamAte Expedition - One Time Password - " . $idResi;
+                $body = view('customer.emailotppengirim', compact('linkQrCode', 'password'));
+                $mail->IsSMTP(); // telling the class to use SMTP
+                $mail->Host       = "mail.google.com"; // SMTP server
+                $mail->SMTPDebug  = 0;                     // enables SMTP debug information (for testing)
+                $mail->SMTPAuth   = true;                  // enable SMTP authentication
+                $mail->SMTPSecure = "tls";                 // sets the prefix to the servier
+                $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
+                $mail->Port       = 587;                   // set the SMTP port for the GMAIL server
+                $mail->Username   = "4team.ate@gmail.com";  // GMAIL username
+                $mail->Password   = "sttsteam4";     // GMAIL password
+                $mail->MsgHTML($body);
+                $mail->AddAddress($address, $resi->nama_pengirim);
+
+                if(!$mail->Send()) {  
+                    return redirect('/kurir');
                 } 
             }
         }

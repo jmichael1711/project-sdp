@@ -18,18 +18,6 @@ class CheckLoginStatusMiddleware
     {
         if (Session::has("loginstatus")) {
             $status = Session::get("loginstatus");
-            // if ($status == 2) {
-            //     //if not admin
-            //     if ($pageType == "admin" || $pageType == "guest") {
-            //         //and the page is admin's or guest's
-            //         return redirect("/user");
-            //     }
-            // } else if ($status == 1) {
-            //     //if admin
-            //     if ($pageType == "guest") {
-            //         return redirect("/admin");
-            //     }
-            // }
 
             //loginstatus is for the person's role
             //0 = admin
