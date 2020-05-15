@@ -229,6 +229,7 @@ Route::group(['middleware' => ['checkstatus:kasir']], function () {
     Route::post('/admin/pengirimanCustomer/update/{id}', 'PengirimanCustomerController@update');
     Route::post('/admin/pengirimanCustomer/startPengiriman/{id}', 'PengirimanCustomerController@startPengiriman');
     Route::post('/admin/pengirimanCustomer/finishPengiriman/{id}', 'PengirimanCustomerController@finishPengiriman');
+    Route::post('/admin/pengirimanCustomer/kirimEmailOTP', 'PengirimanCustomerController@kirimEmailOTP');
 });
 
 
