@@ -385,7 +385,7 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                <h5 class="modal-title" id="notificationTitle">Error</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -480,6 +480,7 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
     }
     
     function triggerNotification(text){
+        $("#notificationTitle").html("Error");
         $("#modalContent").html(text);
         $("#triggerModal").click();
     }
@@ -565,10 +566,12 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                 idResi: idResi 
             },
             success: function(result){
-                console.log('berhasil')
+                $("#notificationTitle").html("Berhasil");
+                if(result == 1) triggerNotification("Email telah terkirim");
+                else if(result == 0) triggerNotification("Email gagal dikirim");
             },
             error: function(){
-                console.log('error');
+                triggerNotification("Email gagal dikirim");
             }
         });
     }
