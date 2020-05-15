@@ -212,7 +212,7 @@ Route::group(['middleware' => ['checkstatus:kasir']], function () {
     Route::post('/admin/resi/isiSejarah', 'ResiController@isiSejarah');
     Route::get('/admin/resi/trackingField/{id}', 'ResiController@trackingField');
     Route::get('/admin/resi/print/{id}', 'ResiController@print');
-    Route::get('/admin/resi/selesai/{id}', 'ResiController@selesai');
+    Route::get('/admin/resi/selesai/{id}/{otp}', 'ResiController@selesai');
     Route::get('/admin/resi/batal/{id}', 'ResiController@batal');
     
     //ADMING - BON MUAT

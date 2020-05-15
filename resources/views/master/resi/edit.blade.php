@@ -34,9 +34,6 @@ Halaman ini untuk mengubah data resi
         Trigger Modal
     </button>
     <button onclick="window.location.href='{{url('/admin/resi/print/'.$resi->id)}}';" class="mt-2 btn btn-primary pull-right">&nbsp Print Preview &nbsp</button>
-    @if($selesai == 1)
-        <button type="button" class="mr-2 mt-2 btn btn-danger pull-right" data-toggle="modal" data-target="#selesaiResi" {{$status}}>Selesai</button>
-    @endif
     <form novalidate class="needs-validation" method="post" action="/admin/resi/update/{{$resi->id}}" enctype="multipart/form-data">
         {{csrf_field()}}
         <div class="form-row">
@@ -291,14 +288,32 @@ Halaman ini untuk mengubah data resi
                     </select>
                 </div>
             </div>
+            @if($selesai == 1)
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">OTP</label>
+                    <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                    this.setSelectionRange(p, p);" style="text-transform:uppercase" id="otp"
+                    placeholder="OTP" type="text" class="form-control" required value="" {{$status}}>
+                    <div class="invalid-feedback">Mohon input otp yang valid.</div>
+                </div>
+            </div>
+            @endif
         </div>
 
         <div class="form-row">
-            <div class="col-md-2">
+            <div class="col-md-5">
                 <div class="position-relative form-group">
                     <button class="mt-2 btn btn-primary" {{$status}}>Ubah</button>
                     @if($resi->status_perjalanan != "BATAL")
                         <button type="button" class="mt-2 btn btn-danger" data-toggle="modal" data-target="#batalResi" {{$status}}>Batal Resi</button>
+                    @endif
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    @if($selesai == 1)
+                        <button type="button" class="mr-2 mt-2 btn btn-danger pull-right" data-toggle="modal" data-target="#selesaiResi" {{$status}}>Selesai</button>
                     @endif
                 </div>
             </div>
@@ -406,7 +421,10 @@ Halaman ini untuk mengubah data resi
     }
 
     function selesaiResi(id){
-        window.location.href = '/admin/resi/selesai/'+id;
+        var otp = $("#otp").val();
+        if(otp == ""){
+            triggerNotification("Mohon isi otp terlebih dahulu");
+        }else window.location.href = '/admin/resi/selesai/'+id+'/'+otp;
     }
     function batalResi(id){
         window.location.href = '/admin/resi/batal/'+id;

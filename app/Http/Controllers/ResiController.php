@@ -101,9 +101,12 @@ class ResiController extends Controller
         }else{
             $resi = Resi::findOrFail($id);
             $resi->harga = "Rp " . number_format($resi->harga, 2, ".", ",");
+            
+            $user = Pegawai::findOrFail(Session::get('id'));
+
             $status = "";
             if($resi->status_perjalanan == "SELESAI"){$status = "disabled";}
-            $user = Pegawai::findOrFail(Session::get('id'));
+
             $selesai = 0;
             if($user->jabatan != "admin"){
                 if($resi->status_perjalanan == "PERJALANAN") 
@@ -215,23 +218,54 @@ class ResiController extends Controller
         return view('master.resi.print', compact('resi','user','harga'));
     }
 
-    public function selesai($id){
+    public function selesai($id,$otp){
         date_default_timezone_set("Asia/Jakarta");
         $resi = Resi::find($id);
 
-        if($resi->status_perjalanan == "PERJALANAN"){$keterangan = "Penerima telah menerima barang";}
-        else if($resi->status_perjalanan == "BATAL"){$keterangan = "Pengirim telah menerima barang";}
-        
-        $resi->status_perjalanan = "SELESAI";
-        $resi->user_updated = Session::get('id');
-        $resi->save();
-        
-        $sejarah = [
-            'resi_id'=>$resi->id,
-            'keterangan'=>$keterangan,
-            'waktu'=>now()
-        ];
-        Sejarah::create($sejarah);
+        $pengirimanCustomer = Pengiriman_customer::
+        join('d_pengiriman_customers', 'd_pengiriman_customers.pengiriman_customer_id', '=', 'pengiriman_customers.id')
+        ->where('pengiriman_customers.menuju_penerima',1)
+        ->where('pengiriman_customers.is_deleted',0)
+        ->where('d_pengiriman_customers.resi_id','=',$id)
+        ->orderBy('d_pengiriman_customers.created_at','desc')        
+        ->first();
+
+        $errorPassword = false;
+        if($pengirimanCustomer != null){
+            if($pengirimanCustomer->password == $otp){
+                if($resi->status_perjalanan == "PERJALANAN"){$keterangan = "Penerima telah menerima barang";}
+                else if($resi->status_perjalanan == "BATAL"){$keterangan = "Pengirim telah menerima barang";}
+                
+                $resi->status_perjalanan = "SELESAI";
+                $resi->user_updated = Session::get('id');
+                $resi->save();
+                
+                $sejarah = [
+                    'resi_id'=>$resi->id,
+                    'keterangan'=>$keterangan,
+                    'waktu'=>now()
+                ];
+                Sejarah::create($sejarah);
+
+
+                //untuk ganti status detail menjadi sampai
+                $p = DB::table('d_pengiriman_customers')
+                ->select('telah_sampai','waktu_sampai_cust')
+                ->where('resi_id',$id)
+                ->where('pengiriman_customer_id',$pengirimanCustomer->id)
+                ->get();
+
+                $p ->telah_sampai = 1;
+                $p->waktu_sampai_cust = now();
+                //
+            }else{$errorPassword = true;}
+        }else{$errorPassword = true;}
+
+        if($errorPassword){
+            $fail = "Password tidak valid.";
+            Session::put('success-failresi', $fail);
+            return redirect('/admin/resi');
+        }
 
         $success = 'Resi ' . '"' . $id .  '"' . 'berhasil diubah.';
         Session::put('success-resi', $success);

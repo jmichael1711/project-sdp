@@ -132,8 +132,6 @@ Halaman ini untuk menambah data pengiriman customer.
         $("#list-pengirimanCustomer").attr("class", "mm-collapse mm-show");
         $("#header-tambah-pengirimanCustomer").attr("class", "mm-active");
 
-
-        alert("{{$resi->kota_asal}}");
         @if (Session::has('loginstatus'))
             @if (Session::get('loginstatus') == "3")
                 var idKota = "{{Session::get('pegawai')->kantor->getKota->nama}}";
