@@ -44,6 +44,8 @@ Halaman ini untuk menambah data pengiriman customer.
                                                     @else 
                                                         <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
                                                     @endif
+                                                @else
+                                                    <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
                                                 @endif
                                             @else
                                                 <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>

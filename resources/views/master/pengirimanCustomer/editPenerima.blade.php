@@ -429,7 +429,7 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
         $("#header-pengirimanCustomer").attr("class", "mm-active");
     
         if ('{{Session::has("fail-detail")}}'){
-            triggerNotification('{{Session::get("fail-detail")}}');
+            triggerNotification('{{Session::get("fail-detail")}}','Error');
             @php
                 Session::forget('fail-detail');
             @endphp
@@ -479,8 +479,8 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
         });
     }
     
-    function triggerNotification(text){
-        $("#notificationTitle").html("Error");
+    function triggerNotification(text,title){
+        $("#notificationTitle").html(title);
         $("#modalContent").html(text);
         $("#triggerModal").click();
     }
@@ -566,12 +566,11 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                 idResi: idResi 
             },
             success: function(result){
-                $("#notificationTitle").html("Berhasil");
-                if(result == 1) triggerNotification("Email telah terkirim");
-                else if(result == 0) triggerNotification("Email gagal dikirim");
+                if(result == 1) triggerNotification("Email telah terkirim",'Berhasil');
+                else if(result == 0) triggerNotification("Email gagal dikirim",'Error');
             },
             error: function(){
-                triggerNotification("Email gagal dikirim");
+                triggerNotification("Email gagal dikirim",'Error');
             }
         });
     }
