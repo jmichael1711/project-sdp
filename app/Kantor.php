@@ -80,4 +80,29 @@ class Kantor extends Model
     }
 
 
+    // kondisi 1 : jika dari kantor cabang maka
+    //         -> hanya munculkan warehouse
+
+    // kondisi 2 : jika berasal dari warehouse maka
+    //         ->munculkan kantor cabang jika dipilih kota yang sama
+    //         ->hanya munculkan warehouse jika dipilih kota yang berbeda 
+    public static function sortKantor($kotaPilihan,$kotaSekarang,$warehouse,$kantorini){
+        if($warehouse == 0 || ($warehouse == 1 && $kotaSekarang != $kotaPilihan)){
+            return Kantor::getAll()
+            ->where("kota",$kotaPilihan)
+            ->where("is_warehouse",1)
+            ->where("id","<>",$kantorini)
+            ->get();
+        }else if($warehouse == 1){
+            if($kotaSekarang == $kotaPilihan){    
+                return Kantor::getAll()
+                ->where("kota",$kotaPilihan)
+                ->where("is_warehouse",0)
+                ->where("id","<>",$kantorini)
+                ->get();
+            }
+        }
+    }
+
+
 }

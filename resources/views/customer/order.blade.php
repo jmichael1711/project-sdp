@@ -22,19 +22,19 @@
             <div class="form-group row">
                 <div class="col-md-12">
                     <label for="">Nama Pengirim</label>
-                    <input type="text" class="form-control" name="nama_pengirim" required>
+                    <input maxlength="255" type="text" class="form-control" name="nama_pengirim" required>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-md-12">
                     <label for="">Alamat Pengirim</label>
-                    <input type="text" class="form-control" name="alamat_asal" required>
+                    <input maxlength="255" type="text" class="form-control" name="alamat_asal" required>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-md-12">
                     <label for="">Kode Pos Pengirim</label>
-                    <input type="number" class="form-control" name="kode_pos_pengirim" required>
+                    <input max="99999" type="number" class="form-control" name="kode_pos_pengirim" required>
                 </div>
             </div>
             <div class="form-group row">
@@ -50,13 +50,13 @@
             <div class="form-group row">
                 <div class="col-md-12">
                     <label for="">Email Pengirim</label>
-                <input type="email" class="form-control" name="email_pengirim" required>
+                <input maxlength="255" type="email" class="form-control" name="email_pengirim" required>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-md-12">
                     <label for="">No Telp Pengirim</label>
-                <input type="text" class="form-control" name="no_telp_pengirim" required>
+                <input maxlength="20" type="text" class="form-control" name="no_telp_pengirim" required>
                 </div>
             </div>
 
@@ -68,20 +68,20 @@
             <div class="form-group row">
                 <div class="col-md-12">
                     <label for="">Nama Penerima</label>
-                    <input type="text" class="form-control" name="nama_penerima" required>
+                    <input maxlength="255" type="text" class="form-control" name="nama_penerima" required>
                 </div>
             </div>
             
             <div class="form-group row">
                 <div class="col-md-12">
                     <label for="">Alamat Tujuan</label>
-                    <input type="text" class="form-control" name="alamat_tujuan" required>
+                    <input  maxlength="255" type="text" class="form-control" name="alamat_tujuan" required>
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-md-12">
                     <label for="">Kode Pos Penerima</label>
-                    <input type="number" class="form-control" name="kode_pos_penerima" required>
+                    <input max="99999" type="number" class="form-control" name="kode_pos_penerima" required>
                 </div>
             </div>
             <div class="form-group row">
@@ -97,13 +97,13 @@
             <div class="form-group row">
                 <div class="col-md-12">
                 <label for="">Email Penerima</label>
-                <input type="email" class="form-control" name="email_penerima" required >
+                <input maxlength="255" type="email" class="form-control" name="email_penerima" required >
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-md-12">
                 <label for="">No Telp Penerima</label>
-                <input type="text" class="form-control" name="no_telp_penerima" required>
+                <input maxlength="20" type="text" class="form-control" name="no_telp_penerima" required>
                 </div>
             </div>
             <div class="form-group row">
@@ -111,7 +111,6 @@
                     <h4>Data Barang</h4>
                 </div>
             </div>
-            
             <div class="form-group row">
                 <div class="col-md-4">
                     <label for="">Panjang (cm)</label>
@@ -152,13 +151,13 @@
             </div>
             <input type="hidden" name='latitude_pengirim' id="lat" required>
             <input type="hidden" name='longitude_pengirim' id="long" required>
-            </form>
 
             <div class="form-group row">
                 <div class="col-md-12 mr-auto">
-                <input type="button" onclick="getLocation()" class="btn btn-block btn-primary text-white py-3 px-5" value="Buat Pesanan">
+                <input type="submit" class="btn btn-block btn-primary text-white py-3 px-5" value="Buat Pesanan">
                 </div>
             </div>
+            </form>
         </div>
         
         </div>
@@ -170,6 +169,7 @@
 <script>
     $(document).ready(function(){
         hitungHarga();
+        getLocation()
     })
     @if (Session::has('error'))
         alertError('{{Session::get("error")}}');
@@ -189,7 +189,7 @@
     function showPosition(position) {
         $('#lat').val(position.coords.latitude);
         $('#long').val(position.coords.longitude);
-        $('#formInput').submit();
+        //$('#formInput').submit();
     }
     
     function hitungHarga(){

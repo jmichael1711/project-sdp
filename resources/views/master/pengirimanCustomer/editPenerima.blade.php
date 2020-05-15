@@ -272,6 +272,8 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                                 <th>Dibuat Oleh</th>
                                 @if($tipe == "add")
                                 <th>Perintah</th>
+                                @else
+                                <th>Action</th>
                                 @endif
                             </tr>
                         </thead>
@@ -318,6 +320,8 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                                 <td>{{$i->d_pengiriman_customer->user_created}}</td>
                                 @if($tipe == "add")
                                 <td><button class="mb-2 mr-2 btn btn-danger" data-toggle="modal" onclick="passValue('{{$i->id}}')" data-target="#deleteDetail" value="{{$i->id}}">Delete</button></td>
+                                @else
+                                <td> <button onclick="kirimEmail('{{$pengirimanCust->id}}', '{{$i->id}}')" class="mb-2 mr-2 btn btn-info">Kirim Email</button> </td>
                                 @endif
                             </tr>
                             @endforeach
@@ -381,7 +385,7 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                <h5 class="modal-title" id="notificationTitle">Error</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -425,7 +429,7 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
         $("#header-pengirimanCustomer").attr("class", "mm-active");
     
         if ('{{Session::has("fail-detail")}}'){
-            triggerNotification('{{Session::get("fail-detail")}}');
+            triggerNotification('{{Session::get("fail-detail")}}','Error');
             @php
                 Session::forget('fail-detail');
             @endphp
@@ -475,7 +479,8 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
         });
     }
     
-    function triggerNotification(text){
+    function triggerNotification(text,title){
+        $("#notificationTitle").html(title);
         $("#modalContent").html(text);
         $("#triggerModal").click();
     }
@@ -546,6 +551,26 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
             },
             error: function(){
                 console.log('error');
+            }
+        });
+    }
+
+    function kirimEmail(idPengiriman, idResi) {
+        $.ajax({
+            method : "POST",
+            url : "/admin/pengirimanCustomer/kirimEmailOTP",
+            datatype : "json",
+            data : { 
+                _token : "{{ csrf_token() }}",
+                idPengiriman: idPengiriman,
+                idResi: idResi 
+            },
+            success: function(result){
+                if(result == 1) triggerNotification("Email telah terkirim",'Berhasil');
+                else if(result == 0) triggerNotification("Email gagal dikirim",'Error');
+            },
+            error: function(){
+                triggerNotification("Email gagal dikirim",'Error');
             }
         });
     }

@@ -48,7 +48,12 @@ class ResiController extends Controller
         if($user->jabatan == "admin"){
             $allResi = Resi::getAll()->get();
         }else if($user->jabatan == "kasir"){
-            $allResi = Resi::where("kantor_asal_id","=",$user->kantor_id)->where("status_perjalanan","=","PERJALANAN")->where("status_perjalanan","=","CANCEL")->get();
+            $allResi = Resi::where("kantor_asal_id","=",$user->kantor_id)
+            ->where(function ($q) {
+                $q->where("status_perjalanan","=","PERJALANAN");
+                $q->orWhere("status_perjalanan","=","BATAL");
+            })
+            ->get();
         }
         
         if($user->jabatan == "kasir"){
@@ -77,8 +82,10 @@ class ResiController extends Controller
         $allResiSedangDiKantorIni = Resi::getAll()
         ->where("kantor_sekarang_id","=",$user->kantor_id)
         ->where("kantor_asal_id","<>",$user->kantor_id)
-        ->where("status_perjalanan","=","PERJALANAN")
-        ->where("status_perjalanan","=","CANCEL")
+        ->where(function ($q) {
+            $q->where("status_perjalanan","=","PERJALANAN");
+            $q->orWhere("status_perjalanan","=","BATAL");
+        })
         ->get();
         //
 
@@ -94,13 +101,23 @@ class ResiController extends Controller
         }else{
             $resi = Resi::findOrFail($id);
             $resi->harga = "Rp " . number_format($resi->harga, 2, ".", ",");
-            $status = "";
-            if($resi->status_perjalanan == "CANCEL" || $resi->status_perjalanan == "SELESAI"){$status = "disabled";}
+            
             $user = Pegawai::findOrFail(Session::get('id'));
+
+            $status = "";
+            if($resi->status_perjalanan == "SELESAI"){$status = "disabled";}
+
             $selesai = 0;
             if($user->jabatan != "admin"){
-                if($resi->status_perjalanan == "PERJALANAN" && $resi->kantor_asal_id != $user->kantor_id && $resi->kantor_sekarang_id != null && $user->kantor->kota == $resi->kantor_sekarang->kota) {$selesai = 1;}
-            }else if($user->jabatan == "admin" && $resi->status_perjalanan == "PERJALANAN") $selesai = 1;
+                if($resi->status_perjalanan == "PERJALANAN") 
+                {
+                    if($resi->kantor_asal_id != $user->kantor_id && $resi->kantor_sekarang_id != null && $user->kantor->kota == $resi->kantor_sekarang->kota)
+                    {$selesai = 1;}
+                }else if($resi->status_perjalanan == "BATAL"){
+                    if($resi->kantor_sekarang_id != null && $user->kantor->kota == $resi->kantor_sekarang->kota)
+                    {$selesai = 1;}
+                }
+            }else if($user->jabatan == "admin" && ($resi->status_perjalanan == "PERJALANAN" ||$resi->status_perjalanan == "BATAL")) $selesai = 1;
             $allKota = Kota::getAll()->get();
             return view('master.resi.edit',compact('resi','status','allKota','selesai'));
         }
@@ -201,14 +218,68 @@ class ResiController extends Controller
         return view('master.resi.print', compact('resi','user','harga'));
     }
 
-    public function selesai($id){
+    public function selesai($id,$otp){
         date_default_timezone_set("Asia/Jakarta");
         $resi = Resi::find($id);
-        $resi->status_perjalanan = "SELESAI";
+
+        $pengirimanCustomer = Pengiriman_customer::
+        join('d_pengiriman_customers', 'd_pengiriman_customers.pengiriman_customer_id', '=', 'pengiriman_customers.id')
+        ->where('pengiriman_customers.menuju_penerima',1)
+        ->where('pengiriman_customers.is_deleted',0)
+        ->where('d_pengiriman_customers.resi_id','=',$id)
+        ->orderBy('d_pengiriman_customers.created_at','desc')        
+        ->first();
+
+        $errorPassword = false;
+        if($pengirimanCustomer != null){
+            if($pengirimanCustomer->password == $otp){
+                if($resi->status_perjalanan == "PERJALANAN"){$keterangan = "Penerima telah menerima barang";}
+                else if($resi->status_perjalanan == "BATAL"){$keterangan = "Pengirim telah menerima barang";}
+                
+                $resi->status_perjalanan = "SELESAI";
+                $resi->user_updated = Session::get('id');
+                $resi->save();
+                
+                $sejarah = [
+                    'resi_id'=>$resi->id,
+                    'keterangan'=>$keterangan,
+                    'waktu'=>now()
+                ];
+                Sejarah::create($sejarah);
+
+
+                //untuk ganti status detail menjadi sampai
+                $p = DB::table('d_pengiriman_customers')
+                ->select('telah_sampai','waktu_sampai_cust')
+                ->where('resi_id',$id)
+                ->where('pengiriman_customer_id',$pengirimanCustomer->id)
+                ->get();
+
+                $p ->telah_sampai = 1;
+                $p->waktu_sampai_cust = now();
+                //
+            }else{$errorPassword = true;}
+        }else{$errorPassword = true;}
+
+        if($errorPassword){
+            $fail = "Password tidak valid.";
+            Session::put('success-failresi', $fail);
+            return redirect('/admin/resi');
+        }
+
+        $success = 'Resi ' . '"' . $id .  '"' . 'berhasil diubah.';
+        Session::put('success-resi', $success);
+        return redirect('/admin/resi');
+    }
+
+    public function batal($id){
+        date_default_timezone_set("Asia/Jakarta");
+        $resi = Resi::find($id);
+        $resi->status_perjalanan = "BATAL";
         $resi->user_updated = Session::get('id');
         $resi->save();
-
-        $keterangan = "Penerima telah menerima barang";
+        $user = Pegawai::findOrFail(Session::get('id'));
+        $keterangan = "Kasir " . $user->nama. " dari kantor ". $user->kantor->alamat. " telah membatalkan resi";
         $sejarah = [
             'resi_id'=>$resi->id,
             'keterangan'=>$keterangan,

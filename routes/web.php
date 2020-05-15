@@ -43,6 +43,7 @@ Route::post('/ghajd', function (Request $request) {
 });
 
 Route::get('/try', function () {
+   
 });
 
 Route::get('/tryemail', function () {
@@ -211,7 +212,8 @@ Route::group(['middleware' => ['checkstatus:kasir']], function () {
     Route::post('/admin/resi/isiSejarah', 'ResiController@isiSejarah');
     Route::get('/admin/resi/trackingField/{id}', 'ResiController@trackingField');
     Route::get('/admin/resi/print/{id}', 'ResiController@print');
-    Route::get('/admin/resi/selesai/{id}', 'ResiController@selesai');
+    Route::get('/admin/resi/selesai/{id}/{otp}', 'ResiController@selesai');
+    Route::get('/admin/resi/batal/{id}', 'ResiController@batal');
     
     //ADMING - BON MUAT
     Route::get('/admin/bonmuat/create', 'Bon_MuatController@create');
@@ -227,6 +229,7 @@ Route::group(['middleware' => ['checkstatus:kasir']], function () {
     Route::post('/admin/pengirimanCustomer/update/{id}', 'PengirimanCustomerController@update');
     Route::post('/admin/pengirimanCustomer/startPengiriman/{id}', 'PengirimanCustomerController@startPengiriman');
     Route::post('/admin/pengirimanCustomer/finishPengiriman/{id}', 'PengirimanCustomerController@finishPengiriman');
+    Route::post('/admin/pengirimanCustomer/kirimEmailOTP', 'PengirimanCustomerController@kirimEmailOTP');
 });
 
 
@@ -241,6 +244,7 @@ Route::group(['middleware' => ['checkstatus:pegawai']], function () {
     Route::post('/admin/bonmuat/deleteAll/{id}', 'Bon_MuatController@deleteAll');
     Route::get('/admin/bonmuat/editSuratJalan/{id}', 'Bon_MuatController@editSuratJalan');
     Route::post('/admin/bonmuat/updateSuratJalan/{id}', 'Bon_MuatController@updateSuratJalan');
+    Route::post('/admin/bonmuat/cariKantor', 'Bon_MuatController@cariKantor');
 
     //ADMIN - PENGIRIMAN CUSTOMER
     Route::get('/admin/pengirimanCustomer', 'PengirimanCustomerController@index');
