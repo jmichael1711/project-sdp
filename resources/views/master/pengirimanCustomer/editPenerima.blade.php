@@ -272,6 +272,8 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                                 <th>Dibuat Oleh</th>
                                 @if($tipe == "add")
                                 <th>Perintah</th>
+                                @else
+                                <th>Action</th>
                                 @endif
                             </tr>
                         </thead>
@@ -318,6 +320,8 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
                                 <td>{{$i->d_pengiriman_customer->user_created}}</td>
                                 @if($tipe == "add")
                                 <td><button class="mb-2 mr-2 btn btn-danger" data-toggle="modal" onclick="passValue('{{$i->id}}')" data-target="#deleteDetail" value="{{$i->id}}">Delete</button></td>
+                                @else
+                                <td> <button onclick="kirimEmail('{{$pengirimanCust->id}}', '{{$i->id}}')" class="mb-2 mr-2 btn btn-info">Kirim Email</button> </td>
                                 @endif
                             </tr>
                             @endforeach
@@ -543,6 +547,25 @@ Halaman ini untuk mengubah data detail pengiriman customer menuju penerima.
             data : { _token : "{{ csrf_token() }}" },
             success: function(result){
                 window.location.reload();
+            },
+            error: function(){
+                console.log('error');
+            }
+        });
+    }
+
+    function kirimEmail(idPengiriman, idResi) {
+        $.ajax({
+            method : "POST",
+            url : "/admin/pengirimanCustomer/kirimEmailOTP",
+            datatype : "json",
+            data : { 
+                _token : "{{ csrf_token() }}",
+                idPengiriman: idPengiriman,
+                idResi: idResi 
+            },
+            success: function(result){
+                console.log('berhasil')
             },
             error: function(){
                 console.log('error');
