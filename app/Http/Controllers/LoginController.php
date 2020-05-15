@@ -45,26 +45,18 @@ class LoginController extends Controller
                     return redirect("/login");
                 }
 
-                //found
                 $jabatan = $pegawai->jabatan;
-
+                Session::put('id', $username);
+                Session::put('name',$pegawai->nama);
+                Session::put('pegawai',$pegawai);
                 if ($jabatan == "admin") {
                     Session::put('loginstatus', 0);
-                    Session::put('id', $username);
-                    Session::put('name',$pegawai->nama);
                     return redirect("/admin/resi");
-
                 } else if ($jabatan == "pegawai") {
                     Session::put('loginstatus', 4);
-                    Session::put('id', $username);
-                    Session::put('pegawai',$pegawai);
-                    Session::put('name',$pegawai->nama);
                     return redirect("/admin/bonmuat");
                 } else if ($jabatan == "kasir") {
                     Session::put('loginstatus', 3);
-                    Session::put('id', $username);
-                    Session::put('name',$pegawai->nama);
-                    Session::put('pegawai',$pegawai);
                     return redirect("/admin/resi");
                 } else {
                     Session::put('status', 'Ada masalah pada jabatan anda.');
