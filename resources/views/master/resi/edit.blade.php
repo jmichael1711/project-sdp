@@ -269,11 +269,37 @@ Halaman ini untuk mengubah data resi
             </div>
         </div>
 
+        <hr>
+        <div class="form-row">
+            <div class="col-md-5">
+                <div class="position-relative form-group">
+                    <label class="">Status Aktif</label>
+                    <select class="form-control" name="is_deleted" id="status" onchange="changeStatus()" {{$status}}
+                    @if (Session::has('loginstatus'))
+                        @if (Session::get('loginstatus') == 4)
+                            disabled
+                        @endif
+                    @endif
+                    >
+                        @if ($resi->is_deleted)
+                            <option selected class="form-control" value="1">TIDAK AKTIF</option>
+                            <option class="form-control" value="0">AKTIF</option>
+                        @else
+                            <option class="form-control" value="1">TIDAK AKTIF</option>
+                            <option selected class="form-control" value="0">AKTIF</option>
+                        @endif
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <div class="form-row">
             <div class="col-md-2">
                 <div class="position-relative form-group">
                     <button class="mt-2 btn btn-primary" {{$status}}>Ubah</button>
-                    <button class="mt-2 btn btn-danger" {{$status}}>Cancel</button>
+                    @if($resi->status_perjalanan != "BATAL")
+                        <button type="button" class="mt-2 btn btn-danger" data-toggle="modal" data-target="#batalResi" {{$status}}>Batal Resi</button>
+                    @endif
                 </div>
             </div>
         </div>
@@ -322,6 +348,27 @@ Halaman ini untuk mengubah data resi
     </div>
 </div>
 
+{{-- Batal resi --}}
+<div class="modal fade" id="batalResi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">APAKAH ANDA YAKIN?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            Apakah anda ingin membatalkan resi ini?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" onclick="batalResi('{{$resi->id}}')" data-dismiss="modal">Selesai</button>
+        </div>
+        </div>
+    </div>
+</div>
+
 @section('scripts')
 <script>
      $(document).ready(function () {
@@ -360,6 +407,29 @@ Halaman ini untuk mengubah data resi
 
     function selesaiResi(id){
         window.location.href = '/admin/resi/selesai/'+id;
+    }
+    function batalResi(id){
+        window.location.href = '/admin/resi/batal/'+id;
+    }
+
+    function changeStatus(){
+        var stat = $("#status").val();
+        if(stat == "1"){
+            var permitted = true;
+            @if($resi->kantor_sekarang_id != null)
+                permitted = false;
+            @endif
+            
+            if(!permitted){
+                triggerNotification("Resi tidak boleh dinonaktifkan.");
+                $("#status").val("0");
+            }
+        }   
+    }
+
+    function triggerNotification(text){
+        $("#modalContent").html(text);
+        $("#triggerModal").click();
     }
     
 </script>
