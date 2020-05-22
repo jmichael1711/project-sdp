@@ -344,7 +344,7 @@ class Bon_MuatController extends Controller
     public function cariKantor(Request $request){
         $kantorSekarang = Pegawai::findOrFail(Session::get('id'))->kantor;
         $user = Pegawai::findOrFail(Session::get('id'));
-        if($user->jabatan == "admin"){$allKantor = Kantor::getAll()->get();}
+        if($user->jabatan == "admin"){$allKantor = Kantor::getAll()->where('kota',$request->kota)->get();}
         else{
             $allKantor = Kantor::sortKantor($request->kota,$kantorSekarang->kota,$kantorSekarang->is_warehouse,$kantorSekarang->id);
         }
