@@ -34,7 +34,7 @@ class Bon_MuatController extends Controller
         $user = Session::get('id');
         $request['user_created'] = $user;
         $request['user_updated'] = $user;
-       
+
         $success = "Bon muat berhasil didaftarkan.";
         Bon_muat::create($request);
         return redirect('/admin/bonmuat')->with(['success-bonmuat' => $success]);
@@ -53,8 +53,8 @@ class Bon_MuatController extends Controller
                     if($request->status == "EDIT"){
                         if($bonmuat->id != $request->id && $bonmuat->kurir_non_customer_id == $kurir->id ){
                             $found = true;
-                        }  
-                    } 
+                        }
+                    }
                 }
                 if($found == false){
                     $ctr++;
@@ -67,17 +67,17 @@ class Bon_MuatController extends Controller
             }
             if($ctr == 0){$str .= '<option class="form-control" value="">-- TIDAK ADA KURIR --</option>';}
         }else $str .= '<option class="form-control" value="">-- TIDAK ADA KURIR --</option>';
-        
+
         $str .= '|';
-        if($allKendaraan->count() > 0){  
-            $ctr = 0;  
+        if($allKendaraan->count() > 0){
+            $ctr = 0;
             foreach($allKendaraan as $kendaraan){
                 $found = false;
                 foreach($allBonMuat as $bonmuat){
                     if($request->status == "EDIT"){
                         if($bonmuat->id != $request->id && $bonmuat->kendaraan_id == $kendaraan->id){
                             $found = true;
-                        }   
+                        }
                     }
                 }
                 if($found == false){
@@ -89,7 +89,7 @@ class Bon_MuatController extends Controller
                     }
                 }
             }
-            if($ctr == 0){$str .= '<option class="form-control" value="">-- TIDAK ADA KURIR --</option>';}  
+            if($ctr == 0){$str .= '<option class="form-control" value="">-- TIDAK ADA KURIR --</option>';}
         }else $str .= '<option class="form-control" value="">-- TIDAK ADA KENDARAAN --</option>';
         return $str;
     }
@@ -145,13 +145,13 @@ class Bon_MuatController extends Controller
             Session::put('success-failsuratjalan', $fail);
             return redirect('/admin/bonmuat/edit/'.$id);
         }
-        if($resi->status_perjalanan == "SELESAI" || $resi->is_deleted != 1){
+        if($resi->status_perjalanan == "SELESAI" || $resi->is_deleted == 1){
             $fail = "Resi tidak valid.";
             Session::put('success-failsuratjalan', $fail);
             return redirect('/admin/bonmuat/edit/'.$id);
         }
         if($resi != null){
-            foreach($allBonMuat as $i){    
+            foreach($allBonMuat as $i){
                 foreach($i->resis as $j){
                     if($j->id == $request["resi_id"] && $j->surat_jalan->telah_sampai == 0){
                         $fail = "Resi telah terdaftar di Bon muat dengan ID = ". $i->id . ".";
@@ -160,7 +160,7 @@ class Bon_MuatController extends Controller
                     }
                 }
             }
-            
+
             foreach($allPengirimanCust as $i){
                 foreach($i->resis as $j){
                     if($j->id == $request['resi_id'] && $j->d_pengiriman_customer->telah_sampai == 0){
@@ -222,13 +222,13 @@ class Bon_MuatController extends Controller
             $fail = "Bon Muat tidak terdaftar";
             Session::put('success-failsuratjalan', $fail);
             return redirect('/admin/bonmuat');
-        }else{    
+        }else{
             $status = "disabled";
             foreach($bonmuat->resis as $i){
                 if($i->surat_jalan->telah_sampai == 0){
                     $status = "";
                 }
-            } 
+            }
             return view('master.bonmuat.editSuratJalan', compact('bonmuat','status'));
         }
     }
@@ -245,13 +245,13 @@ class Bon_MuatController extends Controller
         }else{
             if($bonmuat->waktu_sampai == null){
                 $bonmuat->update(['waktu_sampai' => now()]);
-                $bonmuat->update(['user_updated' => $user->id]);  
+                $bonmuat->update(['user_updated' => $user->id]);
             }
             $sampai =  $bonmuat->resis()->where("resi_id",$request["resi_id"])->first()->surat_jalan->telah_sampai;
             if($sampai == 0){
 
                 //update surat jalan
-                $bonmuat->update(['user_updated' => $user->id]); 
+                $bonmuat->update(['user_updated' => $user->id]);
                 $bonmuat->resis()->updateExistingPivot($request["resi_id"],['telah_sampai' => 1]);
                 $bonmuat->resis()->updateExistingPivot($request["resi_id"],['waktu_sampai' => now()]);
                 $bonmuat->resis()->updateExistingPivot($request["resi_id"],['user_updated' => $user->id]);
@@ -277,14 +277,14 @@ class Bon_MuatController extends Controller
                         $count++;
                     }
                 }
-    
+
                 if($count == 0){
                     $kurir = Kurir_non_customer::findOrFail($bonmuat->kurir_non_customer_id);
                     $kurir->update(['status' => 1]);
                     if($kurir->posisi_di_kantor_1 == 0) $kurir->update(['posisi_di_kantor_1' => 1]);
                     else $kurir->update(['posisi_di_kantor_1' => 0]);
                     $kendaraan = Kendaraan::findOrFail($bonmuat->kendaraan_id);
-                    $kendaraan->update(['status' => 1]);  
+                    $kendaraan->update(['status' => 1]);
                     if($kendaraan->posisi_di_kantor_1 == 0) $kendaraan->update(['posisi_di_kantor_1' => 1]);
                     else $kendaraan->update(['posisi_di_kantor_1' => 0]);
                 }
@@ -306,15 +306,15 @@ class Bon_MuatController extends Controller
         if($bonmuat->resis()->count() > 0){
             date_default_timezone_set("Asia/Jakarta");
             $user = Session::get('id');
-            $bonmuat->update(['user_updated' => $user]);  
-            $bonmuat->update(['waktu_berangkat' => now()]); 
+            $bonmuat->update(['user_updated' => $user]);
+            $bonmuat->update(['waktu_berangkat' => now()]);
 
             $kurir = Kurir_non_customer::findOrFail($bonmuat->kurir_non_customer_id);
-            $kurir->update(['status' => 0]);  
+            $kurir->update(['status' => 0]);
             $kendaraan = Kendaraan::findOrFail($bonmuat->kendaraan_id);
-            $kendaraan->update(['status' => 0]);  
+            $kendaraan->update(['status' => 0]);
 
-              
+
             foreach($bonmuat->resis as $i){
                 $keterangan = 'Barang dikirim dari kantor ' . $bonmuat->kantor_asal->alamat . ', ' . $bonmuat->kantor_asal->getKota->nama . ' menuju kantor ' . $bonmuat->kantor_tujuan->alamat . ', ' . $bonmuat->kantor_tujuan->getKota->nama . ' oleh Kurir ' . $bonmuat->kurir_non_customer->nama.'.';
                 $sejarah = [
