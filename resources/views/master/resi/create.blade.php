@@ -102,9 +102,16 @@ Halaman ini untuk menambah data resi.
                 <div class="position-relative form-group">
                     <label class="">Kota Pengirim</label>
                     <select id="kota_asal" name="kota_asal" class="form-control" required onchange="hitungHarga()">
-                        @foreach ($allKota as $kota)
-                            <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
-                        @endforeach
+                        @if (Session::has('loginstatus'))
+                            @if (Session::get('loginstatus') == 3)
+                                <option class="form-control" value="{{Session::get('pegawai')->kantor->getKota->nama}}">{{Session::get('pegawai')->kantor->getKota->nama}}</option>
+                            @else
+                                @foreach ($allKota as $kota)
+                                    <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>
+                                @endforeach
+                            @endif
+                        @endif
+                        
                     </select>
                     <div class="invalid-feedback">
                         Mohon pilih kota pengirim yang valid.

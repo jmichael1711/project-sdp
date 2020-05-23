@@ -273,7 +273,7 @@ class Bon_MuatController extends Controller
                 //untuk mengecek apakah semua resi telah sampai
                 $count = 0;
                 foreach($bonmuat->resis as $i){
-                    if($i->surat_jalan->telah_sampai == 0 && $i->surat_jalan->waktu_sampai != null){
+                    if($i->surat_jalan->telah_sampai == 0 && $i->surat_jalan->waktu_sampai == null){
                         $count++;
                     }
                 }
