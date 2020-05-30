@@ -49,6 +49,19 @@ Halaman ini untuk menambah data kota.
                         </div>
                     </div>
                     <div class="form-row">
+                        <div class="col-md-5">
+                            <div class="position-relative form-group">
+                                <label class="">Id</label>
+                                <input oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
+                                this.setSelectionRange(p, p);" style="text-transform:uppercase" name="id" id=""
+                                placeholder="Id Raja Ongkir" type="number" class="form-control" required>
+                                <div class="invalid-feedback">
+                                    Mohon input id yang valid.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
                         <div class="col-md-2">
                             <div class="position-relative form-group">
                                 <button class="mt-2 btn btn-primary">Tambah</button>

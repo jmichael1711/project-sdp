@@ -15,7 +15,7 @@ class KantorController extends Controller
     }
 
     public function create() {
-        $listKota = Kota::getAll()->get();
+        $listKota = Kota::where('is_deleted',0)->get();
         return view('master.kantor.create', compact('listKota'));
     }
 
