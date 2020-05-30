@@ -22,7 +22,9 @@ Halaman ini untuk mengubah data kantor.
             Session::forget('success');
         @endphp
     @endif
-
+    <button id="triggerModal" type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal" style="display: none">
+        Trigger Modal
+    </button>
     <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
         <div class="main-card mb-3 card">
             <div class="card-body">
@@ -102,7 +104,7 @@ Halaman ini untuk mengubah data kantor.
                                 <label class="">Longitude</label>
                                 <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="longitude"
-                                placeholder="0.000000" step="0.000001" type="number" max="999.999999" min="0.000000" class="form-control" value="{{$kantor->longitude}}" {{$kantor->is_deleted ? 'disabled' : ''}}>
+                                placeholder="0.000000" maxlength="10" type="text" class="form-control" value="{{$kantor->longitude}}" {{$kantor->is_deleted ? 'disabled' : ''}}>
                                 <div class="invalid-feedback">
                                     Mohon input longitude yang valid.
                                 </div>
@@ -113,7 +115,7 @@ Halaman ini untuk mengubah data kantor.
                                 <label class="">Latitude</label>
                                 <input required oninput="let p = this.selectionStart; this.value = this.value.toUpperCase();
                                 this.setSelectionRange(p, p);" style="text-transform:uppercase" name="latitude"
-                                placeholder="0.000000" step="0.000001" type="number" max="999.999999" min="0.000000" class="form-control"  value="{{$kantor->latitude}}" {{$kantor->is_deleted ? 'disabled' : ''}}>
+                                placeholder="0.000000" maxlength="10" type="text" class="form-control"  value="{{$kantor->latitude}}" {{$kantor->is_deleted ? 'disabled' : ''}}>
                                 <div class="invalid-feedback">
                                     Mohon input latitude yang valid.
                                 </div>
@@ -152,6 +154,26 @@ Halaman ini untuk mengubah data kantor.
 </div>
 @endsection
 
+{{-- Notification --}}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0" id="modalContent"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section('scripts')
 <script>
     $(document).ready(function () {
@@ -159,6 +181,18 @@ Halaman ini untuk mengubah data kantor.
         $("#btn-kantor").attr("aria-expanded", "true");
         $("#list-kantor").attr("class", "mm-collapse mm-show");
         $("#header-kantor").attr("class", "mm-active");
+
+        if ('{{Session::has("fail-kantor")}}'){
+            triggerNotification('{{Session::get("fail-kantor")}}');
+            @php
+                Session::forget('fail-kantor');
+            @endphp
+        } 
     })
+
+    function triggerNotification(text){
+        $("#modalContent").html(text);
+        $("#triggerModal").click();
+    }
 </script>
 @endsection
