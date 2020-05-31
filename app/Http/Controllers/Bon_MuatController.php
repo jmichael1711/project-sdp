@@ -145,7 +145,7 @@ class Bon_MuatController extends Controller
             Session::put('success-failsuratjalan', $fail);
             return redirect('/admin/bonmuat/edit/'.$id);
         }
-        if($resi->status_perjalanan == "SELESAI" || $resi->is_deleted != 1){
+        if($resi->status_perjalanan == "SELESAI" || $resi->is_deleted == 1){
             $fail = "Resi tidak valid.";
             Session::put('success-failsuratjalan', $fail);
             return redirect('/admin/bonmuat/edit/'.$id);
