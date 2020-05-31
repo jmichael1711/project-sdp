@@ -51,6 +51,7 @@ class ResiController extends Controller
             //untuk select resi yang dipesan oleh customer dari web dan belum diproses di pengiriman_customer
             $allPengirimanCustomer = DB::table('d_pengiriman_customers')->select('resi_id');
             $allResiBaru = Resi::getAll()
+            ->where("status_verifikasi_email",1)
             ->where("verifikasi",0)
             ->whereNotIn('id', $allPengirimanCustomer)
             ->get();
@@ -67,6 +68,7 @@ class ResiController extends Controller
             $allPengirimanCustomer = DB::table('d_pengiriman_customers')->select('resi_id');
             $allResiBaru = Resi::getAll()
             ->where("kantor_asal_id","=",$user->kantor_id)
+            ->where("status_verifikasi_email",1)
             ->where("verifikasi",0)
             ->whereNotIn('id', $allPengirimanCustomer)
             ->get();
@@ -135,6 +137,8 @@ class ResiController extends Controller
         $kotaAsal = Kota::findOrFail($request->kotaAsal);
         $kotaTujuan = Kota::findOrFail($request->kotaTujuan);
         $berat = $request->berat*1000;
+        $courier = "jne";
+        if($kotaAsal->nama == "SIDOARJO") $courier = "tiki";
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
@@ -144,7 +148,7 @@ class ResiController extends Controller
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "origin=$kotaAsal->id&destination=$kotaTujuan->id&weight=$berat&courier=jne",
+            CURLOPT_POSTFIELDS => "origin=$kotaAsal->id&destination=$kotaTujuan->id&weight=$berat&courier=$courier",
             CURLOPT_HTTPHEADER => array(
               "content-type: application/x-www-form-urlencoded",
               "key: 49768eb68a44d897fd2e9c80a576d8b9"
@@ -163,10 +167,10 @@ class ResiController extends Controller
     public function countResi(){
         $user = Pegawai::findOrFail(Session::get('id'));
         if($user->jabatan == "kasir"){
-            $allResi = Resi::getAll()->where("kantor_asal_id","=",$user->kantor_id)->where("verifikasi",0)->get();
+            $allResi = Resi::getAll()->where("kantor_asal_id","=",$user->kantor_id)->where("verifikasi",0)->where("status_verifikasi_email",1)->get();
             $allPengirimanCustomer = Pengiriman_customer::getAll()->where("kantor_id","=",$user->kantor_id)->where("menuju_penerima",0)->get();
         }else{
-            $allResi = Resi::getAll()->where("verifikasi",0)->get();
+            $allResi = Resi::getAll()->where("verifikasi",0)->where("status_verifikasi_email",1)->get();
             $allPengirimanCustomer = Pengiriman_customer::getAll()->where("menuju_penerima",0)->get();
         }
         $count = 0;

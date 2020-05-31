@@ -345,6 +345,8 @@ class KurirController extends Controller
         $kotaAsal = $resi->getKotaAsal;
         $kotaTujuan = $resi->getKotaTujuan;
         $berat = $request->berat*1000;
+        $courier = "jne";
+        if($kotaAsal->nama == "SIDOARJO") $courier = "tiki";
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
@@ -354,7 +356,7 @@ class KurirController extends Controller
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "origin=$kotaAsal->id&destination=$kotaTujuan->id&weight=$berat&courier=jne",
+            CURLOPT_POSTFIELDS => "origin=$kotaAsal->id&destination=$kotaTujuan->id&weight=$berat&courier=$courier",
             CURLOPT_HTTPHEADER => array(
               "content-type: application/x-www-form-urlencoded",
               "key: 49768eb68a44d897fd2e9c80a576d8b9"
@@ -375,6 +377,8 @@ class KurirController extends Controller
         $kotaAsal = $resi->getKotaAsal;
         $kotaTujuan = $resi->getKotaTujuan;
         $berat = $beratBarang*1000;
+        $courier = "jne";
+        if($kotaAsal->nama == "SIDOARJO") $courier = "tiki";
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
@@ -384,7 +388,7 @@ class KurirController extends Controller
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "origin=$kotaAsal->id&destination=$kotaTujuan->id&weight=$berat&courier=jne",
+            CURLOPT_POSTFIELDS => "origin=$kotaAsal->id&destination=$kotaTujuan->id&weight=$berat&courier=$courier",
             CURLOPT_HTTPHEADER => array(
               "content-type: application/x-www-form-urlencoded",
               "key: 49768eb68a44d897fd2e9c80a576d8b9"
