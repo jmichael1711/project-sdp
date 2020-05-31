@@ -323,7 +323,7 @@ class PengirimanCustomerController extends Controller
                 }
             } else {
                 $password = rand(1000, 9999) * 10000 + rand(1000, 9999);
-
+                $resi = $pengirimanCust->resis->first();
                 $detailPengiriman = $resi->d_pengiriman_customer;
                 $detailPengiriman->password = $password;
                 $detailPengiriman->save();
