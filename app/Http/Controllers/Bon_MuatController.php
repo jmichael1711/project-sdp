@@ -100,7 +100,7 @@ class Bon_MuatController extends Controller
             //untuk kasir
             if(Session::get('loginstatus') == 3){
                 $kantor = Session::get('pegawai')->kantor->id;
-                $allIncomingBonMuat = Bon_Muat::getAll()->where('kantor_tujuan_id',$kantor)->where('waktu_berangkat','<>',null)->get();
+                $allIncomingBonMuat = Bon_Muat::where('is_deleted',0)->where('kantor_tujuan_id',$kantor)->where('waktu_berangkat','<>',null)->get();
                 $allBonMuat = Bon_muat::where('kantor_asal_id',$kantor)->get();
             }
             //untuk admin dll
