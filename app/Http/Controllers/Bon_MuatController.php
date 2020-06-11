@@ -54,6 +54,10 @@ class Bon_MuatController extends Controller
                         if($bonmuat->id != $request->id && $bonmuat->kurir_non_customer_id == $kurir->id ){
                             $found = true;
                         }
+                    }else{
+                        if($bonmuat->kurir_non_customer_id == $kurir->id ){
+                            $found = true;
+                        }
                     }
                 }
                 if($found == false){
@@ -76,6 +80,10 @@ class Bon_MuatController extends Controller
                 foreach($allBonMuat as $bonmuat){
                     if($request->status == "EDIT"){
                         if($bonmuat->id != $request->id && $bonmuat->kendaraan_id == $kendaraan->id){
+                            $found = true;
+                        }
+                    }else{
+                        if($bonmuat->kendaraan_id == $kendaraan->id){
                             $found = true;
                         }
                     }
@@ -127,6 +135,9 @@ class Bon_MuatController extends Controller
 
         $request['user_updated'] = Session::get('id');
         $bonmuat->update($request);
+
+
+
         $success = 'Bon Muat ' . '"' . $id .  '"' . 'berhasil diubah.';
         Session::put('success-bonmuat', $success);
         return redirect('/admin/bonmuat');
