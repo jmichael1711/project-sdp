@@ -143,7 +143,7 @@ Halaman ini untuk mengubah data kurir non customer.
                                 <label class="">Kota 2</label>
                                 <select id="kota2" class="form-control" onchange='isiKantor("2")' required {{$kurcust->is_deleted ? 'disabled' : ''}}>
                                     @foreach ($allKota as $kota)
-                                        @if($kota->nama == $kotaNow1)
+                                        @if($kota->nama == $kotaNow2)
                                             <option class="form-control" value="{{$kota->nama}}" selected>{{$kota->nama}}</option>
                                         @else 
                                             <option class="form-control" value="{{$kota->nama}}">{{$kota->nama}}</option>

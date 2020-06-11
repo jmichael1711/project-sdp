@@ -1,0 +1,32 @@
+Tambahin di C:\xampp\apache\conf\extra\httpd-vhosts.conf
+
+<VirtualHost *:80>
+    DocumentRoot "C:/xampp/htdocs/"
+    ServerName localhost
+</VirtualHost>
+
+<VirtualHost *:80>
+    DocumentRoot "C:/xampp/htdocs/project-sdp/public"
+    ServerName sdp.test
+    SSLEngine on
+    SSLCertificateFile "conf/ssl.crt/server.crt"
+    SSLCertificateKeyFile "conf/ssl.key/server.key"
+</VirtualHost>
+
+<VirtualHost *:443>
+    DocumentRoot "C:/xampp/htdocs/project-sdp/public"
+    ServerName sdp.test
+    SSLEngine on
+    SSLCertificateFile "conf/ssl.crt/server.crt"
+    SSLCertificateKeyFile "conf/ssl.key/server.key"
+    <Directory "C:/xampp/htdocs/project-sdp/public">
+        AllowOverride All
+        Order deny,allow
+        Allow from all
+        Require all granted
+    </Directory>
+</VirtualHost>
+
+Tambahin di C:\Windows\System32\drivers\etc\hosts
+
+127.0.0.1        sdp.test
