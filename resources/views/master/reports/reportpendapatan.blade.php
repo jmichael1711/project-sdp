@@ -81,7 +81,7 @@ Halaman ini untuk melihat report pendapatan per-tahun setiap kantor.
 
     <div class="tab-pane tabs-animation fade show active" role="tabpanel">
         <div class="main-card mb-3 card">
-            <div class="card-body">
+            <div class="card-body" id="card-report">
                 <canvas id="report-chart"></canvas>
             </div>
         </div>
@@ -137,6 +137,9 @@ Halaman ini untuk melihat report pendapatan per-tahun setiap kantor.
     function submit() {
         var idKantor = $('#kantor').val()
         var tahun = $('#tahun').val()
+        $('#card-report').html(`
+            <canvas id="report-chart"></canvas>
+        `);
 
         if (!idKantor || !tahun) {
             return;
@@ -186,7 +189,6 @@ Halaman ini untuk melihat report pendapatan per-tahun setiap kantor.
                     data: reportData,
                     options: {
                         responsive: true,
-                        hoverMode: 'index',
                         stacked: false,
                         title: {
                             display: true,
