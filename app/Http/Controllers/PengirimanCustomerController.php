@@ -40,7 +40,10 @@ class PengirimanCustomerController extends Controller
     public function lihatPesanan(Request $request){
         $str = '';
         $idPesanan = $request['pesanan'];
-        $allResi = Resi::getAll()->where("kantor_asal_id",$request->kota)->where("verifikasi","0")->get();
+        if($idPesanan == 'null')
+            $allResi = Resi::getAll()->where("kantor_asal_id",$request->kota)->where("verifikasi","0")->get();
+        else
+            $allResi = Resi::getAll()->where("kantor_asal_id",$request->kota)->get();
         if(count($allResi) > 0) {
             $hitung = 0;
             foreach ($allResi as $resi) {
