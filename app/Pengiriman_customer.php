@@ -77,7 +77,7 @@ class Pengiriman_customer extends Model
     public static function getNextId() {
         date_default_timezone_set("Asia/Jakarta");
 
-        if (Pengiriman_customer::count() > 0) {
+        if (Pengiriman_customer::all()->count() > 0) {
             $lastObject = Pengiriman_customer::select('id')
             ->orderBy('created_at', 'desc')
             ->first()

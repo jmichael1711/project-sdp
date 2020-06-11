@@ -42,7 +42,7 @@ class Resi extends Model
     public static function getNextId() {
         date_default_timezone_set("Asia/Jakarta");
 
-        if (Resi::count() > 0) {
+        if (Resi::all()->count() > 0) {
             $lastObject = Resi::select('id')
             ->orderBy('created_at', 'desc')
             ->first()

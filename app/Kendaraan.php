@@ -53,7 +53,7 @@ class Kendaraan extends Model
     }  
 
     public static function getNextId() {
-        if (Kendaraan::count() > 0) {
+        if (Kendaraan::all()->count() > 0) {
             $lastObject = Kendaraan::select('id')
             ->orderBy('created_at', 'desc')
             ->first()

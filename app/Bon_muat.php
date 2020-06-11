@@ -58,7 +58,7 @@ class Bon_muat extends Model
     public static function getNextId() {
         date_default_timezone_set("Asia/Jakarta");
 
-        if (Bon_muat::count() > 0) {
+        if (Bon_muat::all()->count() > 0) {
             $lastObject = Bon_muat::select('id')
             ->orderBy('created_at', 'desc')
             ->first()

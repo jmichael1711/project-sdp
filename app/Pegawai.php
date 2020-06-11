@@ -30,7 +30,7 @@ class Pegawai extends Model
 
     public static function getNextId() {
 
-        if (Pegawai::count() > 0) {
+        if (Pegawai::all()->count() > 0) {
             $lastObject = Pegawai::select('id')
             ->orderBy('created_at', 'desc')
             ->first()
