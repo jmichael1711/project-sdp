@@ -62,6 +62,7 @@ class ResiController extends Controller
                 $q->where("status_perjalanan","=","PERJALANAN");
                 $q->orWhere("status_perjalanan","=","BATAL");
             })
+            ->where('is_deleted',0)
             ->get();
 
             //untuk select resi yang dipesan oleh customer dari web dan belum diproses di pengiriman_customer
