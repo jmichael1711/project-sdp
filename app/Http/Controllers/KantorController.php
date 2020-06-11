@@ -75,7 +75,6 @@ class KantorController extends Controller
             return redirect('/admin/kantor/edit/'.$id);
         }else
         {
-            $request = $request->all();
             $kantor = Kantor::findOrFail($id);
             $request['user_updated'] = Session::get('id');
             $kantor->update($request);

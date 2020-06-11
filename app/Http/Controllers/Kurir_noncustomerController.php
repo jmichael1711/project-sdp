@@ -42,7 +42,6 @@ class Kurir_noncustomerController extends Controller
             Session::put('failed-kurir_noncustomer', $failed);
             return redirect('/admin/kurir_noncustomer/create');
         }
-
     }
 
     public function edit($id) {

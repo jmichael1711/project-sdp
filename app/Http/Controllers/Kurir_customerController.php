@@ -47,6 +47,12 @@ class Kurir_customerController extends Controller
         date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $kurcust = Kurir_customer::findOrFail($id);
+
+        if($kurcust->password != $request['password'])
+        {
+            $request['password'] = md5($request['password']);
+        }
+
         $request['user_updated'] = Session::get('id');
         $kurcust->update($request);
         $success = "Data kurir customer $id berhasil diubah.";

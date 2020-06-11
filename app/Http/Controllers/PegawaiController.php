@@ -32,6 +32,12 @@ class PegawaiController extends Controller
         date_default_timezone_set("Asia/Jakarta");
         $request = $request->all();
         $pegawai = Pegawai::findOrFail($id);
+
+        if($pegawai->password != $request['password'])
+        {
+            $request['password'] = md5($request['password']);
+        }
+
         $request['user_updated'] = Session::get('id');
         $pegawai->update($request);
         $success = 'Data pegawai '.$id.' berhasil diubah.';
