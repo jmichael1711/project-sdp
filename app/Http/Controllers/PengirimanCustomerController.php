@@ -170,9 +170,9 @@ class PengirimanCustomerController extends Controller
         if(Session::has('loginstatus')){
             if(Session::get('loginstatus') == 3){
                 $kantor = Session::get('pegawai')->kantor->id;
-                $allPengirimanCust = Pengiriman_customer::where('kantor_id',$kantor)->get();
-                $pengirimanCustPengirim = Pengiriman_customer::getAll()->where("menuju_penerima","0")->where('kantor_id',$kantor)->get();
-                $pengirimanCustPenerima = Pengiriman_customer::getAll()->where("menuju_penerima","1")->where('kantor_id',$kantor)->get();
+                $allPengirimanCust = Pengiriman_customer::where('kantor_id',$kantor)->where('is_deleted',0)->get();
+                $pengirimanCustPengirim = Pengiriman_customer::getAll()->where("menuju_penerima","0")->where('kantor_id',$kantor)->where('is_deleted',0)->get();
+                $pengirimanCustPenerima = Pengiriman_customer::getAll()->where("menuju_penerima","1")->where('kantor_id',$kantor)->where('is_deleted',0)->get();
             }
             else{
                 $allPengirimanCust = Pengiriman_customer::get();
