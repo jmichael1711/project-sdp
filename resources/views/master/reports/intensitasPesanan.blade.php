@@ -34,7 +34,7 @@
 <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
     <div class="main-card mb-3 card">
         <div class="card-body">
-            <div class="container">
+            <div class="container" id="report-container">
                 <canvas id="chart"></canvas>
             </div>
         </div>
@@ -53,6 +53,10 @@
     })
     
     function generateReport(){
+        $('#report-container').html(`
+            <canvas id="chart"></canvas>
+        `);
+
         var kota = $('#kota').val();
         $.ajax({
             method : "POST",

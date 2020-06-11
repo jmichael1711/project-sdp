@@ -34,7 +34,7 @@ Halaman ini untuk melihat report rata-rata jangka waktu pesanan diproses oleh ka
 {{-- REPORT --}}
 <div class="main-card mb-3 card">
     <div class="card-body">
-        <div class="container">
+        <div class="container" id="report-container">
             <canvas id="chart"></canvas>
         </div>
     </div>
@@ -52,9 +52,10 @@ Halaman ini untuk melihat report rata-rata jangka waktu pesanan diproses oleh ka
         $("#header-ProsesPesanan").attr("class", "mm-active");
     })
 
-
     function generateReport(){
-
+        $('#report-container').html(`
+            <canvas id="chart"></canvas>
+        `);
         var kota = $('#kota').val();
         $.ajax({
             method : "POST",
@@ -65,6 +66,7 @@ Halaman ini untuk melihat report rata-rata jangka waktu pesanan diproses oleh ka
             },
             success: function(result){
                 var chart = document.getElementById('chart').getContext('2d');
+                
                 var data = JSON.parse(result);
 
                 kantor = Object.keys(data);
