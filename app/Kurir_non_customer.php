@@ -50,8 +50,7 @@ class Kurir_non_customer extends Model
     public static function getNextId() {
 
         if (Kurir_non_customer::count() > 0) {
-            $lastObject = Kurir_non_customer::getAll()
-            ->select('id')
+            $lastObject = Kurir_non_customer::select('id')
             ->orderBy('created_at', 'desc')
             ->first()
             ;

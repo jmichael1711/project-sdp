@@ -43,8 +43,7 @@ class Resi extends Model
         date_default_timezone_set("Asia/Jakarta");
 
         if (Resi::count() > 0) {
-            $lastObject = Resi::getAll()
-            ->select('id')
+            $lastObject = Resi::select('id')
             ->orderBy('created_at', 'desc')
             ->first()
             ;

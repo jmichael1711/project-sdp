@@ -63,8 +63,7 @@ class Kantor extends Model
     public static function getNextId() {
 
         if (Kantor::count() > 0) {
-            $lastObject = Kantor::getAll()
-            ->select('id')
+            $lastObject = Kantor::select('id')
             ->orderBy('created_at', 'desc')
             ->first()
             ;
